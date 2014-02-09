@@ -54,33 +54,7 @@ body {
     margin-top: 50px;
 }
 
-/* Loading indicator from jQuery Mobile */
-.loading .loader { display: block; }
-.loader {
-    display: none;
-    z-index: 9999999;
-    position: fixed;
-	top: 50%;
-	left: 50%;
-	border:0;
-	background: none;
-	filter: Alpha(Opacity=18);
-	opacity: .18;
-	width: 46px;
-	height: 46px;
-	margin-left: -23px;
-	margin-top: -23px;
-}
-.loader .icon {
-	background-color: #000;
-	background: url(../images/ajax-loader.gif);
-	background-size: 46px 46px;
-	display: block;
-	margin: 0;
-	width: 44px;
-	height: 44px;
-	padding: 1px;
-	-webkit-border-radius: 36px;
-	-moz-border-radius: 36px;
-	border-radius: 36px;
+/* Calendar */
+.fc-event {
+    cursor: pointer;
 }
