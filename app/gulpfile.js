@@ -7,6 +7,7 @@ var gulp = require("gulp"),
     processhtml = require("gulp-processhtml"),
     minifyHTML = require("gulp-minify-html"),
     wrap = require("gulp-wrap-umd"),
+    uglify = require("gulp-uglify"),
     
     dir = {
         dev: "./app/",
@@ -14,8 +15,7 @@ var gulp = require("gulp"),
     };
     
 gulp.task("default", ["clean", "umd"], function() {
-    // TODO: Uglify
-    gulp.start("requirejs", "styles", "images", "vendor", "html");
+    gulp.start("scripts", "styles", "images", "vendor", "html");
 });
 
 gulp.task("umd", function() {
@@ -24,15 +24,19 @@ gulp.task("umd", function() {
         .pipe(gulp.dest(dir.dev + "vendor/nprogress/umd"));
 });
 
-gulp.task("requirejs", function() {
+gulp.task("scripts", function() {
     return rjs({
         name: "main",
         baseUrl: dir.dev + "scripts",
         mainConfigFile: dir.dev + "scripts/main.js", // Why doesn't this leverage appDir + baseUrl ?
-        out: "main.js",
+        out: "main.min.js",
         preserveLicenseComments: false,
+        include: ["requireLib"],
         
         paths: {
+            "requireLib": "../vendor/requirejs/require",
+            
+            // CDNs
             "jquery": "empty:",
             "underscore": "empty:",
             "backbone": "empty:",
@@ -46,6 +50,7 @@ gulp.task("requirejs", function() {
             "nprogress": "../vendor/nprogress/umd/nprogress"
         }
     })
+        .pipe(uglify())
         .pipe(gulp.dest(dir.prod + "scripts/"));
 });
     
@@ -73,11 +78,15 @@ gulp.task("vendor", function() {
 gulp.task("html", function() {
     return gulp.src(dir.dev + "index.html")
         .pipe(processhtml("index.html"))
-        //.pipe(minifyHTML())
+        .pipe(minifyHTML())
         .pipe(gulp.dest(dir.prod));
 });
 
 gulp.task("clean", function() {
-    return gulp.src(dir.prod)
+    return gulp.src([
+        dir.prod + "**/*",
+        "!" + dir.prod + ".git", // Don't erase the .git folder or CNAME
+        "!" + dir.prod + "CNAME"
+    ], {read: false})
         .pipe(clean());
 });
