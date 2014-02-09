@@ -1,0 +1,20 @@
+{{#if items}}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        Admin <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        {{#if_inarray "profile_edit" compare=items}}
+            <li><a href="#members/{{ member_id }}/modify">Modify Profile</a></li>
+        {{/if_inarray}}
+        
+        {{#if_inarray "promotion_add" compare=items}}
+            <li><a href="#">Promote</a></li>
+        {{/if_inarray}}
+        
+        {{#if_inarray "discharge" compare=items}}
+            <li><a href="#">Discharge</a></li>
+        {{/if_inarray}}
+    </ul>
+</div>
+{{/if}}

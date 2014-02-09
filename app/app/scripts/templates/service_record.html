@@ -1,0 +1,14 @@
+{{#each items}}
+    <h3>{{#unless_eq this.date compare="undefined"}}{{dateFormat this.date format="ll"}}{{else}}Unknown{{/unless_eq}}</h3>
+    {{#each this.items }}
+        {{#if this.position}}
+            <li>Assigned to <a href="#/units/{{ this.unit.key }}">{{ this.unit.abbr }}</a> as a {{ this.position.name }}</li>
+        {{/if}}
+        {{#if this.new_rank}}
+            <li>Promoted to {{ this.new_rank.name }}</li>
+        {{/if}}
+        {{#if this.award}}
+            <li>Awarded {{ this.award.name }}</li>
+        {{/if}}
+    {{/each}}
+{{/each}}

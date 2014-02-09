@@ -1,0 +1,5 @@
+.c9revisions
+auth.sh
+node_modules
+app/vendor
+app/build

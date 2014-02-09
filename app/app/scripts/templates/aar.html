@@ -1,0 +1,17 @@
+<div class="row header">
+        <h1>{{ unit.key }} {{ type }}</h1>
+        <h2>{{dateFormat datetime format="ll HH:mm"}} <small>{{#if mandatory}} Mandatory {{else}} Non-Mandatory {{/if}}</small></h2>
+        <h3>{{#if server.name}}{{ server.name }}{{/if}}</h3>
+</div>
+<form>
+    <div class="row">
+        <div class="col-sm-4" id="attendance"></div>
+        <div class="col-sm-8">
+            <div class="form-group">
+                <label for="report">After Action Report</label>
+                <textarea name="report" class="form-control" rows="15">{{ report }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        </div>
+    </div>
+</form>

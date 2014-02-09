@@ -1,0 +1,19 @@
+<div class="row header-row">
+    <div class="col-sm-12 header">{{ name }}</div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12 abbr">{{ abbr }} ({{ members.length }})</div>
+</div>
+{{#if members.length}}
+    {{#each members}}
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+                <label>
+                    <input type="checkbox" name="attendance" value="{{ this.id }}"{{#if this.attended}} checked="checked"{{/if}}>
+                    <a href="#members/{{ this.id }}">{{ this.short_name }}</a>
+                    {{#if this.excused}}<span class="label label-warning">Excused</span>{{/if}}
+                </label>
+        </div>
+    </div>
+    {{/each}}
+{{/if}}
