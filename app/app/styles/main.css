@@ -58,3 +58,14 @@ body {
 .fc-event {
     cursor: pointer;
 }
+
+/* Flash / Error */
+#flash {
+    position: fixed;
+    top: 60px;
+    /*width: 100%;*/
+    text-align: center;
+}
+#flash .alert {
+    display: inline-block;
+}

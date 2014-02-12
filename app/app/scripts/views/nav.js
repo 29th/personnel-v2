@@ -5,7 +5,7 @@ define([
     ,"hbs!templates/nav"
     ,"marionette"
 ], function($, _, Backbone, NavTemplate) {
-    var NavView = Backbone.Marionette.ItemView.extend({
+    return Backbone.Marionette.ItemView.extend({
         template: NavTemplate
         ,highlight: "home"
         ,modelEvents: {
@@ -20,6 +20,4 @@ define([
             return _.extend({highlight: this.highlight}, this.model.toJSON());
         }
     });
-    
-    return NavView;
 });

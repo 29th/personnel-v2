@@ -73,10 +73,30 @@ window.requirejs = window.requirejs || {};
         ,hbs: { templateExtension: ".html" }
     });
     
-    // Start the application
+    
+    /**
+     * Initialize app
+     */
     require([
-        "app"
-    ], function(app) {
+        "router"
+    ], function(Router) {
+    
+        window.DEBUG = false; // Global
+        $.ajaxSetup({cache: true, xhrFields: { withCredentials: true }}); // Cache ajax requests & send cookies
+        
+        var app = new Backbone.Marionette.Application();
+        
+        app.addRegions({
+            mainRegion: "#main"
+            ,navRegion: "#nav"
+            ,flashRegion: "#flash"
+        });
+        
+        app.addInitializer(function(options) {
+            new Router({app: this});
+            Backbone.history.start();
+        });
+        
         app.start();
     });
     
