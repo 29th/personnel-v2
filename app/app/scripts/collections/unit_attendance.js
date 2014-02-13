@@ -13,11 +13,11 @@ define([
         ,model: EventAttendee
         ,initialize: function(models, options) {
             options = options || {};
-            this.member_id = options.member_id || false;
+            this.filter = options.filter || false;
             this.skip = 0;
         }
         ,url: function() {
-            var url = config.apiHost + "/members/" + this.member_id + "/attendance";
+            var url = config.apiHost + "/units/" + this.filter + "/attendance";
             if(this.skip) url += "?skip=" + this.skip;
             return url;
         }

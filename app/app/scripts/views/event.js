@@ -4,7 +4,7 @@ define([
     ,"backbone"
     ,"config"
     ,"hbs!templates/event"
-    ,"views/attendee"
+    ,"views/event_attendee"
     ,"marionette"
 ], function($, _, Backbone, config, EventTemplate, AttendeeView) {
     

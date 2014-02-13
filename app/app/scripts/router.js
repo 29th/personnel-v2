@@ -17,10 +17,12 @@ define([
     ,"collections/awardings"
     ,"collections/member_attendance" // Member attendance
     ,"collections/event_attendance" // Attendees of an event
+    ,"collections/unit_attendance" // Unit attendance
     ,"collections/qualifications"
     ,"collections/events"
     // Views
     ,"views/member"
+    ,"views/unit"
     ,"views/roster"
     ,"views/nav"
     ,"views/member_admin"
@@ -28,6 +30,7 @@ define([
     ,"views/member_modify"
     ,"views/service_record"
     ,"views/member_attendance"
+    ,"views/unit_attendance"
     ,"views/qualifications"
     ,"views/calendar"
     ,"views/event"
@@ -41,15 +44,16 @@ define([
 ], function(
     $, _, Backbone, Marionette, Handlebars, util
     ,Member, User, Event
-    ,Units, Assignments, Permissions, Promotions, Awardings, MemberAttendance, EventAttendance, Qualifications, Events
-    ,MemberView, RosterView, NavView, MemberAdminView, MemberProfileView, MemberModifyView, ServiceRecordView, MemberAttendanceView, QualificationsView, CalendarView, EventView, AARView, FlashView
+    ,Units, Assignments, Permissions, Promotions, Awardings, MemberAttendance, EventAttendance, UnitAttendance, Qualifications, Events
+    ,MemberView, UnitView, RosterView, NavView, MemberAdminView, MemberProfileView, MemberModifyView, ServiceRecordView, MemberAttendanceView, UnitAttendanceView, QualificationsView, CalendarView, EventView, AARView, FlashView
 ) {
     "use strict";
     
     return Backbone.Router.extend({
         routes: {
             "": "roster"
-            ,"units/:filter": "roster"
+            ,"units/:filter/*path": "unit"
+            ,"units/:filter": "unit"
             ,"members/:id/*path": "member"
             ,"members/:id": "member"
             ,"calendar": "calendar"
@@ -87,6 +91,49 @@ define([
             $.when.apply($, promises).done(function() {
                 util.loading(false);
                 self.showView(rosterView);
+            });
+        }
+        ,unit: function(filter, path) {
+            var self = this
+                ,promises = []
+                // Models & Collections
+                ,units = new Units(null, {filter: filter || "Bn"})
+                
+                // Layouts & Views
+                ,unitLayout = new UnitView({collection: units});
+                
+            this.app.navRegion.currentView.setHighlight("roster");
+            
+            var pageView;
+            path = path ? path.replace(/\//g, "") : "";
+            
+            // Attendance
+            if(path == "attendance") {
+                unitLayout.setHighlight("attendance");
+                
+                var unitAttendance = new UnitAttendance(null, {filter: filter || "Bn"});
+                promises.push(unitAttendance.fetch());
+                
+                pageView = new UnitAttendanceView({collection: unitAttendance});
+            }
+            // Roster
+            else {
+                unitLayout.setHighlight("roster");
+                
+                units.children = true;
+                units.members = true;
+                pageView = new RosterView({collection: units});
+            }
+                
+            // Fetches
+            promises.push(units.fetch());
+            
+            // Rendering
+            util.loading(true);
+            $.when.apply($, promises).done(function() {
+                util.loading(false);
+                self.showView(unitLayout);
+                if(pageView) unitLayout.pageRegion.show(pageView);
             });
         }
         ,member: function(id, path) {

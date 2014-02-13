@@ -5,7 +5,7 @@ define([
     ,"hbs!templates/member"
     ,"marionette"
 ], function($, _, Backbone, MemberTemplate) {
-    var MemberView = Backbone.Marionette.Layout.extend({
+    return Backbone.Marionette.Layout.extend({
         template: MemberTemplate
         ,className: "member"
         ,initialize: function(options) {
@@ -36,6 +36,4 @@ define([
             return _.extend({assignments: activeAssignments, highlight: this.highlight}, this.model.toJSON());
         }
     });
-    
-    return MemberView;
 });

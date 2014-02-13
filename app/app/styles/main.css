@@ -48,6 +48,19 @@ body {
     padding: 0;
 }
 
+/* Unit Profile */
+.unit .title {
+    font-size: 200%;
+    font-weight: bold;
+}
+.unit #page {
+    margin-top: 20px;
+}
+.unit .title abbr {
+    color: #999999;
+    font-size: 65%;
+}
+
 /* NProgress */
 #nprogress .bar,
 #nprogress .spinner {

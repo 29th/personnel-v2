@@ -2,8 +2,8 @@ define([
     "jquery"
     ,"underscore"
     ,"backbone"
-    ,"hbs!templates/member_attendance"
-    ,"hbs!templates/member_attendance_item"
+    ,"hbs!templates/unit_attendance"
+    ,"hbs!templates/unit_attendance_item"
     ,"marionette"
 ], function($, _, Backbone, AttendanceTemplate, AttendanceItemTemplate) {
     var AttendanceItemView = Backbone.Marionette.ItemView.extend({
@@ -11,7 +11,7 @@ define([
         ,tagName: "tr"
     });
         
-    var AttendanceView = Backbone.Marionette.CompositeView.extend({
+    return Backbone.Marionette.CompositeView.extend({
         template: AttendanceTemplate
         ,itemView: AttendanceItemView
         ,itemViewContainer: "#rows"
@@ -57,6 +57,4 @@ define([
             this.$(".more").toggle(this.collection.more);
         }
     });
-    
-    return AttendanceView;
 });
