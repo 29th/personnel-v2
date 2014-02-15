@@ -1,4 +1,5 @@
 <td><a href="#events/{{ this.event.id }}">{{dateFormat this.event.datetime format="ll HH:mm"}}</a></td>
+<td><a href="#units/{{ this.unit.key }}">{{ this.unit.abbr }}</a></td>
 <td>
     {{#if this.event.mandatory}}<span class="label label-info">Mandatory</span>{{/if}}
     {{ this.event.type }}

@@ -53,11 +53,11 @@ define([
                 return model.get("member").id === user_id;
             });
         }
-        ,onClickLOA: function(e) {
+        ,_onClickLOA: function(e) {
             e.preventDefault();
             var button = e.currentTarget
-                ,excused = (button.id === "loa-post" ? 1 : 0);
-            if(excused) {
+                ,excuse = (button.id === "loa-post" ? 1 : 0);
+            if(excuse) {
                 this.collection.create({
                     attended: 0
                     ,excused: 1
@@ -73,13 +73,74 @@ define([
                 });
             } else {
                 var model = this.getRSVP(this.options.user.get("id"));
-                model.id = this.user.get("id"); // Allows .destroy() to sync even though we don't need it
                 if(model) {
+                    // If attendance has already been reported, update the record. Otherwise destroy it
+                    if(model.get("attended") !== null) {
+                        model.save({excused: false}, {
+                            method: "DELETE"
+                            ,wait: true
+                            ,success: function() {
+                                $(button).attr("id", "loa-post").text("Post LOA");
+                            }
+                        });
+                    } else {
+                        model.id = this.user.get("id"); // Allows .destroy() to sync even though we don't need it
+                        model.destroy({
+                            url: config.apiHost + "/events/" + this.collection.id + "/excuse"
+                            ,wait: true
+                            ,success: function() {
+                                $(button).attr("id", "loa-post").text("Post LOA"); // Shouldn't we just re-render the template?
+                            }
+                        });
+                    }
+                }
+            }
+        }
+        ,onClickLOA: function(e) {
+            e.preventDefault();
+            var button = e.currentTarget
+                ,excuse = (button.id === "loa-post" ? 1 : 0)
+                ,model = this.getRSVP(this.user.get("id"));
+            
+            // If attendance has already been posted
+            if(model && model.get("attended") !== null) {
+                model.save({excused: excuse}, {
+                    method: excuse ? "POST" : "DELETE"
+                    ,wait: true
+                    ,success: function() {
+                        $(button).parent().removeClass(excuse ? "loa-post" : "loa-cancel").addClass(excuse ? "loa-cancel" : "loa-post");
+                    }
+                });
+            }
+            // If attendance hasn't been posted yet
+            else {
+                // If posting LOA
+                if(excuse) {
+                    // TODO: Why doesn't this trigger "request" on the collection?
+                    this.collection.create({
+                        attended: null
+                        ,excused: 1
+                        ,member: {
+                            id: this.user.get("id")
+                            ,short_name: this.user.get("short_name")
+                        }
+                    }, {
+                        wait: true
+                        ,success: function() {
+                            $(button).parent().removeClass("loa-post").addClass("loa-cancel");
+                        }
+                    });
+                }
+                // If cancelling LOA
+                else {
+                    model.id = this.user.get("id"); // Allows .destroy() to sync even though we don't need it
+                    console.log("New?", model.isNew());
                     model.destroy({
                         url: config.apiHost + "/events/" + this.collection.id + "/excuse"
                         ,wait: true
                         ,success: function() {
-                            $(button).attr("id", "loa-post").text("Post LOA"); // Shouldn't we just re-render the template?
+                            $(button).parent().removeClass("loa-cancel").addClass("loa-post");
+                            // TODO: Why doesn't this trigger "sync" on the model/collection?
                         }
                     });
                 }

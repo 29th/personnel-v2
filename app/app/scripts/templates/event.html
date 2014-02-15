@@ -6,11 +6,10 @@
     </div>
     <div class="col-sm-4">
         {{#if user_expected}}
-            {{#if user_rsvp.excused}}
+            <div id="loa-buttons" class="{{#if user_rsvp.excused}}loa-cancel{{else}}loa-post{{/if}}">
                 <button type="button" class="btn btn-default pull-right" id="loa-cancel"><span class="glyphicon glyphicon-minus-sign"></span> Cancel LOA</button>
-            {{else}}
                 <button type="button" class="btn btn-default pull-right" id="loa-post"><span class="glyphicon glyphicon-plus-sign"></span> Post LOA</button>
-            {{/if}}
+            </div>
             
         {{/if}}
         {{#if_inarray "event_aar" compare=items}}

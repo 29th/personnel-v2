@@ -26,7 +26,7 @@ define([
             return this;
         }
         ,parse: function(response, options) {
-            this.more = response.count > response.skip + response.attendance.length;
+            this.more = parseInt(response.count, 10) > parseInt(response.skip, 10) + response.attendance.length;
             return response.attendance || [];
         }
     });

@@ -8,6 +8,9 @@ define([
     
     return Backbone.Marionette.ItemView.extend({
         template: Template
+        ,modelEvents: {
+            "change": "render"
+        }
     });
     
 });
