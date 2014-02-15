@@ -12,11 +12,12 @@ define([
             this.assignments = options.assignments || false;
             this.promotions = options.promotions || false;
             this.awardings = options.awardings || false;
+            this.enlistments = options.enlistments || false;
         }
         ,serializeData: function() {
             var items = []
                 // Group everything together by date
-                ,dates = _.groupBy(this.assignments.toJSON().concat(this.promotions.toJSON(), this.awardings.toJSON()), function(item) { return item.start_date || item.date; });
+                ,dates = _.groupBy(this.assignments.toJSON().concat(this.promotions.toJSON(), this.awardings.toJSON(), this.enlistments.toJSON()), function(item) { return item.start_date || item.date; });
             // Transform grouped-by data into an array of dates with items
             _.each(dates, function(dateItems, date) {
                 items.push({

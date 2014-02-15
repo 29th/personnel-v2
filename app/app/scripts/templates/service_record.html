@@ -10,5 +10,8 @@
         {{#if this.award}}
             <li>Awarded {{ this.award.name }}</li>
         {{/if}}
+        {{#if this.status}}
+            <li>Enlisted{{#if this.unit_id}} in the <a href="#/units/{{ this.unit.key }}">{{ this.unit.abbr }}</a>{{/if}}</li>
+        {{/if}}
     {{/each}}
 {{/each}}

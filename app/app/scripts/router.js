@@ -15,6 +15,7 @@ define([
     ,"collections/permissions"
     ,"collections/promotions"
     ,"collections/awardings"
+    ,"collections/enlistments"
     ,"collections/member_attendance" // Member attendance
     ,"collections/event_attendance" // Attendees of an event
     ,"collections/unit_attendance" // Unit attendance
@@ -44,7 +45,7 @@ define([
 ], function(
     $, _, Backbone, Marionette, Handlebars, util
     ,Member, User, Event
-    ,Units, Assignments, Permissions, Promotions, Awardings, MemberAttendance, EventAttendance, UnitAttendance, Qualifications, Events
+    ,Units, Assignments, Permissions, Promotions, Awardings, Enlistments, MemberAttendance, EventAttendance, UnitAttendance, Qualifications, Events
     ,MemberView, UnitView, RosterView, NavView, MemberAdminView, MemberProfileView, MemberModifyView, ServiceRecordView, MemberAttendanceView, UnitAttendanceView, QualificationsView, CalendarView, EventView, AARView, FlashView
 ) {
     "use strict";
@@ -168,9 +169,13 @@ define([
                 var awardings = new Awardings(null, {member_id: id});
                 promises.push(awardings.fetch());
                 
+                // Enlistments
+                var enlistments = new Enlistments(null, {member_id: id});
+                promises.push(enlistments.fetch());
+                
                 // (Assignments already fetched)
                 
-                pageView = new ServiceRecordView({assignments: assignments, promotions: promotions, awardings: awardings});
+                pageView = new ServiceRecordView({assignments: assignments, promotions: promotions, awardings: awardings, enlistments: enlistments});
             }
             // Attendance
             else if(path == "attendance") {
