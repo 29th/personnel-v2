@@ -1,11 +1,11 @@
 <div class="row header-row">
     <div class="col-sm-12 header">{{ name }}</div>
 </div>
+{{#if members.length}}
 <div class="row">
     <div class="col-xs-8 col-sm-4 abbr">{{ abbr }}</div>
     <div class="col-xs-4 col-sm-8 count">({{ members.length }})</div>
 </div>
-{{#if members.length}}
     {{#each members}}
     <div class="row">
         <div class="col-xs-2 col-sm-1">{{#if this.rank.filename}}<img src="images/ranks/16x16/{{ this.rank.filename }}.png" title="{{ this.rank.name }}">{{/if}}</div>
