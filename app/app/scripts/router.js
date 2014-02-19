@@ -9,6 +9,7 @@ define([
     ,"models/member"
     ,"models/user"
     ,"models/event"
+    ,"models/enlistment"
     // Collections
     ,"collections/units"
     ,"collections/assignments"
@@ -37,6 +38,7 @@ define([
     ,"views/event"
     ,"views/aar"
     ,"views/flash"
+    ,"views/edit_enlistment"
     // Extras
     ,"handlebars.helpers"
     ,"jquery-bootstrap"
@@ -44,9 +46,10 @@ define([
     ,"fullcalendar"
 ], function(
     $, _, Backbone, Marionette, Handlebars, util
-    ,Member, User, Event
+    ,Member, User, Event, Enlistment
     ,Units, Assignments, Permissions, Promotions, Awardings, Enlistments, MemberAttendance, EventAttendance, UnitAttendance, Qualifications, Events
-    ,MemberView, UnitView, RosterView, NavView, MemberAdminView, MemberProfileView, MemberModifyView, ServiceRecordView, MemberAttendanceView, UnitAttendanceView, QualificationsView, CalendarView, EventView, AARView, FlashView
+    ,MemberView, UnitView, RosterView, NavView, MemberAdminView, MemberProfileView, MemberModifyView, ServiceRecordView, MemberAttendanceView
+    ,UnitAttendanceView, QualificationsView, CalendarView, EventView, AARView, FlashView, EditEnlistmentView
 ) {
     "use strict";
     
@@ -60,6 +63,7 @@ define([
             ,"calendar": "calendar"
             ,"events/:id": "event"
             ,"events/:id/aar": "aar"
+            ,"enlist": "enlist"
         }
         ,initialize: function(options) {
             options = options || {};
@@ -289,6 +293,15 @@ define([
                     aarView.attendanceRegion.show(rosterView);
                 });
             });
+        }
+        ,enlist: function() {
+            var self = this
+                ,promises = []
+                ,enlistment = new Enlistment()
+                ,editEnlistmentView = new EditEnlistmentView({model: enlistment});
+            
+            this.app.navRegion.currentView.setHighlight("enlist");
+            self.showView(editEnlistmentView);
         }
     });
 });

@@ -41,6 +41,7 @@ window.requirejs = window.requirejs || {};
             ,"nprogress": "../vendor/nprogress/nprogress"
             ,"text": "../vendor/text/text"
             ,"hbs": "../vendor/requirejs-hbs/hbs"
+            ,"json": "../vendor/requirejs-plugins/src/json"
         }
         ,shim: {
             "underscore": {
