@@ -19,7 +19,7 @@ define([
             for(i = 13; i <= 99; i++) { this.ages.push(i); }
         }
         ,serializeData: function() {
-            return {ages: this.ages, countries: Countries};
+            return $.extend({ages: this.ages, countries: Countries}, this.model.toJSON());
         }
         ,onSubmitForm: function(e) {
             e.preventDefault();

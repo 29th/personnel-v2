@@ -38,9 +38,10 @@ define([
     ,"views/event"
     ,"views/aar"
     ,"views/flash"
+    ,"views/enlistment"
     ,"views/edit_enlistment"
     // Extras
-    ,"handlebars.helpers"
+    ,"custom.helpers"
     ,"jquery-bootstrap"
     ,"moment"
     ,"fullcalendar"
@@ -49,7 +50,7 @@ define([
     ,Member, User, Event, Enlistment
     ,Units, Assignments, Permissions, Promotions, Awardings, Enlistments, MemberAttendance, EventAttendance, UnitAttendance, Qualifications, Events
     ,MemberView, UnitView, RosterView, NavView, MemberAdminView, MemberProfileView, MemberModifyView, ServiceRecordView, MemberAttendanceView
-    ,UnitAttendanceView, QualificationsView, CalendarView, EventView, AARView, FlashView, EditEnlistmentView
+    ,UnitAttendanceView, QualificationsView, CalendarView, EventView, AARView, FlashView, EnlistmentView, EditEnlistmentView
 ) {
     "use strict";
     
@@ -63,7 +64,9 @@ define([
             ,"calendar": "calendar"
             ,"events/:id": "event"
             ,"events/:id/aar": "aar"
-            ,"enlist": "enlist"
+            ,"enlistments/:id/edit": "enlistment_edit"
+            ,"enlistments/:id": "enlistment"
+            ,"enlist": "enlistment_edit"
         }
         ,initialize: function(options) {
             options = options || {};
@@ -294,14 +297,42 @@ define([
                 });
             });
         }
-        ,enlist: function() {
+        ,enlistment: function(id) {
+            var self = this
+                ,promises = []
+                ,enlistment = new Enlistment({id: id})
+                ,permissions = new Permissions()
+                ,enlistmentView = new EnlistmentView({model: enlistment, permissions: permissions});
+            
+            this.app.navRegion.currentView.setHighlight("enlist");
+            promises.push(enlistment.fetch(), permissions.fetch());
+            
+            util.loading(true);
+            $.when.apply($, promises).done(function() {
+                util.loading(false);
+                self.showView(enlistmentView);
+            });
+        }
+        ,enlistment_edit: function(id) {
             var self = this
                 ,promises = []
                 ,enlistment = new Enlistment()
                 ,editEnlistmentView = new EditEnlistmentView({model: enlistment});
             
             this.app.navRegion.currentView.setHighlight("enlist");
-            self.showView(editEnlistmentView);
+            
+            if(id) {
+                enlistment.id = id;
+                promises.push(enlistment.fetch());
+            
+                util.loading(true);
+                $.when.apply($, promises).done(function() {
+                    util.loading(false);
+                    self.showView(editEnlistmentView);
+                });
+            } else {
+                self.showView(editEnlistmentView);
+            }
         }
     });
 });
