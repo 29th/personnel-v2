@@ -47,7 +47,10 @@ gulp.task("scripts", function() {
             "fullcalendar": "empty:",
             
             // UMD Wrapped
-            "nprogress": "../vendor/nprogress/umd/nprogress"
+            "nprogress": "../vendor/nprogress/umd/nprogress",
+            
+            // Replaced
+            "config": "config.prod"
         }
     })
         .pipe(uglify())

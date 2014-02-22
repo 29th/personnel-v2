@@ -29,7 +29,7 @@ define([
     ,"views/nav"
     ,"views/member_admin"
     ,"views/member_profile"
-    ,"views/member_modify"
+    ,"views/member_edit"
     ,"views/service_record"
     ,"views/member_attendance"
     ,"views/unit_attendance"
@@ -39,7 +39,7 @@ define([
     ,"views/aar"
     ,"views/flash"
     ,"views/enlistment"
-    ,"views/edit_enlistment"
+    ,"views/enlistment_edit"
     // Extras
     ,"custom.helpers"
     ,"jquery-bootstrap"
@@ -49,8 +49,8 @@ define([
     $, _, Backbone, Marionette, Handlebars, util
     ,Member, User, Event, Enlistment
     ,Units, Assignments, Permissions, Promotions, Awardings, Enlistments, MemberAttendance, EventAttendance, UnitAttendance, Qualifications, Events
-    ,MemberView, UnitView, RosterView, NavView, MemberAdminView, MemberProfileView, MemberModifyView, ServiceRecordView, MemberAttendanceView
-    ,UnitAttendanceView, QualificationsView, CalendarView, EventView, AARView, FlashView, EnlistmentView, EditEnlistmentView
+    ,MemberView, UnitView, RosterView, NavView, MemberAdminView, MemberProfileView, MemberEditView, ServiceRecordView, MemberAttendanceView
+    ,UnitAttendanceView, QualificationsView, CalendarView, EventView, AARView, FlashView, EnlistmentView, EnlistmentEditView
 ) {
     "use strict";
     
@@ -202,9 +202,9 @@ define([
                 
                 pageView = new QualificationsView({collection: qualifications});
             }
-            else if(path == "modify") {
+            else if(path == "edit") {
                 memberLayout.setHighlight("profile");
-                pageView = new MemberModifyView({model: member});
+                pageView = new MemberEditView({model: member});
             }
             // Profile
             else {
@@ -317,7 +317,7 @@ define([
             var self = this
                 ,promises = []
                 ,enlistment = new Enlistment()
-                ,editEnlistmentView = new EditEnlistmentView({model: enlistment});
+                ,editEnlistmentView = new EnlistmentEditView({model: enlistment});
             
             this.app.navRegion.currentView.setHighlight("enlist");
             

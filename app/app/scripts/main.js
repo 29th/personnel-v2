@@ -42,6 +42,7 @@ window.requirejs = window.requirejs || {};
             ,"text": "../vendor/text/text"
             ,"hbs": "../vendor/requirejs-hbs/hbs"
             ,"json": "../vendor/requirejs-plugins/src/json"
+            ,"config": "config.dev"
         }
         ,shim: {
             "underscore": {

@@ -8,6 +8,7 @@ define([
     return Backbone.Marionette.Layout.extend({
         template: Template
         ,className: "unit"
+        ,title: "Unit"
         ,initialize: function(options) {
             options = options || {};
         }
