@@ -13,29 +13,27 @@ define([
         ,events: {
             "submit form": "onSubmitForm"
         }
-        ,initialize: function() {
+        ,initialize: function(options) {
+            options = options || {};
+            this.tps = options.tps || {};
             _.bindAll(this, "onSubmitForm");
             this.ages = [];
             var i;
             for(i = 13; i <= 99; i++) { this.ages.push(i); }
         }
         ,serializeData: function() {
-            return $.extend({ages: this.ages, countries: Countries}, this.model.toJSON());
+            return $.extend({ages: this.ages, countries: Countries, tps: this.tps.at(0).get("children").toJSON()}, this.model.toJSON());
         }
         ,onSubmitForm: function(e) {
             e.preventDefault();
-            var eventId = this.model.get("id")
-                ,data = {
-                    report: e.currentTarget.report.value
-                    ,attended: $("[name=\"attendance\"]:checked", e.currentTarget).map(function() { return $(this).val(); }).get()
-                    ,absent: $("[name=\"attendance\"]:not(:checked)", e.currentTarget).map(function() { return $(this).val(); }).get()
-                };
-            this.model.save(data, {
+            var enlistmentId = this.model.get("id");
+            this.model.save($(e.currentTarget).serializeObject(), {
                 method: "POST"
+                ,patch: true
                 ,success: function() {
-                    Backbone.history.navigate("events/" + eventId, {trigger: true});
+                    Backbone.history.navigate("enlistments/" + enlistmentId, {trigger: true});
                 }
-                // TODO: Error handling, loading indicator
+                //,error: function() {console.log("ERROR!!!")}
             });
         }
     });

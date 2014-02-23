@@ -1,6 +1,6 @@
 <div class="row header">
-    <div class="col-sm-1">{{#if rank.filename}}<img src="images/ranks/60x60/{{ rank.filename }}.png" title="{{ rank.name }}">{{/if}}</div>
-    <div class="col-sm-9">
+    {{#if rank.filename}}<div class="col-sm-1"><img src="images/ranks/60x60/{{ rank.filename }}.png" title="{{ rank.name }}"></div>{{/if}}
+    <div class="col-sm-{{#if rank.filename}}9{{else}}10{{/if}}">
         <div class="title">{{ rank.name }} {{ full_name }}</div>
         <ul class="assignments">
             {{#if position.name}}<li>{{ position.name }}, <a href="#units/{{ unit.key }}">{{ unit.name }}</a></li>{{/if}}

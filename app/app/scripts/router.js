@@ -16,12 +16,13 @@ define([
     ,"collections/permissions"
     ,"collections/promotions"
     ,"collections/awardings"
-    ,"collections/enlistments"
+    ,"collections/member_enlistments"
     ,"collections/member_attendance" // Member attendance
     ,"collections/event_attendance" // Attendees of an event
     ,"collections/unit_attendance" // Unit attendance
     ,"collections/qualifications"
     ,"collections/events"
+    ,"collections/enlistments"
     // Views
     ,"views/member"
     ,"views/unit"
@@ -38,19 +39,20 @@ define([
     ,"views/event"
     ,"views/aar"
     ,"views/flash"
+    ,"views/enlistments"
     ,"views/enlistment"
     ,"views/enlistment_edit"
     // Extras
-    ,"custom.helpers"
+    ,"handlebars.helpers"
     ,"jquery-bootstrap"
     ,"moment"
     ,"fullcalendar"
 ], function(
     $, _, Backbone, Marionette, Handlebars, util
     ,Member, User, Event, Enlistment
-    ,Units, Assignments, Permissions, Promotions, Awardings, Enlistments, MemberAttendance, EventAttendance, UnitAttendance, Qualifications, Events
+    ,Units, Assignments, Permissions, Promotions, Awardings, MemberEnlistments, MemberAttendance, EventAttendance, UnitAttendance, Qualifications, Events, Enlistments
     ,MemberView, UnitView, RosterView, NavView, MemberAdminView, MemberProfileView, MemberEditView, ServiceRecordView, MemberAttendanceView
-    ,UnitAttendanceView, QualificationsView, CalendarView, EventView, AARView, FlashView, EnlistmentView, EnlistmentEditView
+    ,UnitAttendanceView, QualificationsView, CalendarView, EventView, AARView, FlashView, EnlistmentsView, EnlistmentView, EnlistmentEditView
 ) {
     "use strict";
     
@@ -66,6 +68,7 @@ define([
             ,"events/:id/aar": "aar"
             ,"enlistments/:id/edit": "enlistment_edit"
             ,"enlistments/:id": "enlistment"
+            ,"enlistments": "enlistments"
             ,"enlist": "enlistment_edit"
         }
         ,initialize: function(options) {
@@ -89,7 +92,7 @@ define([
         ,roster: function(filter) {
             var self = this
                 ,promises = []
-                ,units = new Units(null, {filter: filter || "Bn", children: true, members: true})
+                ,units = new Units(null, {filter: filter || "Bn", children: true, members: true, active: true})
                 ,rosterView = new RosterView({collection: units});
                 
             this.app.navRegion.currentView.setHighlight("roster");
@@ -105,7 +108,7 @@ define([
             var self = this
                 ,promises = []
                 // Models & Collections
-                ,units = new Units(null, {filter: filter || "Bn"})
+                ,units = new Units(null, {filter: filter || "Bn", active: true})
                 
                 // Layouts & Views
                 ,unitLayout = new UnitView({collection: units});
@@ -150,16 +153,17 @@ define([
                 // Models & Collections
                 ,member = new Member({id: id})
                 ,assignments = new Assignments(null, {member_id: id})
+                ,permissions = new Permissions()
                 ,memberPermissions = new Permissions(null, {member_id: id}) // User permissions on member being viewed
                 
                 // Layout & Views
                 ,memberLayout = new MemberView({model: member, assignments: assignments})
-                ,memberAdminView = new MemberAdminView({collection: memberPermissions});
+                ,memberAdminView = new MemberAdminView({permissions: permissions, memberPermissions: memberPermissions});
                 
             this.app.navRegion.currentView.setHighlight("roster");
             
             // Fetches
-            promises.push(member.fetch(), assignments.fetch(), memberPermissions.fetch());
+            promises.push(member.fetch(), assignments.fetch(), permissions.fetch(), memberPermissions.fetch());
             
             var pageView;
             path = path ? path.replace(/\//g, "") : "";
@@ -177,7 +181,7 @@ define([
                 promises.push(awardings.fetch());
                 
                 // Enlistments
-                var enlistments = new Enlistments(null, {member_id: id});
+                var enlistments = new MemberEnlistments(null, {member_id: id});
                 promises.push(enlistments.fetch());
                 
                 // (Assignments already fetched)
@@ -270,7 +274,7 @@ define([
             var self = this
                 ,promises = []
                 ,event = new Event({id: id})
-                ,expectedUnits = new Units(null, {children: true, members: true})
+                ,expectedUnits = new Units(null, {children: true, members: true, active: true})
                 ,eventAttendance = new EventAttendance(null, {id: id})
                 ,aarView = new AARView({model: event})
                 ,rosterView = new RosterView({collection: expectedUnits, eventAttendance: eventAttendance, attendance: true});
@@ -297,33 +301,55 @@ define([
                 });
             });
         }
+        ,enlistments: function() {
+            var self = this
+                ,promises = []
+                ,enlistments = new Enlistments()
+                ,enlistmentsView = new EnlistmentsView({collection: enlistments});
+            
+            this.app.navRegion.currentView.setHighlight("enlistments");
+            promises.push(enlistments.fetch());
+            
+            util.loading(true);
+            $.when.apply($, promises).done(function() {
+                util.loading(false);
+                self.showView(enlistmentsView);
+            });
+        }
         ,enlistment: function(id) {
             var self = this
                 ,promises = []
                 ,enlistment = new Enlistment({id: id})
                 ,permissions = new Permissions()
-                ,enlistmentView = new EnlistmentView({model: enlistment, permissions: permissions});
+                ,memberPermissions = new Permissions() // User permissions on member being viewed
+                ,enlistmentView = new EnlistmentView({model: enlistment, permissions: permissions, memberPermissions: memberPermissions});
             
-            this.app.navRegion.currentView.setHighlight("enlist");
+            this.app.navRegion.currentView.setHighlight("enlistments");
             promises.push(enlistment.fetch(), permissions.fetch());
             
             util.loading(true);
             $.when.apply($, promises).done(function() {
-                util.loading(false);
-                self.showView(enlistmentView);
+                memberPermissions.member_id = enlistment.get("member").id;
+                promises = [];
+                promises.push(memberPermissions.fetch());
+                $.when.apply($, promises).done(function() {
+                    util.loading(false);
+                    self.showView(enlistmentView);
+                });
             });
         }
         ,enlistment_edit: function(id) {
             var self = this
                 ,promises = []
                 ,enlistment = new Enlistment()
-                ,editEnlistmentView = new EnlistmentEditView({model: enlistment});
+                ,tps = new Units(null, {filter: "TPs", children: true})
+                ,editEnlistmentView = new EnlistmentEditView({model: enlistment, tps: tps});
             
-            this.app.navRegion.currentView.setHighlight("enlist");
+            this.app.navRegion.currentView.setHighlight("enlistments");
             
             if(id) {
                 enlistment.id = id;
-                promises.push(enlistment.fetch());
+                promises.push(enlistment.fetch(), tps.fetch());
             
                 util.loading(true);
                 $.when.apply($, promises).done(function() {

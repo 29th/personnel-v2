@@ -13,7 +13,7 @@ define([
             this.assignments = options.assignments || {};
         }
         ,modelEvents: {
-            "change": "render"
+            //"change": "render" // Isn't this redundant?
         }
         ,regions: {
             adminRegion: "#admin"

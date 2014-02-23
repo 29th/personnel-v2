@@ -148,8 +148,12 @@
      */
     Handlebars.registerHelper('if_inarray', function(context, options) {
         if (options.hash.compare.indexOf(context) > -1)
-            return options.fn(this);
-        return options.inverse(this);
+            return options.fn ? options.fn(this) : true;
+        return options.inverse ? options.inverse(this) : false;
+    });
+    
+    Handlebars.registerHelper('inarray', function(context, options) {
+        return (options.hash.haystack.indexOf(options.hash.needle) > -1) ? "1" : "0";
     });
     
     /** 
@@ -192,6 +196,37 @@
     
     Handlebars.registerHelper('subtract', function(a, b) {
         return a - b;
+    });
+    
+    Handlebars.registerHelper('length', function(x) {
+        return x.length;
+    });
+    
+    Handlebars.registerHelper('select', function( value, options ){
+        var $el = $('<select />').html( options.fn(this) );
+        $el.find('[value=' + value + ']').attr({'selected':'selected'});
+        return $el.html();
+    });
+    
+    /**
+     * Chain multiple functions together
+     * ie. {{chain "taxAdd" "formatPrice" this.product.price}}
+     * https://github.com/wycats/handlebars.js/issues/304#issuecomment-15635762
+     */
+    Handlebars.registerHelper('chain', function () {
+        var helpers = [], value;
+        $.each(arguments, function (i, arg) {
+            if (Handlebars.helpers[arg]) {
+                helpers.push(Handlebars.helpers[arg]);
+            } else {
+                value = arg;
+                $.each(helpers, function (j, helper) {
+                    value = helper(value, arguments[i + 1]);
+                });
+                return false;
+            }
+        });
+        return value;
     });
 
 }));

@@ -9,18 +9,25 @@ define([
     return Backbone.Marionette.ItemView.extend({
         template: Template
         ,initialize: function() {
-            _.bindAll(this, "onFormSubmit");
+            _.bindAll(this, "onSubmitForm");
         }
         ,events: {
-            "submit form": "onFormSubmit"
+            "submit form": "onSubmitForm"
         }
         ,serializeData: function() {
             return $.extend({countries: Countries}, this.model.toJSON());
         }
-        ,onFormSubmit: function(e) {
+        ,onSubmitForm: function(e) {
             e.preventDefault();
-            console.log($(e.currentTarget).serializeObject());
-            //this.model.save($(e.currentTarget).serializeObject(), {type: "POST", patch: true, error: function() {console.log("ERROR!!!")}});
+            var memberId = this.model.get("id");
+            this.model.save($(e.currentTarget).serializeObject(), {
+                method: "POST"
+                ,patch: true
+                ,success: function() {
+                    Backbone.history.navigate("members/" + memberId, {trigger: true});
+                }
+                //,error: function() {console.log("ERROR!!!")}
+            });
         }
     });
 });

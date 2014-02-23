@@ -1,20 +1,20 @@
-{{#if items}}
+{{#or (length permissions) (length memberPermissions) }}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
         Admin <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu">
-        {{#if_inarray "profile_edit" compare=items}}
+        {{#or (if_inarray 'profile_edit' compare=memberPermissions) (if_inarray 'profile_edit_any' compare=permissions) }}
             <li><a href="#members/{{ member_id }}/edit">Modify Profile</a></li>
-        {{/if_inarray}}
+        {{/or}}
         
-        {{#if_inarray "promotion_add" compare=items}}
+        {{#if_inarray "promotion_add" compare=memberPermissions}}
             <li><a href="#">Promote</a></li>
         {{/if_inarray}}
         
-        {{#if_inarray "discharge" compare=items}}
+        {{#if_inarray "discharge" compare=memberPermissions}}
             <li><a href="#">Discharge</a></li>
         {{/if_inarray}}
     </ul>
 </div>
-{{/if}}
+{{/or}}

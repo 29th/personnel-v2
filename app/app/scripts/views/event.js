@@ -53,49 +53,6 @@ define([
                 return model.get("member").id === user_id;
             });
         }
-        ,_onClickLOA: function(e) {
-            e.preventDefault();
-            var button = e.currentTarget
-                ,excuse = (button.id === "loa-post" ? 1 : 0);
-            if(excuse) {
-                this.collection.create({
-                    attended: 0
-                    ,excused: 1
-                    ,member: {
-                        id: this.user.get("id")
-                        ,short_name: this.user.get("short_name")
-                    }
-                }, {
-                    wait: true
-                    ,success: function() {
-                        $(button).attr("id", "loa-cancel").text("Cancel LOA"); // Shouldn't we just re-render the template?
-                    }
-                });
-            } else {
-                var model = this.getRSVP(this.options.user.get("id"));
-                if(model) {
-                    // If attendance has already been reported, update the record. Otherwise destroy it
-                    if(model.get("attended") !== null) {
-                        model.save({excused: false}, {
-                            method: "DELETE"
-                            ,wait: true
-                            ,success: function() {
-                                $(button).attr("id", "loa-post").text("Post LOA");
-                            }
-                        });
-                    } else {
-                        model.id = this.user.get("id"); // Allows .destroy() to sync even though we don't need it
-                        model.destroy({
-                            url: config.apiHost + "/events/" + this.collection.id + "/excuse"
-                            ,wait: true
-                            ,success: function() {
-                                $(button).attr("id", "loa-post").text("Post LOA"); // Shouldn't we just re-render the template?
-                            }
-                        });
-                    }
-                }
-            }
-        }
         ,onClickLOA: function(e) {
             e.preventDefault();
             var button = e.currentTarget

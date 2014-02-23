@@ -1,6 +1,10 @@
 {{#if_inarray "enlistment_process" compare=permissions}}
-    <a href="#enlistments/3599/edit" class="btn btn-default pull-right">Modify Enlistment</a>
+    <a href="#enlistments/{{ id }}/edit" class="btn btn-default pull-right">Modify Enlistment</a>
 {{/if_inarray}}
+
+{{#or (if_inarray "profile_edit" compare=memberPermissions) (if_inarray "profile_edit_any" compare=permissions) }}
+    <a href="#members/{{ member.id }}/edit" class="btn btn-default pull-right">Modify Profile</a>
+{{/or}}
 
 <table class="table table-horizontal">
     <tr>
@@ -14,6 +18,14 @@
     <tr>
         <th>Status</th>
         <td>{{ status }}</td>
+    </tr>
+    <tr>
+        <th>Date</th>
+        <td>{{ dateFormat date format="ll" }}</td>
+    </tr>
+    <tr>
+        <th>Liaison</th>
+        <td>{{#if this.liaison.id }}<a href="#members/{{ this.liaison.id }}">{{ this.liaison.short_name }}</a>{{/if}}</td>
     </tr>
     <tr>
         <th>Last Name</th>

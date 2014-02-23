@@ -71,6 +71,9 @@ window.requirejs = window.requirejs || {};
             ,"nprogress": {
                 exports: "NProgress"
             }
+            ,"handlebars.helpers": {
+                deps: ["handlebars"]
+            }
         }
         ,hbs: { templateExtension: ".html" }
     });

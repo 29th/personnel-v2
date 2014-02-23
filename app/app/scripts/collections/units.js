@@ -43,6 +43,7 @@ define([
             this.filter = options.filter || false;
             this.children = options.children || false;
             this.members = options.members || false;
+            this.active = options.active || false;
         }
         ,url: function() {
             var params = {}
@@ -50,6 +51,7 @@ define([
             if(this.filter) url += "/" + encodeURIComponent(this.filter);
             if(this.children) params.children = this.children;
             if(this.members) params.members = this.members;
+            if(this.active) params.active = this.active;
             if( ! _.isEmpty(params)) url += "?" + $.param(params);
             return url;
         }

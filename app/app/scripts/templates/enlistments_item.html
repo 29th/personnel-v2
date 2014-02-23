@@ -1,0 +1,5 @@
+<td><a href="#enlistments/{{ this.id }}">{{dateFormat this.date format="ll"}}</a></td>
+<td>{{ this.status }}</td>
+<td><a href="#units/{{ this.unit.key }}">{{ this.unit.abbr }}</a></td>
+<td>{{ this.last_name }}{{#if this.first_name}}, {{ this.first_name }}{{/if}}</td>
+<td>{{#if this.liaison.id }}<a href="#members/{{ this.liaison.id }}">{{ this.liaison.short_name }}</a>{{/if}}</td>
