@@ -22,7 +22,7 @@ define([
             for(i = 13; i <= 99; i++) { this.ages.push(i); }
         }
         ,serializeData: function() {
-            return $.extend({ages: this.ages, countries: Countries, tps: this.tps.at(0).get("children").toJSON()}, this.model.toJSON());
+            return $.extend({ages: this.ages, countries: Countries, tps: this.tps.length ? this.tps.at(0).get("children").toJSON() : {}}, this.model.toJSON());
         }
         ,onSubmitForm: function(e) {
             e.preventDefault();
