@@ -17,7 +17,9 @@ class Units extends MY_Controller {
         $key = 'units'; // for api output
         
         // Get units, using ?children=true
-        $units = $this->unit_model->by_filter($filter, $this->input->get('children') == 'true' ? TRUE : FALSE)->get()->result_array();
+        $units = $this->unit_model->by_filter($filter, $this->input->get('children') == 'true' ? TRUE : FALSE);
+        if($this->input->get('active')) $units = $units->where('units.active', TRUE);
+        $units = $units->get()->result_array();
         
         // If results found
         if( ! empty($units)) {

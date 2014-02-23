@@ -61,7 +61,7 @@ class Events extends MY_Controller {
                 $absent = $this->filter_expected($event_id, $post_data['absent']);
                 if( ! empty($absent)) $this->attendance_model->set_attendance($event_id, $absent, false);
             }
-            $status = sizeof($data) ? $this->event_model->save($event_id, $data) : true;
+            $status = sizeof($data) ? $this->event_model->save($event_id, $data) : true; // huh?
             $this->response(array('status' => $status, 'event' => nest($this->event_model->get_by_id($event_id))));
         }
     }

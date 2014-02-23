@@ -81,8 +81,8 @@ class Assignment_model extends CRUD_Model {
     }
     
     public function default_join() {
-        $this->db->join('units', 'units.id = assignments.unit_id')
-            ->join('positions', 'positions.id = assignments.position_id');
+        $this->db->join('units', 'units.id = assignments.unit_id', 'left')
+            ->join('positions', 'positions.id = assignments.position_id', 'left');
     }
     
     public function default_order_by() {

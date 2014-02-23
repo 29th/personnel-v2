@@ -37,18 +37,23 @@ class Members extends MY_Controller {
      * TODO: What if they include `id` in the post body? Shouldn't I have white listed fields?
      */
     public function basic_post($member_id = FALSE) {
-        $this->form_validation->set_group_rules('profile_edit');
-        if($member_id === FALSE) $this->form_validation->set_group_rules('profile_add');
+        //$this->form_validation->set_group_rules('profile_edit');
+        //if($member_id === FALSE) $this->form_validation->set_group_rules('profile_add');
         
         if( ! $this->user->permission('profile_edit', $member_id) && ! $this->user->permission('profile_edit_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
-        else if($this->form_validation->run() === FALSE) {
+        /*else if($this->form_validation->run('profile_edit') === FALSE) {
             $this->response(array('status' => false, 'error' => $this->form_validation->get_error_array()), 400);
-        } else {
+        }*/ else {
             $insert_id = $this->member_model->save($member_id ? $member_id : NULL, $this->post()); // Can FALSE suffice for NULL?
             $this->response(array('status' => true, 'member' => $insert_id ? nest($this->member_model->get_by_id($insert_id)) : null));
         }
+    }
+    
+    // Necessary to support OPTIONS method
+    public function basic_options($event_id) {
+        $this->response(array('status' => true));
     }
     
     /**

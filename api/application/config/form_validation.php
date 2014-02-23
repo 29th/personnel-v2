@@ -32,32 +32,16 @@ $config = array(
             ,'rules' => 'min_length[1]|max_length[32]'
         )
         ,array(
-            'field' => 'status'
-            ,'rules' => 'numeric'
-        )
-        ,array(
             'field' => 'middle_name'
             ,'rules' => 'max_length[32]'
         )
-        ,array(
+        /*,array(
             'field' => 'name_prefix'
             ,'rules' => 'max_length[8]'
-        )
-        ,array(
-            'field' => 'city'
-            ,'rules' => 'max_length[32]'
-        )
-        ,array(
-            'field' => 'rank_id'
-            ,'rules' => 'numeric'
-        )
-        ,array(
-            'field' => 'primary_assignment_id'
-            ,'rules' => 'numeric'
-        )
+        )*/
         ,array(
             'field' => 'steam_id'
-            ,'rules' => 'numeric|valid_base64'
+            ,'rules' => 'numeric'//|valid_base64'
         )
     )
     /**

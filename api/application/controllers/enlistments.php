@@ -52,6 +52,15 @@ class Enlistments extends MY_Controller {
         }
     }
     
+    // Necessary to support OPTIONS method
+    public function index_options($event_id) {
+        $this->response(array('status' => true));
+    }
+    
+    public function view_options($event_id) {
+        $this->response(array('status' => true));
+    }
+    
     public function view_get($enlistment_id) {
         $enlistment = nest($this->enlistment_model->get_by_id($enlistment_id));
         $this->response(array('status' => true, 'enlistment' => $enlistment));
@@ -67,15 +76,17 @@ class Enlistments extends MY_Controller {
             $this->enlistment_model->save($enlistment_id, $data);
             $enlistment = nest($this->enlistment_model->get_by_id($enlistment_id));
             
+            $assignment = $this->assignment_model->where('assignments.member_id', $enlistment['member_id'])->where('assignments.unit_id', $data['unit_id'])->where('assignments.end_date IS NULL', NULL, FALSE)->get()->row_array();
             // If accepted
             if($data['status'] == 'Accepted' && $data['unit_id']) {
-                $this->assignment_model->save(NULL, array(
-                    'member_id' => $enlistment['member_id'],
-                    'unit_id' => $data['unit_id'],
-                    'start_date' => format_date('now', 'mysqldate')
-                ));
+                if( ! $assignment) { // Don't add an assignment if it already exists
+                    $this->assignment_model->save(NULL, array(
+                        'member_id' => $enlistment['member_id'],
+                        'unit_id' => $data['unit_id'],
+                        'start_date' => format_date('now', 'mysqldate')
+                    ));
+                }
             } else {
-                $assignment = $this->assignment_model->where('assignments.member_id', $enlistment['member_id'])->where('assignments.unit_id', $data['unit_id'])->where('assignments.end_date IS NULL', NULL, FALSE)->get()->row_array();
                 $this->assignment_model->delete($assignment['id']);
             }
             $this->response(array('status' => true, 'enlistment' => $enlistment));

@@ -16,7 +16,7 @@ class Unit_model extends CRUD_Model {
     }*/
     
     public function default_order_by() {
-        $this->db->order_by('depth, units.order', FALSE);
+        $this->db->order_by('depth, units.order, units.name', FALSE);
     }
     
     public function by_filter($filter, $children = FALSE) {        

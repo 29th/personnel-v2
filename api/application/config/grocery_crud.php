@@ -12,7 +12,7 @@
 	$config['grocery_crud_file_upload_max_file_size'] 			= '20MB'; //ex. '10MB' (Mega Bytes), '1067KB' (Kilo Bytes), '5000B' (Bytes)
 
 	//You can choose 'ckeditor','tinymce' or 'markitup'
-	$config['grocery_crud_default_text_editor'] = 'tinymce';
+	$config['grocery_crud_default_text_editor'] = 'markitup';
 	//You can choose 'minimal' or 'full'
 	$config['grocery_crud_text_editor_type'] 	= 'minimal';
 
