@@ -1,24 +1,32 @@
-{{#if_inarray "enlistment_process" compare=permissions}}
-    <a href="#enlistments/{{ id }}/edit" class="btn btn-default pull-right">Modify Enlistment</a>
-{{/if_inarray}}
-
-{{#or (if_inarray "profile_edit" compare=memberPermissions) (if_inarray "profile_edit_any" compare=permissions) }}
-    <a href="#members/{{ member.id }}/edit" class="btn btn-default pull-right">Modify Profile</a>
+{{#or (length permissions) (length memberPermissions) }}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        Admin <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+    {{#if_inarray "enlistment_process" compare=permissions}}
+        <li><a href="#enlistments/{{ id }}/process">Process Enlistment</a></li>
+    {{/if_inarray}}
+    
+    {{#if_inarray "enlistment_edit" compare=permissions}}
+        <li><a href="#enlistments/{{ id }}/edit">Modify Enlistment</a></li>
+    {{/if_inarray}}
+    
+    {{#or (if_inarray "profile_edit" compare=memberPermissions) (if_inarray "profile_edit_any" compare=permissions) }}
+        <li><a href="#members/{{ member.id }}/edit">Modify Profile</a></li>
+    {{/or}}
+    </ul>
+</div>
 {{/or}}
 
+<h1>
+    {{ first_name }} {{#if middle_name}}{{ substring middle_name 0 1 }}. {{/if}}{{ last_name }}
+</h1>
+<span class="label label-{{ enlistment_label status }}">{{ status }}</span> -
+{{#if member.id}}<a href="#members/{{ member.id }}">{{ member.short_name }}</a>{{/if}} -
+{{#if unit.id}}<a href="#members/{{ unit.key }}">{{ unit.abbr }}</a>{{/if}}
+
 <table class="table table-horizontal">
-    <tr>
-        <th>Member</th>
-        <td>{{#if member.id}}<a href="#members/{{ member.id }}">{{ member.short_name }}</a>{{/if}}</td>
-    </tr>
-    <tr>
-        <th>Unit</th>
-        <td>{{#if unit.id}}<a href="#members/{{ unit.key }}">{{ unit.abbr }}</a>{{/if}}</td>
-    </tr>
-    <tr>
-        <th>Status</th>
-        <td>{{ status }}</td>
-    </tr>
     <tr>
         <th>Date</th>
         <td>{{ dateFormat date format="ll" }}</td>

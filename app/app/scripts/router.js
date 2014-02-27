@@ -42,6 +42,7 @@ define([
     ,"views/enlistments"
     ,"views/enlistment"
     ,"views/enlistment_edit"
+    ,"views/enlistment_process"
     // Extras
     ,"handlebars.helpers"
     ,"jquery-bootstrap"
@@ -52,7 +53,7 @@ define([
     ,Member, User, Event, Enlistment
     ,Units, Assignments, Permissions, Promotions, Awardings, MemberEnlistments, MemberAttendance, EventAttendance, UnitAttendance, Qualifications, Events, Enlistments
     ,MemberView, UnitView, RosterView, NavView, MemberAdminView, MemberProfileView, MemberEditView, ServiceRecordView, MemberAttendanceView
-    ,UnitAttendanceView, QualificationsView, CalendarView, EventView, AARView, FlashView, EnlistmentsView, EnlistmentView, EnlistmentEditView
+    ,UnitAttendanceView, QualificationsView, CalendarView, EventView, AARView, FlashView, EnlistmentsView, EnlistmentView, EnlistmentEditView, EnlistmentProcessView
 ) {
     "use strict";
     
@@ -67,6 +68,7 @@ define([
             ,"events/:id": "event"
             ,"events/:id/aar": "aar"
             ,"enlistments/:id/edit": "enlistment_edit"
+            ,"enlistments/:id/process": "enlistment_process"
             ,"enlistments/:id": "enlistment"
             ,"enlistments": "enlistments"
             ,"enlist": "enlistment_edit"
@@ -357,7 +359,7 @@ define([
                 ,promises = []
                 ,enlistment = new Enlistment()
                 ,tps = new Units(null, {filter: "TPs", children: true})
-                ,editEnlistmentView = new EnlistmentEditView({model: enlistment, tps: tps});
+                ,enlistmentEditView = new EnlistmentEditView({model: enlistment, tps: tps});
             
             this.app.navRegion.currentView.setHighlight("enlistments");
             
@@ -368,11 +370,25 @@ define([
                 //util.loading(true);
                 $.when.apply($, promises).done(function() {
                     //util.loading(false);
-                    self.showView(editEnlistmentView);
+                    self.showView(enlistmentEditView);
                 });
             } else {
-                self.showView(editEnlistmentView);
+                self.showView(enlistmentEditView);
             }
+        }
+        ,enlistment_process: function(id) {
+            var self = this
+                ,promises = []
+                ,enlistment = new Enlistment({id: id})
+                ,tps = new Units(null, {filter: "TPs", children: true})
+                ,enlistmentProcessView = new EnlistmentProcessView({model: enlistment, tps: tps});
+            
+            this.app.navRegion.currentView.setHighlight("enlistments");
+            promises.push(enlistment.fetch(), tps.fetch());
+            
+            $.when.apply($, promises).done(function() {
+                self.showView(enlistmentProcessView);
+            });
         }
     });
 });

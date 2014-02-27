@@ -2,14 +2,13 @@ define([
     "jquery"
     ,"underscore"
     ,"backbone"
-    ,"hbs!templates/enlistment_edit"
-    ,"json!countries.json"
+    ,"hbs!templates/enlistment_process"
     ,"marionette"
-], function($, _, Backbone, Template, Countries) {
+], function($, _, Backbone, Template) {
     
     return Backbone.Marionette.ItemView.extend({
         template: Template
-        ,title: "Modify Enlistment"
+        ,title: "Process Enlistment"
         ,events: {
             "submit form": "onSubmitForm"
         }
@@ -17,12 +16,9 @@ define([
             options = options || {};
             this.tps = options.tps || {};
             _.bindAll(this, "onSubmitForm");
-            this.ages = [];
-            var i;
-            for(i = 13; i <= 99; i++) { this.ages.push(i); }
         }
         ,serializeData: function() {
-            return $.extend({ages: this.ages, countries: Countries, tps: this.tps.length ? this.tps.at(0).get("children").toJSON() : {}}, this.model.toJSON());
+            return $.extend({tps: this.tps.length ? this.tps.at(0).get("children").toJSON() : {}}, this.model.toJSON());
         }
         ,onSubmitForm: function(e) {
             e.preventDefault();
@@ -30,6 +26,7 @@ define([
             this.model.save($(e.currentTarget).serializeObject(), {
                 method: "POST"
                 ,patch: true
+                ,url: this.model.url() + "/process"
                 ,success: function() {
                     Backbone.history.navigate("enlistments/" + enlistmentId, {trigger: true});
                 }

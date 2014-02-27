@@ -228,5 +228,15 @@
         });
         return value;
     });
+    
+    Handlebars.registerHelper('substring', function() {
+        var string = arguments[0],
+            args = Array.prototype.slice.call(arguments, 1, -1);
+        return String.prototype.substring.call(string, args);
+    });
+    
+    Handlebars.registerHelper('enlistment_label', function(status) {
+        return (status === "Accepted" ? "primary" : (status === "Withdrawn" ? "warning" : (status === "Denied" ? "danger" : "default")));
+    });
 
 }));

@@ -1,30 +1,4 @@
 <form role="form">
-    {{#if id}}
-    <div class="form-group">
-        <label for="unit_id">Unit</label>
-        <select class="form-control" name="unit_id" id="unit_id">
-            {{#select unit_id}}
-            <option value="">Select...</option>
-            {{#each tps}}
-            <option value="{{ this.id }}">{{ this.abbr }}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-    </div>
-    
-    <div class="form-group">
-        <label for="status">Status</label>
-        <select class="form-control" name="status" id="status">
-            {{#select status}}
-            <option value="">Select...</option>
-            <option value="Pending">Pending</option>
-            <option value="Accepted">Accepted</option>
-            <option value="Denied">Denied</option>
-            <option value="Withdrawn">Withdrawn</option>
-            {{/select}}
-        </select>
-    </div>
-    {{/if}}
     
     <div class="form-group">
         <label for="last_name">Last Name</label>
