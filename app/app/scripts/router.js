@@ -5,6 +5,7 @@ define([
     ,"marionette"
     ,"handlebars"
     ,"util"
+    ,"vent"
     // Models
     ,"models/member"
     ,"models/user"
@@ -48,7 +49,7 @@ define([
     ,"moment"
     ,"fullcalendar"
 ], function(
-    $, _, Backbone, Marionette, Handlebars, util
+    $, _, Backbone, Marionette, Handlebars, util, vent
     ,Member, User, Event, Enlistment
     ,Units, Assignments, Permissions, Promotions, Awardings, MemberEnlistments, MemberAttendance, EventAttendance, UnitAttendance, Qualifications, Events, Enlistments
     ,MemberView, UnitView, RosterView, NavView, MemberAdminView, MemberProfileView, MemberEditView, ServiceRecordView, MemberAttendanceView
@@ -77,7 +78,8 @@ define([
             this.user = new User();
             var navView = new NavView({model: this.user});
             this.app.navRegion.show(navView);
-            this.user.fetch();
+            var userFetch = this.user.fetch();
+            vent.trigger("fetch", userFetch);
         }
         ,showView: function(view) {
             this.app.mainRegion.show(view);
@@ -98,9 +100,10 @@ define([
             this.app.navRegion.currentView.setHighlight("roster");
             promises.push(units.fetch());
             
-            util.loading(true);
+            //util.loading(true);
+            vent.trigger("fetch", promises);
             $.when.apply($, promises).done(function() {
-                util.loading(false);
+                //util.loading(false);
                 self.showView(rosterView);
             });
         }
@@ -153,17 +156,23 @@ define([
                 // Models & Collections
                 ,member = new Member({id: id})
                 ,assignments = new Assignments(null, {member_id: id})
-                ,permissions = new Permissions()
-                ,memberPermissions = new Permissions(null, {member_id: id}) // User permissions on member being viewed
+                ,permissions = this.permissions
+                ,memberPermissions = new Permissions(null, {member_id: id}); // User permissions on member being viewed
+            
+            // Fetch permissions if they haven't been fetched yet
+            if( ! this.permissions) {
+                this.permissions = new Permissions();
+                promises.push(this.permissions.fetch());
+            }
                 
                 // Layout & Views
-                ,memberLayout = new MemberView({model: member, assignments: assignments})
-                ,memberAdminView = new MemberAdminView({permissions: permissions, memberPermissions: memberPermissions});
+            var memberLayout = new MemberView({model: member, assignments: assignments})
+                ,memberAdminView = new MemberAdminView({permissions: this.permissions, memberPermissions: memberPermissions});
                 
             this.app.navRegion.currentView.setHighlight("roster");
             
             // Fetches
-            promises.push(member.fetch(), assignments.fetch(), permissions.fetch(), memberPermissions.fetch());
+            promises.push(member.fetch(), assignments.fetch(), memberPermissions.fetch());
             
             var pageView;
             path = path ? path.replace(/\//g, "") : "";
@@ -320,12 +329,18 @@ define([
             var self = this
                 ,promises = []
                 ,enlistment = new Enlistment({id: id})
-                ,permissions = new Permissions()
-                ,memberPermissions = new Permissions() // User permissions on member being viewed
-                ,enlistmentView = new EnlistmentView({model: enlistment, permissions: permissions, memberPermissions: memberPermissions});
+                ,memberPermissions = new Permissions(); // User permissions on member being viewed
+            
+            // Fetch permissions if they haven't been fetched yet
+            if( ! this.permissions) {
+                this.permissions = new Permissions();
+                promises.push(this.permissions.fetch());
+            }
+            
+            var enlistmentView = new EnlistmentView({model: enlistment, permissions: this.permissions, memberPermissions: memberPermissions});
             
             this.app.navRegion.currentView.setHighlight("enlistments");
-            promises.push(enlistment.fetch(), permissions.fetch());
+            promises.push(enlistment.fetch());
             
             util.loading(true);
             $.when.apply($, promises).done(function() {

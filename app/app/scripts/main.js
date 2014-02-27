@@ -26,6 +26,7 @@ window.requirejs = window.requirejs || {};
                 "//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.5.1-bundled/backbone.marionette.min"
                 ,"../vendor/marionette/lib/backbone.marionette.min"
             ]
+            ,"backbone.wreqr": "../vendor/backbone.wreqr/lib/amd/backbone.wreqr.min"
             ,"jquery-bootstrap": [
                 "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.0/js/bootstrap.min"
                 ,"../vendor/bootstrap/dist/bootstrap.min"
