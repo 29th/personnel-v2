@@ -5,7 +5,6 @@ define([
     ,"marionette"
     ,"handlebars"
     ,"util"
-    ,"vent"
     // Models
     ,"models/member"
     ,"models/user"
@@ -49,7 +48,7 @@ define([
     ,"moment"
     ,"fullcalendar"
 ], function(
-    $, _, Backbone, Marionette, Handlebars, util, vent
+    $, _, Backbone, Marionette, Handlebars, util
     ,Member, User, Event, Enlistment
     ,Units, Assignments, Permissions, Promotions, Awardings, MemberEnlistments, MemberAttendance, EventAttendance, UnitAttendance, Qualifications, Events, Enlistments
     ,MemberView, UnitView, RosterView, NavView, MemberAdminView, MemberProfileView, MemberEditView, ServiceRecordView, MemberAttendanceView
@@ -79,7 +78,7 @@ define([
             var navView = new NavView({model: this.user});
             this.app.navRegion.show(navView);
             var userFetch = this.user.fetch();
-            vent.trigger("fetch", userFetch);
+            //vent.trigger("fetch", userFetch);
         }
         ,showView: function(view) {
             this.app.mainRegion.show(view);
@@ -101,7 +100,7 @@ define([
             promises.push(units.fetch());
             
             //util.loading(true);
-            vent.trigger("fetch", promises);
+            //vent.trigger("fetch", promises);
             $.when.apply($, promises).done(function() {
                 //util.loading(false);
                 self.showView(rosterView);
@@ -143,9 +142,9 @@ define([
             promises.push(units.fetch());
             
             // Rendering
-            util.loading(true);
+            //util.loading(true);
             $.when.apply($, promises).done(function() {
-                util.loading(false);
+                //util.loading(false);
                 self.showView(unitLayout);
                 if(pageView) unitLayout.pageRegion.show(pageView);
             });
@@ -226,9 +225,9 @@ define([
             }
             
             // Rendering
-            util.loading(true);
+            //util.loading(true);
             $.when.apply($, promises).done(function() {
-                util.loading(false);
+                //util.loading(false);
                 self.showView(memberLayout);
                 memberLayout.adminRegion.show(memberAdminView);
                 if(pageView) memberLayout.pageRegion.show(pageView);
@@ -244,9 +243,9 @@ define([
             this.app.navRegion.currentView.setHighlight("calendar");
             promises.push(userAssignments.fetch());
             
-            util.loading(true);
+            //util.loading(true);
             $.when.apply($, promises).done(function() {
-                util.loading(false);
+                //util.loading(false);
                 self.showView(calendarView);
             });
         }
@@ -267,14 +266,14 @@ define([
             this.app.navRegion.currentView.setHighlight("calendar");
             promises.push(event.fetch(), userAssignments.fetch());
             
-            util.loading(true);
+            //util.loading(true);
             $.when.apply($, promises).done(function() {
                 if(event.get("attendance").length) eventAttendance.add(event.get("attendance"));
                 unitPermissions.unit_id = event.get("unit").id;
                 promises = [];
                 promises.push(unitPermissions.fetch());
                 $.when.apply($, promises).done(function() {
-                    util.loading(false);
+                    //util.loading(false);
                     self.showView(eventView);
                 });
             });
@@ -289,9 +288,9 @@ define([
                 ,rosterView = new RosterView({collection: expectedUnits, eventAttendance: eventAttendance, attendance: true});
                 
             // Watch fetch event to show loading indicator (AAR)
-            event.on("request", function() { util.loading(true); })
-                .on("sync", function() { util.loading(false); })
-                .on("error", function(model, xhr) { self.flash(xhr.responseJSON.error || "", "error"); util.loading(false); });
+            event/*.on("request", function() { util.loading(true); })
+                .on("sync", function() { util.loading(false); })*/
+                .on("error", function(model, xhr) { self.flash(xhr.responseJSON.error || "", "error");/* util.loading(false);*/ });
             
             this.app.navRegion.currentView.setHighlight("calendar");
             promises.push(event.fetch());
@@ -319,9 +318,9 @@ define([
             this.app.navRegion.currentView.setHighlight("enlistments");
             promises.push(enlistments.fetch());
             
-            util.loading(true);
+            //util.loading(true);
             $.when.apply($, promises).done(function() {
-                util.loading(false);
+                //util.loading(false);
                 self.showView(enlistmentsView);
             });
         }
@@ -342,13 +341,13 @@ define([
             this.app.navRegion.currentView.setHighlight("enlistments");
             promises.push(enlistment.fetch());
             
-            util.loading(true);
+            //util.loading(true);
             $.when.apply($, promises).done(function() {
                 memberPermissions.member_id = enlistment.get("member").id;
                 promises = [];
                 promises.push(memberPermissions.fetch());
                 $.when.apply($, promises).done(function() {
-                    util.loading(false);
+                    //util.loading(false);
                     self.showView(enlistmentView);
                 });
             });
@@ -366,9 +365,9 @@ define([
                 enlistment.id = id;
                 promises.push(enlistment.fetch(), tps.fetch());
             
-                util.loading(true);
+                //util.loading(true);
                 $.when.apply($, promises).done(function() {
-                    util.loading(false);
+                    //util.loading(false);
                     self.showView(editEnlistmentView);
                 });
             } else {

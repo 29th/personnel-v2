@@ -85,10 +85,15 @@ window.requirejs = window.requirejs || {};
      */
     require([
         "router"
-    ], function(Router) {
+        ,"util"
+    ], function(Router, util) {
     
         window.DEBUG = false; // Global
         $.ajaxSetup({cache: true, xhrFields: { withCredentials: true }}); // Cache ajax requests & send cookies
+        
+        // Loading indicators
+        $(document).ajaxStart(function() { util.loading(true); });
+        $(document).ajaxStop(function() { util.loading(false); });
         
         var app = new Backbone.Marionette.Application();
         

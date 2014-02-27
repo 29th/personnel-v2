@@ -91,7 +91,6 @@ define([
                 // If cancelling LOA
                 else {
                     model.id = this.user.get("id"); // Allows .destroy() to sync even though we don't need it
-                    console.log("New?", model.isNew());
                     model.destroy({
                         url: config.apiHost + "/events/" + this.collection.id + "/excuse"
                         ,wait: true
