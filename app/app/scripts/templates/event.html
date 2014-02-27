@@ -1,26 +1,26 @@
 <div class="row header">
     <div class="col-sm-8">
-        <h1>{{ unit.key }} {{ type }}</h1>
+        <h1>{{ type }} <small><a href="#units/{{ unit.abbr }}">{{ unit.name }}</a></small></h1>
         <h2>{{dateFormat datetime format="ll HH:mm"}} <small>{{#if mandatory}} Mandatory {{else}} Non-Mandatory {{/if}}</small></h2>
         <h3>{{#if server.name}}{{ server.name }}{{/if}}</h3>
     </div>
     <div class="col-sm-4">
-        {{#if user_expected}}
+        {{#and user_expected (within_24_hours datetime) }}
             <div id="loa-buttons" class="{{#if user_rsvp.excused}}loa-cancel{{else}}loa-post{{/if}}">
                 <button type="button" class="btn btn-default pull-right" id="loa-cancel"><span class="glyphicon glyphicon-minus-sign"></span> Cancel LOA</button>
                 <button type="button" class="btn btn-default pull-right" id="loa-post"><span class="glyphicon glyphicon-plus-sign"></span> Post LOA</button>
             </div>
             
-        {{/if}}
+        {{/and}}
         {{#if_inarray "event_aar" compare=items}}
             <a href="#events/{{ id }}/aar" class="btn btn-default pull-right"><span class="glyphicon glyphicon-list"></span> Post AAR</a>
         {{/if_inarray}}
     </div>
 </div>
-{{#if user_expected}}You are expected to attend{{/if}}
+{{#if user_expected}}You {{#if (past datetime)}}were{{else}}are{{/if}} expected to attend{{/if}}
 
 {{#if report}}
-<blockquote>{{ report }}</blockquote>
+<div class="well">{{ bbcode report }}</div>
 {{/if}}
 
 <ul id="attendance"></ul>

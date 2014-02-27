@@ -13,7 +13,7 @@
  *  @courtesy - https://github.com/umdjs/umd/blob/master/returnExports.js
  */
 
-(function (root, factory) {
+/*(function (root, factory) {
     if (typeof exports === 'object') {
         // Node. Does not work with strict CommonJS, but
         // only CommonJS-like enviroments that support module.exports,
@@ -26,7 +26,8 @@
         // Browser globals (root is window)
         root.returnExports = factory(root.Handlebars);
     }
-}(this, function (Handlebars) {
+}(this, function (Handlebars) {*/
+define(["jquery", "underscore", "handlebars", "moment", "bbcode"], function($, _, Handlebars, moment, bbcode) {
 
     /**
      * If Equals
@@ -163,9 +164,9 @@
      *  usage: {{dateFormat creation_date format="MMMM YYYY"}}
      */
     Handlebars.registerHelper('dateFormat', function(context, block) {
-      if (window.moment) {
+      if (moment) {
         var f = block.hash.format || "MMM Do, YYYY";
-        return window.moment(context).format(f);
+        return moment(context).format(f);
       } else {
         return context;   //  moment plugin not available. return data as is.
       }
@@ -180,10 +181,18 @@
     });
     
     /**
-     * If OR
+     * If OR, If AND
      */
     Handlebars.registerHelper('or', function (a, b, options) {
         if (a || b) {
+            return options.fn(this);
+        } else {
+            return options.inverse(this);
+        }
+    });
+    
+    Handlebars.registerHelper('and', function (a, b, options) {
+        if (a && b) {
             return options.fn(this);
         } else {
             return options.inverse(this);
@@ -238,5 +247,19 @@
     Handlebars.registerHelper('enlistment_label', function(status) {
         return (status === "Accepted" ? "primary" : (status === "Withdrawn" ? "warning" : (status === "Denied" ? "danger" : "default")));
     });
+    
+    Handlebars.registerHelper('bbcode', function(string) {
+        return new Handlebars.SafeString(bbcode.render(string.replace(/\n/g, "<br>")));
+    });
+    
+    Handlebars.registerHelper('within_24_hours', function(a, b) {
+        var moment_a = moment(a),
+            moment_b = typeof b === "string" ? moment(b) : moment();
+        return Math.abs(moment_a.diff(moment_b, 'hours')) <= 24;
+    });
+    
+    Handlebars.registerHelper('past', function(date) {
+        return moment(date).isBefore(moment());
+    });
 
-}));
+});
