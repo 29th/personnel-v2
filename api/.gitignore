@@ -4,3 +4,4 @@ application/config/config.php
 application/config/database.php
 application/cache
 application/logs
+coats

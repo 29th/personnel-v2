@@ -287,4 +287,26 @@ class Members extends MY_Controller {
             $this->response(array('status' => true));
         }
     }
+    
+    /**
+     * Service Coat
+     */
+    public function coat_get($member_id) {
+        if( ! $member_id) $this->response(array('status' => false), 404);
+        $this->load->library('servicecoat');
+        $member = nest($this->member_model->get_by_id($member_id));
+        $rank = str_replace( '/', '', str_replace('.', '', $member['rank']['abbr']) );
+        $unit = '29th';
+        //$awards = array('acamp', 'gcon', 'french', 'lom', 'aocc', 's:rifle:dod', 'e:mg:dod', 'dsc', 'aocc', 'aocc', 'adef', 'dod', 'aocc', 'cib1', 'aocc', 'm:armor:dh', 'aocc', 'ww1v', 'cab1', 'aocc', 'aocc', 'aocc', 'aocc', 'aocc', 'aocc', 'ww1v');
+        $awardings = $this->awarding_model->where('awardings.member_id', $member_id)->get()->result_array();
+        $awardings_abbr = pluck('award|abbr', $awardings);
+        $this->servicecoat->update_servicecoatC($member['last_name'], $member['steam_id'], $rank, $unit, $awardings_abbr);
+        $this->response(array('status' => true, 'coat' => array(
+            'name' => $member['last_name']
+            ,'id' => $member['steam_id']
+            ,'rank' => $rank
+            ,'unit' => $unit
+            ,'awardings' => $awardings_abbr
+        )));
+    }
 }
