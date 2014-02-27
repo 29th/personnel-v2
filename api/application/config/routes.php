@@ -83,6 +83,9 @@ $route['standards/(:any)/(:any)'] = 'standards/index/$1/$2';
 $route['standards/(:num)'] = 'standards/view/$1';
 $route['standards/(:any)'] = 'standards/index/$1';
 $route['standards'] = 'standards/index';
+
+// Enlistments
+$route['enlistments/(:num)/process'] = 'enlistments/process/$1';
 $route['enlistments/(:num)'] = 'enlistments/view/$1';
 $route['enlistments'] = 'enlistments/index';
 
