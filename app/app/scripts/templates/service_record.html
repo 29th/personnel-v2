@@ -2,7 +2,7 @@
     <h3>{{#unless_eq this.date compare="undefined"}}{{dateFormat this.date format="ll"}}{{else}}Unknown{{/unless_eq}}</h3>
     {{#each this.items }}
         {{#if this.position}}
-            <li>Assigned to <a href="#/units/{{ this.unit.key }}">{{ this.unit.abbr }}</a> as a {{ this.position.name }}</li>
+            <li>Assigned to <a href="#/units/{{ this.unit.key }}">{{#if_eq this.unit.class compare="Staff" }} {{ this.unit.name}} {{else}}  {{ this.unit.abbr }} {{/if_eq}}</a> as a {{ this.position.name }}</li>
         {{/if}}
         {{#if this.new_rank}}
             <li>Promoted to {{ this.new_rank.name }}</li>
