@@ -29,9 +29,8 @@ define([
         }
         ,serializeData: function() {
             // Remove primary_assignment and inactive assignments
-            var primary_assignment_id = this.model.get("primary_assignment_id")
-                ,activeAssignments = this.assignments.toJSON().filter(function(assignment) {
-                    return (assignment.end_date === null || Date.parse(assignment.end_date) >= new Date()) && assignment.id !== primary_assignment_id;
+            var activeAssignments = this.assignments.toJSON().filter(function(assignment) {
+                    return (assignment.end_date === null || Date.parse(assignment.end_date) >= new Date());
                 });
             return _.extend({assignments: activeAssignments, highlight: this.highlight}, this.model.toJSON());
         }

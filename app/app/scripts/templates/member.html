@@ -3,7 +3,6 @@
     <div class="col-sm-{{#if rank.filename}}9{{else}}10{{/if}}">
         <div class="title">{{ rank.name }} {{ full_name }}</div>
         <ul class="assignments">
-            {{#if position.name}}<li>{{ position.name }}, <a href="#units/{{ unit.key }}">{{ unit.name }}</a></li>{{/if}}
             {{#each assignments}}
                 <li>{{ this.position.name }}, <a href="#units/{{ this.unit.key }}">{{this.unit.name }}</a></li>
             {{/each}}
