@@ -244,7 +244,7 @@ define([
                 //,view = new AssignmentEditView({model: assignment});
                 
             this.app.navRegion.currentView.setHighlight("roster");
-            //promises.push(/*assignment.fetch(), */units.fetch());
+            //promises.push(assignment.fetch(), units.fetch());
             
             $.when.apply($, promises).done(function() {
                 console.log(units.toJSON());
