@@ -44,6 +44,7 @@ define([
             this.children = options.children || false;
             this.members = options.members || false;
             this.active = options.active || false;
+            this.flat = options.flat || false;
         }
         ,url: function() {
             var params = {}
@@ -56,7 +57,25 @@ define([
             return url;
         }
         ,parse: function(response, options) {
-            return [response.unit] || []; // Return as array since it's a collection
+            if(this.flat) {
+                return this.flatten(response.units || [response.unit]);
+            } else {
+                return response.units || [response.unit] || []; // Return as array since it's a collection
+            }
+        }
+        ,flatten: function(units) {
+            var flattened = []
+                ,self = this;
+            _.each(units, function(val, key) {
+                flattened.push(val);
+                if(val.children) {
+                    if(val.children.length) {
+                        flattened = flattened.concat(self.flatten(val.children));
+                    }
+                    delete val.children;
+                }
+            });
+            return flattened;
         }
     });
     return Units;

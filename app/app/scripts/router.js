@@ -64,7 +64,7 @@ define([
             ,"units/:filter": "unit"
             ,"members/:id/*path": "member"
             ,"members/:id": "member"
-            //,"assignments/:id/edit": "assignment_edit"
+            ,"assignments/:id/edit": "assignment_edit"
             ,"calendar": "calendar"
             ,"events/:id": "event"
             ,"events/:id/aar": "aar"
@@ -236,21 +236,22 @@ define([
                 if(pageView) memberLayout.pageRegion.show(pageView);
             });
         }
-        /*,assignment_edit: function(id) {
+        ,assignment_edit: function(id) {
             var self = this
                 ,promises = []
                 //,assignment = new Assignment({id: id})
-                ,units = new Units(null, {filter: "Bn", active: true, children: true});
+                ,units = new Units(null, {active: true, children: true, flat: true});
                 //,view = new AssignmentEditView({model: assignment});
                 
             this.app.navRegion.currentView.setHighlight("roster");
-            //promises.push(assignment.fetch(), units.fetch());
+            promises.push(units.fetch());
             
             $.when.apply($, promises).done(function() {
-                console.log(units.toJSON());
+                var data = units.toJSON();
+                console.log(data); 
                 //self.showView(view);
             });
-        }*/
+        }
         ,calendar: function() {
             var self = this
                 ,promises = []
