@@ -3,3 +3,4 @@ auth.sh
 node_modules
 app/vendor
 app/build
+app/scripts/templates/.mc.men
