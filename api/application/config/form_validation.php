@@ -145,7 +145,12 @@ $config = array(
     /**
      * Assignment
      */
-    ,'assignment_add' => array()
+    ,'assignment_add' => array(
+        array(
+            'field' => 'access_level'
+            ,'rules' => 'numeric'
+        )
+    )
     /**
      * Unit
      */

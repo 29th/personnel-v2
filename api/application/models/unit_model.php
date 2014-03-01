@@ -32,7 +32,7 @@ class Unit_model extends CRUD_Model {
             }
         }
         // Otherwise, looking up by unit_key and we don't want children
-        else {
+        else if($filter) {
             // If looking up by unit_key and we want children, we need to get the unit's id with a separate query
             if($children !== FALSE && $lookup = $this->getByUnitKey($filter)) {
                 $this->filter_where('(units.id = ' . $lookup['id'] . ' OR units.path LIKE "%/' . $lookup['id'] . '/%")');

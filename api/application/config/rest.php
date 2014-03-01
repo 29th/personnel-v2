@@ -425,7 +425,7 @@ $config['rest_ajax_only'] = FALSE;
 |    FALSE
 |
 */
-$config['cors'] = ['http://timwis.kd.io', 'http://personnel.29th.org'];
+$config['cors'] = ['http://timwis.kd.io', 'http://personnel.29th.org', 'http://swomma.kd.io'];
 $config['cors_credentials'] = 'true';
 $config['cors_headers'] = 'Content-Type';
 

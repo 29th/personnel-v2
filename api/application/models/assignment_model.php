@@ -76,8 +76,8 @@ class Assignment_model extends CRUD_Model {
     
     public function default_select() {
         $this->db->select('assignments.id, assignments.start_date, assignments.end_date, assignments.unit_id, assignments.access_level') // Leave `unit_id` for tree sorting
-            ->select('units.id AS `unit|id`, units.abbr AS `unit|abbr`, units.name AS `unit|name`, ' . $this->virtual_fields['unit_key'] . ' AS `unit|key`, units.class AS `unit|class`, units.path AS `unit|path`', FALSE)
-            ->select('positions.id AS `position|id`, positions.name AS `position|name`');
+            ->select('units.id AS `unit|id`, units.abbr AS `unit|abbr`, units.name AS `unit|name`, ' . $this->virtual_fields['unit_key'] . ' AS `unit|key`, units.class AS `unit|class`, units.path AS `unit|path`, ' . $this->virtual_fields['depth'] . ' AS `unit|depth`', FALSE)
+            ->select('positions.id AS `position|id`, positions.name AS `position|name`, positions.order AS `position|order`');
     }
     
     public function default_join() {
@@ -94,7 +94,7 @@ class Assignment_model extends CRUD_Model {
      */
     public function by_date($date = 'now') {
         $date = format_date($date, 'mysqldate'); // Format date string for MySQL
-        $this->filter_where('(assignments.start_date <= "' . $date . '" OR assignments.start_date IS NULL)');
+        $this->filter_where('(assignments.start_date <= "' . $date . '")');
         $this->filter_where('(assignments.end_date > "' . $date . '" OR assignments.end_date IS NULL)');
         return $this;
     }
@@ -117,10 +117,35 @@ class Assignment_model extends CRUD_Model {
             $this->filter_where('assignments.unit_id', $unit_id);
         }
         
-        $this->filter_order_by('ranks.order DESC');
+        //$this->filter_order_by('ranks.order DESC');
         
         return $this;
     }
+    
+    public function select_member() {
+        $this->filter_select('assignments.member_id AS `member|id`');
+        $this->filter_select($this->virtual_fields['short_name'] . ' AS `member|short_name`', FALSE);
+        $this->filter_join('members', 'members.id = assignments.member_id');
+        $this->filter_join('ranks', 'ranks.id = members.rank_id');
+        return $this;
+    }
+    
+    public function order_by($by = FALSE) {
+        switch($by) {
+            case 'priority':
+                $this->filter_order_by('units.class, `unit|depth`, positions.order DESC'); break;
+            case 'position':
+                $this->filter_order_by('positions.order DESC'); break;
+            default:
+                $this->filter_order_by('ranks.order DESC'); break;
+        }
+        return $this;
+    }
+    
+    /*public function order_for_member() {
+        $this->filter_order_by('units.class, `unit|depth`, positions.order DESC');
+        return $this;
+    }*/
     
     public function get_classes($member_id) {
         $this->db->select('units.class')

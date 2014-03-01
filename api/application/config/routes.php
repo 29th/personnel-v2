@@ -84,6 +84,16 @@ $route['standards/(:any)/(:any)'] = 'standards/index/$1/$2';
 $route['standards/(:num)'] = 'standards/view/$1';
 $route['standards/(:any)'] = 'standards/index/$1';
 $route['standards'] = 'standards/index';
+$route['positions/(:num)'] = 'positions/view/$1';
+$route['positions'] = 'positions/index';
+
+// Member-related CRUD
+$route['promotions/(:num)'] = 'promotions/view/$1';
+$route['promotions'] = 'promotions/index';
+$route['awardings/(:num)'] = 'awardings/view/$1';
+$route['awardings'] = 'awardings/index';
+$route['assignments/(:num)'] = 'assignments/view/$1';
+$route['assignments'] = 'assignments/index';
 
 // Enlistments
 $route['enlistments/(:num)/process'] = 'enlistments/process/$1';

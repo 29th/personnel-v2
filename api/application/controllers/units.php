@@ -12,6 +12,10 @@ class Units extends MY_Controller {
     
     /**
      * Get a particular unit or list of units
+     * &children=(true|false)   Include child units
+     * &active=(true|false)     Only include active units
+     * &order=(priority|position) Order by
+     * &historic=(true|false)   All members ever assigned, not just currently assigned ones
      */
     public function view_get($filter = FALSE) {
         $key = 'units'; // for api output
@@ -25,7 +29,10 @@ class Units extends MY_Controller {
         if( ! empty($units)) {
             // Get unit members if ?members=true
             if($this->input->get('members') == 'true') {
-                $members = nest($this->assignment_model->by_unit($units[0]['id'], $this->input->get("children") ? TRUE : FALSE)->by_date('now')->get()->result_array()); // Get members of this unit, including members of this unit's children, who are current
+                $members = $this->assignment_model->by_unit($units[0]['id'], $this->input->get("children") ? TRUE : FALSE);
+                if( ! $this->input->get('historic')) $members = $members->by_date('now');
+                $members = $members->order_by($this->input->get('order') ? $this->input->get('order') : 'rank');
+                $members = nest($members->get()->result_array()); // Get members of this unit, including members of this unit's children, who are current
                 $units = $this->members_in_parents($members, $units, 'unit_id', 'id', 'members');
             }
             
