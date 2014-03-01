@@ -10,6 +10,7 @@ define([
     ,"models/user"
     ,"models/event"
     ,"models/enlistment"
+    ,"models/assignment"
     // Collections
     ,"collections/units"
     ,"collections/assignments"
@@ -23,6 +24,7 @@ define([
     ,"collections/qualifications"
     ,"collections/events"
     ,"collections/enlistments"
+    ,"collections/positions"
     // Views
     ,"views/member"
     ,"views/unit"
@@ -43,6 +45,7 @@ define([
     ,"views/enlistment"
     ,"views/enlistment_edit"
     ,"views/enlistment_process"
+    ,"views/assignment_edit"
     // Extras
     ,"handlebars.helpers"
     ,"jquery-bootstrap"
@@ -50,10 +53,10 @@ define([
     ,"fullcalendar"
 ], function(
     $, _, Backbone, Marionette, Handlebars, util
-    ,Member, User, Event, Enlistment
-    ,Units, Assignments, Permissions, Promotions, Awardings, MemberEnlistments, MemberAttendance, EventAttendance, UnitAttendance, Qualifications, Events, Enlistments
+    ,Member, User, Event, Enlistment, Assignment
+    ,Units, Assignments, Permissions, Promotions, Awardings, MemberEnlistments, MemberAttendance, EventAttendance, UnitAttendance, Qualifications, Events, Enlistments, Positions
     ,MemberView, UnitView, RosterView, NavView, MemberAdminView, MemberProfileView, MemberEditView, ServiceRecordView, MemberAttendanceView
-    ,UnitAttendanceView, QualificationsView, CalendarView, EventView, AARView, FlashView, EnlistmentsView, EnlistmentView, EnlistmentEditView, EnlistmentProcessView
+    ,UnitAttendanceView, QualificationsView, CalendarView, EventView, AARView, FlashView, EnlistmentsView, EnlistmentView, EnlistmentEditView, EnlistmentProcessView, AssignmentEditView
 ) {
     "use strict";
     
@@ -64,7 +67,6 @@ define([
             ,"units/:filter": "unit"
             ,"members/:id/*path": "member"
             ,"members/:id": "member"
-            ,"assignments/:id/edit": "assignment_edit"
             ,"calendar": "calendar"
             ,"events/:id": "event"
             ,"events/:id/aar": "aar"
@@ -73,6 +75,7 @@ define([
             ,"enlistments/:id": "enlistment"
             ,"enlistments": "enlistments"
             ,"enlist": "enlistment_edit"
+            ,"assignments/:id/edit": "assignment_edit"
         }
         ,initialize: function(options) {
             options = options || {};
@@ -236,22 +239,6 @@ define([
                 if(pageView) memberLayout.pageRegion.show(pageView);
             });
         }
-        ,assignment_edit: function(id) {
-            var self = this
-                ,promises = []
-                //,assignment = new Assignment({id: id})
-                ,units = new Units(null, {active: true, children: true, flat: true});
-                //,view = new AssignmentEditView({model: assignment});
-                
-            this.app.navRegion.currentView.setHighlight("roster");
-            promises.push(units.fetch());
-            
-            $.when.apply($, promises).done(function() {
-                var data = units.toJSON();
-                console.log(data); 
-                //self.showView(view);
-            });
-        }
         ,calendar: function() {
             var self = this
                 ,promises = []
@@ -405,6 +392,21 @@ define([
             
             $.when.apply($, promises).done(function() {
                 self.showView(enlistmentProcessView);
+            });
+        }
+        ,assignment_edit: function(id) {
+            var self = this
+                ,promises = []
+                ,assignment = new Assignment({id: id})
+                ,units = new Units(null, {active: true, children: true, flat: true})
+                ,positions = new Positions(null, {order: "name"})
+                ,view = new AssignmentEditView({model: assignment, units: units, positions: positions});
+                
+            this.app.navRegion.currentView.setHighlight("roster");
+            promises.push(assignment.fetch(), units.fetch(), positions.fetch());
+            
+            $.when.apply($, promises).done(function() {
+                self.showView(view);
             });
         }
     });

@@ -2,7 +2,7 @@
     <div class="form-group">
         <label for="unit_id">Unit</label>
         <select class="form-control" name="unit_id" id="unit_id">
-            {{#select unit_id}}
+            {{#select unit.id}}
             <option value="">Select...</option>
             {{#each units}}
             <option value="{{ this.id }}">{{ this.abbr }}</option>
@@ -13,7 +13,7 @@
     <div class="form-group">
         <label for="position_id">Position</label>
         <select class="form-control" name="position_id" id="position_id">
-            {{#select position_id}}
+            {{#select position.id}}
             <option value="">Select...</option>
             {{#each positions}}
             <option value="{{ this.id }}">{{ this.name }}</option>

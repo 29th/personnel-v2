@@ -8,29 +8,30 @@ define([
     
     return Backbone.Marionette.ItemView.extend({
         template: Template
-        ,title: "Modify Enlistment"
+        ,title: "Modify Assignment"
         ,events: {
             "submit form": "onSubmitForm"
         }
         ,initialize: function(options) {
             options = options || {};
-            this.tps = options.tps || {};
+            this.units = options.units || {};
+            this.positions = options.positions || {};
             _.bindAll(this, "onSubmitForm");
-            this.ages = [];
-            var i;
-            for(i = 13; i <= 99; i++) { this.ages.push(i); }
         }
         ,serializeData: function() {
-            return $.extend({ages: this.ages, tps: this.units.length ? this.units.at(0).get("children").toJSON() : {}}, this.model.toJSON());
+            return $.extend({units: this.units.length ? this.units.toJSON() : {}, positions: this.positions.length ? this.positions.toJSON() : {}}, this.model.toJSON());
         }
         ,onSubmitForm: function(e) {
             e.preventDefault();
-            var enlistmentId = this.model.get("id");
-            this.model.save($(e.currentTarget).serializeObject(), {
+            var data = $(e.currentTarget).serializeObject()
+                ,memberId = this.model.get("member").id;
+            this.model.save(data, {
                 method: "POST"
                 ,patch: true
+                ,data: data
+                ,processData: true
                 ,success: function() {
-                    Backbone.history.navigate("enlistments/" + enlistmentId, {trigger: true});
+                    Backbone.history.navigate("members/" + memberId + "/servicerecord", {trigger: true});
                 }
                 //,error: function() {console.log("ERROR!!!")}
             });
