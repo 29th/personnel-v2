@@ -8,6 +8,7 @@ var gulp = require("gulp"),
     minifyHTML = require("gulp-minify-html"),
     wrap = require("gulp-wrap-umd"),
     uglify = require("gulp-uglify"),
+    es = require("event-stream"),
     
     dir = {
         dev: "./app/",
@@ -19,9 +20,14 @@ gulp.task("default", ["clean", "umd"], function() {
 });
 
 gulp.task("umd", function() {
-    return gulp.src(dir.dev + "vendor/nprogress/nprogress.js")
-        .pipe(wrap({exports: "NProgress", deps: ["jquery"]}))
-        .pipe(gulp.dest(dir.dev + "vendor/nprogress/umd"));
+    return es.concat(
+        gulp.src(dir.dev + "vendor/bootstrap-datepicker/js/bootstrap-datepicker.js")
+            .pipe(wrap({deps: ["jquery"]}))
+            .pipe(gulp.dest(dir.dev + "vendor/umd")),
+        gulp.src(dir.dev + "vendor/nprogress/nprogress.js")
+            .pipe(wrap({exports: "NProgress", deps: ["jquery"]}))
+            .pipe(gulp.dest(dir.dev + "vendor/umd"))
+    );
 });
 
 gulp.task("scripts", function() {
@@ -47,13 +53,14 @@ gulp.task("scripts", function() {
             "fullcalendar": "empty:",
             
             // UMD Wrapped
-            "nprogress": "../vendor/nprogress/umd/nprogress",
+            "nprogress": "../vendor/umd/nprogress",
+            "bootstrap-datepicker": "../vendor/umd/bootstrap-datepicker",
             
             // Replaced
             "config": "config.prod"
         }
     })
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest(dir.prod + "scripts/"));
 });
     
@@ -61,6 +68,7 @@ gulp.task("styles", function() {
     return gulp.src([
         dir.dev + "vendor/nprogress/nprogress.css",
         dir.dev + "vendor/fullcalendar/fullcalendar.css",
+        dir.dev + "vendor/bootstrap-datepicker/css/datepicker3.css",
         dir.dev + "styles/main.css"
     ])
         .pipe(concat("main.min.css"))

@@ -41,6 +41,8 @@ window.requirejs = window.requirejs || {};
             ]
             ,"nprogress": "../vendor/nprogress/nprogress"
             ,"bbcode": "../vendor/bbcode/src/bbcode"
+            ,"bootstrap-datepicker": "../vendor/bootstrap-datepicker/js/bootstrap-datepicker"
+            
             ,"text": "../vendor/text/text"
             ,"hbs": "../vendor/requirejs-hbs/hbs"
             ,"json": "../vendor/requirejs-plugins/src/json"
@@ -72,6 +74,9 @@ window.requirejs = window.requirejs || {};
             }
             ,"nprogress": {
                 exports: "NProgress"
+            }
+            ,"bootstrap-datepicker": {
+                deps: ["jquery"]
             }
             ,"handlebars.helpers": {
                 deps: ["handlebars"]

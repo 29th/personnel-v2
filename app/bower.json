@@ -30,7 +30,8 @@
     "requirejs-hbs": "*",
     "text": "~2.0.10",
     "requirejs-plugins": "~1.0.2",
-    "bbcode": "*"
+    "bbcode": "*",
+    "bootstrap-datepicker": "~1.3.0"
   },
   "resolutions": {
     "jquery": "~2.1.0"
