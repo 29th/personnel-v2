@@ -261,5 +261,27 @@ define(["jquery", "underscore", "handlebars", "moment", "bbcode"], function($, _
     Handlebars.registerHelper('past', function(date) {
         return moment(date).isBefore(moment());
     });
+     
+    Handlebars.registerHelper('award_img_name', function(award) {
+      var beg = award.substr(0,2),
+          re  = award;
+      switch ( beg )
+      {
+        case "m:":
+           re = "marks";
+           break;
+        case "s:":
+           re = "sharps";
+           break;
+        case "e:":
+           re = "expert";
+           break;
+      } 
+      return re;
+    });
 
+    Handlebars.registerHelper('str_replace', function(str, from, to) {
+        return str.replace( from, to );
+    });
+     
 });
