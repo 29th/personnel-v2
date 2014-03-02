@@ -98,3 +98,9 @@ if( ! function_exists('cast_fieldtypes')) {
         return $record;
     }
 }
+
+if( ! function_exists('whitelist')) {
+    function whitelist($data, $fields) {
+        return array_intersect_key($data, array_flip($fields));
+    }
+}

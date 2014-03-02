@@ -7,17 +7,23 @@ class Awards extends MY_Controller {
         $this->load->library('form_validation');
     }
     
+    /**
+     * INDEX
+     */
     public function index_get() {
         $awards = $this->award_model->get()->result();
         $this->response(array('status' => true, 'awards' => $awards));
     }
     
+    /**
+     * VIEW
+     */
     public function view_get($award_id) {
         $award = $this->award_model->get_by_id($award_id);
         $this->response(array('status' => true, 'award' => $award));
     }
     
-    public function index_post() {
+    /*public function index_post() {
         if($this->form_validation->run('award_add') === FALSE) {
             $this->response(array('status' => false, 'error' => $this->form_validation->get_error_array()));
         } else {
@@ -38,5 +44,5 @@ class Awards extends MY_Controller {
     public function view_delete($award_id) {
         $this->award_model->delete($award_id);
         $this->response(array('status' => true));
-    }
+    }*/
 }

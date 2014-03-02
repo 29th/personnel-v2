@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class MY_Model extends CI_Model {
-    var $virtual_fields = array(
+    /*var $virtual_fields = array(
         'depth' => 'LENGTH(units.`path`) - (LENGTH(REPLACE(units.`path`, "/", "")))',
         'parent_id' => 'NULLIF(SUBSTRING_INDEX(SUBSTRING_INDEX(units.`path`, "/", -2), "/", 1), "")',
         'unit_key' => 'REPLACE(REPLACE(REPLACE(REPLACE(units.`abbr`, " HQ", ""), " Co", ""), ".", ""), " ", "")',
@@ -9,9 +9,6 @@ class MY_Model extends CI_Model {
         'full_name' => 'CONCAT(members.`first_name`, " ", IF(members.`middle_name` != "", CONCAT(LEFT(members.`middle_name`, 1), ". "), ""), members.`last_name`)',
     );
     
-    /**
-     * Update or Insert record
-     */
     public function save($table, $data, $id = FALSE, $id_field = 'id') {
         if($id !== FALSE) {
             $this->db->where($id_field, $id);
@@ -24,7 +21,7 @@ class MY_Model extends CI_Model {
     
     public function get_affected_rows() { return $this->db->affected_rows(); }
     
-    public function get_num_rows() { return $this->db->num_rows(); }
+    public function get_num_rows() { return $this->db->num_rows(); }*/
 }
 
 /**
@@ -418,7 +415,8 @@ class CRUD_Model extends CI_Model {
 
             $run = $this->form_validation->run();
 
-            $this->validation_errors = validation_errors();
+            //$this->validation_errors = validation_errors();
+            $this->validation_errors = $this->form_validation->get_error_array();
 
             return $run;
         }

@@ -74,6 +74,63 @@ class Assignment_model extends CRUD_Model {
     public $table = 'assignments';
     public $primary_key = 'assignments.id';
     
+    public function validation_rules_add() {
+        return array(
+            array(
+                'field' => 'member_id'
+                ,'rules' => 'required|numeric'
+            )
+            ,array(
+                'field' => 'unit_id'
+                ,'rules' => 'required|numeric'
+            )
+            ,array(
+                'field' => 'position_id'
+                ,'rules' => 'required|numeric'
+            )
+            ,array(
+                'field' => 'access_level'
+                ,'rules' => 'numeric|greater_than[-1]|less_than[2]'
+            )
+        );
+    }
+    
+    public function validation_rules_edit() {
+        return array(
+            array(
+                'field' => 'member_id'
+                ,'rules' => 'numeric'
+            )
+            ,array(
+                'field' => 'unit_id'
+                ,'rules' => 'numeric'
+            )
+            ,array(
+                'field' => 'position_id'
+                ,'rules' => 'numeric'
+            )
+            ,array(
+                'field' => 'access_level'
+                ,'rules' => 'numeric|greater_than[-1]|less_than[2]'
+            )
+        );
+    }
+    
+    public function db_array() {
+        $db_array = parent::db_array();
+        
+        // Clean dates or set them to NULL if they're empty
+        if(isset($db_array['start_date'])) {
+            $db_array['start_date'] = $db_array['start_date'] ? format_date($db_array['start_date'], 'mysqldate') : NULL;
+        }
+        
+        if(isset($db_array['end_date'])) {
+            $db_array['end_date'] = $db_array['end_date'] ? format_date($db_array['end_date'], 'mysqldate') : NULL;
+        }
+        
+        return $db_array;
+    }
+    
     public function default_select() {
         $this->db->select('assignments.id, assignments.start_date, assignments.end_date, assignments.unit_id, assignments.access_level') // Leave `unit_id` for tree sorting
             ->select('units.id AS `unit|id`, units.abbr AS `unit|abbr`, units.name AS `unit|name`, ' . $this->virtual_fields['unit_key'] . ' AS `unit|key`, units.class AS `unit|class`, units.path AS `unit|path`, ' . $this->virtual_fields['depth'] . ' AS `unit|depth`', FALSE)

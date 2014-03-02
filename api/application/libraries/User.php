@@ -103,7 +103,8 @@ class User {
         else if($unit_id) {
             $this->merge_permissions($permissions, $this->get_viewing_unit_permissions($unit_id));
         }
-        else {
+        // Make sure neither were 0
+        else if($member_id == FALSE && $unit_id == FALSE) {
             // Class Permissions
             $this->merge_permissions($permissions, $this->get_class_permissions());
             

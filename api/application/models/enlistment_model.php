@@ -4,6 +4,151 @@ class Enlistment_model extends CRUD_Model {
     public $table = 'enlistments';
     public $primary_key = 'enlistments.id';
     
+    // Controller adds member_id, status, date
+    // array('first_name', 'middle_name', 'last_name', 'age', 'country_id', 'timezone', 'game', 'ingame_name', 'steam_name', 'steam_id', 'experience', 'recruiter', 'comments')
+    public function validation_rules_add() {
+        return array(
+            array(
+                'field' => 'member_id'
+                ,'rules' => 'required|numeric'
+            )
+            ,array(
+                'field' => 'date'
+                ,'rules' => 'required'
+            )
+            ,array(
+                'field' => 'first_name'
+                ,'rules' => 'required|max_length[30]'
+            )
+            ,array(
+                'field' => 'last_name'
+                ,'rules' => 'required|max_length[40]'
+            )
+            ,array(
+                'field' => 'age'
+                ,'rules' => 'required|numeric'
+            )
+            ,array(
+                'field' => 'country_id'
+                ,'rules' => 'required|numeric'
+            )
+            ,array(
+                'field' => 'timezone'
+                ,'rules' => 'required'
+            )
+            ,array(
+                'field' => 'game'
+                ,'rules' => 'required'
+            )
+            ,array(
+                'field' => 'ingame_name'
+                ,'rules' => 'max_length[60]'
+            )
+            ,array(
+                'field' => 'steam_name'
+                ,'rules' => 'max_length[60]'
+            )
+            ,array(
+                'field' => 'steam_id'
+                ,'rules' => 'numeric'
+            )
+            ,array(
+                'field' => 'experience'
+                ,'rules' => 'required'
+            )
+            ,array(
+                'field' => 'recruiter'
+                ,'rules' => 'max_length[128]'
+            )
+        );
+    }
+    
+    // array('first_name', 'middle_name', 'last_name', 'age', 'country_id', 'timezone', 'game', 'ingame_name', 'steam_name', 'steam_id', 'experience', 'recruiter', 'comments')
+    public function validation_rules_edit() {
+        return array(
+            ,array(
+                'field' => 'first_name'
+                ,'rules' => 'max_length[30]'
+            )
+            ,array(
+                'field' => 'last_name'
+                ,'rules' => 'max_length[40]'
+            )
+            ,array(
+                'field' => 'age'
+                ,'rules' => 'numeric'
+            )
+            ,array(
+                'field' => 'country_id'
+                ,'rules' => 'numeric'
+            )
+            /*,array(
+                'field' => 'timezone'
+                ,'rules' => ''
+            )*/
+            /*,array(
+                'field' => 'game'
+                ,'rules' => ''
+            )*/
+            ,array(
+                'field' => 'ingame_name'
+                ,'rules' => 'max_length[60]'
+            )
+            ,array(
+                'field' => 'steam_name'
+                ,'rules' => 'max_length[60]'
+            )
+            ,array(
+                'field' => 'steam_id'
+                ,'rules' => 'numeric'
+            )
+            /*,array(
+                'field' => 'experience'
+                ,'rules' => ''
+            )*/
+            ,array(
+                'field' => 'recruiter'
+                ,'rules' => 'max_length[128]'
+            )
+        );
+    }
+    
+    // array('status', 'unit_id', 'recruiter_member_id')
+    public function validation_rules_process() {
+        return array(
+            ,array(
+                'field' => 'status'
+                ,'rules' => 'required'
+            )
+            ,array(
+                'field' => 'unit_id'
+                ,'rules' => 'numeric'
+            )
+            ,array(
+                'field' => 'recruiter_member_id'
+                ,'rules' => 'numeric'
+            )
+        );
+    }
+    
+    public function db_array() {
+        $db_array = parent::db_array();
+        
+        // Clean date
+        if(isset($db_array['date'])) {
+            $db_array['date'] = format_date($db_array['date'], 'mysqldate');
+        }
+        
+        if(isset($db_array['unit_id']) && ! $db_array['unit_id']) $db_array['unit_id'] = NULL;
+        
+        // Only use first letter of middle_name
+        if(isset($db_array['middle_name'])) {
+            $db_array['middle_name'] = substr($db_array['middle_name'], 0, 1);
+        }
+        
+        return $db_array;
+    }
+    
     public function default_select() {
         $this->db->select('SQL_CALC_FOUND_ROWS enlistments.*', FALSE) // SQL_CALC_FOUND_ROWS allows a COUNT after the query
             ->select('units.id AS `unit|id`, units.abbr AS `unit|abbr`')

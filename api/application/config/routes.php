@@ -50,6 +50,7 @@ $route['members/(:num)/assignments/(:num)'] = 'members/assignments/$1/$2';
 $route['members/(:num)/attendance/(:num)/(:num)'] = 'members/attendance/$1/$2/$3';
 $route['members/(:num)/attendance'] = 'members/attendance/$1';
 $route['members/(:num)/enlistments'] = 'members/enlistments/$1';
+$route['members/(:num)/discharges'] = 'members/discharges/$1';
 $route['members/(:num)/discharge'] = 'members/discharge/$1';
 $route['members/(:num)/coat'] = 'members/coat/$1';
 $route['members/(:num)'] = 'members/basic/$1';

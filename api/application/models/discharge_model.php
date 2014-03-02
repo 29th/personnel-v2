@@ -1,8 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Awarding_model extends CRUD_Model {
-    public $table = 'awardings';
-    public $primary_key = 'awardings.id';
+class Discharge_model extends CRUD_Model {
+    public $table = 'discharges';
+    public $primary_key = 'discharges.id';
     
     public function validation_rules_add() {
         return array(
@@ -15,8 +15,20 @@ class Awarding_model extends CRUD_Model {
                 ,'rules' => 'required'
             )
             ,array(
-                'field' => 'award_id'
-                ,'rules' => 'required|numeric'
+                'field' => 'type'
+                ,'rules' => 'required'
+            )
+            ,array(
+                'field' => 'reason'
+                ,'rules' => 'required'
+            )
+            ,array(
+                'field' => 'reason'
+                ,'rules' => 'required'
+            )
+            ,array(
+                'field' => 'was_reversed'
+                ,'rules' => 'numeric|greater_than[-1]|less_than[2]'
             )
             ,array(
                 'field' => 'topic_id'
@@ -35,9 +47,21 @@ class Awarding_model extends CRUD_Model {
                 'field' => 'date'
                 ,'rules' => ''
             )*/
+            /*,array(
+                'field' => 'type'
+                ,'rules' => ''
+            )*/
+            /*,array(
+                'field' => 'reason'
+                ,'rules' => ''
+            )*/
+            /*,array(
+                'field' => 'reason'
+                ,'rules' => ''
+            )*/
             ,array(
-                'field' => 'award_id'
-                ,'rules' => 'numeric'
+                'field' => 'was_reversed'
+                ,'rules' => 'numeric|greater_than[-1]|less_than[2]'
             )
             ,array(
                 'field' => 'topic_id'
@@ -58,15 +82,16 @@ class Awarding_model extends CRUD_Model {
     }
     
     public function default_select() {
-        $this->db->select('awardings.id, awardings.date, awardings.topic_id') // Add awardings.forum_id
-            ->select('a.code AS `award|abbr`, a.title AS `award|name`, a.image AS `award|filename`'); // Change code to abbr, title to name, image to filename
+        $this->db->select('SQL_CALC_FOUND_ROWS discharges.*, members.id AS `member|id`', FALSE)
+            ->select($this->virtual_fields['short_name'] . ' AS `member|short_name`', FALSE);
     }
     
     public function default_join() {
-        $this->db->join('awards as a', 'a.id = awardings.award_id');
+        $this->db->join('members', 'members.id = discharges.member_id')
+            ->join('ranks', 'ranks.id = members.rank_id');
     }
     
     public function default_order_by() {
-        $this->db->order_by('awardings.date DESC');
+        $this->db->order_by('discharges.date DESC');
     }
 }

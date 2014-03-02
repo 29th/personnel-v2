@@ -12,6 +12,7 @@ class Members extends MY_Controller {
         $this->load->model('assignment_model');
         $this->load->model('attendance_model');
         $this->load->model('enlistment_model');
+        $this->load->model('discharge_model');
         $this->load->library('form_validation');
     }
     
@@ -278,6 +279,20 @@ class Members extends MY_Controller {
     
     /**
      * Discharge
+     */
+    
+    public function discharges_get($member_id) {
+        if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
+            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+        }
+        else {
+            $discharges = nest($this->discharge_model->where('discharges.member_id', $member_id)->get()->result_array());
+            $this->response(array('status' => true, 'discharges' => $discharges));
+        }
+    }
+    
+    /**
+     * Execute Discharge
      */
     public function discharge_post($member_id) {
         if( ! $this->user->permission('discharge', $member_id) && ! $this->user->permission('discharge_any')) {
