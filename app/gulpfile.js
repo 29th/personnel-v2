@@ -9,6 +9,7 @@ var gulp = require("gulp"),
     wrap = require("gulp-wrap-umd"),
     uglify = require("gulp-uglify"),
     es = require("event-stream"),
+    beautify = require("gulp-beautify"),
     
     dir = {
         dev: "./app/",
@@ -100,4 +101,14 @@ gulp.task("clean", function() {
         "!" + dir.prod + "CNAME"
     ], {read: false})
         .pipe(clean());
+});
+
+gulp.task("beautify", function() {
+    return gulp.src(dir.dev + "scripts/router.js")
+        .pipe(beautify({
+            indentSize: 1,
+            indentChar: "\t",
+            keepArrayIndentation: true
+        }))
+        .pipe(gulp.dest(dir.dev + "scripts/beautified"));
 });

@@ -27,6 +27,10 @@ define([
                 };
             this.model.save(data, {
                 method: "POST"
+                ,patch: true
+                ,data: data
+                ,processData: true
+                ,url: this.model.url() + "/aar"
                 ,success: function() {
                     Backbone.history.navigate("events/" + eventId, {trigger: true});
                 }

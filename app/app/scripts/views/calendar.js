@@ -5,6 +5,7 @@ define([
     ,"util"
     ,"hbs!templates/calendar"
     ,"marionette"
+    ,"fullcalendar"
 ], function($, _, Backbone, util, CalendarTemplate) {
     var CalendarView = Backbone.Marionette.ItemView.extend({
         template: CalendarTemplate

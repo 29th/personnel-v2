@@ -42,6 +42,7 @@ window.requirejs = window.requirejs || {};
             ,"nprogress": "../vendor/nprogress/nprogress"
             ,"bbcode": "../vendor/bbcode/src/bbcode"
             ,"bootstrap-datepicker": "../vendor/bootstrap-datepicker/js/bootstrap-datepicker"
+            ,"backbone.validation": "../vendor/backbone.validation/dist/backbone-validation-amd-min"
             
             ,"text": "../vendor/text/text"
             ,"hbs": "../vendor/requirejs-hbs/hbs"
@@ -80,6 +81,9 @@ window.requirejs = window.requirejs || {};
             }
             ,"handlebars.helpers": {
                 deps: ["handlebars"]
+            }
+            ,"backbone.validation": {
+                deps: ["jquery", "underscore", "backbone"]
             }
         }
         ,hbs: { templateExtension: ".html" }

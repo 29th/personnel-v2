@@ -19,10 +19,13 @@ define([
         }
         ,onSubmitForm: function(e) {
             e.preventDefault();
-            var memberId = this.model.get("id");
-            this.model.save($(e.currentTarget).serializeObject(), {
+            var data = $(e.currentTarget).serializeObject()
+                ,memberId = this.model.get("id");
+            this.model.save(data, {
                 method: "POST"
                 ,patch: true
+                ,data: data
+                ,processData: true
                 ,success: function() {
                     Backbone.history.navigate("members/" + memberId, {trigger: true});
                 }

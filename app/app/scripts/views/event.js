@@ -19,7 +19,11 @@ define([
             options = options || {};
             _.bindAll(this, "onClickLOA");
             this.user = options.user || {};
+            this.permissions = options.permissions || {};
+            this.permissions.on("reset", this.render, this);
+            
             this.unitPermissions = options.unitPermissions || {};
+            this.unitPermissions.on("reset", this.render, this);
         }
         ,onBeforeRender: function() {
             var user_id = this.options.user.get("id")
@@ -31,7 +35,10 @@ define([
             if(this.model.get("unit").abbr) this.title = this.model.get("unit").abbr + " " + this.model.get("type");
         }
         ,serializeData: function() {
-            return _.extend({items: this.unitPermissions.pluck("abbr")}, this.model.toJSON());
+            return _.extend({
+                permissions: this.permissions.length ? this.permissions.pluck("abbr") : []
+                ,unitPermissions: this.unitPermissions.length ? this.unitPermissions.pluck("abbr") : []
+            }, this.model.toJSON());
         }
         ,isExpected: function(event) {
             var expected = false;

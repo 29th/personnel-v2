@@ -36,5 +36,6 @@ define([
                 //,error: function() {console.log("ERROR!!!")}
             });
         }
+        ,validation: {}
     });
 });

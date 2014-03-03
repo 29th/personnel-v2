@@ -50,7 +50,7 @@ define([
     ,"handlebars.helpers"
     ,"jquery-bootstrap"
     ,"moment"
-    ,"fullcalendar"
+    ,"backbone.validation"
 ], function(
     $, _, Backbone, Marionette, Handlebars, util
     ,Member, User, Event, Enlistment, Assignment
@@ -92,7 +92,7 @@ define([
             util.scrollToTop();
         }
         ,flash: function(msg, type) {
-            console.log("Error", msg, type);
+            //console.log("Error", msg, type);
             var flashView = new FlashView({msg: msg, type: type});
             this.app.flashRegion.show(flashView);
         }
@@ -161,7 +161,6 @@ define([
                 // Models & Collections
                 ,member = new Member({id: id})
                 ,assignments = new Assignments(null, {member_id: id})
-                ,permissions = this.permissions
                 ,memberPermissions = new Permissions(null, {member_id: id}); // User permissions on member being viewed
             
             // Fetch permissions if they haven't been fetched yet
@@ -261,13 +260,21 @@ define([
                 ,userAssignments = new Assignments(null, {current: true}) // Omit member_id to get user's assignments
                 ,event = new Event({id: id})
                 ,eventAttendance = new EventAttendance(null, {id: id})
-                ,unitPermissions = new Permissions() // User permissions on member being viewed
-                ,eventView = new EventView({model: event, collection: eventAttendance, user: this.user, userAssignments: userAssignments, unitPermissions: unitPermissions});
+                ,unitPermissions = new Permissions(); // User permissions on member being viewed
+            
+            // Fetch permissions if they haven't been fetched yet
+            if( ! this.permissions) {
+                this.permissions = new Permissions();
+                promises.push(this.permissions.fetch());
+            }
+            
+            // Views
+            var eventView = new EventView({model: event, collection: eventAttendance, user: this.user, userAssignments: userAssignments, permissions: this.permissions, unitPermissions: unitPermissions})
                 
             // Watch fetch event to show loading indicator (LOA)
-            eventAttendance.on("request", function() { util.loading(true); })
+            /*eventAttendance.on("request", function() { util.loading(true); })
                 .on("sync", function() { util.loading(false); })
-                .on("error", function(model, xhr) { self.flash(xhr.responseJSON.error || "", "error"); util.loading(false); });
+                .on("error", function(model, xhr) { self.flash(xhr.responseJSON.error || "", "error"); util.loading(false); });*/
             
             this.app.navRegion.currentView.setHighlight("calendar");
             promises.push(event.fetch(), userAssignments.fetch());

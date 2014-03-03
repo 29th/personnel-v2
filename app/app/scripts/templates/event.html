@@ -12,9 +12,9 @@
             </div>
             
         {{/and}}
-        {{#if_inarray "event_aar" compare=items}}
+        {{#or (if_inarray 'event_aar' compare=unitPermissions) (if_inarray 'event_aar_any' compare=permissions) }}
             <a href="#events/{{ id }}/aar" class="btn btn-default pull-right"><span class="glyphicon glyphicon-list"></span> Post AAR</a>
-        {{/if_inarray}}
+        {{/or}}
     </div>
 </div>
 {{#if user_expected}}You {{#if (past datetime)}}were{{else}}are{{/if}} expected to attend{{/if}}
