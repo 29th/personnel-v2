@@ -62,11 +62,9 @@ class Enlistments extends MY_Controller {
         }
         // Form validation for both models
         else if($this->enlistment_model->run_validation('validation_rules_add') === FALSE) {
-		die('here');
             $this->response(array('status' => false, 'error' => $this->enlistment_model->validation_errors), 400);
         }
         else if($this->member_model->run_validation('validation_rules_add') === FALSE) {
-		die('there');
             $this->response(array('status' => false, 'error' => $this->member_model->validation_errors), 400);
         }
         // Create record

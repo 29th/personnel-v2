@@ -33,7 +33,7 @@ class Units extends MY_Controller {
      */
     public function view_get($filter = FALSE) {
 		// Must have permission to view any member's profile
-		if( ! $this->user->permission('profile_view_any') {
+		if( ! $this->user->permission('profile_view_any')) {
 			$this->response(array('status' => false, 'error' => 'Permission denied'), 403);
 		}
 		// View record(s)

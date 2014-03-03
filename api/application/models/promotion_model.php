@@ -39,7 +39,7 @@ class Promotion_model extends CRUD_Model {
                 'field' => 'date'
                 ,'rules' => ''
             )*/
-            ,array(
+            array(
                 'field' => 'old_rank_id'
                 ,'rules' => 'numeric'
             )
