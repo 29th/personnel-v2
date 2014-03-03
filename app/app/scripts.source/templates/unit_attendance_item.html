@@ -1,0 +1,8 @@
+<td><a href="#events/{{ this.event.id }}">{{dateFormat this.event.datetime format="ll HH:mm"}}</a></td>
+<td><a href="#units/{{ this.unit.key }}">{{str_replace this.unit.abbr "HQ" ""}}</a></td>
+<td>
+    {{#if this.event.mandatory}}<span class="label label-info">Mandatory</span>{{/if}}
+    {{ this.event.type }}
+</td>
+<td>{{ attended }} / {{add attended absent}}</td>
+<td>{{subtract absent excused }}</td>

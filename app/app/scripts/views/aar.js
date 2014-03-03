@@ -1,38 +1,44 @@
 define([
     "jquery"
-    ,"underscore"
-    ,"backbone"
-    ,"hbs!templates/aar"
-    ,"marionette"
-], function($, _, Backbone, Template) {
-    
+    , "underscore"
+    , "backbone"
+    , "hbs!templates/aar"
+    , "marionette"
+    ], function ($, _, Backbone, Template) {
+
     return Backbone.Marionette.Layout.extend({
-        template: Template
-        ,regions: {
+        template: Template,
+        regions: {
             "attendanceRegion": "#attendance"
-        }
-        ,events: {
+        },
+        events: {
             "submit form": "onSubmitForm"
-        }
-        ,initialize: function() {
+        },
+        initialize: function () {
             _.bindAll(this, "onSubmitForm");
-        }
-        ,onSubmitForm: function(e) {
+        },
+        onSubmitForm: function (e) {
             e.preventDefault();
-            var eventId = this.model.get("id")
-                ,data = {
-                    report: e.currentTarget.report.value
-                    ,attended: $("[name=\"attendance\"]:checked", e.currentTarget).map(function() { return $(this).val(); }).get()
-                    ,absent: $("[name=\"attendance\"]:not(:checked)", e.currentTarget).map(function() { return $(this).val(); }).get()
+            var eventId = this.model.get("id"),
+                data = {
+                    report: e.currentTarget.report.value,
+                    attended: $("[name=\"attendance\"]:checked", e.currentTarget).map(function () {
+                        return $(this).val();
+                    }).get(),
+                    absent: $("[name=\"attendance\"]:not(:checked)", e.currentTarget).map(function () {
+                        return $(this).val();
+                    }).get()
                 };
             this.model.save(data, {
-                method: "POST"
-                ,patch: true
-                ,data: data
-                ,processData: true
-                ,url: this.model.url() + "/aar"
-                ,success: function() {
-                    Backbone.history.navigate("events/" + eventId, {trigger: true});
+                method: "POST",
+                patch: true,
+                data: data,
+                processData: true,
+                url: this.model.url() + "/aar",
+                success: function () {
+                    Backbone.history.navigate("events/" + eventId, {
+                        trigger: true
+                    });
                 }
                 // TODO: Error handling, loading indicator
             });

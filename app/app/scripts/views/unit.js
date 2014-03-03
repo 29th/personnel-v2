@@ -1,31 +1,33 @@
 define([
     "jquery"
-    ,"underscore"
-    ,"backbone"
-    ,"hbs!templates/unit"
-    ,"marionette"
-], function($, _, Backbone, Template) {
+    , "underscore"
+    , "backbone"
+    , "hbs!templates/unit"
+    , "marionette"
+    ], function ($, _, Backbone, Template) {
     return Backbone.Marionette.Layout.extend({
-        template: Template
-        ,className: "unit"
-        ,title: "Unit"
-        ,initialize: function(options) {
+        template: Template,
+        className: "unit",
+        title: "Unit",
+        initialize: function (options) {
             options = options || {};
-        }
-        ,modelEvents: {
+        },
+        modelEvents: {
             "change": "render"
-        }
-        ,regions: {
-            adminRegion: "#admin"
-            ,pageRegion: "#page"
-        }
-        ,setHighlight: function(highlight) {
+        },
+        regions: {
+            adminRegion: "#admin",
+            pageRegion: "#page"
+        },
+        setHighlight: function (highlight) {
             this.highlight = highlight;
             this.$(".nav li").removeClass("active");
-            if(highlight) this.$(".nav li[data-highlight=\"" + highlight + "\"]").addClass("active");
-        }
-        ,serializeData: function() {
-            return _.extend({highlight: this.highlight}, this.collection.at(0).toJSON());
+            if (highlight) this.$(".nav li[data-highlight=\"" + highlight + "\"]").addClass("active");
+        },
+        serializeData: function () {
+            return _.extend({
+                highlight: this.highlight
+            }, this.collection.at(0).toJSON());
         }
     });
 });

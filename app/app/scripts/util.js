@@ -3,43 +3,43 @@
  */
 define([
     "jquery"
-    ,"underscore"
-    ,"handlebars"
-    ,"nprogress"
-], function($, _, Handlebars, NProgress) {
+    , "underscore"
+    , "handlebars"
+    , "nprogress"
+    ], function ($, _, Handlebars, NProgress) {
     "use strict";
 
     var util = {};
-    
-    util.loading = function(status) {
+
+    util.loading = function (status) {
         //$("body").toggleClass("loading", status);
-        if(status !== undefined && status) NProgress.start();
+        if (status !== undefined && status) NProgress.start();
         else NProgress.done();
     };
 
-    util.scrollToTop = function() {
+    util.scrollToTop = function () {
         $(window).scrollTop(0);
     };
-    
+
     /**
      * Add commas to numbers in thousands place etc.
      * http://stackoverflow.com/a/2901298/633406
      */
-    util.formatNumber = function(x, decimals) {
-        if(isNaN(x) || x === null) return x;
-        if(decimals !== undefined) x = decimals ? Math.round(x * 100) / 100 : Math.round(x);
+    util.formatNumber = function (x, decimals) {
+        if (isNaN(x) || x === null) return x;
+        if (decimals !== undefined) x = decimals ? Math.round(x * 100) / 100 : Math.round(x);
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
-    
-    util.toLowerCase = function(value) {
+
+    util.toLowerCase = function (value) {
         return (value && typeof value === "string") ? value.toLowerCase() : value;
     };
     Handlebars.registerHelper('toLowerCase', util.toLowerCase);
-    
-    $.fn.serializeObject = function() {
+
+    $.fn.serializeObject = function () {
         var o = {};
         var a = this.serializeArray();
-        $.each(a, function() {
+        $.each(a, function () {
             if (o[this.name] !== undefined) {
                 if (!o[this.name].push) {
                     o[this.name] = [o[this.name]];
@@ -51,6 +51,6 @@ define([
         });
         return o;
     };
-    
+
     return util;
 });

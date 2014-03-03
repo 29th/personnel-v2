@@ -104,11 +104,9 @@ gulp.task("clean", function() {
 });
 
 gulp.task("beautify", function() {
-    return gulp.src(dir.dev + "scripts/router.js")
+    return gulp.src(dir.dev + "scripts/**/*")
         .pipe(beautify({
-            indentSize: 1,
-            indentChar: "\t",
             keepArrayIndentation: true
         }))
-        .pipe(gulp.dest(dir.dev + "scripts/beautified"));
+        .pipe(gulp.dest(dir.dev + "scripts.beautified"));
 });

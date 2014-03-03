@@ -1,0 +1,17 @@
+{{#each items}}
+    <h3>{{#unless_eq this.date compare="undefined"}}{{dateFormat this.date format="ll"}}{{else}}Unknown{{/unless_eq}}</h3>
+    {{#each this.items }}
+        {{#if this.position}}
+            <li>Assigned to <a href="#/units/{{ this.unit.key }}">{{#if_eq this.unit.class compare="Staff" }} {{ this.unit.name}} {{else}}  {{ this.unit.abbr }} {{/if_eq}}</a> as a {{ this.position.name }}</li>
+        {{/if}}
+        {{#if this.new_rank}}
+            <li> <img src="images/ranks/16x16/{{ new_rank.filename }}.png" title="{{ rank.name }}"> Promoted to {{ this.new_rank.name }}</li>
+        {{/if}}
+        {{#if this.award}}
+            <li> <img src="images/awards/{{#award_img_name this.award.abbr}}{{/award_img_name}}.gif" title="{{ this.award.name }}"> Awarded {{ this.award.name }}</li>
+        {{/if}}
+        {{#if this.status}}
+            <li><a href="#enlistments/{{ this.id }}">Enlisted</a>{{#if this.unit_id}} in the <a href="#units/{{ this.unit.key }}">{{ this.unit.abbr }}</a>{{/if}}</li>
+        {{/if}}
+    {{/each}}
+{{/each}}
