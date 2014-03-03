@@ -4,7 +4,7 @@ class Awarding extends MY_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('awarding_model');
-        $this->load->library('form_validation');
+        $this->load->library('servicecoat');
     }
     
     /**
@@ -46,13 +46,17 @@ class Awarding extends MY_Controller {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation
-        else if($this->form_validation->run('awarding_add') === FALSE) {
-            $this->response(array('status' => false, 'error' => $this->form_validation->get_error_array()), 400);
+        else if($this->awarding_model->run_validation('validation_rules_add') === FALSE) {
+            $this->response(array('status' => false, 'error' => $this->awarding_model->validation_errors), 400);
         }
         // Create record
         else {
             $data = whitelist($this->post(), 'member_id', 'date', 'award_id', 'topic_id');
             $insert_id = $this->awarding_model->save(NULL, $data);
+            
+            // Update service coat
+            $this->servicecoat->update($member_id);
+            
             $this->response(array('status' => $insert_id ? true : false, 'awarding' => $insert_id ? $this->awarding_model->get_by_id($insert_id) : null));
         }
     }
@@ -70,14 +74,18 @@ class Awarding extends MY_Controller {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation
-        else if($this->form_validation->run('awarding_add') === FALSE) {
-            $this->response(array('status' => false, 'error' => $this->form_validation->get_error_array()), 400);
+        else if($this->awarding_model->run_validation('validation_rules_edit') === FALSE) {
+            $this->response(array('status' => false, 'error' => $this->awarding_model->validation_errors), 400);
         }
         // Update record
         else {
-            $data = whitelist($this->post(), 'date', 'award_id', 'topic_id');
-            $this->awarding_model->save($awarding_id, $data);
-            $this->response(array('status' => true, 'awarding' => $this->awarding_model->get_by_id($awarding_id)));
+            $data = whitelist($this->post(), array('date', 'award_id', 'topic_id'));
+            $result = $this->awarding_model->save($awarding_id, $data);
+            
+            // Update service coat
+            $this->servicecoat->update($member_id);
+            
+            $this->response(array('status' => $result ? true : false, 'awarding' => $this->awarding_model->get_by_id($awarding_id)));
         }
     }
     
@@ -96,6 +104,10 @@ class Awarding extends MY_Controller {
         // Delete record
         else {
             $this->awarding_model->delete($awarding_id);
+            
+            // Update service coat
+            $this->servicecoat->update($member_id);
+            
             $this->response(array('status' => true));
         }
     }

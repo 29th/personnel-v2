@@ -4,7 +4,6 @@ class Awards extends MY_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('award_model');
-        $this->load->library('form_validation');
     }
     
     /**

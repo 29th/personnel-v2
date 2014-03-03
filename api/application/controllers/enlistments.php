@@ -6,7 +6,6 @@ class Enlistments extends MY_Controller {
         $this->load->model('member_model');
         $this->load->model('enlistment_model');
         $this->load->model('assignment_model');
-        $this->load->library('form_validation');
     }
     
     /**
@@ -61,9 +60,14 @@ class Enlistments extends MY_Controller {
         if( ! ($forum_member_id = $this->user->logged_in())) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
-        // Form validation
-        else if($this->form_validation->run('enlistment_add') === FALSE) {
-            $this->response(array('status' => false, 'error' => $this->form_validation->get_error_array()), 400);
+        // Form validation for both models
+        else if($this->enlistment_model->run_validation('validation_rules_add') === FALSE) {
+		die('here');
+            $this->response(array('status' => false, 'error' => $this->enlistment_model->validation_errors), 400);
+        }
+        else if($this->member_model->run_validation('validation_rules_add') === FALSE) {
+		die('there');
+            $this->response(array('status' => false, 'error' => $this->member_model->validation_errors), 400);
         }
         // Create record
         else {
@@ -96,8 +100,8 @@ class Enlistments extends MY_Controller {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation
-        else if($this->form_validation->run('enlistment_edit') === FALSE) {
-            $this->response(array('status' => false, 'error' => $this->form_validation->get_error_array()), 400);
+        else if($this->enlistment_model->run_validation('validation_rules_edit') === FALSE) {
+            $this->response(array('status' => false, 'error' => $this->enlistment_model->validation_errors), 400);
         }
         // Update record
         else {
@@ -116,8 +120,8 @@ class Enlistments extends MY_Controller {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation
-        else if($this->form_validation->run('enlistment_process') === FALSE) {
-            $this->response(array('status' => false, 'error' => $this->form_validation->get_error_array()), 400);
+        else if($this->enlistment_model->run_validation('validation_rules_process') === FALSE) {
+            $this->response(array('status' => false, 'error' => $this->enlistment_model->validation_errors), 400);
         }
         // Process enlistment
         else {

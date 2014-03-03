@@ -4,6 +4,72 @@ class Unit_model extends CRUD_Model {
     public $table = 'units';
     public $primary_key = 'units.id';
     
+    public function validation_rules_add() {
+        return array(
+            array(
+                'field' => 'name'
+                ,'rules' => 'required|max_length[64]'
+            )
+            ,array(
+                'field' => 'abbr'
+                ,'rules' => 'required|max_length[32]'
+            )
+            ,array(
+                'field' => 'path'
+                ,'rules' => 'required|max_length[32]'
+            )
+            ,array(
+                'field' => 'order'
+                ,'rules' => 'required|numeric'
+            )
+            ,array(
+                'field' => 'timezone'
+                ,'rules' => 'max_length[3]'
+            )
+			,array(
+                'field' => 'class'
+                ,'rules' => 'required'
+            )
+            ,array(
+                'field' => 'active'
+                ,'rules' => 'numeric|greater_than[-1]|less_than[2]'
+            )
+        );
+    }
+    
+    public function validation_rules_edit() {
+        return array(
+            array(
+                'field' => 'name'
+                ,'rules' => 'min_length[1]|max_length[64]'
+            )
+            ,array(
+                'field' => 'abbr'
+                ,'rules' => 'min_length[1]|max_length[32]'
+            )
+            ,array(
+                'field' => 'path'
+                ,'rules' => 'min_length[1]|max_length[32]'
+            )
+            ,array(
+                'field' => 'order'
+                ,'rules' => 'min_length[1]|numeric'
+            )
+            ,array(
+                'field' => 'timezone'
+                ,'rules' => 'max_length[3]'
+            )
+			,array(
+                'field' => 'class'
+                ,'rules' => 'min_length[1]'
+            )
+            ,array(
+                'field' => 'active'
+                ,'rules' => 'numeric|greater_than[-1]|less_than[2]'
+            )
+        );
+    }
+    
     public function default_select() {
         $this->db->select('units.*')
             ->select($this->virtual_fields['depth'] . ' AS depth', FALSE)

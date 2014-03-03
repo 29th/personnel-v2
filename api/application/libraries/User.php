@@ -159,7 +159,7 @@ class User {
         if($this->logged_in()) {
             //$this->load->model('assignment_model');
             //$classes = $this->assignment_model->get_classes($this->member('id'));
-            $classes = $this->member('classses');
+            $classes = $this->member('classes');
             $this->_member['class_permissions'] = nest($this->class_permission_model->by_classes($classes)->get()->result_array());
         }
         // Otherwise, a guest. Get guest class permissions

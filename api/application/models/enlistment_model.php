@@ -66,13 +66,13 @@ class Enlistment_model extends CRUD_Model {
     // array('first_name', 'middle_name', 'last_name', 'age', 'country_id', 'timezone', 'game', 'ingame_name', 'steam_name', 'steam_id', 'experience', 'recruiter', 'comments')
     public function validation_rules_edit() {
         return array(
-            ,array(
+            array(
                 'field' => 'first_name'
-                ,'rules' => 'max_length[30]'
+                ,'rules' => 'min_length[1]||max_length[30]'
             )
             ,array(
                 'field' => 'last_name'
-                ,'rules' => 'max_length[40]'
+                ,'rules' => 'min_length[1]||max_length[40]'
             )
             ,array(
                 'field' => 'age'
@@ -116,7 +116,7 @@ class Enlistment_model extends CRUD_Model {
     // array('status', 'unit_id', 'recruiter_member_id')
     public function validation_rules_process() {
         return array(
-            ,array(
+            array(
                 'field' => 'status'
                 ,'rules' => 'required'
             )

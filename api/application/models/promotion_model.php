@@ -4,6 +4,71 @@ class Promotion_model extends CRUD_Model {
     public $table = 'promotions';
     public $primary_key = 'promotions.id';
     
+    public function validation_rules_add() {
+        return array(
+            array(
+                'field' => 'member_id'
+                ,'rules' => 'required|numeric'
+            )
+            ,array(
+                'field' => 'date'
+                ,'rules' => 'required'
+            )
+            ,array(
+                'field' => 'old_rank_id'
+                ,'rules' => 'required|numeric'
+            )
+            ,array(
+                'field' => 'new_rank_id'
+                ,'rules' => 'required|numeric'
+            )
+            ,array(
+                'field' => 'forum_id'
+                ,'rules' => 'numeric'
+            )
+            ,array(
+                'field' => 'topic_id'
+                ,'rules' => 'numeric'
+            )
+        );
+    }
+    
+    public function validation_rules_edit() {
+        return array(
+            /*array(
+                'field' => 'date'
+                ,'rules' => ''
+            )*/
+            ,array(
+                'field' => 'old_rank_id'
+                ,'rules' => 'numeric'
+            )
+            ,array(
+                'field' => 'new_rank_id'
+                ,'rules' => 'numeric'
+            )
+            ,array(
+                'field' => 'forum_id'
+                ,'rules' => 'numeric'
+            )
+            ,array(
+                'field' => 'topic_id'
+                ,'rules' => 'numeric'
+            )
+        );
+    }
+    
+    public function db_array() {
+        $db_array = parent::db_array();
+        
+        // Clean date
+        if(isset($db_array['date'])) {
+            $db_array['date'] = format_date($db_array['date'], 'mysqldate');
+        }
+        
+        return $db_array;
+    }
+    
     public function default_select() {
         $this->db->select('promotions.id, promotions.date, promotions.forum_id, promotions.topic_id, promotions.member_id')
             ->select('r_old.id AS `old_rank|id`, r_old.order AS `old_rank|order`')

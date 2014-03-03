@@ -4,6 +4,78 @@ class Member_model extends CRUD_Model {
     public $table = 'members';
     public $primary_key = 'members.id';
     
+	// Done by enlistment controller
+	// array('last_name', 'first_name', 'middle_name', 'country_id')
+    public function validation_rules_add() {
+        return array(
+            array(
+                'field' => 'last_name'
+                ,'rules' => 'required|max_length[32]'
+            )
+            ,array(
+                'field' => 'first_name'
+                ,'rules' => 'required|max_length[32]'
+            )
+            ,array(
+                'field' => 'name_prefix'
+                ,'rules' => 'max_length[8]'
+            )
+            ,array(
+                'field' => 'country_id'
+                ,'rules' => 'numeric'
+            )
+            ,array(
+                'field' => 'rank_id'
+                ,'rules' => 'numeric'
+            )
+            ,array(
+                'field' => 'steam_id'
+                ,'rules' => 'numeric'
+            )
+        );
+    }
+    
+	//array('last_name', 'first_name', 'middle_name', 'name_prefix', 'country_id', 'rank_id', 'steam_id', 'email')
+    public function validation_rules_edit() {
+        return array(
+            array(
+                'field' => 'last_name'
+                ,'rules' => 'min_length[1]|max_length[32]'
+            )
+            ,array(
+                'field' => 'first_name'
+                ,'rules' => 'min_length[1]||max_length[32]'
+            )
+            ,array(
+                'field' => 'name_prefix'
+                ,'rules' => 'max_length[8]'
+            )
+            ,array(
+                'field' => 'country_id'
+                ,'rules' => 'numeric'
+            )
+            ,array(
+                'field' => 'rank_id'
+                ,'rules' => 'numeric'
+            )
+            ,array(
+                'field' => 'steam_id'
+                ,'rules' => 'numeric'
+            )
+        );
+    }
+    
+    public function db_array() {
+        $db_array = parent::db_array();
+        
+        // Only use first letter of middle_name
+        if(isset($db_array['middle_name'])) {
+            $db_array['middle_name'] = substr($db_array['middle_name'], 0, 1);
+        }
+        
+        return $db_array;
+    }
+    
     public function default_select() {
         $this->db->select('members.id, members.last_name, members.first_name, members.middle_name, members.name_prefix, members.steam_id, members.city, members.primary_assignment_id')
             ->select($this->virtual_fields['short_name'] . ' AS short_name, ' . $this->virtual_fields['full_name'] . ' AS full_name', FALSE)

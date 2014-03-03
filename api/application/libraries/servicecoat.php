@@ -29,6 +29,13 @@ class ServiceCoat {
 	//SC Positions
 		private $scMidMarksPos = array('x' => '545', 'y' => '316');
 		private $scMidRibPos = array('x' => '543', 'y' => '306');
+    
+    /**
+     * Enables the use of CI super-global without having to define an extra variable
+     */
+    public function __get($var) {
+        return get_instance()->$var;
+    }
 
 	public function __construct()
 	{
@@ -36,6 +43,7 @@ class ServiceCoat {
 		//Image Variables
 			$this->scImage = imagecreatefrompng($root . '../jacketimages/29th_ServiceJacket.png');
 			$this->scImageSig = imagecreatefrompng($root . '../jacketimages/29th_ServiceJacketSig.png');
+			$this->scImgSize = array();
 			$this->scImgSize['x'] = imagesx($this->scImage);
 			$this->scImgSize['y'] = imagesy($this->scImage);
 		//Address Variables	$this->scAccess;
@@ -53,6 +61,27 @@ class ServiceCoat {
 		//Other Variables
 			$this->scFourthInch = 7; //approx size of 1/4 an inch on the jacket
 			$this->scIsOfficer = false; //needed for cropping
+	}
+	
+	public function update($member_id) {
+	    $this->load->model('member_model');
+	    $this->load->model('awarding_model');
+	    
+        $member = nest($this->member_model->get_by_id($member_id));
+        $rank = str_replace( '/', '', str_replace('.', '', $member['rank']['abbr']) );
+        $unit = '29th';
+        //$awards = array('acamp', 'gcon', 'french', 'lom', 'aocc', 's:rifle:dod', 'e:mg:dod', 'dsc', 'aocc', 'aocc', 'adef', 'dod', 'aocc', 'cib1', 'aocc', 'm:armor:dh', 'aocc', 'ww1v', 'cab1', 'aocc', 'aocc', 'aocc', 'aocc', 'aocc', 'aocc', 'ww1v');
+        $awardings = $this->awarding_model->where('awardings.member_id', $member_id)->get()->result_array();
+        $awardings_abbr = pluck('award|abbr', $awardings);
+        $this->update_servicecoatC($member['last_name'], $member['steam_id'], $rank, $unit, $awardings_abbr);
+        
+        return array(
+            'name' => $member['last_name']
+            ,'id' => $member['steam_id']
+            ,'rank' => $rank
+            ,'unit' => $unit
+            ,'awardings' => $awardings_abbr
+        );
 	}
 
 	private function imageftboxtoImage(&$image, $font, $font_size, $left, $top, $right, $bottom, $align, $valign, $text, $color)

@@ -5,66 +5,119 @@ class Promotions extends MY_Controller {
         parent::__construct();
         $this->load->model('promotion_model');
         $this->load->library('form_validation');
+        $this->load->library('servicecoat');
     }
     
+    /**
+     * PRE-FLIGHT
+     */
+    public function index_options() { $this->response(array('status' => true)); }
+    public function view_options() { $this->response(array('status' => true)); }
+    
+	/**
+     * INDEX
+     * We don't want to be able to fetch a list of promotions for all members, no need
+     */
     /*public function index_get() {
         $promotions = $this->promotion_model->get()->result();
         $this->response(array('status' => true, 'promotions' => $promotions));
     }*/
     
-    public function index_options() {
-        $this->response(array('status' => true));
-    }
-    public function view_options() {
-        $this->response(array('status' => true));
-    }
-    
+	/**
+	 * VIEW
+	 */
     public function view_get($promotion_id) {
+        // Must have permission to view this member's profile or any member's profile
         $promotion = nest($this->promotion_model->get_by_id($promotion_id));
         if( ! $this->user->permission('profile_view', $promotion['member_id']) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
+		// View record
         else {
             $this->response(array('status' => true, 'promotion' => $promotion));
         }
     }
     
+	/**
+	 * CREATE
+	 */
     public function index_post() {
-        if( ! $this->post('member_id')) {
-            $this->response(array('status' => false, 'error' => 'No member specified'), 400);
-        } else if( ! $this->user->permission('promotion_add', $this->post('member_id')) && ! $this->user->permission('promotion_add_any')) {
+        // Must have permission to create this type of record for this member or for any member
+		if( ! $this->user->permission('promotion_add', $this->post('member_id')) && ! $this->user->permission('promotion_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
-        } else if($this->form_validation->run('promotion_add') === FALSE) {
-            $this->response(array('status' => false, 'error' => $this->form_validation->get_error_array()), 400);
-        } else {
-            $insert_id = $this->promotion_model->save(NULL, $this->post());
-            $this->check_rank($this->post('member_id'), $this->post('date'), $this->post('new_rank_id'));
+        }
+		// Form validation
+		else if($this->promotion_model->run_validation('validation_rules_add') === FALSE) {
+            $this->response(array('status' => false, 'error' => $this->promotion_model->validation_errors), 400);
+        }
+		// Create record
+		else {
+			$data = whitelist($this->post(), array('member_id', 'date', 'old_rank_id', 'new_rank_id', 'forum_id', 'topic_id');
+            $insert_id = $this->promotion_model->save(NULL, $data);
+			
+			// Update rank if necessary
+            $this->check_rank($data['member_id'], $data['date'], $data['new_rank_id']);
+            
+            // Update service coat
+            $this->servicecoat->update($member_id);
+            
             $this->response(array('status' => $insert_id ? true : false, 'promotion' => $insert_id ? $this->promotion_model->get_by_id($insert_id) : null));
         }
     }
     
+	/**
+	 * UPDATE
+	 */
     public function view_post($promotion_id) {
+		// Fetch record
         if( ! ($promotion = $this->promotion_model->get_by_id($promotion_id))) {
-            $this->response(array('status' => false, 'error' => 'Promotion not found'), 404);
-        } else if( ! $this->user->permission('promotion_add', $promotion['member_id']) && ! $this->user->permission('promotion_add_any')) {
+            $this->response(array('status' => false, 'error' => 'Record not found'), 404);
+        }
+		// Must have permission to create this type of record for this member or for any member
+		else if( ! $this->user->permission('promotion_add', $promotion['member_id']) && ! $this->user->permission('promotion_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
-        } else if($this->form_validation->run('promotion_add') === FALSE) {
-            $this->response(array('status' => false, 'error' => $this->form_validation->get_error_array()), 400);
-        } else {
-            $this->promotion_model->save($promotion_id, $this->post());
+        }
+		// Form validation
+		else if($this->promotion_model->run_validation('validation_rules_edit') === FALSE) {
+            $this->response(array('status' => false, 'error' => $this->promotion_model->validation_errors), 400);
+        }
+		// Update record
+		else {
+			$data = whitelist($this->post(), array('date', 'old_rank_id', 'new_rank_id', 'forum_id', 'topic_id'));
+            $result = $this->promotion_model->save($promotion_id, $data);
+			
+			// Update rank if necessary
             $this->check_rank($this->post('member_id'), $this->post('date'), $this->post('new_rank_id'));
-            $this->response(array('status' => true, 'promotion' => $this->promotion_model->get_by_id($promotion_id)));
+            
+            // Update service coat
+            $this->servicecoat->update($member_id);
+            
+            $this->response(array('status' => $result ? true : false, 'promotion' => $this->promotion_model->get_by_id($promotion_id)));
         }
     }
     
+	/**
+	 * DELETE
+	 */
     public function view_delete($promotion_id) {
+		// Fetch record
         if( ! ($promotion = $this->promotion_model->get_by_id($promotion_id))) {
-            $this->response(array('status' => false, 'error' => 'Promotion not found'), 404);
-        } else if( ! $this->user->permission('promotion_delete', $promotion['member_id']) && ! $this->user->permission('promotion_delete_any')) {
+            $this->response(array('status' => false, 'error' => 'Record not found'), 404);
+        }
+		// Must have permission to delete this type of record for this member or for any member
+		else if( ! $this->user->permission('promotion_delete', $promotion['member_id']) && ! $this->user->permission('promotion_delete_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
-        } else {
+        }
+		// Delete record
+		else {
             $this->promotion_model->delete($promotion_id);
+			
+			// Update rank if necessary
             $this->last_rank($promotion['member_id']);
+            
+            // Update service coat
+            $this->servicecoat->update($member_id);
+            
             $this->response(array('status' => true));
         }
     }

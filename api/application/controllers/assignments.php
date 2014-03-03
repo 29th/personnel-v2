@@ -4,7 +4,6 @@ class Assignments extends MY_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('assignment_model');
-        $this->load->library('form_validation');
     }
     
     /**
@@ -75,11 +74,11 @@ class Assignments extends MY_Controller {
         }
         // Update record
         else {
-            $data = whitelist($this->post(), array('unit_id', 'position_id', 'access_level', 'start_date', 'end_date');
+            $data = whitelist($this->post(), array('unit_id', 'position_id', 'access_level', 'start_date', 'end_date'));
             //if( ! $data['start_date']) $data['start_date'] = NULL; // done in the model
             //if( ! $data['end_date']) $data['end_date'] = NULL;
-            $this->assignment_model->save($assignment_id, $data);
-            $this->response(array('status' => true, 'assignment' => $this->assignment_model->select_member()->get_by_id($assignment_id)));
+            $result = $this->assignment_model->save($assignment_id, $data);
+            $this->response(array('status' => $result ? true : false, 'assignment' => $this->assignment_model->select_member()->get_by_id($assignment_id)));
         }
     }
     

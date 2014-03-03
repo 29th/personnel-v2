@@ -53,18 +53,19 @@ $route['members/(:num)/enlistments'] = 'members/enlistments/$1';
 $route['members/(:num)/discharges'] = 'members/discharges/$1';
 $route['members/(:num)/discharge'] = 'members/discharge/$1';
 $route['members/(:num)/coat'] = 'members/coat/$1';
-$route['members/(:num)'] = 'members/basic/$1';
-$route['members'] = 'members/basic';
+$route['members/(:num)'] = 'members/view/$1';
+//$route['members'] = 'members/index';
 
 // Units
 $route['units/(:any)/attendance'] = 'units/attendance/$1';
 $route['units/(:any)'] = 'units/view/$1';
-$route['units'] = 'units/view';
+$route['units'] = 'units/index';
 
 // Events
 $route['events/(:num)/(:num)'] = 'events/index/$1/$2';
 $route['events/(:num)/excuse/(:num)'] = 'events/excuse/$1/$2';
 $route['events/(:num)/excuse'] = 'events/excuse/$1';
+$route['events/(:num)/aar'] = 'events/aar/$1';
 $route['events/(:num)'] = 'events/view/$1';
 
 // User info

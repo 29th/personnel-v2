@@ -4,6 +4,80 @@ class Event_model extends CRUD_Model {
     public $table = 'events';
     public $primary_key = 'events.id';
     
+    public function validation_rules_add() {
+        return array(
+            array(
+                'field' => 'datetime'
+                ,'rules' => 'required'
+            )
+            ,array(
+                'field' => 'unit_id'
+                ,'rules' => 'required|numeric'
+            )
+            ,array(
+                'field' => 'title'
+                ,'rules' => 'required|max_length[64]'
+            )
+            ,array(
+                'field' => 'type'
+                ,'rules' => 'required|max_length[32]'
+            )
+            ,array(
+                'field' => 'mandatory'
+                ,'rules' => 'numeric|greater_than[-1]|less_than[2]'
+            )
+            ,array(
+                'field' => 'server_id'
+                ,'rules' => 'required|numeric'
+            )
+        );
+    }
+    
+    public function validation_rules_edit() {
+        return array(
+            /*array(
+                'field' => 'datetime'
+                ,'rules' => ''
+            )*/
+            array(
+                'field' => 'title'
+                ,'rules' => 'min_length[1]||max_length[64]'
+            )
+            ,array(
+                'field' => 'type'
+                ,'rules' => 'min_length[1]||max_length[32]'
+            )
+            ,array(
+                'field' => 'mandatory'
+                ,'rules' => 'numeric|greater_than[-1]|less_than[2]'
+            )
+            ,array(
+                'field' => 'server_id'
+                ,'rules' => 'numeric'
+            )
+        );
+    }
+    
+    public function validation_rules_aar() {
+        return array(
+            array(
+                'field' => 'report'
+                ,'rules' => 'required'
+            )
+        );
+    }
+    
+    public function db_array() {
+        $db_array = parent::db_array();
+        
+        // Clean date
+        if(isset($db_array['date'])) {
+            $db_array['date'] = format_date($db_array['date'], 'mysqldate');
+        }
+        
+        return $db_array;
+    }
+    
     public function default_select() {
         $this->db->select('events.id, events.datetime, events.type, events.mandatory, events.report, NOW() > events.datetime AS occurred')
             ->select('units.id AS `unit|id`, units.abbr AS `unit|abbr`, units.name AS `unit|name`')
