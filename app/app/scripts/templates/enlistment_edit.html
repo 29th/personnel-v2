@@ -4,16 +4,19 @@
         <label for="last_name">Last Name</label>
         <input type="text" class="form-control" name="last_name" id="last_name" value="{{ last_name }}">
         <p class="help-block">Please use your real name or a realistic sounding name.</p>
+        <p class="help-block error-msg"></p>
     </div>
     
     <div class="form-group">
         <label for="first_name">First Name</label>
         <input type="text" class="form-control" name="first_name" id="first_name" value="{{ first_name }}">
+        <p class="help-block error-msg"></p>
     </div>
     
     <div class="form-group">
         <label for="middle_name">Middle Initial</label>
         <input type="text" class="form-control" name="middle_name" id="middle_name" value="{{ middle_name }}">
+        <p class="help-block error-msg"></p>
     </div>
     
     <div class="form-group">
@@ -27,6 +30,7 @@
             {{/each}}
             {{/select}}
         </select>
+        <p class="help-block error-msg"></p>
     </div>
     
     <div class="form-group">
@@ -39,6 +43,7 @@
             {{/each}}
             {{/select}}
         </select>
+        <p class="help-block error-msg"></p>
     </div>
     
     <div class="form-group">
@@ -53,6 +58,7 @@
             {{/select}}
         </select>
         <p class="help-block">Which time do you prefer for practicing? (Give or take an hour)</p>
+        <p class="help-block error-msg"></p>
     </div>
     
     <div class="form-group">
@@ -66,41 +72,48 @@
             {{/select}}
         </select>
         <p class="help-block">Which game are you enlisting in?</p>
+        <p class="help-block error-msg"></p>
     </div>
     
     <div class="form-group">
         <label for="ingame_name">In-Game Name</label>
         <input type="text" class="form-control" name="ingame_name" id="ingame_name" value="{{ ingame_name }}">
         <p class="help-block">What name do you play with?</p>
+        <p class="help-block error-msg"></p>
     </div>
     
     <div class="form-group">
         <label for="steam_id">Steam ID</label>
         <input type="text" class="form-control" name="steam_id" id="steam_id" value="{{ steam_id }}">
         <p class="help-block">Your Steam Identification Number. <a href="http://29th.org/roid" target="_blank">Click here for help</a>.</p>
+        <p class="help-block error-msg"></p>
     </div>
     
     <div class="form-group">
         <label for="email">Working Email</label>
         <input type="text" class="form-control" name="email" id="email" value="{{ email }}">
         <p class="help-block">Will be kept private. We will need this to email you information about Basic Training.</p>
+        <p class="help-block error-msg"></p>
     </div>
     
     <div class="form-group">
         <label for="experience">Realism Experience</label>
         <textarea class="form-control" rows="3" name="experience" id="experience">{{ experience }}</textarea>
         <p class="help-block">If you have ever been in a realism unit(s), what one(s), what rank(s), and name(s) have you used? Why are you no longer with the unit(s)? Please provide all this information to ensure acceptance. If you've never been in a realism unit, simply write "None".</p>
+        <p class="help-block error-msg"></p>
     </div>
     
     <div class="form-group">
         <label for="recruiter">Who Recruited You?</label>
         <input type="text" class="form-control" name="recruiter" id="recruiter" value="{{ recruiter }}">
         <p class="help-block">What was the name of the 29th member who asked you to enlist? If you were not recruited by someone, how did you find out about the 29th Infantry Division?</p>
+        <p class="help-block error-msg"></p>
     </div>
     
     <div class="form-group">
         <label for="comments">Other Comments</label>
         <textarea class="form-control" rows="3" name="comments" id="comments">{{ comments }}</textarea>
+        <p class="help-block error-msg"></p>
     </div>
     
     <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
