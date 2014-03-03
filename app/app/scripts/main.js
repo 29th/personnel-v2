@@ -123,8 +123,8 @@ window.requirejs = window.requirejs || {};
             util.loading(false);
         });
         
-        // Input validation
-        _.extend(Backbone.Model.prototype, Backbone.Validation.mixin);
+        // Auto-enable input validation
+        //_.extend(Backbone.Model.prototype, Backbone.Validation.mixin);
         
         // Modify input validation to work with bootstrap
         _.extend(Backbone.Validation.callbacks, {

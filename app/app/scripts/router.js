@@ -199,6 +199,7 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
                     id: id
                 }),
                 memberPermissions = new Permissions(); // User permissions on member being viewed
+                
             // Fetch permissions if they haven't been fetched yet
             if (!this.permissions) {
                 this.permissions = new Permissions();

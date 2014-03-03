@@ -27,7 +27,7 @@ define([
         serializeData: function () {
             return _.extend({
                 highlight: this.highlight
-            }, this.collection.at(0).toJSON());
+            }, this.collection.length ? this.collection.at(0).toJSON() : {});
         }
     });
 });

@@ -36,19 +36,23 @@ define([
             e.preventDefault();
             var data = $(e.currentTarget).serializeObject(),
                 enlistmentId = this.model.get("id");
-            this.model.save(data, {
-                method: "POST",
-                patch: true,
-                data: data,
-                processData: true,
-                validate: true,
-                success: function () {
-                    Backbone.history.navigate("enlistments/" + enlistmentId, {
-                        trigger: true
-                    });
-                }
-                //,error: function() {console.log("ERROR!!!")}
-            });
+            //this.model.set(data);
+            //if(this.model.isValid(true)) {
+            //    console.log("Valid");
+                this.model.save(data, {
+                    method: "POST",
+                    patch: true,
+                    data: data,
+                    processData: true,
+                    validate: true,
+                    success: function () {
+                        Backbone.history.navigate("enlistments/" + enlistmentId, {
+                            trigger: true
+                        });
+                    }
+                    //,error: function() {console.log("ERROR!!!")}
+                });
+            //}
         }
     });
 });

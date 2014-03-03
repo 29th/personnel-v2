@@ -4,11 +4,11 @@
         Admin <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu">
-    {{#if_inarray "enlistment_process" compare=permissions}}
+    {{#if_inarray "enlistment_process_any" compare=permissions}}
         <li><a href="#enlistments/{{ id }}/process">Process Enlistment</a></li>
     {{/if_inarray}}
     
-    {{#if_inarray "enlistment_edit" compare=permissions}}
+    {{#if_inarray "enlistment_edit_any" compare=permissions}}
         <li><a href="#enlistments/{{ id }}/edit">Modify Enlistment</a></li>
     {{/if_inarray}}
     
