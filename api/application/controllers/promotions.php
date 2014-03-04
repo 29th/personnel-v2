@@ -53,6 +53,10 @@ class Promotions extends MY_Controller {
 		// Create record
 		else {
 			$data = whitelist($this->post(), array('member_id', 'date', 'old_rank_id', 'new_rank_id', 'forum_id', 'topic_id');
+			
+			// Clean date
+			$data['date'] = format_date($data['date'], 'mysqldate');
+			
             $insert_id = $this->promotion_model->save(NULL, $data);
 			
 			// Update rank if necessary
@@ -84,6 +88,10 @@ class Promotions extends MY_Controller {
 		// Update record
 		else {
 			$data = whitelist($this->post(), array('date', 'old_rank_id', 'new_rank_id', 'forum_id', 'topic_id'));
+			
+			// Clean date
+			$data['date'] = format_date($data['date'], 'mysqldate');
+			
             $result = $this->promotion_model->save($promotion_id, $data);
 			
 			// Update rank if necessary

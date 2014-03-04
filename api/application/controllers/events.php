@@ -66,6 +66,10 @@ class Events extends MY_Controller {
         // Create record
         else {
             $data = whitelist($this->post(), array('datetime', 'unit_id', 'title', 'type', 'mandatory', 'server_id'));
+			
+			// Clean date
+			$data['datetime'] = format_date($data['datetime'], 'mysqldatetime');
+			
             $insert_id = $this->event_model->save(NULL, $data);
             $new_record = $insert_id ? $this->event_model->view($insert_id) : null;
             $this->response(array('status' => $insert_id ? true : false, 'event' => $new_record));
@@ -91,6 +95,10 @@ class Events extends MY_Controller {
         // Update record
         else {
             $data = whitelist($this->post(), array('datetime', 'title', 'type', 'mandatory', 'server_id'));
+			
+			// Clean date
+			$data['datetime'] = format_date($data['datetime'], 'mysqldatetime');
+			
             $this->event_model->save($event_id, $data);
             $this->response(array('status' => true, 'event' => nest($this->event_model->get_by_id($event_id))));
         }

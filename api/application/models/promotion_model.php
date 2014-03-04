@@ -58,17 +58,6 @@ class Promotion_model extends CRUD_Model {
         );
     }
     
-    public function db_array() {
-        $db_array = parent::db_array();
-        
-        // Clean date
-        if(isset($db_array['date'])) {
-            $db_array['date'] = format_date($db_array['date'], 'mysqldate');
-        }
-        
-        return $db_array;
-    }
-    
     public function default_select() {
         $this->db->select('promotions.id, promotions.date, promotions.forum_id, promotions.topic_id, promotions.member_id')
             ->select('r_old.id AS `old_rank|id`, r_old.order AS `old_rank|order`')

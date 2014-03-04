@@ -6,6 +6,16 @@ class MY_Form_validation extends CI_Form_validation {
     }
     
     /**
+     * Custom validation rule
+     * Because CI's native 'numeric' rule rejects empty values
+     */
+	public function numeric_or_empty($str)
+	{
+	    $this->CI->form_validation->set_message('numeric_or_empty', 'The %s field must contain only numbers.');
+	    return (bool) $str == '' || preg_match( '/^[\-+]?[0-9]*\.?[0-9]+$/', $str);
+	}
+    
+    /**
      * Set Rules from a Group
      *
      * The default CodeIgniter Form validation class doesn't allow you to

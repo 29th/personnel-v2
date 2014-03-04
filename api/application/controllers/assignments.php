@@ -51,6 +51,11 @@ class Assignments extends MY_Controller {
         // Create record
         else {
             $data = whitelist($this->post(), array('member_id', 'unit_id', 'position_id', 'access_level', 'start_date', 'end_date'));
+            
+            // Clean dates or set to NULL if empty
+            if(isset($data['start_date'])) $data['start_date'] = $data['start_date'] ? format_date($data['start_date'], 'mysqldate') : NULL;
+            if(isset($data['end_date'])) $data['end_date'] = $data['end_date'] ? format_date($data['end_date'], 'mysqldate') : NULL;
+            
             $insert_id = $this->assignment_model->save(NULL, $data);
             $this->response(array('status' => $insert_id ? true : false, 'assignment' => $insert_id ? $this->assignment_model->select_member()->get_by_id($insert_id) : null));
         }
@@ -75,8 +80,11 @@ class Assignments extends MY_Controller {
         // Update record
         else {
             $data = whitelist($this->post(), array('unit_id', 'position_id', 'access_level', 'start_date', 'end_date'));
-            //if( ! $data['start_date']) $data['start_date'] = NULL; // done in the model
-            //if( ! $data['end_date']) $data['end_date'] = NULL;
+            
+            // Clean dates or set to NULL if empty
+            if(isset($data['start_date'])) $data['start_date'] = $data['start_date'] ? format_date($data['start_date'], 'mysqldate') : NULL;
+            if(isset($data['end_date'])) $data['end_date'] = $data['end_date'] ? format_date($data['end_date'], 'mysqldate') : NULL;
+            
             $result = $this->assignment_model->save($assignment_id, $data);
             $this->response(array('status' => $result ? true : false, 'assignment' => $this->assignment_model->select_member()->get_by_id($assignment_id)));
         }

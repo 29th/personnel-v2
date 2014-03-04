@@ -51,7 +51,11 @@ class Awarding extends MY_Controller {
         }
         // Create record
         else {
-            $data = whitelist($this->post(), 'member_id', 'date', 'award_id', 'topic_id');
+            $data = whitelist($this->post(), 'member_id', 'date', 'award_id', 'forum_id', 'topic_id');
+			
+			// Clean date
+			$data['date'] = format_date($data['date'], 'mysqldate');
+			
             $insert_id = $this->awarding_model->save(NULL, $data);
             
             // Update service coat
@@ -79,7 +83,11 @@ class Awarding extends MY_Controller {
         }
         // Update record
         else {
-            $data = whitelist($this->post(), array('date', 'award_id', 'topic_id'));
+            $data = whitelist($this->post(), array('date', 'award_id', 'forum_id', 'topic_id'));
+			
+			// Clean date
+			$data['date'] = format_date($data['date'], 'mysqldate');
+			
             $result = $this->awarding_model->save($awarding_id, $data);
             
             // Update service coat

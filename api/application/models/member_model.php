@@ -30,7 +30,7 @@ class Member_model extends CRUD_Model {
             )
             ,array(
                 'field' => 'steam_id'
-                ,'rules' => 'numeric'
+                ,'rules' => 'numeric_or_empty'
             )
         );
     }
@@ -60,20 +60,9 @@ class Member_model extends CRUD_Model {
             )
             ,array(
                 'field' => 'steam_id'
-                ,'rules' => 'numeric'
+                ,'rules' => 'numeric_or_empty'
             )
         );
-    }
-    
-    public function db_array() {
-        $db_array = parent::db_array();
-        
-        // Only use first letter of middle_name
-        if(isset($db_array['middle_name'])) {
-            $db_array['middle_name'] = substr($db_array['middle_name'], 0, 1);
-        }
-        
-        return $db_array;
     }
     
     public function default_select() {

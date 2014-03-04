@@ -59,7 +59,11 @@ class Discharges extends MY_Controller {
         }
         // Create record
         else {
-            $data = whitelist($this->post(), array('member_id', 'date', 'type', 'reason', 'was_reversed', 'topic_id'));
+            $data = whitelist($this->post(), array('member_id', 'date', 'type', 'reason', 'was_reversed', 'forum_id', 'topic_id'));
+			
+			// Clean date
+			$data['date'] = format_date($data['date'], 'mysqldate');
+			
             $insert_id = $this->discharge_model->save(NULL, $data);
             $this->response(array('status' => $insert_id ? true : false, 'discharge' => $insert_id ? nest($this->discharge_model->get_by_id($insert_id)) : null));
         }
@@ -83,9 +87,11 @@ class Discharges extends MY_Controller {
         }
         // Update record
         else {
-            $data = whitelist($this->post(), array('date', 'type', 'reason', 'was_reversed', 'topic_id'));
-            //if( ! $data['start_date']) $data['start_date'] = NULL; // done in model
-            //if( ! $data['end_date']) $data['end_date'] = NULL;
+            $data = whitelist($this->post(), array('date', 'type', 'reason', 'was_reversed', 'forum_id', 'topic_id'));
+			
+			// Clean date
+			$data['date'] = format_date($data['date'], 'mysqldate');
+			
             $result = $this->discharge_model->save($discharge_id, $data);
             $this->response(array('status' => $result ? true : false, 'discharge' => nest($this->discharge_model->get_by_id($discharge_id))));
         }

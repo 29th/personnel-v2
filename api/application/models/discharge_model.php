@@ -31,6 +31,10 @@ class Discharge_model extends CRUD_Model {
                 ,'rules' => 'numeric|greater_than[-1]|less_than[2]'
             )
             ,array(
+                'field' => 'forum_id'
+                ,'rules' => 'numeric'
+            )
+            ,array(
                 'field' => 'topic_id'
                 ,'rules' => 'numeric'
             )
@@ -64,21 +68,14 @@ class Discharge_model extends CRUD_Model {
                 ,'rules' => 'numeric|greater_than[-1]|less_than[2]'
             )
             ,array(
+                'field' => 'forum_id'
+                ,'rules' => 'numeric'
+            )
+            ,array(
                 'field' => 'topic_id'
                 ,'rules' => 'numeric'
             )
         );
-    }
-    
-    public function db_array() {
-        $db_array = parent::db_array();
-        
-        // Clean date
-        if(isset($db_array['date'])) {
-            $db_array['date'] = format_date($db_array['date'], 'mysqldate');
-        }
-        
-        return $db_array;
     }
     
     public function default_select() {

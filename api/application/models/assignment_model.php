@@ -116,21 +116,6 @@ class Assignment_model extends CRUD_Model {
         );
     }
     
-    public function db_array() {
-        $db_array = parent::db_array();
-        
-        // Clean dates or set them to NULL if they're empty
-        if(isset($db_array['start_date'])) {
-            $db_array['start_date'] = $db_array['start_date'] ? format_date($db_array['start_date'], 'mysqldate') : NULL;
-        }
-        
-        if(isset($db_array['end_date'])) {
-            $db_array['end_date'] = $db_array['end_date'] ? format_date($db_array['end_date'], 'mysqldate') : NULL;
-        }
-        
-        return $db_array;
-    }
-    
     public function default_select() {
         $this->db->select('assignments.id, assignments.start_date, assignments.end_date, assignments.unit_id, assignments.access_level') // Leave `unit_id` for tree sorting
             ->select('units.id AS `unit|id`, units.abbr AS `unit|abbr`, units.name AS `unit|name`, ' . $this->virtual_fields['unit_key'] . ' AS `unit|key`, units.class AS `unit|class`, units.path AS `unit|path`, ' . $this->virtual_fields['depth'] . ' AS `unit|depth`', FALSE)
@@ -191,10 +176,8 @@ class Assignment_model extends CRUD_Model {
         switch($by) {
             case 'priority':
                 $this->filter_order_by('units.class, `unit|depth`, positions.order DESC'); break;
-            case 'position':
-                $this->filter_order_by('positions.order DESC'); break;
             default:
-                $this->filter_order_by('ranks.order DESC'); break;
+                $this->filter_order_by('positions.order DESC, ranks.order DESC, assignments.start_date'); break;
         }
         return $this;
     }

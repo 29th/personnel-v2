@@ -58,6 +58,10 @@ class Members extends MY_Controller {
         // Update record
         else {
             $data = whitelist($this->post(), array('last_name', 'first_name', 'middle_name', 'name_prefix', 'country_id', 'rank_id', 'steam_id', 'email')); // leave forum_member_id out, reserve for DB changes
+        
+			// Only use first letter of middle_name
+			if(isset($data['middle_name']) && $data['middle_name']) $data['middle_name'] = substr($data['middle_name'], 0, 1);
+				
             $result = $this->member_model->save($member_id, $data);
             
             // Update service coat

@@ -9,14 +9,6 @@ class Enlistment_model extends CRUD_Model {
     public function validation_rules_add() {
         return array(
             array(
-                'field' => 'member_id'
-                ,'rules' => 'required|numeric'
-            )
-            ,array(
-                'field' => 'date'
-                ,'rules' => 'required'
-            )
-            ,array(
                 'field' => 'first_name'
                 ,'rules' => 'required|max_length[30]'
             )
@@ -50,7 +42,7 @@ class Enlistment_model extends CRUD_Model {
             )
             ,array(
                 'field' => 'steam_id'
-                ,'rules' => 'numeric'
+                ,'rules' => 'numeric_or_empty'
             )
             ,array(
                 'field' => 'experience'
@@ -59,6 +51,14 @@ class Enlistment_model extends CRUD_Model {
             ,array(
                 'field' => 'recruiter'
                 ,'rules' => 'max_length[128]'
+            )
+            ,array(
+                'field' => 'forum_id'
+                ,'rules' => 'numeric_or_empty'
+            )
+            ,array(
+                'field' => 'topic_id'
+                ,'rules' => 'numeric_or_empty'
             )
         );
     }
@@ -100,7 +100,7 @@ class Enlistment_model extends CRUD_Model {
             )
             ,array(
                 'field' => 'steam_id'
-                ,'rules' => 'numeric'
+                ,'rules' => 'numeric_or_empty'
             )
             /*,array(
                 'field' => 'experience'
@@ -109,6 +109,14 @@ class Enlistment_model extends CRUD_Model {
             ,array(
                 'field' => 'recruiter'
                 ,'rules' => 'max_length[128]'
+            )
+            ,array(
+                'field' => 'forum_id'
+                ,'rules' => 'numeric_or_empty'
+            )
+            ,array(
+                'field' => 'topic_id'
+                ,'rules' => 'numeric_or_empty'
             )
         );
     }
@@ -129,24 +137,6 @@ class Enlistment_model extends CRUD_Model {
                 ,'rules' => 'numeric'
             )
         );
-    }
-    
-    public function db_array() {
-        $db_array = parent::db_array();
-        
-        // Clean date
-        if(isset($db_array['date'])) {
-            $db_array['date'] = format_date($db_array['date'], 'mysqldate');
-        }
-        
-        if(isset($db_array['unit_id']) && ! $db_array['unit_id']) $db_array['unit_id'] = NULL;
-        
-        // Only use first letter of middle_name
-        if(isset($db_array['middle_name'])) {
-            $db_array['middle_name'] = substr($db_array['middle_name'], 0, 1);
-        }
-        
-        return $db_array;
     }
     
     public function default_select() {

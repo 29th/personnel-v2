@@ -67,17 +67,6 @@ class Event_model extends CRUD_Model {
         );
     }
     
-    public function db_array() {
-        $db_array = parent::db_array();
-        
-        // Clean date
-        if(isset($db_array['date'])) {
-            $db_array['date'] = format_date($db_array['date'], 'mysqldate');
-        }
-        
-        return $db_array;
-    }
-    
     public function default_select() {
         $this->db->select('events.id, events.datetime, events.type, events.mandatory, events.report, NOW() > events.datetime AS occurred')
             ->select('units.id AS `unit|id`, units.abbr AS `unit|abbr`, units.name AS `unit|name`')

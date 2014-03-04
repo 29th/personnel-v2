@@ -74,6 +74,9 @@ class Enlistments extends MY_Controller {
             if( ! $member_id) {
                 $member_data = whitelist($this->post(), array('last_name', 'first_name', 'middle_name', 'country_id')); // steam_id?
                 $member_data['forum_member_id'] = $forum_member_id;
+        
+				// Only use first letter of middle_name
+				if(isset($member_data['middle_name']) && $member_data['middle_name']) $member_data['middle_name'] = substr($member_data['middle_name'], 0, 1);
                 
                 // Create member record
                 $member_id = $this->member_model->save(NULL, $member_data);
@@ -82,7 +85,11 @@ class Enlistments extends MY_Controller {
             $enlistment_data = whitelist($this->post(), array('first_name', 'middle_name', 'last_name', 'age', 'country_id', 'timezone', 'game', 'ingame_name', 'steam_name', 'steam_id', 'experience', 'recruiter', 'comments'));
             $enlistment_data['member_id'] = $member_id;
             $enlistment_data['status'] = 'Pending';
-            $enlistment_data['date'] = 'now'; // Will be properly formatted in model
+            $enlistment_data['date'] = format_date('now', 'mysqldate');
+        
+			// Only use first letter of middle_name
+			if(isset($enlistment_data['middle_name']) && $enlistment_data['middle_name']) $enlistment_data['middle_name'] = substr($enlistment_data['middle_name'], 0, 1);
+            
             $insert_id = $this->enlistment_model->save(NULL, $enlistment_data);
             $new_record = $insert_id ? nest($this->enlistment_model->get_by_id($insert_id)) : null;
             $this->response(array('status' => $insert_id ? true : false, 'enlistment' => $new_record));
@@ -104,6 +111,10 @@ class Enlistments extends MY_Controller {
         // Update record
         else {
             $data = whitelist($this->post(), array('first_name', 'middle_name', 'last_name', 'age', 'country_id', 'timezone', 'game', 'ingame_name', 'steam_name', 'steam_id', 'experience', 'recruiter', 'comments'));
+        
+			// Only use first letter of middle_name
+			if(isset($data['middle_name']) && $data['middle_name']) $data['middle_name'] = substr($data['middle_name'], 0, 1);
+		
             $result = $this->enlistment_model->save($enlistment_id, $data);
             $this->response(array('status' => $result ? true : false, 'enlistment' => nest($this->enlistment_model->get_by_id($enlistment_id))));
         }
@@ -126,6 +137,7 @@ class Enlistments extends MY_Controller {
             // First, update enlistment record
             $data = whitelist($this->post(), array('status', 'unit_id', 'recruiter_member_id'));
             $data['liaison_member_id'] = $this->user->member('id');
+			if(isset($data['unit_id'])) $data['unit_id'] = $data['unit_id'] ? $data['unit_id'] : NULL; // Should be null if empty
             //if(isset($data['unit_id']) && ! $data['unit_id']) $data['unit_id'] = NULL; // Done in model
             
             $this->enlistment_model->save($enlistment_id, $data);
@@ -139,7 +151,7 @@ class Enlistments extends MY_Controller {
                     $this->assignment_model->save(NULL, array(
                         'member_id' => $enlistment['member_id'],
                         'unit_id' => $data['unit_id'],
-                        'start_date' => 'now' // Formatted in model
+                        'start_date' => format_date('now', 'mysqldate')
                     ));
                 }
                 // Otherwise, if not accepted and an assignment exists, delete it
