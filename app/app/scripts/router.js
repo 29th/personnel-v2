@@ -49,7 +49,9 @@ define([
     // Extras
     "handlebars.helpers",
     "jquery-bootstrap",
-    "moment"
+    "moment",
+    "backbone.validation",
+    "validation.config"
     ], function (
 $, _, Backbone, Marionette, Handlebars, util,
 // Models

@@ -7,45 +7,43 @@ window.requirejs = window.requirejs || {};
         baseUrl: "scripts/",
         paths: {
             "jquery": [
-                "//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min"
-                , "../vendor/jquery/jquery.min"
-                ],
+                "//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min",
+                "../vendor/jquery/jquery.min"
+            ],
             "underscore": [
-                "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min"
-                , "../vendor/underscore/underscore-min"
-                ],
+                "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min",
+                "../vendor/underscore/underscore-min"
+            ],
             "backbone": [
-                "//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min"
-                , "../vendor/backbone/backbone"
-                ],
+                "//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min",
+                "../vendor/backbone/backbone"
+            ],
             "handlebars": //[
-            //"//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min"
-            "../vendor/handlebars/handlebars.min" // Needs to be included in build to avoid errors
+                //"//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min"
+                "../vendor/handlebars/handlebars.min" // Needs to be included in build to avoid errors
             //]
             ,
             "marionette": [
-                "//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.5.1-bundled/backbone.marionette.min"
-                , "../vendor/marionette/lib/backbone.marionette.min"
-                ],
+                "//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.5.1-bundled/backbone.marionette.min",
+                "../vendor/marionette/lib/backbone.marionette.min"
+            ],
             "backbone.wreqr": "../vendor/backbone.wreqr/lib/amd/backbone.wreqr.min",
             "jquery-bootstrap": [
-                "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.0/js/bootstrap.min"
-                , "../vendor/bootstrap/dist/js/bootstrap.min"
-                ],
+                "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.0/js/bootstrap.min",
+                "../vendor/bootstrap/dist/js/bootstrap.min"
+            ],
             "moment": [
-                "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min"
-                , "../vendor/moment/min/moment.min"
-                ],
+                "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min",
+                "../vendor/moment/min/moment.min"
+            ],
             "fullcalendar": [
-                "//cdnjs.cloudflare.com/ajax/libs/fullcalendar/1.6.4/fullcalendar.min"
-                , "../vendor/fullcalendar/fullcalendar.min"
-                ],
+                "//cdnjs.cloudflare.com/ajax/libs/fullcalendar/1.6.4/fullcalendar.min",
+                "../vendor/fullcalendar/fullcalendar.min"
+            ],
             "nprogress": "../vendor/nprogress/nprogress",
             "bbcode": "../vendor/bbcode/src/bbcode",
             "bootstrap-datepicker": "../vendor/bootstrap-datepicker/js/bootstrap-datepicker",
-            "backbone.validation": "../vendor/backbone.validation/dist/backbone-validation-amd-min"
-
-            ,
+            "backbone.validation": "../vendor/backbone.validation/dist/backbone-validation-amd-min",
             "text": "../vendor/text/text",
             "hbs": "../vendor/requirejs-hbs/hbs",
             "json": "../vendor/requirejs-plugins/src/json",
@@ -86,6 +84,9 @@ window.requirejs = window.requirejs || {};
             },
             "backbone.validation": {
                 deps: ["jquery", "underscore", "backbone"]
+            },
+            "validation.config": {
+                deps: ["backbone.validation"]
             }
         },
         hbs: {
@@ -99,11 +100,9 @@ window.requirejs = window.requirejs || {};
      */
     require([
         "jquery",
-        "underscore",
         "util",
-        "router",
-        "backbone.validation"
-        ], function ($, _, util, Router) {
+        "router"
+        ], function ($, util, Router) {
 
         window.DEBUG = false; // Global
         
@@ -121,31 +120,6 @@ window.requirejs = window.requirejs || {};
         });
         $(document).ajaxStop(function () {
             util.loading(false);
-        });
-        
-        // Auto-enable input validation
-        //_.extend(Backbone.Model.prototype, Backbone.Validation.mixin);
-        
-        // Modify input validation to work with bootstrap
-        _.extend(Backbone.Validation.callbacks, {
-            valid: function (view, attr, selector) {
-                var $el = view.$("[name=" + attr + "]"), 
-                    $group = $el.closest(".form-group"),
-                    $msgContainer = $group.find(".error-msg");
-                if( ! $msgContainer.length) $msgContainer = $("<div/>").addClass("help-block").addClass("error-msg").appendTo($group);
-                
-                $group.removeClass("has-error");
-                $msgContainer.html("").addClass("hidden");
-            },
-            invalid: function (view, attr, error, selector) {
-                var $el = view.$("[name=" + attr + "]"), 
-                    $group = $el.closest(".form-group"),
-                    $msgContainer = $group.find(".error-msg");
-                if( ! $msgContainer.length) $msgContainer = $("<div/>").addClass("help-block").addClass("error-msg").appendTo($group);
-                
-                $group.addClass("has-error");
-                $msgContainer.html(error).removeClass("hidden");
-            }
         });
 
         var app = new Backbone.Marionette.Application();
