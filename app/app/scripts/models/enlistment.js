@@ -35,18 +35,22 @@ define([
                 required: true
             },
             ingame_name: {
+                required: false,
                 maxLength: 60
             },
             steam_name: {
+                required: false,
                 maxLength: 60
             },
             steam_id: {
+                required: false,
                 pattern: "number"
             },
             experience: {
                 required: true
             },
             recruiter: {
+                required: false,
                 maxLength: 128
             }
         }

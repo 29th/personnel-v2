@@ -61,7 +61,7 @@ gulp.task("scripts", function() {
             "config": "config.prod"
         }
     })
-        //.pipe(uglify())
+        .pipe(uglify())
         .pipe(gulp.dest(dir.prod + "scripts/"));
 });
     

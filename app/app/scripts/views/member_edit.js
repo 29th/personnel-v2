@@ -10,6 +10,7 @@ define([
         template: Template,
         initialize: function () {
             _.bindAll(this, "onSubmitForm");
+            Backbone.Validation.bind(this);
         },
         events: {
             "submit form": "onSubmitForm"
