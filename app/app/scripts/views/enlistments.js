@@ -1,19 +1,20 @@
 define([
-    "jquery"
-    , "underscore"
-    , "backbone"
-    , "hbs!templates/enlistments"
-    , "hbs!templates/enlistments_item"
-    , "marionette"
-    ], function ($, _, Backbone, EnlistmentsTemplate, EnlistmentsItemTemplate) {
-    var EnlistmentsItemView = Backbone.Marionette.ItemView.extend({
-        template: EnlistmentsItemTemplate,
+    "jquery",
+    "underscore",
+    "backbone",
+    "hbs!templates/enlistments",
+    "hbs!templates/enlistments_item",
+    "marionette"
+], function ($, _, Backbone, Template, ItemTemplate) {
+    
+    var ItemView = Backbone.Marionette.ItemView.extend({
+        template: ItemTemplate,
         tagName: "tr"
     });
 
     return Backbone.Marionette.CompositeView.extend({
-        template: EnlistmentsTemplate,
-        itemView: EnlistmentsItemView,
+        template: Template,
+        itemView: ItemView,
         itemViewContainer: "#rows",
         initialize: function () {
             _.bindAll(this, "onClickMore", "onClickBtnGroup");

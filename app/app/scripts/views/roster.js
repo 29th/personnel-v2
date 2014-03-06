@@ -1,15 +1,16 @@
 define([
-    "jquery"
-    , "underscore"
-    , "backbone"
-    , "marionette"
-    , "handlebars"
-    , "hbs!templates/roster"
-    , "hbs!templates/roster_attendance"
-    , "marionette"
-    ], function ($, _, Backbone, Marionette, Handlebars, RosterTemplate, RosterAttendanceTemplate) {
-    var RosterView = Backbone.Marionette.CompositeView.extend({
-        template: RosterTemplate,
+    "jquery",
+    "underscore",
+    "backbone",
+    "marionette",
+    "handlebars",
+    "hbs!templates/roster",
+    "hbs!templates/roster_attendance",
+    "marionette"
+], function ($, _, Backbone, Marionette, Handlebars, Template, AttendanceTemplate) {
+    
+    var ItemView = Backbone.Marionette.CompositeView.extend({
+        template: Template,
         tagName: "div",
         initialize: function (options) {
             options = options || {};
@@ -20,7 +21,7 @@ define([
             }
             // If attendance is true, use the attendance template
             if (options.attendance) {
-                this.template = RosterAttendanceTemplate;
+                this.template = AttendanceTemplate;
                 this.itemViewOptions.attendance = true;
             }
             this.collection = this.model.get("children");
@@ -46,8 +47,8 @@ define([
         }
     });
 
-    var RosterRoot = Backbone.Marionette.CollectionView.extend({
-        itemView: RosterView,
+    return Backbone.Marionette.CollectionView.extend({
+        itemView: ItemView,
         title: "Roster",
         className: "roster",
         initialize: function (options) {
@@ -57,6 +58,4 @@ define([
             if (options.eventAttendance) this.itemViewOptions.eventAttendance = options.eventAttendance;
         }
     });
-
-    return RosterRoot;
 });

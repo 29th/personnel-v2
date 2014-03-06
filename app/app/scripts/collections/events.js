@@ -1,12 +1,12 @@
 define([
-    "jquery"
-    , "underscore"
-    , "backbone"
-    , "config"
-    ], function ($, _, Backbone, config) {
+    "jquery",
+    "underscore",
+    "backbone",
+    "config"
+], function ($, _, Backbone, config) {
     "use strict";
 
-    var Events = Backbone.Collection.extend({
+    return Backbone.Collection.extend({
         initialize: function (models, options) {
             options = options || {};
             this.from = options.from || false;
@@ -24,6 +24,4 @@ define([
             return response.events || [];
         }
     });
-
-    return Events;
 });

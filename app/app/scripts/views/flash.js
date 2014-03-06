@@ -1,10 +1,10 @@
 define([
-    "jquery"
-    , "underscore"
-    , "backbone"
-    , "hbs!templates/flash"
-    , "marionette"
-    ], function ($, _, Backbone, Template) {
+    "jquery",
+    "underscore",
+    "backbone",
+    "hbs!templates/flash",
+    "marionette"
+], function ($, _, Backbone, Template) {
     var alertClasses = {
         success: "alert-success",
         info: "alert-info",

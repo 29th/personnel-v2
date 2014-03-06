@@ -1,19 +1,20 @@
 define([
-    "jquery"
-    , "underscore"
-    , "backbone"
-    , "hbs!templates/member_attendance"
-    , "hbs!templates/member_attendance_item"
-    , "marionette"
-    ], function ($, _, Backbone, AttendanceTemplate, AttendanceItemTemplate) {
-    var AttendanceItemView = Backbone.Marionette.ItemView.extend({
-        template: AttendanceItemTemplate,
+    "jquery",
+    "underscore",
+    "backbone",
+    "hbs!templates/member_attendance",
+    "hbs!templates/member_attendance_item",
+    "marionette"
+], function ($, _, Backbone, Template, ItemTemplate) {
+    
+    var ItemView = Backbone.Marionette.ItemView.extend({
+        template: ItemTemplate,
         tagName: "tr"
     });
 
-    var AttendanceView = Backbone.Marionette.CompositeView.extend({
-        template: AttendanceTemplate,
-        itemView: AttendanceItemView,
+    return Backbone.Marionette.CompositeView.extend({
+        template: Template,
+        itemView: ItemView,
         itemViewContainer: "#rows"
         /**
          * Necessary because our collection will finish fetching before this view is rendered,
@@ -58,6 +59,4 @@ define([
             this.$(".more").toggle(this.collection.more);
         }
     });
-
-    return AttendanceView;
 });

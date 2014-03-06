@@ -15,11 +15,18 @@ var gulp = require("gulp"),
         dev: "./app/",
         prod: "./app/build/"
     };
-    
+
+/**
+ * Main execution
+ */
 gulp.task("default", ["clean", "umd"], function() {
     gulp.start("scripts", "styles", "images", "vendor", "html");
 });
 
+/**
+ * UMD
+ * Wraps non-AMD javascript files in a UMD container so that they can be loaded with Require.js
+ */
 gulp.task("umd", function() {
     return es.concat(
         gulp.src(dir.dev + "vendor/bootstrap-datepicker/js/bootstrap-datepicker.js")
@@ -31,6 +38,10 @@ gulp.task("umd", function() {
     );
 });
 
+/**
+ * Scripts
+ * Compiles all Require.js modules into one script, then uglifies and minifies the compiled file
+ */
 gulp.task("scripts", function() {
     return rjs({
         name: "main",
@@ -64,7 +75,11 @@ gulp.task("scripts", function() {
         .pipe(uglify())
         .pipe(gulp.dest(dir.prod + "scripts/"));
 });
-    
+
+/**
+ * Styles
+ * Combines all stylesheets then minifies it
+ */
 gulp.task("styles", function() {
     return gulp.src([
         dir.dev + "vendor/nprogress/nprogress.css",
@@ -77,16 +92,29 @@ gulp.task("styles", function() {
         .pipe(gulp.dest(dir.prod + "styles/"));
 });
 
+/**
+ * Images
+ * Copies images directory to production folder
+ * We could probably do some compression here
+ */
 gulp.task("images", function() {
     return gulp.src(dir.dev + "images/**/*")
         .pipe(gulp.dest(dir.prod + "images"));
 });
 
+/**
+ * Vendor Scripts
+ * Copies third-party javascript libraries to production folder
+ */
 gulp.task("vendor", function() {
     return gulp.src(dir.dev + "vendor/**/*")
         .pipe(gulp.dest(dir.prod + "vendor"));
 });
 
+/**
+ * HTML
+ * Replaces dev files with production files in the HTML and minifies it
+ */
 gulp.task("html", function() {
     return gulp.src(dir.dev + "index.html")
         .pipe(processhtml("index.html"))
@@ -94,6 +122,10 @@ gulp.task("html", function() {
         .pipe(gulp.dest(dir.prod));
 });
 
+/**
+ * Clean
+ * Clean out the build directory for a new compile, but leave .git files and CNAME file
+ */
 gulp.task("clean", function() {
     return gulp.src([
         dir.prod + "**/*",
@@ -103,6 +135,10 @@ gulp.task("clean", function() {
         .pipe(clean());
 });
 
+/**
+ * Beautify
+ * Non-build task for beautifying javascript code and enforcing linting standards
+ */
 gulp.task("beautify", function() {
     return gulp.src(dir.dev + "scripts/**/*")
         .pipe(beautify({

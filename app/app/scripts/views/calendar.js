@@ -1,14 +1,15 @@
 define([
-    "jquery"
-    , "underscore"
-    , "backbone"
-    , "util"
-    , "hbs!templates/calendar"
-    , "marionette"
-    , "fullcalendar"
-    ], function ($, _, Backbone, util, CalendarTemplate) {
-    var CalendarView = Backbone.Marionette.ItemView.extend({
-        template: CalendarTemplate,
+    "jquery",
+    "underscore",
+    "backbone",
+    "util",
+    "hbs!templates/calendar",
+    "marionette",
+    "fullcalendar"
+], function ($, _, Backbone, util, Template) {
+    
+    return Backbone.Marionette.ItemView.extend({
+        template: Template,
         className: "calendar",
         title: "Calendar",
         settings: {
@@ -82,6 +83,4 @@ define([
             return expected;
         }
     });
-
-    return CalendarView;
 });

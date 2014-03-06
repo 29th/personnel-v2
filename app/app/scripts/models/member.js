@@ -1,12 +1,12 @@
 define([
-    "jquery"
-    , "underscore"
-    , "backbone"
-    , "config"
-    ], function ($, _, Backbone, config) {
+    "jquery",
+    "underscore",
+    "backbone",
+    "config"
+], function ($, _, Backbone, config) {
     "use strict";
 
-    var Member = Backbone.Model.extend({
+    return Backbone.Model.extend({
         url: function () {
             return config.apiHost + "/members/" + this.id;
         },
@@ -28,6 +28,4 @@ define([
             }
         }
     });
-
-    return Member;
 });

@@ -1,19 +1,19 @@
 define([
-    "jquery"
-    , "underscore"
-    , "backbone"
-    , "config"
-    ], function ($, _, Backbone, config) {
+    "jquery",
+    "underscore",
+    "backbone",
+    "config"
+], function ($, _, Backbone, config) {
     "use strict";
 
-    var Event = Backbone.Model.extend({
+    return Backbone.Model.extend({
         url: function () {
             return config.apiHost + "/events/" + this.id;
         },
         parse: function (response, options) {
             return response.event || {};
         }
-/*,excuse: function(excused) {
+        /*,excuse: function(excused) {
             $.ajax({
                 url: this.url() + "/excuse"
                 ,type: "POST"
@@ -21,6 +21,4 @@ define([
             });
         }*/
     });
-
-    return Event;
 });

@@ -1,11 +1,11 @@
 define([
-    "jquery"
-    , "underscore"
-    , "backbone"
-    , "hbs!templates/assignment_edit"
-    , "marionette"
-    , "bootstrap-datepicker"
-    ], function ($, _, Backbone, Template) {
+    "jquery",
+    "underscore",
+    "backbone",
+    "hbs!templates/assignment_edit",
+    "marionette",
+    "bootstrap-datepicker"
+], function ($, _, Backbone, Template) {
 
     return Backbone.Marionette.ItemView.extend({
         template: Template,

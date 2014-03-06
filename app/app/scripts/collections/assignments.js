@@ -1,12 +1,12 @@
 define([
-    "jquery"
-    , "underscore"
-    , "backbone"
-    , "config"
-    ], function ($, _, Backbone, config) {
+    "jquery",
+    "underscore",
+    "backbone",
+    "config"
+], function ($, _, Backbone, config) {
     "use strict";
 
-    var Assignments = Backbone.Collection.extend({
+    return Backbone.Collection.extend({
         initialize: function (models, options) {
             options = options || {};
             this.member_id = options.member_id || false;
@@ -21,6 +21,4 @@ define([
             return response.assignments || [];
         }
     });
-
-    return Assignments;
 });

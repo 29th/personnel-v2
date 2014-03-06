@@ -1,12 +1,13 @@
 define([
-    "jquery"
-    , "underscore"
-    , "backbone"
-    , "hbs!templates/member_admin"
-    , "marionette"
-    ], function ($, _, Backbone, MemberAdminTemplate) {
-    var MemberAdminView = Backbone.Marionette.ItemView.extend({
-        template: MemberAdminTemplate,
+    "jquery",
+    "underscore",
+    "backbone",
+    "hbs!templates/member_admin",
+    "marionette"
+], function ($, _, Backbone, Template) {
+    
+    return Backbone.Marionette.ItemView.extend({
+        template: Template,
         initialize: function (options) {
             options = options || {};
 
@@ -24,6 +25,4 @@ define([
             };
         }
     });
-
-    return MemberAdminView;
 });

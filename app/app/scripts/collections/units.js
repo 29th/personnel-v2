@@ -1,13 +1,14 @@
 define([
-    "jquery"
-    , "underscore"
-    , "backbone"
-    , "config"
-    ], function ($, _, Backbone, config) {
+    "jquery",
+    "underscore",
+    "backbone",
+    "config"
+], function ($, _, Backbone, config) {
     "use strict";
 
     /**
      * Model
+     * Needs to be here to avoid circular dependencies. Units requires Unit, and Unit requires Units
      */
     var Unit = Backbone.Model.extend({
         initialize: function () {
@@ -15,7 +16,7 @@ define([
                 this.set("children", new Units(this.get("children")));
             }
         } // Need to add children stuff here too for recursive
-/*,url: function() {
+        /*,url: function() {
             var params = {}
                 ,url = this.settings.apiHost + "/units";
             if(this.get("filter")) url += "/" + encodeURIComponent(this.get("filter"));
@@ -78,5 +79,6 @@ define([
             return flattened;
         }
     });
+    
     return Units;
 });

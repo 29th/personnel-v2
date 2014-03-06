@@ -2,11 +2,11 @@
  * Utilities / Helper Functions
  */
 define([
-    "jquery"
-    , "underscore"
-    , "handlebars"
-    , "nprogress"
-    ], function ($, _, Handlebars, NProgress) {
+    "jquery",
+    "underscore",
+    "handlebars",
+    "nprogress"
+], function ($, _, Handlebars, NProgress) {
     "use strict";
 
     var util = {};
@@ -30,11 +30,6 @@ define([
         if (decimals !== undefined) x = decimals ? Math.round(x * 100) / 100 : Math.round(x);
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
-
-    util.toLowerCase = function (value) {
-        return (value && typeof value === "string") ? value.toLowerCase() : value;
-    };
-    Handlebars.registerHelper('toLowerCase', util.toLowerCase);
 
     $.fn.serializeObject = function () {
         var o = {};

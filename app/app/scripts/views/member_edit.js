@@ -1,11 +1,12 @@
 define([
-    "jquery"
-    , "underscore"
-    , "backbone"
-    , "hbs!templates/member_edit"
-    , "json!countries.json"
-    , "marionette"
-    ], function ($, _, Backbone, Template, Countries) {
+    "jquery",
+    "underscore",
+    "backbone",
+    "hbs!templates/member_edit",
+    "json!countries.json",
+    "marionette"
+], function ($, _, Backbone, Template, Countries) {
+    
     return Backbone.Marionette.ItemView.extend({
         template: Template,
         initialize: function () {
