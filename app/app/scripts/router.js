@@ -14,6 +14,7 @@ define([
     // Collections
     "collections/assignments",
     "collections/awardings",
+    "collections/discharges",
     "collections/enlistments",
     "collections/event_attendance", // Attendees of an event
     "collections/events",
@@ -57,7 +58,7 @@ $, _, Backbone, Marionette, Handlebars, util,
 // Models
 Assignment, Enlistment, Event, Member, User,
 // Collections
-Assignments, Awardings, Enlistments, EventAttendance, Events, MemberAttendance, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, UnitAttendance, Units,
+Assignments, Awardings, Discharges, Enlistments, EventAttendance, Events, MemberAttendance, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, UnitAttendance, Units,
 // Views
 AARView, AssignmentEditView, CalendarView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, FlashView, MemberAdminView, MemberAttendanceView,
 MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, RosterView, ServiceRecordView, UnitAttendanceView, UnitView) {
@@ -407,6 +408,12 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
                 });
                 promises.push(awardings.fetch());
 
+                // Discharges
+                var discharges = new Discharges(null, {
+                    member_id: id
+                });
+                promises.push(discharges.fetch());
+
                 // Enlistments
                 var enlistments = new MemberEnlistments(null, {
                     member_id: id
@@ -418,6 +425,7 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
                     assignments: assignments,
                     promotions: promotions,
                     awardings: awardings,
+                    discharges: discharges,
                     enlistments: enlistments
                 });
             }

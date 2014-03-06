@@ -255,20 +255,29 @@ define(["jquery", "underscore", "handlebars", "moment", "bbcode"], function ($, 
     });
 
     Handlebars.registerHelper('award_img_name', function (award) {
-        var beg = award.substr(0, 2),
-            re = award;
+        beg = award.substr(0, 2);
         switch (beg) {
         case "m:":
-            re = "marks";
-            break;
+          return "marks";
         case "s:":
-            re = "sharps";
-            break;
+          return "sharps";
         case "e:":
-            re = "expert";
-            break;
+          return "expert";
         }
-        return re;
+        return award;
+    });
+
+    Handlebars.registerHelper('dis_change', function (t) {
+        type = String(t);
+        switch (type) {
+        case "Honorable":
+            return "Honorably";
+        case "Disnorable":
+            return "Dishonorably";
+        case "General":
+            return "Generally";
+        }
+        return type;
     });
 
     Handlebars.registerHelper('str_replace', function (str, from, to) {
