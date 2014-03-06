@@ -4,7 +4,7 @@ define([
     "backbone",
     "config"
     "models/promotion"
-    ], function ($, _, Backbone, config, Promotion) {
+    ], function ($, _, Backbone, config, Promotion ) {
     "use strict";
 
     return Backbone.Collection.extend({
