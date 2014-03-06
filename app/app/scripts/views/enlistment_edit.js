@@ -6,7 +6,7 @@ define([
     "json!countries.json",
     "marionette",
     "backbone.validation"
-    ], function ($, _, Backbone, Template, Countries) {
+], function ($, _, Backbone, Template, Countries) {
 
     return Backbone.Marionette.ItemView.extend({
         template: Template,

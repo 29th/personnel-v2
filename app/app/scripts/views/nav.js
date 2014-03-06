@@ -1,12 +1,13 @@
 define([
-    "jquery"
-    , "underscore"
-    , "backbone"
-    , "hbs!templates/nav"
-    , "marionette"
-    ], function ($, _, Backbone, NavTemplate) {
+    "jquery",
+    "underscore",
+    "backbone",
+    "hbs!templates/nav",
+    "marionette"
+], function ($, _, Backbone, Template) {
+    
     return Backbone.Marionette.ItemView.extend({
-        template: NavTemplate,
+        template: Template,
         highlight: "home",
         modelEvents: {
             "change": "render"

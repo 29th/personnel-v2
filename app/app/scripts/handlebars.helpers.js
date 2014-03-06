@@ -27,7 +27,13 @@
         root.returnExports = factory(root.Handlebars);
     }
 }(this, function (Handlebars) {*/
-define(["jquery", "underscore", "handlebars", "moment", "bbcode"], function ($, _, Handlebars, moment, bbcode) {
+define([
+    "jquery",
+    "underscore",
+    "handlebars",
+    "moment",
+    "bbcode"
+], function ($, _, Handlebars, moment, bbcode) {
 
     /**
      * If Equals
@@ -208,6 +214,10 @@ define(["jquery", "underscore", "handlebars", "moment", "bbcode"], function ($, 
         return $el.html();
     });
 
+    Handlebars.registerHelper('toLowerCase', function (value) {
+        return (value && typeof value === "string") ? value.toLowerCase() : value;
+    });
+
     /**
      * Chain multiple functions together
      * ie. {{chain "taxAdd" "formatPrice" this.product.price}}
@@ -269,6 +279,21 @@ define(["jquery", "underscore", "handlebars", "moment", "bbcode"], function ($, 
 
     Handlebars.registerHelper('str_replace', function (str, from, to) {
         return str.replace(from, to);
+    });
+    
+    // debug helper
+    // usage: {{debug}} or {{debug someValue}}
+    // from: @commondream (http://thinkvitamin.com/code/handlebars-js-part-3-tips-and-tricks/)
+    Handlebars.registerHelper("debug", function(optionalValue) {
+        console.log("Current Context");
+        console.log("====================");
+        console.log(this);
+        
+        if (optionalValue) {
+            console.log("Value");
+            console.log("====================");
+            console.log(optionalValue);
+        }
     });
 
 });

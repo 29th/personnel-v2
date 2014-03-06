@@ -2,12 +2,12 @@
  * Attendees of an event
  */
 define([
-    "jquery"
-    , "underscore"
-    , "backbone"
-    , "config"
-    , "models/event_attendee"
-    ], function ($, _, Backbone, config, EventAttendee) {
+    "jquery",
+    "underscore",
+    "backbone",
+    "config",
+    "models/event_attendee"
+], function ($, _, Backbone, config, EventAttendee) {
     "use strict";
 
     return Backbone.Collection.extend({

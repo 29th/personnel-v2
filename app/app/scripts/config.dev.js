@@ -1,7 +1,5 @@
 define(function () {
-    var config = {
+    return {
         apiHost: "http://dev-api.29th.org"
     };
-
-    return config;
 });

@@ -1,12 +1,12 @@
 define([
-    "jquery"
-    , "underscore"
-    , "backbone"
-    , "hbs!templates/member"
-    , "marionette"
-    ], function ($, _, Backbone, MemberTemplate) {
+    "jquery",
+    "underscore",
+    "backbone",
+    "hbs!templates/member",
+    "marionette"
+], function ($, _, Backbone, Template) {
     return Backbone.Marionette.Layout.extend({
-        template: MemberTemplate,
+        template: Template,
         className: "member",
         initialize: function (options) {
             options = options || {};

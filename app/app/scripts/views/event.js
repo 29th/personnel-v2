@@ -1,15 +1,15 @@
 define([
-    "jquery"
-    , "underscore"
-    , "backbone"
-    , "config"
-    , "hbs!templates/event"
-    , "views/event_attendee"
-    , "marionette"
-    ], function ($, _, Backbone, config, EventTemplate, AttendeeView) {
+    "jquery",
+    "underscore",
+    "backbone",
+    "config",
+    "hbs!templates/event",
+    "views/event_attendee",
+    "marionette"
+], function ($, _, Backbone, config, Template, AttendeeView) {
 
     return Backbone.Marionette.CompositeView.extend({
-        template: EventTemplate,
+        template: Template,
         itemView: AttendeeView,
         itemViewContainer: "ul",
         events: {

@@ -1,12 +1,13 @@
 define([
-    "jquery"
-    , "underscore"
-    , "backbone"
-    , "hbs!templates/service_record"
-    , "marionette"
-    ], function ($, _, Backbone, ServiceRecordTemplate) {
-    var ServiceRecordView = Backbone.Marionette.ItemView.extend({
-        template: ServiceRecordTemplate,
+    "jquery",
+    "underscore",
+    "backbone",
+    "hbs!templates/service_record",
+    "marionette"
+], function ($, _, Backbone, Template) {
+    
+    return Backbone.Marionette.ItemView.extend({
+        template: Template,
         initialize: function (options) {
             options = options || {};
             this.assignments = options.assignments || false;
@@ -41,6 +42,4 @@ define([
             };
         }
     });
-
-    return ServiceRecordView;
 });

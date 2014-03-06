@@ -1,12 +1,13 @@
 define([
-    "jquery"
-    , "underscore"
-    , "backbone"
-    , "hbs!templates/qualifications"
-    , "marionette"
-    ], function ($, _, Backbone, QualificationsTemplate) {
-    var QualificationsView = Backbone.Marionette.ItemView.extend({
-        template: QualificationsTemplate,
+    "jquery",
+    "underscore",
+    "backbone",
+    "hbs!templates/qualifications",
+    "marionette"
+], function ($, _, Backbone, Template) {
+    
+    return Backbone.Marionette.ItemView.extend({
+        template: Template,
         serializeData: function () {
             var standards = this.collection.toJSON(),
                 sorted = {};
@@ -21,6 +22,4 @@ define([
             };
         }
     });
-
-    return QualificationsView;
 });

@@ -484,8 +484,7 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
                 units = new Units(null, {
                     filter: filter || "Bn",
                     children: true,
-                    members: true,
-                    active: true
+                    members: true
                 }),
                 rosterView = new RosterView({
                     collection: units
@@ -507,8 +506,7 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
                 // Models & Collections
                 ,
                 units = new Units(null, {
-                    filter: filter || "Bn",
-                    active: true
+                    filter: filter || "Bn"
                 })
 
                 // Layouts & Views

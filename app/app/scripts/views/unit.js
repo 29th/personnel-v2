@@ -1,10 +1,11 @@
 define([
-    "jquery"
-    , "underscore"
-    , "backbone"
-    , "hbs!templates/unit"
-    , "marionette"
-    ], function ($, _, Backbone, Template) {
+    "jquery",
+    "underscore",
+    "backbone",
+    "hbs!templates/unit",
+    "marionette"
+], function ($, _, Backbone, Template) {
+        
     return Backbone.Marionette.Layout.extend({
         template: Template,
         className: "unit",

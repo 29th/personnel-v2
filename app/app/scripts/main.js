@@ -102,7 +102,7 @@ window.requirejs = window.requirejs || {};
         "jquery",
         "util",
         "router"
-        ], function ($, util, Router) {
+    ], function ($, util, Router) {
 
         window.DEBUG = false; // Global
         

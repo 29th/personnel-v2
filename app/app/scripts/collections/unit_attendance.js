@@ -1,10 +1,10 @@
 define([
-    "jquery"
-    , "underscore"
-    , "backbone"
-    , "config"
-    , "models/event_attendee"
-    ], function ($, _, Backbone, config, EventAttendee) {
+    "jquery",
+    "underscore",
+    "backbone",
+    "config",
+    "models/event_attendee"
+], function ($, _, Backbone, config, EventAttendee) {
 
     return Backbone.Collection.extend({
         settings: {
