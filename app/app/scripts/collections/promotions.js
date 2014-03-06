@@ -3,10 +3,12 @@ define([
     , "underscore"
     , "backbone"
     , "config"
-    ], function ($, _, Backbone, config) {
+    , "models/promotion"
+    ], function ($, _, Backbone, config, Promotion) {
     "use strict";
 
     var Promotions = Backbone.Collection.extend({
+        model: Promotion,
         initialize: function (models, options) {
             options = options || {};
             this.member_id = options.member_id || false;
