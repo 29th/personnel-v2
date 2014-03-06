@@ -267,19 +267,6 @@ define(["jquery", "underscore", "handlebars", "moment", "bbcode"], function ($, 
         return award;
     });
 
-    Handlebars.registerHelper('dis_change', function (t) {
-        type = String(t);
-        switch (type) {
-        case "Honorable":
-            return "Honorably";
-        case "Disnorable":
-            return "Dishonorably";
-        case "General":
-            return "Generally";
-        }
-        return type;
-    });
-
     Handlebars.registerHelper('str_replace', function (str, from, to) {
         return str.replace(from, to);
     });
