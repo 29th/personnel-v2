@@ -1,4 +1,0 @@
-git add .
-git commmit -m "summary of changes here"
-git push origin master
-
