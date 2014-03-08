@@ -29,6 +29,10 @@ define([
             return _.extend({
                 highlight: this.highlight
             }, this.collection.length ? this.collection.at(0).toJSON() : {});
-        }
+        },
+        onRender: function () {
+            var model = this.collection.length ? this.collection.at(0) : {};
+            if (model && model.get("name")) this.title = model.get("name");
+        },
     });
 });

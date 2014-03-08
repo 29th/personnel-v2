@@ -1,9 +1,9 @@
 <div class="row header-row">
-    <div class="col-sm-12 header">{{ name }}</div>
+    <div class="col-sm-12 header"><a href="#units/{{ key }}">{{ name }}</a></div>
 </div>
 {{#if members.length}}
 <div class="row">
-    <div class="col-xs-8 col-sm-4 abbr">{{ abbr }}</div>
+    <div class="col-xs-8 col-sm-4 abbr"><a href="#units/{{ key }}">{{ abbr }}</a></div>
     <div class="col-xs-4 col-sm-8 count">({{ members.length }})</div>
 </div>
     {{#each members}}

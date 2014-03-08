@@ -14,6 +14,7 @@ define([
 
     return Backbone.Marionette.CompositeView.extend({
         template: Template,
+        title: "Enlistments",
         itemView: ItemView,
         itemViewContainer: "#rows",
         initialize: function () {

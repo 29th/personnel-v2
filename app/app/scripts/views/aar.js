@@ -8,6 +8,7 @@ define([
 
     return Backbone.Marionette.Layout.extend({
         template: Template,
+        title: "Post AAR",
         regions: {
             "attendanceRegion": "#attendance"
         },
@@ -16,6 +17,9 @@ define([
         },
         initialize: function () {
             _.bindAll(this, "onSubmitForm");
+        },
+        onRender: function () {
+            if (this.model.get("unit").key) this.title = "Post AAR - " + this.model.get("unit").key + " " + this.model.get("type");
         },
         onSubmitForm: function (e) {
             e.preventDefault();

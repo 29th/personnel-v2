@@ -7,6 +7,7 @@ define([
     "util",
     // Models
     "models/assignment",
+    "models/discharge",
     "models/enlistment",
     "models/event",
     "models/member",
@@ -30,6 +31,7 @@ define([
     "views/aar",
     "views/assignment_edit",
     "views/calendar",
+    "views/discharge",
     "views/enlistment_edit",
     "views/enlistment_process",
     "views/enlistments",
@@ -53,14 +55,14 @@ define([
     "moment",
     "backbone.validation",
     "validation.config"
-    ], function (
+], function (
 $, _, Backbone, Marionette, Handlebars, util,
 // Models
-Assignment, Enlistment, Event, Member, User,
+Assignment, Discharge, Enlistment, Event, Member, User,
 // Collections
 Assignments, Awardings, Discharges, Enlistments, EventAttendance, Events, MemberAttendance, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, UnitAttendance, Units,
 // Views
-AARView, AssignmentEditView, CalendarView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, FlashView, MemberAdminView, MemberAttendanceView,
+AARView, AssignmentEditView, CalendarView, DischargeView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, FlashView, MemberAdminView, MemberAttendanceView,
 MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, RosterView, ServiceRecordView, UnitAttendanceView, UnitView) {
     "use strict";
 
@@ -69,6 +71,7 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
             "": "roster",
             "assignments/:id/edit": "assignment_edit",
             "calendar": "calendar",
+            "discharges/:id": "discharge",
             "events/:id": "event",
             "events/:id/aar": "aar",
             "enlistments/:id/edit": "enlistment_edit",
@@ -194,6 +197,23 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
                 //util.loading(false);
                 self.showView(calendarView);
             });
+        },
+        discharge: function(id) {
+            var self = this,
+                promises = [],
+                discharge = new Discharge({
+                    id: id
+                }),
+                dischargeView = new DischargeView({
+                    model: discharge
+                });
+                
+                this.app.navRegion.currentView.setHighlight("roster");
+                promises.push(discharge.fetch());
+                
+                $.when.apply($, promises).done(function() {
+                    self.showView(dischargeView);
+                });
         },
         enlistment: function (id) {
             var self = this,
@@ -422,6 +442,7 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
 
                 // (Assignments already fetched)
                 pageView = new ServiceRecordView({
+                    model: member,
                     assignments: assignments,
                     promotions: promotions,
                     awardings: awardings,

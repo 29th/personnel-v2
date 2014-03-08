@@ -19,6 +19,9 @@ body {
     font-weight: bold;
     border-bottom: 1px black solid;
 }
+.roster .header a {
+    color: #000;
+}
 .roster .depth-4 .header-row {
     display: none;
 }
@@ -27,6 +30,9 @@ body {
 }
 .roster .abbr {
     font-weight: bold;
+}
+.roster .abbr a {
+    color: #000;
 }
 .roster .count {
     font-size: 80%;
@@ -91,3 +97,6 @@ body {
 #flash .alert {
     display: inline-block;
 }
+
+/* Service Coat */
+.coat { max-width: 100%; }

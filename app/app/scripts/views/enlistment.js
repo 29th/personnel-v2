@@ -8,6 +8,7 @@ define([
 
     return Backbone.Marionette.ItemView.extend({
         template: Template,
+        title: "Enlistment",
         initialize: function (options) {
             options = options || {};
             this.permissions = options.permissions || {};
@@ -18,6 +19,9 @@ define([
                 permissions: this.permissions.length ? this.permissions.pluck("abbr") : [],
                 memberPermissions: this.memberPermissions.length ? this.memberPermissions.pluck("abbr") : []
             }, this.model.toJSON());
-        }
+        },
+        onRender: function () {
+            if (this.model.get("member").short_name) this.title = "Enlistment - " + this.model.get("member").short_name;
+        },
     });
 });

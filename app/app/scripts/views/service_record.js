@@ -2,9 +2,10 @@ define([
     "jquery",
     "underscore",
     "backbone",
+    "config",
     "hbs!templates/service_record",
     "marionette"
-], function ($, _, Backbone, Template) {
+], function ($, _, Backbone, config, Template) {
     
     return Backbone.Marionette.ItemView.extend({
         template: Template,
@@ -37,9 +38,10 @@ define([
                 return 0;
             });
             
-            return {
-                items: items
-            };
+            return $.extend({
+                items: items,
+                coatDir: config.coatDir
+            }, this.model.toJSON());
         }
     });
 });

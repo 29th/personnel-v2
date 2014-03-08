@@ -12,6 +12,7 @@ define([
         template: Template,
         itemView: AttendeeView,
         itemViewContainer: "ul",
+        title: "Event",
         events: {
             "click #loa-cancel, #loa-post": "onClickLOA"
         },
@@ -32,7 +33,7 @@ define([
             if (rsvp) this.model.set("user_rsvp", rsvp.toJSON());
         },
         onRender: function () {
-            if (this.model.get("unit").abbr) this.title = this.model.get("unit").abbr + " " + this.model.get("type");
+            if (this.model.get("unit").key) this.title = this.model.get("unit").key + " " + this.model.get("type");
         },
         serializeData: function () {
             return _.extend({

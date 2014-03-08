@@ -1,3 +1,5 @@
+<div class="row">
+    <div class="col-sm-6">
 {{#each items}}
     <h3>{{#unless_eq this.date compare="undefined"}}{{dateFormat this.date format="ll"}}{{else}}Unknown{{/unless_eq}}</h3>
     {{#each this.items }}
@@ -27,3 +29,8 @@
         {{/if}}
     {{/each}}
 {{/each}}
+    </div>
+    <div class="col-sm-6">
+    {{#if steam_id}}<a href="{{ coatDir }}/{{ steam_id }}.png"><img src="{{ coatDir }}/{{ steam_id }}.png" class="coat"></a>{{/if}}
+    </div>
+</div>
