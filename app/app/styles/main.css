@@ -22,9 +22,9 @@ body {
 .roster .header a {
     color: #000;
 }
-.roster .depth-4 .header-row {
+/*.roster .depth-4 .header-row {
     display: none;
-}
+}*/
 .roster .unit {
     padding-top: 15px;
 }
@@ -39,6 +39,20 @@ body {
 }
 .roster label a {
     font-weight: normal;
+}
+
+/* Collapsible Roster */
+/*.roster .depth-2 > div:not(.header-row) {
+    display: none;
+}*/
+.roster .collapsed > div:not(.header-row) {
+    display: none;
+}
+.roster .collapsed > .header-row > .header > .icon-expanded {
+    display: none;
+}
+.roster .unit:not(.collapsed) > .header-row > .header > .icon-collapsed {
+    display: none;
 }
 
 /* Member Profile */

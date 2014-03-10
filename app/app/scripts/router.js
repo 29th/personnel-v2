@@ -69,6 +69,7 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
     return Backbone.Router.extend({
         routes: {
             "": "roster",
+            //"assignments"
             "assignments/:id/edit": "assignment_edit",
             "calendar": "calendar",
             "discharges/:id": "discharge",
@@ -152,12 +153,10 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
         assignment_edit: function (id) {
             var self = this,
                 promises = [],
-                assignment = new Assignment({
-                    id: id
-                }),
+                assignment = new Assignment(),
                 units = new Units(null, {
-                    active: true,
                     children: true,
+                    members: true,
                     flat: true
                 }),
                 positions = new Positions(null, {
@@ -170,7 +169,12 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
                 });
 
             this.app.navRegion.currentView.setHighlight("roster");
-            promises.push(assignment.fetch(), units.fetch(), positions.fetch());
+            promises.push(units.fetch(), positions.fetch());
+            
+            if(id) {
+                assignment.id = id;
+                promises.push(assignment.fetch());
+            }
 
             $.when.apply($, promises).done(function () {
                 self.showView(view);
@@ -270,20 +274,15 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
             var self = this,
                 promises = [],
                 enlistment = new Enlistment(),
-                tps = new Units(null, {
-                    filter: "TPs",
-                    children: true
-                }),
                 enlistmentEditView = new EnlistmentEditView({
-                    model: enlistment,
-                    tps: tps
+                    model: enlistment
                 });
 
             this.app.navRegion.currentView.setHighlight("enlistments");
 
             if (id) {
                 enlistment.id = id;
-                promises.push(enlistment.fetch(), tps.fetch());
+                promises.push(enlistment.fetch());
 
                 //util.loading(true);
                 $.when.apply($, promises).done(function () {
@@ -302,15 +301,22 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
                 }),
                 tps = new Units(null, {
                     filter: "TPs",
-                    children: true
+                    children: true,
+                    inactive: true
+                }),
+                units = new Units(null, {
+                    children: true,
+                    members: true,
+                    flat: true
                 }),
                 enlistmentProcessView = new EnlistmentProcessView({
                     model: enlistment,
-                    tps: tps
+                    tps: tps,
+                    units: units
                 });
 
             this.app.navRegion.currentView.setHighlight("enlistments");
-            promises.push(enlistment.fetch(), tps.fetch());
+            promises.push(enlistment.fetch(), tps.fetch(), units.fetch());
 
             $.when.apply($, promises).done(function () {
                 self.showView(enlistmentProcessView);

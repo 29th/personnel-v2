@@ -4,7 +4,7 @@ define([
     "backbone",
     "marionette",
     "handlebars",
-    "hbs!templates/roster",
+    "hbs!templates/roster_collapsible",
     "hbs!templates/roster_attendance",
     "marionette"
 ], function ($, _, Backbone, Marionette, Handlebars, Template, AttendanceTemplate) {
@@ -26,6 +26,10 @@ define([
             }
             this.collection = this.model.get("children");
             this.$el.addClass("unit").addClass("depth-" + this.model.get("depth"));
+            if(this.model.get("depth") === 2) this.$el.addClass("collapsed");
+        },
+        events: {
+            "click .header:first": "onClickHeader"
         },
         appendHtml: function (collectionView, itemView) {
             this.$el.append(itemView.el);
@@ -44,6 +48,10 @@ define([
                     }
                 });
             }
+        },
+        onClickHeader: function(e) {
+            $(e.currentTarget).parent().siblings().toggle(300);
+            $(e.currentTarget).parent().parent().toggleClass("collapsed");
         }
     });
 

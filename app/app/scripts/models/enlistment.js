@@ -52,6 +52,12 @@ define([
             recruiter: {
                 required: false,
                 maxLength: 128
+            },
+            unit_id: {
+                required: true
+            },
+            status: {
+                required: true
             }
         }
     });

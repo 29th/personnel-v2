@@ -1,7 +1,7 @@
 <form role="form">
     <div class="form-group">
         <label for="unit_id">Unit</label>
-        <select class="form-control" name="unit_id" id="unit_id">
+        <select class="form-control selectpicker" name="unit_id" id="unit_id" data-live-search="true">
             {{#select unit_id}}
             <option value="">Select...</option>
             {{#each tps}}
@@ -26,8 +26,20 @@
     
     <div class="form-group">
         <label for="recruiter_member_id">Recruiter</label>
-        <input type="text" class="form-control" name="recruiter_member_id" id="recruiter_member_id" value="{{ recruiter_member_id }}">
-        <p class="help-block">Member ID of recruiter</p>
+        <!--<input type="text" class="form-control" name="recruiter_member_id" id="recruiter_member_id" value="{{ recruiter_member_id }}">-->
+        <select class="form-control selectpicker" name="recruiter_member_id" id="recruiter_member_id" data-live-search="true">
+            {{#select recruiter_member_id}}
+            <option value="">Select...</option>
+            {{#each units}}
+            <optgroup label="{{ this.abbr }}">
+                {{#each this.members}}
+                <option value="{{ this.id }}">{{ this.short_name }}</option>
+                {{/each}}
+            </optgroup>
+            {{/each}}
+            {{/select}}
+        </select>
+        <p class="help-block">{{#if recruiter}}Applicant wrote: {{ recruiter }}{{/if}}</p>
     </div>
     
     <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>

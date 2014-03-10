@@ -44,7 +44,9 @@ define([
             this.filter = options.filter || false;
             this.children = options.children || false;
             this.members = options.members || false;
-            this.active = options.active || false;
+            this.inactive = options.inactive || false;
+            this.order = options.order || false;
+            this.historic = options.historic || false;
             this.flat = options.flat || false;
         },
         url: function () {
@@ -53,7 +55,9 @@ define([
             if (this.filter) url += "/" + encodeURIComponent(this.filter);
             if (this.children) params.children = this.children;
             if (this.members) params.members = this.members;
-            if (this.active) params.active = this.active;
+            if (this.inactive) params.inactive = this.inactive;
+            if (this.order) params.order = this.order;
+            if (this.historic) params.historic = this.historic;
             if (!_.isEmpty(params)) url += "?" + $.param(params);
             return url;
         },

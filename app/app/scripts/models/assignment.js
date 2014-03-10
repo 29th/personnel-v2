@@ -12,6 +12,23 @@ define([
         },
         parse: function (response, options) {
             return response.assignment || {};
+        },
+        validation: {
+            unit_id: {
+                required: true,
+                pattern: "number"
+            },
+            position_id: {
+                required: true,
+                pattern: "number"
+            },
+            start_date: {
+                required: true
+            },
+            access_level: {
+                required: true,
+                pattern: "number"
+            }
         }
     });
 });

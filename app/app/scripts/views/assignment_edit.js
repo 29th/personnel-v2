@@ -18,6 +18,7 @@ define([
             this.units = options.units || {};
             this.positions = options.positions || {};
             _.bindAll(this, "onSubmitForm");
+            Backbone.Validation.bind(this);
         },
         serializeData: function () {
             return $.extend({

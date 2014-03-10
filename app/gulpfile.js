@@ -29,7 +29,10 @@ gulp.task("default", ["clean", "umd"], function() {
  */
 gulp.task("umd", function() {
     return es.concat(
-        gulp.src(dir.dev + "vendor/bootstrap-datepicker/js/bootstrap-datepicker.js")
+        gulp.src([
+            dir.dev + "vendor/bootstrap-datepicker/js/bootstrap-datepicker.js",
+            dir.dev + "vendor/bootstrap-select/bootstrap-select.min.js"
+        ])
             .pipe(wrap({deps: ["jquery"]}))
             .pipe(gulp.dest(dir.dev + "vendor/umd")),
         gulp.src(dir.dev + "vendor/nprogress/nprogress.js")
@@ -67,6 +70,7 @@ gulp.task("scripts", function() {
             // UMD Wrapped
             "nprogress": "../vendor/umd/nprogress",
             "bootstrap-datepicker": "../vendor/umd/bootstrap-datepicker",
+            "bootstrap-select": "../vendor/umd/bootstrap-select.min",
             
             // Replaced
             "config": "config.prod"
@@ -85,6 +89,7 @@ gulp.task("styles", function() {
         dir.dev + "vendor/nprogress/nprogress.css",
         dir.dev + "vendor/fullcalendar/fullcalendar.css",
         dir.dev + "vendor/bootstrap-datepicker/css/datepicker3.css",
+        dir.dev + "vendor/bootstrap-select/bootstrap-select.min.css",
         dir.dev + "styles/main.css"
     ])
         .pipe(concat("main.min.css"))
