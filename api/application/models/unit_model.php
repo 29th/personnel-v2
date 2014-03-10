@@ -73,7 +73,7 @@ class Unit_model extends CRUD_Model {
     public function default_select() {
         $this->db->select('units.*')
             ->select($this->virtual_fields['depth'] . ' AS depth', FALSE)
-            ->select($this->virtual_fields['unit_key'] . ' AS unit_key', FALSE)
+            ->select($this->virtual_fields['unit_key'] . ' AS `key`', FALSE)
             ->select($this->virtual_fields['parent_id'] . ' AS parent_id', FALSE);
     }
     
@@ -85,12 +85,12 @@ class Unit_model extends CRUD_Model {
         $this->db->order_by('depth, units.order, units.name', FALSE);
     }
     
-    public function by_filter($filter, $children = FALSE) {        
+    public function by_filter($filter, $children = FALSE, $inactive = FALSE) {        
         // If looking up by id
         if(is_numeric($filter)) {
             // If getting children, search by path and id
             if($children !== FALSE) {
-                $this->filter_where('(units.id = ' . $filter . ' OR units.path LIKE "%/' . $filter . '/%")');
+                $this->filter_where('(units.id = ' . $filter . ' OR (' . ( ! $inactive ? 'units.active = 1 AND ' : '') . 'units.path LIKE "%/' . $filter . '/%"))');
             }
             // Otherwise just get the individual record by id
             else {
@@ -101,11 +101,14 @@ class Unit_model extends CRUD_Model {
         else if($filter) {
             // If looking up by unit_key and we want children, we need to get the unit's id with a separate query
             if($children !== FALSE && $lookup = $this->getByUnitKey($filter)) {
-                $this->filter_where('(units.id = ' . $lookup['id'] . ' OR units.path LIKE "%/' . $lookup['id'] . '/%")');
+                $this->filter_where('(units.id = ' . $lookup['id'] . ' OR (' . ( ! $inactive ? 'units.active = 1 AND ' : '') . 'units.path LIKE "%/' . $lookup['id'] . '/%"))');
             }
             else {
                 $this->filter_where($this->virtual_fields['unit_key'] . ' = ' . $this->db->escape($filter));
             }
+        }
+        else if( ! $inactive) {
+            $this->filter_where('units.active', 1);
         }
         return $this;
     }

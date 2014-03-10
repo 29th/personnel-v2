@@ -14,9 +14,9 @@ class Discharges extends MY_Controller {
     
     /**
      * INDEX
-     * Paginates
+     * This should be done by member or by unit
      */
-    public function index_get() {
+    /*public function index_get() {
         // Must have permission to view any member's profile
         if( ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
@@ -28,7 +28,7 @@ class Discharges extends MY_Controller {
             $count = $this->discharge_model->total_rows;
             $this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'discharges' => $discharges));
         }
-    }
+    }*/
     
     /**
      * VIEW
@@ -50,7 +50,7 @@ class Discharges extends MY_Controller {
      */
     public function index_post() {
         // Must have permission to create this type of record for this member or for any member
-        $this->user->permission('discharge_add', $this->post('member_id')) && ! $this->user->permission('discharge_add_any')) {
+        if( ! $this->user->permission('discharge_add', $this->post('member_id')) && ! $this->user->permission('discharge_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation

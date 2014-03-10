@@ -134,7 +134,7 @@ class Enlistment_model extends CRUD_Model {
             )
             ,array(
                 'field' => 'recruiter_member_id'
-                ,'rules' => 'numeric'
+                ,'rules' => 'numeric_or_empty'
             )
         );
     }

@@ -6,7 +6,6 @@ class Units extends MY_Controller {
         $this->load->model('unit_model');
         $this->load->model('assignment_model');
         //$this->load->model('permission_model');
-        $this->load->model('attendance_model');
     }
     
     /**
@@ -27,7 +26,7 @@ class Units extends MY_Controller {
 	 * VIEW
      * Get a particular unit or list of units
      * &children=(true|false)   Include child units
-     * &active=(true|false)     Only include active units
+     * &inactive=(true|false)     Include inactive units
      * &order=(priority|position) Order by
      * &historic=(true|false)   All members ever assigned, not just currently assigned ones
      */
@@ -40,10 +39,8 @@ class Units extends MY_Controller {
 		else {
 			$key = 'units'; // for api output
 			
-			// Get units, using ?children=true
-			$units = $this->unit_model->by_filter($filter, $this->input->get('children') == 'true' ? TRUE : FALSE);
-			if($this->input->get('active')) $units = $units->where('units.active', TRUE);
-			$units = $units->get()->result_array();
+			// Get units, using ?children=true and inactive=true
+			$units = $this->unit_model->by_filter($filter, $this->input->get('children') == 'true' ? TRUE : FALSE, $this->input->get('inactive') == 'true' ? TRUE : FALSE)->get()->result_array();
 			
 			// If results found
 			if( ! empty($units)) {
@@ -104,12 +101,17 @@ class Units extends MY_Controller {
 		$path = preg_split('@/@', $this->post('path'), NULL, PREG_SPLIT_NO_EMPTY); // use preg_split to ignore empties
 		$parent_unit_id = $path[sizeof($path)-1];
 		
-		// Fetch record
-        if( ! ($unit = $this->unit_model->by_filter($filter)->get()->row_array())) {
-            $this->response(array('status' => false, 'error' => 'Record not found'), 404);
-        }
+		// Get unit ID
+		if(is_numeric($filter)) {
+		    $unit_id = $filter;
+		}
+		else {
+		    $unit = $this->unit_model->by_filter($filter)->get()->row_array();
+		    $unit_id = isset($unit['id']) ? $unit['id'] : NULL;
+		}
+        
 		// Must have permission to create a unit within this unit and within the proposed unit or within any unit
-		if(( ! $this->user->permission('unit_add', null, $unit['id']) || ! $this->user->permission('unit_add', null, $parent_unit_id)) && ! $this->user->permission('unit_add_any')) {
+		if(( ! $this->user->permission('unit_add', null, $unit_id) || ! $this->user->permission('unit_add', null, $parent_unit_id)) && ! $this->user->permission('unit_add_any')) {
 			$this->response(array('status' => false, 'error' => 'Permission denied'), 403);
 		}
 		// Form validation
@@ -120,7 +122,7 @@ class Units extends MY_Controller {
 		else {
 			$data = whitelist($this->post(), array('name', 'abbr', 'path', 'order', 'timezone', 'class', 'active'));
 			$result = $this->unit_model->save($unit_id, $data);
-			$this->response(array('status' => $result ? true : false, 'unit' => $this->unit_model->get_by_id($unit['id'])));
+			$this->response(array('status' => $result ? true : false, 'unit' => $this->unit_model->get_by_id($unit_id)));
 		}
 	}
     
@@ -128,17 +130,21 @@ class Units extends MY_Controller {
 	 * DELETE
 	 */
     public function view_delete($filter) {
-		// Fetch record
-        if( ! ($unit = $this->unit_model->by_filter($filter)->get()->row_array())) {
-            $this->response(array('status' => false, 'error' => 'Record not found'), 404);
-        }
+		// Get unit ID
+		if(is_numeric($filter)) {
+		    $unit_id = $filter;
+		}
+		else {
+		    $unit = $this->unit_model->by_filter($filter)->get()->row_array();
+		    $unit_id = isset($unit['id']) ? $unit['id'] : NULL;
+		}
 		// Must have permission to delete this type of record for this member or for any member
-		else if( ! $this->user->permission('unit_delete', null, $unit['id']) && ! $this->user->permission('unit_delete_any')) {
+		if( ! $this->user->permission('unit_delete', null, $unit_id) && ! $this->user->permission('unit_delete_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// Delete record
 		else {
-            $this->unit_model->delete($unit['id']);            
+            $this->unit_model->delete($unit_id);            
             $this->response(array('status' => true));
         }
     }
@@ -147,21 +153,57 @@ class Units extends MY_Controller {
 	 * UNIT ATTENDANCE
 	 */
     public function attendance_get($filter) {
-		// Fetch record
-        if( ! ($unit = $this->unit_model->by_filter($filter)->get()->row_array())) {
-            $this->response(array('status' => false, 'error' => 'Record not found'), 404);
-        }
+        $this->load->model('attendance_model');
+        
+		// Get unit ID
+		if(is_numeric($filter)) {
+		    $unit_id = $filter;
+		}
+		else {
+		    $unit = $this->unit_model->by_filter($filter)->get()->row_array();
+		    $unit_id = isset($unit['id']) ? $unit['id'] : NULL;
+		}
+        
 		// Must have permission to view this type of record for this member or for any member
-		else if( ! $this->user->permission('unit_attendance', null, $unit['id']) && ! $this->user->permission('unit_attendance_any')) {
+		if( ! $this->user->permission('unit_stats', null, $unit_id) && ! $this->user->permission('unit_stats_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// View records
-		else {    
+		else {
 			$skip = $this->input->get('skip') ? $this->input->get('skip') : 0;
-			$attendance = nest($this->attendance_model->by_unit($unit['id'])->paginate('', $skip)->result_array());
+			$attendance = nest($this->attendance_model->by_unit($unit_id)->paginate('', $skip)->result_array());
 			$count = $this->attendance_model->total_rows;
 			$this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'attendance' => $attendance));
 		}
+    }
+    
+    /**
+     * UNIT DISCHARGES
+     */
+    
+    public function discharges_get($filter) {
+        $this->load->model('discharge_model');
+        
+		// Get unit ID
+		if(is_numeric($filter)) {
+		    $unit_id = $filter;
+		}
+		else {
+		    $unit = $this->unit_model->by_filter($filter)->get()->row_array();
+		    $unit_id = isset($unit['id']) ? $unit['id'] : NULL;
+		}
+        
+		// Must have permission to view this type of record for this member or for any member
+		if( ! $this->user->permission('unit_stats', null, $unit['id']) && ! $this->user->permission('unit_stats_any')) {
+            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+        }
+		// View records
+        else {
+			$skip = $this->input->get('skip') ? $this->input->get('skip') : 0;
+			$discharges = nest($this->discharge_model->by_unit($unit_id)->paginate('', $skip)->result_array());
+			$count = $this->discharges->total_rows;
+			$this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'discharges' => $discharges));
+        }
     }
     
     /**
