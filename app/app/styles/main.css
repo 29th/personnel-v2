@@ -55,6 +55,20 @@ body {
     display: none;
 }
 
+/* Collapsible qualifications */
+/*.roster .depth-2 > div:not(.header-row) {
+    display: none;
+}*/
+.member .collapsed > div:not(.header-row) {
+    display: none;
+}
+.member .collapsed > .header-row > .header > .icon-expanded {
+    display: none;
+}
+.member .unit:not(.collapsed) > .header-row > .header > .icon-collapsed {
+    display: none;
+}
+
 /* Member Profile */
 .member .title {
     font-size: 200%;
