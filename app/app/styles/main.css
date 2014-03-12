@@ -82,6 +82,10 @@ body {
     font-weight: normal;
 }
 
+.badge-inactive {
+    opacity:0.2;
+}
+
 /* LOA Buttons */
 #loa-buttons.loa-post #loa-cancel {
     display: none;

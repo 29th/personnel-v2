@@ -1,6 +1,9 @@
 {{#each items}}
+    <hr>
     <h1>{{ @key }}</h1>
     {{#each this}}
+      <div class="row">
+       <div class="col-sm-6">
         {{#unless_eq @key compare="N/A"}}<h3>{{ @key }}</h3>{{/unless_eq}}
         <ul>
         {{#each this}}
@@ -14,5 +17,12 @@
             </li>
         {{/each}}
         </ul>
+       </div>
+       <div class="col-sm-6">
+         
+           <img src='images/badges/{{this.aqb_path}}.gif' {{#unless this.aqb}}class='badge-inactive' {{/unless}}>
+        
+       </div>
+      </div>    
     {{/each}}
 {{/each}}
