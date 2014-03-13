@@ -55,6 +55,20 @@ body {
     display: none;
 }
 
+/* Collapsible qualifications */
+/*.roster .depth-2 > div:not(.header-row) {
+    display: none;
+}*/
+.member .collapsed > div:not(.header-row) {
+    display: none;
+}
+.member .collapsed > .header-row > .header > .icon-expanded {
+    display: none;
+}
+.member .unit:not(.collapsed) > .header-row > .header > .icon-collapsed {
+    display: none;
+}
+
 /* Member Profile */
 .member .title {
     font-size: 200%;
@@ -80,6 +94,10 @@ body {
     color: #999999;
     font-size: 65%;
     font-weight: normal;
+}
+
+.badge-inactive {
+    opacity:0.2;
 }
 
 /* LOA Buttons */

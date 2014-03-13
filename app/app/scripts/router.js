@@ -473,13 +473,21 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
             else if (path == "qualifications") {
                 memberLayout.setHighlight("qualifications");
 
+                //Qualification tics
                 var qualifications = new Qualifications(null, {
                     member_id: id
                 });
                 promises.push(qualifications.fetch());
 
+                // Awards
+                var awards = new Awardings(null, {
+                    member_id: id
+                });
+                promises.push(awards.fetch());
+
                 pageView = new QualificationsView({
-                    collection: qualifications
+                    collection: qualifications,
+                    awards: awards
                 });
             }
             else if (path == "edit") {

@@ -1,6 +1,10 @@
 {{#each items}}
-    <h1>{{ @key }}</h1>
+    <hr>
+    <h1 class="row header-row"> {{ @key }} <small>({{this.percentage}}%)</small></h1>
     {{#each this}}
+      {{#unless_eq @key compare='percentage'}}
+      <div class="row">
+       <div class="col-sm-6">
         {{#unless_eq @key compare="N/A"}}<h3>{{ @key }}</h3>{{/unless_eq}}
         <ul>
         {{#each this}}
@@ -14,5 +18,13 @@
             </li>
         {{/each}}
         </ul>
+       </div>
+       <div class="col-sm-6">
+         
+           <img src='images/badges/{{this.aqb_path}}.gif' {{#unless this.aqb}}class='badge-inactive' {{/unless}}>
+        
+       </div>
+      </div>
+     {{/unless_eq}} 
     {{/each}}
 {{/each}}
