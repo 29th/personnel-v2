@@ -58,6 +58,7 @@ $route['members/(:num)'] = 'members/view/$1';
 
 // Units
 $route['units/(:any)/attendance'] = 'units/attendance/$1';
+$route['units/(:any)/awols'] = 'units/awols/$1';
 $route['units/(:any)'] = 'units/view/$1';
 $route['units'] = 'units/index';
 

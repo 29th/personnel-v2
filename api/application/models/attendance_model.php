@@ -54,6 +54,23 @@ class Attendance_model extends CRUD_Model {
         return $this;
     }
     
+    public function awols($unit_id, $days = 30) {
+        $this->filter_select('attendance.member_id AS `member|id`, ' . $this->virtual_fields['short_name'] . ' AS `member|short_name`', FALSE);
+        $this->filter_select('events.id AS `event|id`, events.datetime AS `event|datetime`, DATE(events.datetime) AS `event|date`, events.type AS `event|type`');
+        $this->filter_join('events', 'events.id = attendance.event_id');
+        $this->filter_join('members', 'members.id = attendance.member_id');
+        $this->filter_join('ranks', 'ranks.id = members.rank_id');
+        $this->filter_join('units', 'units.id = events.unit_id');
+        $this->filter_where('attendance.attended', 0);
+        $this->filter_where('attendance.excused', 0);
+        $this->filter_where('events.datetime >= DATE_SUB(NOW(), INTERVAL ' . (int) $days . ' DAY)');
+        $this->filter_where('events.mandatory', 1);
+        $this->filter_where('(units.id = ' . $unit_id . ' OR units.path LIKE "%/' . $unit_id . '/%")');
+        $this->filter_order_by('events.datetime');
+        //$this->filter_group_by('`event|date`'); // Add this to limit AWOLs to one per day
+        return $this;
+    }
+    
     public function set_attendance($event_id, $data, $attended = TRUE) {
         $inserts = array();
         foreach($data as $member_id) {

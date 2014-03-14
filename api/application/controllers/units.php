@@ -194,7 +194,7 @@ class Units extends MY_Controller {
 		}
         
 		// Must have permission to view this type of record for this member or for any member
-		if( ! $this->user->permission('unit_stats', null, $unit['id']) && ! $this->user->permission('unit_stats_any')) {
+		if( ! $this->user->permission('unit_stats', null, $unit_id) && ! $this->user->permission('unit_stats_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// View records
@@ -204,6 +204,35 @@ class Units extends MY_Controller {
 			$count = $this->discharges->total_rows;
 			$this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'discharges' => $discharges));
         }
+    }
+    
+    /**
+     * AWOLs
+     * TODO: Add day param
+     */
+    public function awols_get($filter) {
+        $this->load->model('attendance_model');
+        $days = $this->input->get('days') ? (int) $this->input->get('days') : 30;
+        
+		// Get unit ID
+		if(is_numeric($filter)) {
+		    $unit_id = $filter;
+		}
+		else {
+		    $unit = $this->unit_model->by_filter($filter)->get()->row_array();
+		    $unit_id = isset($unit['id']) ? $unit['id'] : NULL;
+		}
+        
+		// Must have permission to view this type of record for this member or for any member
+		if( ! $this->user->permission('unit_stats', null, $unit_id) && ! $this->user->permission('unit_stats_any')) {
+            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+        }
+		// View records
+		else {
+			$awols = nest($this->attendance_model->awols($unit_id, $days)->get()->result_array());
+			$grouped_and_sorted = $this->sort_awols($this->group_awols($awols));
+			$this->response(array('status' => true, 'awols' => $grouped_and_sorted));
+		}
     }
     
     /**
@@ -243,5 +272,23 @@ class Units extends MY_Controller {
             }
         }
         return $output;
+    }
+    
+    private function group_awols($awols) {
+        $grouped = array();
+        foreach($awols as $awol) {
+            if( ! isset($grouped[$awol['member']['id']])) $grouped[$awol['member']['id']] = array('member' => $awol['member'], 'events' => array());
+            array_push($grouped[$awol['member']['id']]['events'], $awol['event']);
+        }
+        return array_values($grouped);
+    }
+    
+    private function sort_awols($awols) {
+        usort($awols, function($a, $b) {
+            $countA = count($a['events']);
+            $countB = count($b['events']);
+            return ($countA === $countB ? 0 : ($countA < $countB ? 1 : -1));
+        });
+        return $awols;
     }
 }
