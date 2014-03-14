@@ -19,6 +19,18 @@ body {
     font-weight: bold;
     border-bottom: 1px black solid;
 }
+.roster .depth-4 .header {
+    font-size: 110%;
+    padding-left: 30px;
+}
+.roster .depth-5 .header {
+    font-size: 110%;
+    padding-left: 50px;
+}
+.roster .depth-6 .header {
+    font-size: 110%;
+    padding-left: 70px;
+}
 .roster .header a {
     color: #000;
 }
@@ -59,13 +71,13 @@ body {
 /*.roster .depth-2 > div:not(.header-row) {
     display: none;
 }*/
-.member .collapsed > div:not(.header-row) {
+.weapon .collapsed > div:not(.header-row) {
     display: none;
 }
-.member .collapsed > .header-row > .header > .icon-expanded {
+.weapon .collapsed > .header-row > .header > .icon-expanded {
     display: none;
 }
-.member .unit:not(.collapsed) > .header-row > .header > .icon-collapsed {
+.weapon .weapon:not(.collapsed) > .header-row > .header > .icon-collapsed {
     display: none;
 }
 
