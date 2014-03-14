@@ -122,7 +122,7 @@ class Admin extends CI_Controller {
 	    $this->grocery_crud->set_table('events')
 	        ->set_relation('unit_id', 'units', 'abbr')->display_as('unit_id', 'Unit')
 	        ->set_relation('server_id', 'servers', 'name')->display_as('server_id', 'Server')
-	        ->set_relation('reporter_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('reporter_id', 'Reporter');
+	        ->set_relation('reporter_member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('reporter_member_id', 'Reporter');
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'events');

@@ -64,6 +64,7 @@ class Attendance_model extends CRUD_Model {
         $this->filter_where('attendance.attended', 0);
         $this->filter_where('attendance.excused', 0);
         $this->filter_where('events.datetime >= DATE_SUB(NOW(), INTERVAL ' . (int) $days . ' DAY)');
+        $this->filter_where('events.datetime < DATE_SUB(NOW(), INTERVAL 24 HOUR)'); // Not considered AWOL until 24 hours after the event
         $this->filter_where('events.mandatory', 1);
         $this->filter_where('(units.id = ' . $unit_id . ' OR units.path LIKE "%/' . $unit_id . '/%")');
         $this->filter_order_by('events.datetime');
