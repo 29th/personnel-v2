@@ -78,7 +78,7 @@ class Members extends MY_Controller {
         $this->load->model('promotion_model');
 		
         // Must have permission to view this member's profile or any member's profile
-        if( ! $this->user->permission('profile_edit', $member_id) && ! $this->user->permission('profile_edit_any')) {
+        if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         else {
@@ -131,7 +131,7 @@ class Members extends MY_Controller {
         $this->load->model('awarding_model');
 		
         // Must have permission to view this member's profile or any member's profile
-        if( ! $this->user->permission('profile_edit', $member_id) && ! $this->user->permission('profile_edit_any')) {
+        if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         else {
@@ -170,7 +170,7 @@ class Members extends MY_Controller {
         $this->load->model('attendance_model');
 		
         // Must have permission to view this member's profile or any member's profile
-        if( ! $this->user->permission('profile_edit', $member_id) && ! $this->user->permission('profile_edit_any')) {
+        if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         else {
@@ -189,7 +189,7 @@ class Members extends MY_Controller {
         $this->load->model('standard_model');
 		
         // Must have permission to view this member's profile or any member's profile
-        if( ! $this->user->permission('profile_edit', $member_id) && ! $this->user->permission('profile_edit_any')) {
+        if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         else {
@@ -228,7 +228,7 @@ class Members extends MY_Controller {
     
     public function assignments_get($member_id) {
         // Must have permission to view this member's profile or any member's profile
-        if( ! $this->user->permission('profile_edit', $member_id) && ! $this->user->permission('profile_edit_any')) {
+        if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         else {
@@ -279,7 +279,7 @@ class Members extends MY_Controller {
         $this->load->model('enlistment_model');
 		
         // Must have permission to view this member's profile or any member's profile
-        if( ! $this->user->permission('profile_edit', $member_id) && ! $this->user->permission('profile_edit_any')) {
+        if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         else {
@@ -296,7 +296,7 @@ class Members extends MY_Controller {
         $this->load->model('discharge_model');
 		
         // Must have permission to view this member's profile or any member's profile
-        if( ! $this->user->permission('profile_edit', $member_id) && ! $this->user->permission('profile_edit_any')) {
+        if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         else {

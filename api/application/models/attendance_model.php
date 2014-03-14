@@ -61,12 +61,16 @@ class Attendance_model extends CRUD_Model {
         $this->filter_join('members', 'members.id = attendance.member_id');
         $this->filter_join('ranks', 'ranks.id = members.rank_id');
         $this->filter_join('units', 'units.id = events.unit_id');
+        $this->filter_join('assignments', 'assignments.member_id = attendance.member_id');
+        $this->filter_join('units AS assignmentUnits', 'assignmentUnits.id = assignments.unit_id');
         $this->filter_where('attendance.attended', 0);
         $this->filter_where('attendance.excused', 0);
         $this->filter_where('events.datetime >= DATE_SUB(NOW(), INTERVAL ' . (int) $days . ' DAY)');
         $this->filter_where('events.datetime < DATE_SUB(NOW(), INTERVAL 24 HOUR)'); // Not considered AWOL until 24 hours after the event
         $this->filter_where('events.mandatory', 1);
         $this->filter_where('(units.id = ' . $unit_id . ' OR units.path LIKE "%/' . $unit_id . '/%")');
+        $this->filter_where('(assignmentUnits.id = ' . $unit_id . ' OR assignmentUnits.path LIKE "%/' . $unit_id . '/%")');
+        $this->filter_where('assignments.end_date IS NULL'); // Only include current members
         $this->filter_order_by('events.datetime');
         //$this->filter_group_by('`event|date`'); // Add this to limit AWOLs to one per day
         return $this;
