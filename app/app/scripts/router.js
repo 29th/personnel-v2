@@ -26,6 +26,7 @@ define([
     "collections/promotions",
     "collections/qualifications",
     "collections/unit_attendance", // Unit attendance
+    "collections/unit_awols",
     "collections/units",
     // Views
     "views/aar",
@@ -48,6 +49,7 @@ define([
     "views/roster",
     "views/service_record",
     "views/unit_attendance",
+    "views/unit_awols",
     "views/unit",
     // Extras
     "handlebars.helpers",
@@ -60,10 +62,10 @@ $, _, Backbone, Marionette, Handlebars, util,
 // Models
 Assignment, Discharge, Enlistment, Event, Member, User,
 // Collections
-Assignments, Awardings, Discharges, Enlistments, EventAttendance, Events, MemberAttendance, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, UnitAttendance, Units,
+Assignments, Awardings, Discharges, Enlistments, EventAttendance, Events, MemberAttendance, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, UnitAttendance, UnitAwols, Units,
 // Views
 AARView, AssignmentEditView, CalendarView, DischargeView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, FlashView, MemberAdminView, MemberAttendanceView,
-MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, RosterView, ServiceRecordView, UnitAttendanceView, UnitView) {
+MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, RosterView, ServiceRecordView, UnitAttendanceView, UnitAwolsView, UnitView) {
     "use strict";
 
     return Backbone.Router.extend({
@@ -566,6 +568,19 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
 
                 pageView = new UnitAttendanceView({
                     collection: unitAttendance
+                });
+            }
+            // AWOLs
+            else if (path == "awols") {
+                unitLayout.setHighlight("awols");
+                
+                var unitAwols = new UnitAwols(null, {
+                    filter: filter || "Bn"
+                });
+                promises.push(unitAwols.fetch());
+
+                pageView = new UnitAwolsView({
+                    collection: unitAwols
                 });
             }
             // Roster
