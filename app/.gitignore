@@ -5,3 +5,4 @@ app/vendor
 app/build
 app/scripts/templates/.mc.menu
 wrzuc_do_git.sh
+app/scripts/config.dev.js

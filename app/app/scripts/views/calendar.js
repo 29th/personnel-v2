@@ -69,12 +69,14 @@ define([
             var expected = false;
             if (this.options.userAssignments.length && event.unit.id) {
                 this.options.userAssignments.any(function (assignment) {
+/*
                     if (!assignment.get("path_array")) {
                         assignment.set("path_array", assignment.get("unit").path.split("/").map(function (i) {
                             if (i) return parseInt(i, 10);
                         }));
                     }
-                    if (assignment.get("unit").id === event.unit.id || assignment.get("path_array").indexOf(event.unit.id) > -1) {
+*/
+                    if (assignment.get("unit").id === event.unit.id || assignment.get("unit").path.indexOf('/'+event.unit.id+'/') > -1) {
                         expected = true;
                         return true;
                     }
