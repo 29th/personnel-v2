@@ -229,7 +229,7 @@ class Units extends MY_Controller {
         }
 		// View records
 		else {
-			$awols = nest($this->attendance_model->awols($unit_id, $days)->get()->result_array());
+			$awols = nest($this->attendance_model->unit_awols($unit_id, $days)->get()->result_array());
 			$grouped_and_sorted = $this->sort_awols($this->group_awols($awols));
 			$this->response(array('status' => true, 'awols' => $grouped_and_sorted));
 		}

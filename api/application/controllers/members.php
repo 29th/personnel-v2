@@ -225,7 +225,6 @@ class Members extends MY_Controller {
     /**
      * ASSIGNMENTS
      */
-    
     public function assignments_get($member_id) {
         // Must have permission to view this member's profile or any member's profile
         if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
@@ -274,7 +273,6 @@ class Members extends MY_Controller {
     /**
      * ENLISTMENTS
      */
-    
     public function enlistments_get($member_id) {
         $this->load->model('enlistment_model');
 		
@@ -291,7 +289,6 @@ class Members extends MY_Controller {
     /**
      * DISCHARGES
      */
-    
     public function discharges_get($member_id) {
         $this->load->model('discharge_model');
 		
@@ -302,6 +299,23 @@ class Members extends MY_Controller {
         else {
             $discharges = nest($this->discharge_model->where('discharges.member_id', $member_id)->get()->result_array());
             $this->response(array('status' => true, 'discharges' => $discharges));
+        }
+    }
+    
+    /**
+     * AWOLs
+     */
+    public function awols_get($member_id) {
+        $this->load->model('attendance_model');
+        $days = $this->input->get('days') ? (int) $this->input->get('days') : 30;
+		
+        // Must have permission to view this member's profile or any member's profile
+        if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
+            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+        }
+        else {
+			$awols = nest($this->attendance_model->member_awols($member_id, $days)->get()->result_array());
+            $this->response(array('status' => true, 'awols' => $awols));
         }
     }
     

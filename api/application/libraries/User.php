@@ -13,7 +13,8 @@ class User {
     private $_viewing = array('member' => array(), 'unit' => array());
     
     public function __construct($params) {
-        if(isset($params['cookie'])) $this->cookie = $params['cookie'];
+        //if(isset($params['cookie'])) $this->cookie = $params['cookie'];
+        $this->load->library('vanilla');
     }
     
     /**
@@ -35,7 +36,7 @@ class User {
             $this->load->model('member_model');
             $this->load->model('assignment_model');
             $this->_member = nest($this->member_model->where('members.forum_member_id', $this->forum_member_id)->get()->row_array());
-            $this->_member['classes'] = $this->assignment_model->get_classes($this->forum_member_id);
+            $this->_member['classes'] = isset($this->_member['id']) ? $this->assignment_model->get_classes($this->_member['id']) : array();
         }
         return $key !== FALSE ? (isset($this->_member[$key]) ? $this->_member[$key] : null) : $this->_member;
     }
@@ -49,7 +50,7 @@ class User {
         if(isset($this->forum_member_id)) return $this->forum_member_id;
         
         // Otherwise, check if third-party (forum) cookie is set
-        if($this->cookie) {
+        /*if($this->cookie) {
             // Parse cookie
             list($user_id, $password) = unserialize($this->cookie);
             //$user_id = 6804; // DEBUG
@@ -66,6 +67,12 @@ class User {
             }
         } else {
             // No cookie set
+            return FALSE;
+        }*/
+        if($user_id = $this->vanilla->GetIdentity()) {
+            $this->forum_member_id = $user_id;
+            return $this->forum_member_id;
+        } else {
             return FALSE;
         }
         

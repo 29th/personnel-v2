@@ -104,3 +104,25 @@ if( ! function_exists('whitelist')) {
         return array_intersect_key($data, array_flip($fields));
     }
 }
+
+if (!function_exists('CompareHashDigest')) {
+    /**
+     * Returns True if the two strings are equal, False otherwise.
+     * The time taken is independent of the number of characters that match.
+     *
+     * This snippet prevents HMAC Timing attacks ( http://codahale.com/a-lesson-in-timing-attacks/ )
+     * Thanks to Eric Karulf (ekarulf @ github) for this fix.
+     */
+   function CompareHashDigest($Digest1, $Digest2) {
+        if (strlen($Digest1) !== strlen($Digest2)) {
+            return false;
+        }
+
+        $Result = 0;
+        for ($i = strlen($Digest1) - 1; $i >= 0; $i--) {
+            $Result |= ord($Digest1[$i]) ^ ord($Digest2[$i]);
+        }
+
+        return 0 === $Result;
+    }
+}

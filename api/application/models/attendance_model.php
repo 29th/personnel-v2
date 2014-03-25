@@ -54,7 +54,7 @@ class Attendance_model extends CRUD_Model {
         return $this;
     }
     
-    public function awols($unit_id, $days = 30) {
+    public function unit_awols($unit_id, $days = 30) {
         $this->filter_select('attendance.member_id AS `member|id`, ' . $this->virtual_fields['short_name'] . ' AS `member|short_name`', FALSE);
         $this->filter_select('events.id AS `event|id`, events.datetime AS `event|datetime`, DATE(events.datetime) AS `event|date`, events.type AS `event|type`');
         $this->filter_join('events', 'events.id = attendance.event_id');
@@ -72,7 +72,21 @@ class Attendance_model extends CRUD_Model {
         $this->filter_where('(assignmentUnits.id = ' . $unit_id . ' OR assignmentUnits.path LIKE "%/' . $unit_id . '/%")');
         $this->filter_where('assignments.end_date IS NULL'); // Only include current members
         $this->filter_order_by('events.datetime');
-        //$this->filter_group_by('`event|date`'); // Add this to limit AWOLs to one per day
+        //$this->filter_group_by('`member|id`, `event|date`'); // Add this to limit AWOLs to one per day
+        return $this;
+    }
+    
+    public function member_awols($member_id, $days = 30) {
+        $this->filter_select('events.id, events.datetime, DATE(events.datetime) AS date, events.type');
+        $this->filter_join('events', 'events.id = attendance.event_id');
+        $this->filter_where('attendance.member_id', $member_id);
+        $this->filter_where('attendance.attended', 0);
+        $this->filter_where('attendance.excused', 0);
+        $this->filter_where('events.datetime >= DATE_SUB(NOW(), INTERVAL ' . (int) $days . ' DAY)');
+        $this->filter_where('events.datetime < DATE_SUB(NOW(), INTERVAL 24 HOUR)'); // Not considered AWOL until 24 hours after the event
+        $this->filter_where('events.mandatory', 1);
+        $this->filter_order_by('events.datetime');
+        //$this->filter_group_by('date'); // Add this to limit AWOLs to one per day
         return $this;
     }
     
