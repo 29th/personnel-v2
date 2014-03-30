@@ -28,11 +28,16 @@ define([
             this.$el.addClass("unit").addClass("depth-" + this.model.get("depth"));
             if(this.model.get("depth") === 2) this.$el.addClass("collapsed");
         },
-        events: {
+        /*events: {
             "click .header:first": "onClickHeader"
-        },
+        },*/
         appendHtml: function (collectionView, itemView) {
-            this.$el.append(itemView.el);
+            // Different append method for attendance roster
+            if(this.itemViewOptions.attendance) {
+                this.$el.append(itemView.el);
+            } else {
+                collectionView.$(".children:first").append(itemView.el);
+            }
         },
         onBeforeRender: function () {
             // If eventAttendance is set, add attended and excused values to each member
@@ -49,10 +54,10 @@ define([
                 });
             }
         },
-        onClickHeader: function(e) {
+        /*onClickHeader: function(e) {
             $(e.currentTarget).parent().siblings().toggle(300);
             $(e.currentTarget).parent().parent().toggleClass("collapsed");
-        }
+        }*/
     });
 
     return Backbone.Marionette.CollectionView.extend({

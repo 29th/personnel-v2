@@ -20,6 +20,7 @@ define([
     "collections/event_attendance", // Attendees of an event
     "collections/events",
     "collections/member_attendance", // Member attendance
+    "collections/member_awols",
     "collections/member_enlistments",
     "collections/permissions",
     "collections/positions",
@@ -62,7 +63,7 @@ $, _, Backbone, Marionette, Handlebars, util,
 // Models
 Assignment, Discharge, Enlistment, Event, Member, User,
 // Collections
-Assignments, Awardings, Discharges, Enlistments, EventAttendance, Events, MemberAttendance, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, UnitAttendance, UnitAwols, Units,
+Assignments, Awardings, Discharges, Enlistments, EventAttendance, Events, MemberAttendance, MemberAwols, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, UnitAttendance, UnitAwols, Units,
 // Views
 AARView, AssignmentEditView, CalendarView, DischargeView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, FlashView, MemberAdminView, MemberAttendanceView,
 MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, RosterView, ServiceRecordView, UnitAttendanceView, UnitAwolsView, UnitView) {
@@ -90,12 +91,24 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
         initialize: function (options) {
             options = options || {};
             this.app = options.app || new Backbone.Marionette.Application();
-            this.user = new User();
+            var self = this;
+            
+            // Fetch user if it doesn't exist
+            if( ! this.user) {
+                this.user = new User();
+                $.when(this.user.fetch()).done(function() {
+                    // Fetch user awols
+                    /*if(self.user.get("id")) {
+                        console.log(self.user.get("id"));
+                        self.user.awols = new MemberAwols(null, {member_id: self.user.get("id")});
+                        self.user.awols.fetch();
+                    }*/
+                });
+            }
             var navView = new NavView({
                 model: this.user
             });
             this.app.navRegion.show(navView);
-            var userFetch = this.user.fetch();
             //vent.trigger("fetch", userFetch);
         },
         showView: function (view) {
