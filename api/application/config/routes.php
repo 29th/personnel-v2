@@ -76,6 +76,7 @@ $route['user/permissions/members/(:num)'] = 'users/permissions/$1';
 $route['user/permissions/units/(:any)'] = 'users/permissions//$1';
 $route['user/permissions'] = 'users/permissions';
 $route['user/assignments'] = 'users/assignments';
+$route['user/associate'] = 'users/associate';
 
 // Basic CRUD
 $route['abilities/(:num)'] = 'abilities/view/$1';

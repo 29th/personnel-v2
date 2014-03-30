@@ -52,4 +52,30 @@ class Users extends MY_Controller {
             $this->response(array('status' => false, 'error' => 'Not logged in'));
         }
     }
+    
+    public function associate_get() {
+        $this->load->model('member_model');
+        // Ensure user is logged into forums
+        if( ! ($user_id = $this->user->logged_in())) {
+            $this->response(array('status' => false, 'error' => 'Not logged in to forums'));
+        } else {
+            // Find user's Steam ID in forum database
+            $forums_db = $this->load->database('forums', TRUE);
+            $result = $forums_db->query('SELECT `Value` FROM `GDN_UserMeta` WHERE `UserID` = ' . (int) $user_id)->row_array();
+            // If no Steam ID found
+            if( empty($result) || ! is_numeric($result['Value'])) {
+                $this->response(array('status' => false, 'error' => 'No Steam ID found in forum profile'));
+            } else {
+                // Update personnel members table with Steam ID
+                $member = $this->member_model->where('steam_id', $result['Value'])->get()->row_array();
+                // If no personnel member record found
+                if(empty($member)) {
+                    $this->response(array('status' => false, 'error' => 'No personnel member record with that Steam ID found'));
+                } else {
+                    $result = $this->member_model->save($member['id'], array('forum_member_id' => $user_id));
+                    $this->response(array('status' => $result ? true : false));
+                }
+            }
+        }
+    }
 }
