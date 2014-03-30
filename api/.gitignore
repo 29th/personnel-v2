@@ -10,9 +10,6 @@ application/logs/*
 
 coats/*
 
-application/config/config.php
-application/config/database.php
-
 system
 user_guide
 .travis.yml
