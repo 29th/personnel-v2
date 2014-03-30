@@ -12,8 +12,13 @@
 4. Delete conflicting files using `rm .gitignore` and `rm -rf application`
 
 ## Install the Application
-1. `git init`
+1. While inside your new `personnel-api` directory, use `git init`
 2. `git remote add origin git@github.com:29th/personnel-api.git`
 3. `git pull origin master`
-4. Create `config/config.php` with contents obtained from repo author
-5. Create `config/database.php` with contents obtained from repo author
+4. Navigate *above* the `personnel-api` directory and create an `.htaccess` file (or modify an existing one) and add the secret environment variables
+
+```
+SetEnv PERSONNEL_DB_DEFAULT 'xxx'
+SetEnv PERSONNEL_DB_FORUMS 'xxx'
+SetEnv PERSONNEL_VANILLA_COOKIE 'xxx'
+```
