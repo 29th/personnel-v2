@@ -10,7 +10,17 @@ define([
         template: Template,
         initialize: function (options) {
             options = options || {};
-            this.awards = options.awards || false;
+            this.awards = options.awards || false
+        },
+        events: {
+            "click .header:first": "onClickHeader"
+        },
+        onClickHeader: function(e) {
+            $(e.currentTarget).parent().siblings().toggle(300);
+            $(e.currentTarget).parent().parent().toggleClass("collapsed");
+        },
+        appendHtml: function (collectionView, itemView) {
+            this.$el.append(itemView.el);
         },
         serializeData: function () {
             var standards = this.collection.toJSON(),
