@@ -26,8 +26,6 @@ define([
             }
             this.collection = this.model.get("children");
             this.$el.addClass("unit").addClass("depth-" + this.model.get("depth"));
-//            if(this.model.get("depth") == 2) this.$el.addClass("collapsed");
-            if(this.model.get("abbr") == 'Staff') this.$el.addClass("collapsed");
         },
         /*events: {
             "click .header:first": "onClickHeader"
