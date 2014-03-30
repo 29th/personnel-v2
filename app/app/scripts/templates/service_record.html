@@ -11,7 +11,7 @@
         {{/if}}
         {{#if this.new_rank}}
             <li>
-              <img src="images/ranks/16x16/{{ new_rank.filename }}.png" title="{{ rank.name }}">{{#if_lt this.old_rank.order compare=this.new_rank.order}}Promoted{{else}}Demoted{{/if_lt}} to {{ this.new_rank.name }}
+              <img src="images/ranks/16x16/{{ new_rank.filename }}.png" title="{{ rank.name }}">{{#unless_lt this.new_rank.order compare=this.old_rank.order}}Promoted{{else}}Demoted{{/unless_lt}} to {{ this.new_rank.name }}
             </li>
         {{/if}}
         {{#if this.award}}
