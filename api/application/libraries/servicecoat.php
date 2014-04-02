@@ -37,7 +37,10 @@ class ServiceCoat {
         return get_instance()->$var;
     }
 
-	public function __construct()
+    /**
+     * Used to be __construct() but we don't want it to do things like create images every time we load the class in CI
+     */
+	public function prepare()
 	{
 		global $root;
 		//Image Variables
@@ -1505,6 +1508,7 @@ class ServiceCoat {
 	}
 	public function update_servicecoatC($name=0, $id=0, $rank='pvt', $unit='29th', $awards=array())
 	{
+	    $this->prepare(); // used to be __construct() but does things that shouldn't be in construct
 		$awards = $this->arraytolower($awards);
 		$this->scName = $name;
 		$this->scID = $id;

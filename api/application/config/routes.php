@@ -54,6 +54,7 @@ $route['members/(:num)/discharges'] = 'members/discharges/$1';
 $route['members/(:num)/awols'] = 'members/awols/$1';
 $route['members/(:num)/discharge'] = 'members/discharge/$1';
 $route['members/(:num)/coat'] = 'members/coat/$1';
+$route['members/(:num)/roles'] = 'members/roles/$1';
 $route['members/(:num)'] = 'members/view/$1';
 //$route['members'] = 'members/index';
 

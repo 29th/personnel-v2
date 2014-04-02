@@ -66,7 +66,7 @@ class Member_model extends CRUD_Model {
     }
     
     public function default_select() {
-        $this->db->select('members.id, members.last_name, members.first_name, members.middle_name, members.name_prefix, members.steam_id, members.city, members.primary_assignment_id')
+        $this->db->select('members.id, members.last_name, members.first_name, members.middle_name, members.name_prefix, members.steam_id, members.city, members.forum_member_id')
             ->select($this->virtual_fields['short_name'] . ' AS short_name, ' . $this->virtual_fields['full_name'] . ' AS full_name', FALSE)
             ->select('members.rank_id AS `rank|id`, ranks.abbr AS `rank|abbr`, ranks.name AS `rank|name`, ranks.filename AS `rank|filename`')
             ->select('units.id AS `unit|id`, units.abbr AS `unit|abbr`, ' . $this->virtual_fields['unit_key'] . ' AS `unit|key`, units.name AS `unit|name`, ' . $this->virtual_fields['depth'] . ' AS `unit|depth`', FALSE)
