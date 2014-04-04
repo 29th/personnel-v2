@@ -359,13 +359,17 @@ class Members extends MY_Controller {
         }
         // Execute
         else {
-            $result = $this->update_roles($member_id);
-            $this->response(array('status' => $result ? true : false));
+            if($roles = $this->update_roles($member_id)) {
+                $this->response(array('status' => true, 'roles' => $roles));
+            } else {
+                $this->response(array('status' => false, 'error' => 'There was an issue updating the user\'s roles'));
+            }
         }
     }
     
     private function update_roles($member_id) {
         $this->load->model('unit_role_model');
+        $this->load->model('class_role_model');
         $roles = array();
         
         // Get member info
@@ -373,11 +377,16 @@ class Members extends MY_Controller {
         
         // If no forum_member_id, there's nothing to do
         if( ! $member['forum_member_id']) {
-            $this->response(array('status' => false, 'error' => 'Member does not have a corresponding forum user id'), 400);
+            //$this->response(array('status' => false, 'error' => 'Member does not have a corresponding forum user id'), 400);
+            return FALSE;
         }
         
         // Get all of the member's assignments
         $assignments = nest($this->assignment_model->where('assignments.member_id', $member_id)->order_by('priority')->by_date()->get()->result_array());
+        
+        $classes = array_unique(array_map(function($row) {
+            return $row['unit']['class'];
+        }, $assignments));
         
         // For each assignment, get the corresponding forum roles for the assignment's access level
         foreach($assignments as $assignment) {
@@ -386,17 +395,35 @@ class Members extends MY_Controller {
                 $roles = array_merge($roles, pluck('role_id', $assignment_roles));
             }
         }
-        $roles = array_unique($roles); // Eliminate duplicates
-        if( ! empty($roles)) {
-            $forums_db = $this->load->database('forums', TRUE);
-            
-            // Delete all of the user's roles from forums database ** by forum_member_id NOT member_id
-            $forums_db->query('DELETE FROM `GDN_UserRole` WHERE `UserID` = ?', $member['forum_member_id']);
-            
-            $values = '(' . $member['forum_member_id'] . ', ' . implode('), (' . $member['forum_member_id'] . ', ', $roles) . ')';
-            //die($values);
-            $forums_db->query('INSERT INTO `GDN_UserRole` (`UserID`, `RoleID`) VALUES ' . $values);
+        
+        // Get forum roles for classes that member is a part of
+        $class_roles = $this->class_role_model->by_classes($classes)->get()->result_array();
+        if( ! empty($class_roles)) {
+            $roles = array_merge($roles, pluck('role_id', $class_roles));
         }
-        die(print_r($roles,true)); // TODO: Check result and return proper response
+        
+        // Eliminate duplicates
+        $roles = array_unique($roles);
+        
+        $forums_db = $this->load->database('forums', TRUE);
+        
+        // Delete all of the user's roles from forums database ** by forum_member_id NOT member_id
+        if( ! $forums_db->query('DELETE FROM `GDN_UserRole` WHERE `UserID` = ?', $member['forum_member_id'])) {
+            //$this->response(array('status' => false, 'error' => 'There was an issue deleting the user\'s old roles'));
+            return FALSE;
+        } else {
+            
+            // Insert new roles if there are any (there wouldn't be if member was discharged)
+            if( ! empty($roles)) {
+                $values = '(' . $member['forum_member_id'] . ', ' . implode('), (' . $member['forum_member_id'] . ', ', $roles) . ')';
+                //die($values);
+                if( ! $forums_db->query('INSERT INTO `GDN_UserRole` (`UserID`, `RoleID`) VALUES ' . $values)) {
+                    //$this->response(array('status' => false, 'error' => 'There was an issue adding the user\'s roles'));
+                    return FALSE;
+                }
+            }
+            //$this->response(array('status' => true, 'roles' => $roles));
+            return $roles; // Won't arrive here if insert failed. Should also arrive here if no roles to add (ie. discharged)
+        }
     }
 }
