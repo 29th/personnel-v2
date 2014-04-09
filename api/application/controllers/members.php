@@ -359,7 +359,8 @@ class Members extends MY_Controller {
         }
         // Execute
         else {
-            if($roles = $this->update_roles($member_id)) {
+            $this->load->library('vanilla');
+            if($roles = $this->vanilla->update_roles($member_id)) {
                 $this->response(array('status' => true, 'roles' => $roles));
             } else {
                 $this->response(array('status' => false, 'error' => 'There was an issue updating the user\'s roles'));
@@ -367,7 +368,7 @@ class Members extends MY_Controller {
         }
     }
     
-    private function update_roles($member_id) {
+    /*private function update_roles($member_id) {
         $this->load->model('unit_role_model');
         $this->load->model('class_role_model');
         $roles = array();
@@ -425,5 +426,5 @@ class Members extends MY_Controller {
             //$this->response(array('status' => true, 'roles' => $roles));
             return $roles; // Won't arrive here if insert failed. Should also arrive here if no roles to add (ie. discharged)
         }
-    }
+    }*/
 }

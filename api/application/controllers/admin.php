@@ -78,6 +78,14 @@ class Admin extends CI_Controller {
         $this->output($output, 'class_permissions');
 	}
 	
+	public function class_roles()
+	{
+	    $this->grocery_crud->set_table('class_roles');
+        $output = $this->grocery_crud->render();
+ 
+        $this->output($output, 'class_roles');
+	}
+	
 	public function countries()
 	{
 	    $this->grocery_crud->set_table('countries');
@@ -288,5 +296,14 @@ class Admin extends CI_Controller {
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'unit_permissions');
+	}
+	
+	public function unit_roles()
+	{
+	    $this->grocery_crud->set_table('unit_roles')
+	        ->set_relation('unit_id', 'units', 'abbr')->display_as('unit_id', 'Unit');
+        $output = $this->grocery_crud->render();
+ 
+        $this->output($output, 'unit_roles');
 	}
 }
