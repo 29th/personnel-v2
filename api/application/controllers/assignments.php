@@ -57,6 +57,11 @@ class Assignments extends MY_Controller {
             if(isset($data['end_date'])) $data['end_date'] = $data['end_date'] ? format_date($data['end_date'], 'mysqldate') : NULL;
             
             $insert_id = $this->assignment_model->save(NULL, $data);
+            
+            // Update roles
+            $this->load->library('vanilla');
+            $roles = $this->vanilla->update_roles($data['member_id']);
+            
             $this->response(array('status' => $insert_id ? true : false, 'assignment' => $insert_id ? $this->assignment_model->select_member()->get_by_id($insert_id) : null));
         }
     }
@@ -86,6 +91,11 @@ class Assignments extends MY_Controller {
             if(isset($data['end_date'])) $data['end_date'] = $data['end_date'] ? format_date($data['end_date'], 'mysqldate') : NULL;
             
             $result = $this->assignment_model->save($assignment_id, $data);
+            
+            // Update roles
+            $this->load->library('vanilla');
+            $roles = $this->vanilla->update_roles($assignment['member']['id']);
+            
             $this->response(array('status' => $result ? true : false, 'assignment' => $this->assignment_model->select_member()->get_by_id($assignment_id)));
         }
     }
