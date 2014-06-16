@@ -144,3 +144,11 @@ body {
 
 /* Service Coat */
 .coat { max-width: 100%; }
+
+#vanilla-comments iframe {
+    width: 100%;
+    min-height: 500px;
+    border: none;
+    margin: 0;
+    padding: 0;
+}

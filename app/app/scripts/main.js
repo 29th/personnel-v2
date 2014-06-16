@@ -40,6 +40,7 @@ window.requirejs = window.requirejs || {};
                 "//cdnjs.cloudflare.com/ajax/libs/fullcalendar/1.6.4/fullcalendar.min",
                 "../vendor/fullcalendar/fullcalendar.min"
             ],
+            "vanilla-comments": "//29th.org/vanilla2/js/embed",
             "nprogress": "../vendor/nprogress/nprogress",
             "bbcode": "../vendor/bbcode/src/bbcode",
             "bootstrap-datepicker": "../vendor/bootstrap-datepicker/js/bootstrap-datepicker",
