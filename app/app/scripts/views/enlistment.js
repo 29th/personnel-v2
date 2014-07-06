@@ -31,8 +31,10 @@ define([
         },
         onRender: function () {
             if (this.model.get("member").short_name) this.title = "Enlistment - " + this.model.get("member").short_name;
-            //require("vanilla-comments");
-            //this.$("#vanilla-comments").append("<script src=\"http://29th.org/vanilla2/js/embed.js\"></script>");
+            this.$("#vanilla-comments iframe").on("load", _.bind(this.onLoadIframe, this));
         },
+        onLoadIframe: function() {
+            $(".iframe-loading").hide();
+        }
     });
 });
