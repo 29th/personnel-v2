@@ -7,6 +7,10 @@
         {{#or (if_inarray 'profile_edit' compare=memberPermissions) (if_inarray 'profile_edit_any' compare=permissions) }}
             <li><a href="#members/{{ member_id }}/edit">Modify Profile</a></li>
         {{/or}}
+        {{#or (if_inarray 'discharge_add' compare=memberPermissions) (if_inarray 'discharge_add_any' compare=permissions) }}
+            <li class="divider"></li>
+            <li><a href="#members/{{ member_id }}/discharge">Discharge</a></li>
+        {{/or}}
     </ul>
 </div>
 {{/or}}

@@ -42,6 +42,7 @@ define([
     "views/flash",
     "views/member_admin",
     "views/member_attendance",
+    "views/member_discharge",
     "views/member_edit",
     "views/member_profile",
     "views/member",
@@ -65,7 +66,7 @@ Assignment, Discharge, Enlistment, Event, Member, User,
 // Collections
 Assignments, Awardings, Discharges, Enlistments, EventAttendance, Events, MemberAttendance, MemberAwols, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, UnitAttendance, UnitAwols, Units,
 // Views
-AARView, AssignmentEditView, CalendarView, DischargeView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, FlashView, MemberAdminView, MemberAttendanceView,
+AARView, AssignmentEditView, CalendarView, DischargeView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, FlashView, MemberAdminView, MemberAttendanceView, MemberDischargeView,
 MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, RosterView, ServiceRecordView, UnitAttendanceView, UnitAwolsView, UnitView) {
     "use strict";
 
@@ -508,6 +509,12 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
             else if (path == "edit") {
                 memberLayout.setHighlight("profile");
                 pageView = new MemberEditView({
+                    model: member
+                });
+            }
+            else if (path == "discharge") {
+                memberLayout.setHighlight("profile");
+                pageView = new MemberDischargeView({
                     model: member
                 });
             }
