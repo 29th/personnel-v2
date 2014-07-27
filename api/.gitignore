@@ -10,8 +10,7 @@ application/logs/*
 
 coats/*
 
-system
-user_guide
-.travis.yml
-index.php
-license.txt
+vendor
+
+composer.lock
+composer.phar

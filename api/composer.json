@@ -1,0 +1,12 @@
+{
+    "name": "timwis/personnel-api",
+    "require": {
+        "rogeriopradoj/codeigniter": "2.1.4"
+    },
+    "authors": [
+        {
+            "name": "Wilson29thID",
+            "email": "wilson@29th.org"
+        }
+    ]
+}
