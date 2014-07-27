@@ -49,7 +49,7 @@ class Admin extends CI_Controller {
         $this->output($output, 'assignments');
 	}
 	
-    // Update roles
+    // Update roles after change
 	function _callback_assignments_after_change($data, $id = null) {
         $this->load->library('vanilla');
         $roles = $this->vanilla->update_roles($data['member_id']);
