@@ -26,6 +26,9 @@ define([
                 positions: this.positions.length ? this.positions.toJSON() : {}
             }, this.model.toJSON());
         },
+        onRender: function() {
+            this.$(".selectpicker").selectpicker();
+        },
         onSubmitForm: function (e) {
             e.preventDefault();
             var data = $(e.currentTarget).serializeObject(),

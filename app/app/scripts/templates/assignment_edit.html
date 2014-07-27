@@ -1,7 +1,24 @@
 <form role="form">
+
+    <div class="form-group">
+        <label for="recruiter_member_id">Member</label>
+        <select class="form-control selectpicker" name="member_id" id="member_id" data-live-search="true">
+            {{#select member.id}}
+            <option value="">Select...</option>
+            {{#each units}}
+            <optgroup label="{{ this.abbr }}">
+                {{#each this.members}}
+                <option value="{{ this.id }}">{{ this.short_name }}</option>
+                {{/each}}
+            </optgroup>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    
     <div class="form-group">
         <label for="unit_id">Unit</label>
-        <select class="form-control" name="unit_id" id="unit_id">
+        <select class="form-control selectpicker" name="unit_id" id="unit_id" data-live-search="true">
             {{#select unit.id}}
             <option value="">Select...</option>
             {{#each units}}
@@ -12,7 +29,7 @@
     </div>
     <div class="form-group">
         <label for="position_id">Position</label>
-        <select class="form-control" name="position_id" id="position_id">
+        <select class="form-control selectpicker" name="position_id" id="position_id" data-live-search="true">
             {{#select position.id}}
             <option value="">Select...</option>
             {{#each positions}}

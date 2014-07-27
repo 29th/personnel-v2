@@ -84,6 +84,7 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
             "enlistments/:id": "enlistment",
             "enlistments": "enlistments",
             "enlist": "enlistment_edit",
+            "members/:id/assign": "assignment_add",
             "members/:id/*path": "member",
             "members/:id": "member",
             "units/:filter/*path": "unit",
@@ -166,7 +167,10 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
                 });
             });
         },
-        assignment_edit: function (id) {
+        assignment_add: function (member_id) {
+            this.assignment_edit(null, member_id);
+        },
+        assignment_edit: function (id, member_id) {
             var self = this,
                 promises = [],
                 assignment = new Assignment(),
@@ -190,6 +194,9 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
             if(id) {
                 assignment.id = id;
                 promises.push(assignment.fetch());
+            }
+            if(member_id) {
+                assignment.set("member", {id: member_id});
             }
 
             $.when.apply($, promises).done(function () {
@@ -465,6 +472,8 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
                 // (Assignments already fetched)
                 pageView = new ServiceRecordView({
                     model: member,
+                    permissions: this.permissions,
+                    memberPermissions: memberPermissions,
                     assignments: assignments,
                     promotions: promotions,
                     awardings: awardings,

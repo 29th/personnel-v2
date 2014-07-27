@@ -11,6 +11,10 @@ define([
         template: Template,
         initialize: function (options) {
             options = options || {};
+            this.permissions = options.permissions || {};
+            this.permissions.on("reset", this.render, this);
+            this.memberPermissions = options.memberPermissions || {};
+            this.memberPermissions.on("reset", this.render, this);
             this.assignments = options.assignments || false;
             this.promotions = options.promotions || false;
             this.awardings = options.awardings || false;
@@ -40,7 +44,9 @@ define([
             
             return $.extend({
                 items: items,
-                coatDir: config.coatDir
+                coatDir: config.coatDir,
+                permissions: this.permissions.length ? this.permissions.pluck("abbr") : [],
+                memberPermissions: this.memberPermissions.length ? this.memberPermissions.pluck("abbr") : []
             }, this.model.toJSON());
         }
     });

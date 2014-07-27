@@ -7,6 +7,10 @@
             <li>
               Assigned to <a href="#/units/{{ this.unit.key }}" title="{{this.unit.name}}">{{#if_eq this.unit.class compare="Staff" }}{{ this.unit.name}}{{else}}{{ this.unit.abbr }}{{/if_eq}}</a> as a {{ this.position.name }}
               {{#if_eq this.unit.class compare="Staff" }}{{#if this.end_date}} (until {{dateFormat this.end_date format="ll"}}){{/if}}{{/if_eq}}
+              
+              {{#or (if_inarray 'assignment_add' compare=../../../memberPermissions) (if_inarray 'assignment_add_any' compare=../../../permissions) }}
+                <a href="#/assignments/{{ this.id }}/edit"><span class="glyphicon glyphicon-edit"></span></a>
+              {{/or}}
             </li>
         {{/if}}
         {{#if this.new_rank}}
