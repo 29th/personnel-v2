@@ -12,5 +12,4 @@ coats/*
 
 vendor
 
-composer.lock
 composer.phar
