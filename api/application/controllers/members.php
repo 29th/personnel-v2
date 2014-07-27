@@ -57,6 +57,7 @@ class Members extends MY_Controller {
         }
         // Update record
         else {
+            $this->usertracking->track_this();
             $data = whitelist($this->post(), array('last_name', 'first_name', 'middle_name', 'name_prefix', 'country_id', 'rank_id', 'steam_id', 'email')); // leave forum_member_id out, reserve for DB changes
         
 			// Only use first letter of middle_name
@@ -323,13 +324,19 @@ class Members extends MY_Controller {
      * EXECUTE DISCHARGE
      */
     public function discharge_post($member_id) {
-        // Must have permission to modify assignments for this member or for any member, since discharging is the equivalent of ending all assignments
-        if( ! $this->user->permission('assignment_add', $member_id) && ! $this->user->permission('assignment_add_any')) {
+        // Must have permission to discharge this member or any member
+        if( ! $this->user->permission('discharge_add', $member_id) && ! $this->user->permission('discharge_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Execute
         else {
+            $this->usertracking->track_this();
             $result = $this->assignment_model->discharge($member_id);
+            
+            // Update roles
+            $this->load->library('vanilla');
+            $roles = $this->vanilla->update_roles($member_id);
+            
             $this->response(array('status' => $result ? true : false));
         }
     }
@@ -347,6 +354,7 @@ class Members extends MY_Controller {
         }
         // Execute
         else {
+            $this->usertracking->track_this();
             $data = $this->servicecoat->update($member_id);
             $this->response(array('status' => true, 'coat' => $data));
         }
@@ -359,6 +367,7 @@ class Members extends MY_Controller {
         }
         // Execute
         else {
+            $this->usertracking->track_this();
             $this->load->library('vanilla');
             if($roles = $this->vanilla->update_roles($member_id)) {
                 $this->response(array('status' => true, 'roles' => $roles));

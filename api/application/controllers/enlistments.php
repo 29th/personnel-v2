@@ -69,6 +69,7 @@ class Enlistments extends MY_Controller {
         }
         // Create record
         else {
+            $this->usertracking->track_this();
             $member_id = $this->user->member('id');
             // If no member record
             if( ! $member_id) {
@@ -110,6 +111,7 @@ class Enlistments extends MY_Controller {
         }
         // Update record
         else {
+            $this->usertracking->track_this();
             $data = whitelist($this->post(), array('first_name', 'middle_name', 'last_name', 'age', 'country_id', 'timezone', 'game', 'ingame_name', 'steam_name', 'steam_id', 'experience', 'recruiter', 'comments'));
         
 			// Only use first letter of middle_name
@@ -134,6 +136,7 @@ class Enlistments extends MY_Controller {
         }
         // Process enlistment
         else {
+            $this->usertracking->track_this();
             // First, update enlistment record
             $data = whitelist($this->post(), array('status', 'unit_id', 'recruiter_member_id'));
             $data['liaison_member_id'] = $this->user->member('id');
@@ -178,6 +181,7 @@ class Enlistments extends MY_Controller {
         }
         // Delete record
         else {
+            $this->usertracking->track_this();
             $this->enlistment_model->delete($enlistment_id);
             $this->response(array('status' => true));
         }

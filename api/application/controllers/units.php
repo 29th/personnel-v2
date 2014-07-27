@@ -88,6 +88,7 @@ class Units extends MY_Controller {
         }
 		// Create record
 		else {
+		    $this->usertracking->track_this();
 			$data = whitelist($this->post(), array('name', 'abbr', 'path', 'order', 'timezone', 'class', 'active'));
 			$insert_id = $this->unit_model->save(NULL, $data);
 			$this->response(array('status' => $insert_id ? true : false, 'unit' => $insert_id ? $this->unit_model->get_by_id($insert_id) : null));
@@ -120,6 +121,7 @@ class Units extends MY_Controller {
         }
 		// Update record
 		else {
+		    $this->usertracking->track_this();
 			$data = whitelist($this->post(), array('name', 'abbr', 'path', 'order', 'timezone', 'class', 'active'));
 			$result = $this->unit_model->save($unit_id, $data);
 			$this->response(array('status' => $result ? true : false, 'unit' => $this->unit_model->get_by_id($unit_id)));
@@ -144,6 +146,7 @@ class Units extends MY_Controller {
         }
 		// Delete record
 		else {
+		    $this->usertracking->track_this();
             $this->unit_model->delete($unit_id);            
             $this->response(array('status' => true));
         }

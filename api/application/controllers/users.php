@@ -72,6 +72,7 @@ class Users extends MY_Controller {
                 if(empty($member)) {
                     $this->response(array('status' => false, 'error' => 'No personnel member record with that Steam ID found'));
                 } else {
+                    $this->usertracking->track_this();
                     $result = $this->member_model->save($member['id'], array('forum_member_id' => $user_id));
                     $this->response(array('status' => $result ? true : false));
                 }

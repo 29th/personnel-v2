@@ -59,6 +59,7 @@ class Discharges extends MY_Controller {
         }
         // Create record
         else {
+            $this->usertracking->track_this();
             $data = whitelist($this->post(), array('member_id', 'date', 'type', 'reason', 'was_reversed', 'forum_id', 'topic_id'));
 			
 			// Clean date
@@ -87,6 +88,7 @@ class Discharges extends MY_Controller {
         }
         // Update record
         else {
+            $this->usertracking->track_this();
             $data = whitelist($this->post(), array('date', 'type', 'reason', 'was_reversed', 'forum_id', 'topic_id'));
 			
 			// Clean date
@@ -111,6 +113,7 @@ class Discharges extends MY_Controller {
         }
         // Delete record
         else {
+            $this->usertracking->track_this();
             $this->discharge_model->delete($discharge_id);
             $this->response(array('status' => true));
         }

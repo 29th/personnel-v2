@@ -65,6 +65,7 @@ class Events extends MY_Controller {
         }
         // Create record
         else {
+            $this->usertracking->track_this();
             $data = whitelist($this->post(), array('datetime', 'unit_id', 'title', 'type', 'mandatory', 'server_id'));
 			
 			// Clean date
@@ -94,6 +95,7 @@ class Events extends MY_Controller {
         }
         // Update record
         else {
+            $this->usertracking->track_this();
             $data = whitelist($this->post(), array('datetime', 'title', 'type', 'mandatory', 'server_id'));
 			
 			// Clean date
@@ -122,6 +124,7 @@ class Events extends MY_Controller {
         }
         // Update record
         else {
+            $this->usertracking->track_this();
             // First, update the event record
             $data = whitelist($this->post(), array('report'));
             $data['reporter_member_id'] = $this->user->member('id');
@@ -167,6 +170,7 @@ class Events extends MY_Controller {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         else {
+            $this->usertracking->track_this();
             // Verify event is not more than 24 hours ago
             $event = nest($this->event_model->get_by_id($event_id));
             if(round((strtotime('now') - strtotime($event['datetime']))/3600, 1) > 24) {

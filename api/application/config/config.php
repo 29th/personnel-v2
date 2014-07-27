@@ -224,7 +224,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] = getenv('PERSONNEL_ENCRYPTION_KEY'); // Only necessary because of usertracking library
 
 /*
 |--------------------------------------------------------------------------

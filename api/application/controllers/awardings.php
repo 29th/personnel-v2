@@ -51,6 +51,7 @@ class Awarding extends MY_Controller {
         }
         // Create record
         else {
+            $this->usertracking->track_this();
             $data = whitelist($this->post(), 'member_id', 'date', 'award_id', 'forum_id', 'topic_id');
 			
 			// Clean date
@@ -83,6 +84,7 @@ class Awarding extends MY_Controller {
         }
         // Update record
         else {
+            $this->usertracking->track_this();
             $data = whitelist($this->post(), array('date', 'award_id', 'forum_id', 'topic_id'));
 			
 			// Clean date
@@ -111,6 +113,7 @@ class Awarding extends MY_Controller {
         }
         // Delete record
         else {
+            $this->usertracking->track_this();
             $this->awarding_model->delete($awarding_id);
             
             // Update service coat

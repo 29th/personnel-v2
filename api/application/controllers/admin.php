@@ -13,6 +13,11 @@ class Admin extends CI_Controller {
         if( ! $this->user->permission('admin')) {
             die('Permission denied');
         }
+        
+        // Log changes
+        $this->grocery_crud->callback_after_insert(array($this->usertracking, 'track_this'));
+	    $this->grocery_crud->callback_after_update(array($this->usertracking, 'track_this'));
+	    $this->grocery_crud->callback_before_delete(array($this->usertracking, 'track_this'));
     }
 	
 	private function output($output, $method = '') {
@@ -36,9 +41,33 @@ class Admin extends CI_Controller {
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member')
 	        ->set_relation('unit_id', 'units', 'abbr')->display_as('unit_id', 'Unit')
 	        ->set_relation('position_id', 'positions', 'name')->display_as('position_id', 'Position');
+        $this->grocery_crud->callback_after_insert(array($this, '_callback_assignments_after_change'));
+	    $this->grocery_crud->callback_after_update(array($this, '_callback_assignments_after_change'));
+	    $this->grocery_crud->callback_before_delete(array($this, '_callback_assignments_before_delete'));
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'assignments');
+	}
+	
+    // Update roles
+	function _callback_assignments_after_change($data, $id = null) {
+        $this->load->library('vanilla');
+        $roles = $this->vanilla->update_roles($data['member_id']);
+	}
+	
+	// This one has to be done before because after, the promotion record doesn't exist so we don't know which member to update...ugh
+	function _callback_assignments_before_delete($id) {
+	    $this->load->model('assignment_model');
+	    $data = (array) $this->assignment_model->get_by_id($id);
+	    $data = ! empty($data) ? nest($data) : $data;
+	    
+	    $this->assignment_model->save($id, array('end_date' => format_date('yesterday', 'mysqldate'))); // Set an end date in the past so the role update doesn't include this
+	    
+	    // Update roles
+	    if($data['member']['id']) {
+            $this->load->library('vanilla');
+            $roles = $this->vanilla->update_roles($data['member']['id']);
+	    }
 	}
 	
 	public function attendance()
@@ -161,15 +190,21 @@ class Admin extends CI_Controller {
         
 	    $crud->set_table('members')
 	        ->set_subject('Member')
-	        ->columns('id', 'last_name', 'first_name', 'middle_name', 'rank_id', 'primary_assignment_id', 'country_id', 'steam_id', 'units', 'classes')
-	        ->fields('id', 'last_name', 'first_name', 'middle_name', 'rank_id', 'primary_assignment_id', 'country_id', 'city', 'steam_id', 'email')
+	        ->columns('id', 'last_name', 'first_name', 'middle_name', 'rank_id', 'primary_assignment_id', 'country_id', 'steam_id'/*, 'units', 'classes'*/)
+	        ->fields('id', 'last_name', 'first_name', 'middle_name', 'rank_id', 'primary_assignment_id', 'forum_member_id', 'country_id', 'city', 'steam_id', 'email')
 	        ->set_relation('country_id', 'countries', 'abbr')->display_as('country_id', 'Country')
 	        ->set_relation('rank_id', 'ranks', 'abbr')->display_as('rank_id', 'Rank')
 	        ->callback_column('steam_id', array($this, '_callback_members_steam_id'));
-	    $crud->set_relation_n_n('units', 'assignments', 'units', 'member_id', 'unit_id', 'abbr', null, '(start_date <= CURDATE() OR start_date IS NULL) AND (end_date > CURDATE() OR end_date IS NULL)');
-	    $crud->set_relation_n_n('classes', 'assignments', 'units', 'member_id', 'unit_id', 'class', null, '(start_date <= CURDATE() OR start_date IS NULL) AND (end_date > CURDATE() OR end_date IS NULL)');
-        $output = $crud->render();
+	    // This seemed to delete assignments when I update a member for some reason...
+	    //$crud->set_relation_n_n('units', 'assignments', 'units', 'member_id', 'unit_id', 'abbr', null, '(start_date <= CURDATE() OR start_date IS NULL) AND (end_date > CURDATE() OR end_date IS NULL)');
+	    //$crud->set_relation_n_n('classes', 'assignments', 'units', 'member_id', 'unit_id', 'class', null, '(start_date <= CURDATE() OR start_date IS NULL) AND (end_date > CURDATE() OR end_date IS NULL)');
+        
+        // Log changes (not applied in constructor since this method doesn't use $this)
+        /*$crud->callback_after_insert(array($this->usertracking, 'track_this'));
+	    $crud->callback_after_update(array($this->usertracking, 'track_this'));
+	    $crud->callback_before_delete(array($this->usertracking, 'track_this'));*/
  
+        $output = $crud->render();
         $this->output($output, 'members');
 	}
 	
@@ -305,5 +340,20 @@ class Admin extends CI_Controller {
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'unit_roles');
+	}
+	
+	/*
+	 * USER TRACKING
+	 * Read-only (editing disabled)
+	 */
+	public function usertracking()
+	{
+	    $this->grocery_crud->set_table('usertracking')
+	        ->set_relation('user_identifier', 'members', '{last_name}, {first_name} {middle_name}')->display_as('user_identifier', 'Member')
+	        ->display_as('session_id', 'Session')->display_as('request_uri', 'URL')->display_as('request_method', 'Method')
+	        ->unset_add()->unset_edit()->unset_delete();
+        $output = $this->grocery_crud->render();
+ 
+        $this->output($output, 'usertracking');
 	}
 }

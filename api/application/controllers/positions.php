@@ -45,6 +45,7 @@ class positions extends MY_Controller {
         }
 		// Create record
 		else {
+		    $this->usertracking->track_this();
 			$data = whitelist($this->post(), array('name', 'active', 'order', 'description'));
             $insert_id = $this->position_model->save(NULL, $data);
             $this->response(array('status' => $insert_id ? true : false, 'position' => $insert_id ? $this->position_model->get_by_id($insert_id) : null));
@@ -65,6 +66,7 @@ class positions extends MY_Controller {
         }
 		// Update record
 		else {
+		    $this->usertracking->track_this();
 			$data = whitelist($this->post(), array('name', 'active', 'order', 'description'));
             $result = $this->position_model->save($position_id, $data);
             $this->response(array('status' => $results ? true : false, 'position' => $this->position_model->get_by_id($position_id)));
@@ -81,6 +83,7 @@ class positions extends MY_Controller {
         }
 		// Delete record
 		else {
+		    $this->usertracking->track_this();
             $this->position_model->delete($position_id);
             $this->response(array('status' => true));
         }

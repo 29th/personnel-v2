@@ -52,6 +52,7 @@ class Promotions extends MY_Controller {
         }
 		// Create record
 		else {
+		    $this->usertracking->track_this();
 			$data = whitelist($this->post(), array('member_id', 'date', 'old_rank_id', 'new_rank_id', 'forum_id', 'topic_id');
 			
 			// Clean date
@@ -87,6 +88,7 @@ class Promotions extends MY_Controller {
         }
 		// Update record
 		else {
+		    $this->usertracking->track_this();
 			$data = whitelist($this->post(), array('date', 'old_rank_id', 'new_rank_id', 'forum_id', 'topic_id'));
 			
 			// Clean date
@@ -118,6 +120,7 @@ class Promotions extends MY_Controller {
         }
 		// Delete record
 		else {
+		    $this->usertracking->track_this();
             $this->promotion_model->delete($promotion_id);
 			
 			// Update rank if necessary

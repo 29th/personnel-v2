@@ -32,32 +32,33 @@ a:hover
     <div class="container">
     	<div class="row">
     	    <ul class="nav nav-pills">
-    	        <li<?php if($method == 'abilities') echo ' class="active"'; ?>><a href="abilities">Abilities</a></li>
-    	        <li<?php if($method == 'assignments') echo ' class="active"'; ?>><a href="assignments">Assignments</a></li>
-    	        <li<?php if($method == 'attendance') echo ' class="active"'; ?>><a href="attendance">Attendance</a></li>
-    	        <li<?php if($method == 'awardings') echo ' class="active"'; ?>><a href="awardings">Awardings</a></li>
-    	        <li<?php if($method == 'awards') echo ' class="active"'; ?>><a href="awards">Awards</a></li>
-    	        <li<?php if($method == 'class_permissions') echo ' class="active"'; ?>><a href="class_permissions">Class Permissions</a></li>
-    	        <li<?php if($method == 'class_roles') echo ' class="active"'; ?>><a href="class_roles">Class Roles</a></li>
-    	        <li<?php if($method == 'countries') echo ' class="active"'; ?>><a href="countries">Countries</a></li>
-    	        <li<?php if($method == 'demerits') echo ' class="active"'; ?>><a href="demerits">Demerits</a></li>
-    	        <li<?php if($method == 'discharges') echo ' class="active"'; ?>><a href="discharges">Discharges</a></li>
-    	        <li<?php if($method == 'enlistments') echo ' class="active"'; ?>><a href="enlistments">Enlistments</a></li>
-    	        <li<?php if($method == 'events') echo ' class="active"'; ?>><a href="events">Events</a></li>
-    	        <li<?php if($method == 'finances') echo ' class="active"'; ?>><a href="finances">Finances</a></li>
-    	        <li<?php if($method == 'loa') echo ' class="active"'; ?>><a href="loa">LOA</a></li>
-    	        <li<?php if($method == 'members') echo ' class="active"'; ?>><a href="members">Members</a></li>
-    	        <li<?php if($method == 'notes') echo ' class="active"'; ?>><a href="notes">Notes</a></li>
-    	        <li<?php if($method == 'positions') echo ' class="active"'; ?>><a href="positions">Positions</a></li>
-    	        <li<?php if($method == 'promotions') echo ' class="active"'; ?>><a href="promotions">Promotions</a></li>
-    	        <li<?php if($method == 'qualifications') echo ' class="active"'; ?>><a href="qualifications">Qualifications</a></li>
-    	        <li<?php if($method == 'ranks') echo ' class="active"'; ?>><a href="ranks">Ranks</a></li>
-    	        <li<?php if($method == 'schedules') echo ' class="active"'; ?>><a href="schedules">Schedules</a></li>
-    	        <li<?php if($method == 'servers') echo ' class="active"'; ?>><a href="servers">Servers</a></li>
-    	        <li<?php if($method == 'standards') echo ' class="active"'; ?>><a href="standards">Standards</a></li>
-    	        <li<?php if($method == 'units') echo ' class="active"'; ?>><a href="units">Units</a></li>
-    	        <li<?php if($method == 'unit_permissions') echo ' class="active"'; ?>><a href="unit_permissions">Unit Permissions</a></li>
-    	        <li<?php if($method == 'unit_roles') echo ' class="active"'; ?>><a href="unit_roles">Unit Roles</a></li>
+    	        <li<?php if($method == 'abilities') echo ' class="active"'; ?>><a href="<?= site_url('admin/abilities') ?>">Abilities</a></li>
+    	        <li<?php if($method == 'assignments') echo ' class="active"'; ?>><a href="<?= site_url('admin/assignments') ?>">Assignments</a></li>
+    	        <li<?php if($method == 'attendance') echo ' class="active"'; ?>><a href="<?= site_url('admin/attendance') ?>">Attendance</a></li>
+    	        <li<?php if($method == 'awardings') echo ' class="active"'; ?>><a href="<?= site_url('admin/awardings') ?>">Awardings</a></li>
+    	        <li<?php if($method == 'awards') echo ' class="active"'; ?>><a href="<?= site_url('admin/awards') ?>">Awards</a></li>
+    	        <li<?php if($method == 'class_permissions') echo ' class="active"'; ?>><a href="<?= site_url('admin/class_permissions') ?>">Class Permissions</a></li>
+    	        <li<?php if($method == 'class_roles') echo ' class="active"'; ?>><a href="<?= site_url('admin/class_roles') ?>">Class Roles</a></li>
+    	        <li<?php if($method == 'countries') echo ' class="active"'; ?>><a href="<?= site_url('admin/countries') ?>">Countries</a></li>
+    	        <li<?php if($method == 'demerits') echo ' class="active"'; ?>><a href="<?= site_url('admin/demerits') ?>">Demerits</a></li>
+    	        <li<?php if($method == 'discharges') echo ' class="active"'; ?>><a href="<?= site_url('admin/discharges') ?>">Discharges</a></li>
+    	        <li<?php if($method == 'enlistments') echo ' class="active"'; ?>><a href="<?= site_url('admin/enlistments') ?>">Enlistments</a></li>
+    	        <li<?php if($method == 'events') echo ' class="active"'; ?>><a href="<?= site_url('admin/events') ?>">Events</a></li>
+    	        <li<?php if($method == 'finances') echo ' class="active"'; ?>><a href="<?= site_url('admin/finances') ?>">Finances</a></li>
+    	        <li<?php if($method == 'loa') echo ' class="active"'; ?>><a href="<?= site_url('admin/loa') ?>">LOA</a></li>
+    	        <li<?php if($method == 'members') echo ' class="active"'; ?>><a href="<?= site_url('admin/members') ?>">Members</a></li>
+    	        <li<?php if($method == 'notes') echo ' class="active"'; ?>><a href="<?= site_url('admin/notes') ?>">Notes</a></li>
+    	        <li<?php if($method == 'positions') echo ' class="active"'; ?>><a href="<?= site_url('admin/positions') ?>">Positions</a></li>
+    	        <li<?php if($method == 'promotions') echo ' class="active"'; ?>><a href="<?= site_url('admin/promotions') ?>">Promotions</a></li>
+    	        <li<?php if($method == 'qualifications') echo ' class="active"'; ?>><a href="<?= site_url('admin/qualifications') ?>">Qualifications</a></li>
+    	        <li<?php if($method == 'ranks') echo ' class="active"'; ?>><a href="<?= site_url('admin/ranks') ?>">Ranks</a></li>
+    	        <li<?php if($method == 'schedules') echo ' class="active"'; ?>><a href="<?= site_url('admin/schedules') ?>">Schedules</a></li>
+    	        <li<?php if($method == 'servers') echo ' class="active"'; ?>><a href="<?= site_url('admin/servers') ?>">Servers</a></li>
+    	        <li<?php if($method == 'standards') echo ' class="active"'; ?>><a href="<?= site_url('admin/standards') ?>">Standards</a></li>
+    	        <li<?php if($method == 'units') echo ' class="active"'; ?>><a href="<?= site_url('admin/units') ?>">Units</a></li>
+    	        <li<?php if($method == 'unit_permissions') echo ' class="active"'; ?>><a href="<?= site_url('admin/unit_permissions') ?>">Unit Permissions</a></li>
+    	        <li<?php if($method == 'unit_roles') echo ' class="active"'; ?>><a href="<?= site_url('admin/unit_roles') ?>">Unit Roles</a></li>
+    	        <li<?php if($method == 'usertracking') echo ' class="active"'; ?>><a href="<?= site_url('admin/usertracking') ?>">User Tracking</a></li>
     	    </ul>
     	</div>
         <div class="row">

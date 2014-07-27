@@ -50,6 +50,7 @@ class Assignments extends MY_Controller {
         }
         // Create record
         else {
+            $this->usertracking->track_this();
             $data = whitelist($this->post(), array('member_id', 'unit_id', 'position_id', 'access_level', 'start_date', 'end_date'));
             
             // Clean dates or set to NULL if empty
@@ -62,7 +63,7 @@ class Assignments extends MY_Controller {
             $this->load->library('vanilla');
             $roles = $this->vanilla->update_roles($data['member_id']);
             
-            $this->response(array('status' => $insert_id ? true : false, 'assignment' => $insert_id ? $this->assignment_model->select_member()->get_by_id($insert_id) : null));
+            $this->response(array('status' => $insert_id ? true : false, 'assignment' => $insert_id ? nest($this->assignment_model->select_member()->get_by_id($insert_id)) : null));
         }
     }
     
@@ -84,6 +85,7 @@ class Assignments extends MY_Controller {
         }
         // Update record
         else {
+            $this->usertracking->track_this();
             $data = whitelist($this->post(), array('unit_id', 'position_id', 'access_level', 'start_date', 'end_date'));
             
             // Clean dates or set to NULL if empty
@@ -96,7 +98,7 @@ class Assignments extends MY_Controller {
             $this->load->library('vanilla');
             $roles = $this->vanilla->update_roles($assignment['member']['id']);
             
-            $this->response(array('status' => $result ? true : false, 'assignment' => $this->assignment_model->select_member()->get_by_id($assignment_id)));
+            $this->response(array('status' => $result ? true : false, 'assignment' => nest($this->assignment_model->select_member()->get_by_id($assignment_id))));
         }
     }
     
@@ -115,7 +117,13 @@ class Assignments extends MY_Controller {
         }
         // Delete record
         else {
+            $this->usertracking->track_this();
             $this->assignment_model->delete($assignment_id);
+            
+            // Update roles
+            $this->load->library('vanilla');
+            $roles = $this->vanilla->update_roles($assignment['member']['id']);
+            
             $this->response(array('status' => true));
         }
     }
