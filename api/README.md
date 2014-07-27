@@ -22,3 +22,5 @@ SetEnv PERSONNEL_DB_DEFAULT 'xxx'
 SetEnv PERSONNEL_DB_FORUMS 'xxx'
 SetEnv PERSONNEL_VANILLA_COOKIE 'xxx'
 ```
+## Copy Cookie
+This application uses the same cookie as the forum it's connected to. Since you'll be running this locally, that cookie won't be shared with this application (the forum is on a different domain than your local environment). To leverage this cookie, go to the forum and copy the value of the `Vanilla` cookie (using something like [EditThisCookie](https://chrome.google.com/webstore/detail/editthiscookie/fngmhnnpilhplaeedifhccceomclgfbg)), then create one when viewing your local application in the browser. Name it `Vanilla` and paste the value in.
