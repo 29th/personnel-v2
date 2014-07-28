@@ -46,9 +46,9 @@ if (defined('ENVIRONMENT'))
 	}
 }
 $db = unserialize(getenv('PERSONNEL_DB_DEFAULT'));
-echo 'connecting to ' . $db['username'] . '@' . $db['hostname'];
-$result = mysql_connect($db['hostname'], $db['username'], $db['password'], TRUE);
-echo 'result: ' . $result;
+echo 'connecting to ' . $db['database'] . ' on ' . $db['username'] . '@' . $db['hostname'] . '<br>';
+$result = mysqli_connect($db['hostname'], $db['username'], $db['password'], $db['database'], TRUE);
+echo 'result: ' . $result . '<br>';
 die('died');
 /*
  *---------------------------------------------------------------
