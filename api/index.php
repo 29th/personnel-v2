@@ -199,7 +199,6 @@ if (defined('ENVIRONMENT'))
  * And away we go...
  *
  */
- die('basepath: ' . BASEPATH);
 require_once BASEPATH.'core/CodeIgniter.php';
 
 /* End of file index.php */
