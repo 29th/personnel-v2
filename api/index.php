@@ -45,10 +45,20 @@ if (defined('ENVIRONMENT'))
 			exit('The application environment is not set correctly.');
 	}
 }
-$db = unserialize(getenv('PERSONNEL_DB_DEFAULT'));
+/*$db = unserialize(getenv('PERSONNEL_DB_DEFAULT'));
 echo 'connecting to ' . $db['database'] . ' on ' . $db['username'] . '@' . $db['hostname'] . '<br>';
 $result = mysqli_connect($db['hostname'], $db['username'], $db['password'], $db['database'], TRUE);
-echo 'result: ' . $result . '<br>';
+echo 'result: ' . $result . '<br>';*/
+    $url=parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+    $server = $url["host"];
+    $username = $url["user"];
+    $password = $url["pass"];
+    $db = substr($url["path"],1);
+echo 'Connecting to ' . $db . ' on ' . $username . '@' . $server . '<br>';
+    mysqli_connect($server, $username, $password);
+echo 'Connected!';
+    mysqli_select_db($db);
 die('died');
 /*
  *---------------------------------------------------------------
