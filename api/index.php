@@ -46,7 +46,9 @@ if (defined('ENVIRONMENT'))
 	}
 }
 $db = unserialize(getenv('PERSONNEL_DB_DEFAULT'));
-mysql_connect($db['hostname'], $db['username'], $db['password'], TRUE);
+echo 'connecting to ' . $db['username'] . '@' . $db['hostname'];
+$result = mysql_connect($db['hostname'], $db['username'], $db['password'], TRUE);
+echo 'result: ' . $result;
 /*
  *---------------------------------------------------------------
  * SYSTEM FOLDER NAME
