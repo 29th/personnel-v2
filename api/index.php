@@ -45,7 +45,8 @@ if (defined('ENVIRONMENT'))
 			exit('The application environment is not set correctly.');
 	}
 }
-
+$db = unserialize(getenv('PERSONNEL_DB_DEFAULT'));
+mysql_connect($db['hostname'], $db['username'], $db['password'], TRUE);
 /*
  *---------------------------------------------------------------
  * SYSTEM FOLDER NAME
