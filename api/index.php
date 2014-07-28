@@ -33,7 +33,6 @@ if (defined('ENVIRONMENT'))
 	switch (ENVIRONMENT)
 	{
 		case 'development':
-		    ini_set("display_errors", 1);
 			error_reporting(E_ALL);
 		break;
 	
@@ -200,6 +199,7 @@ if (defined('ENVIRONMENT'))
  * And away we go...
  *
  */
+ die('here');
 require_once BASEPATH.'core/CodeIgniter.php';
 
 /* End of file index.php */
