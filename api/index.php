@@ -49,6 +49,7 @@ $db = unserialize(getenv('PERSONNEL_DB_DEFAULT'));
 echo 'connecting to ' . $db['username'] . '@' . $db['hostname'];
 $result = mysql_connect($db['hostname'], $db['username'], $db['password'], TRUE);
 echo 'result: ' . $result;
+die('died');
 /*
  *---------------------------------------------------------------
  * SYSTEM FOLDER NAME
