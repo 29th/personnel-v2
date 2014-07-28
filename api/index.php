@@ -49,12 +49,13 @@ if (defined('ENVIRONMENT'))
 echo 'connecting to ' . $db['database'] . ' on ' . $db['username'] . '@' . $db['hostname'] . '<br>';
 $result = mysqli_connect($db['hostname'], $db['username'], $db['password'], $db['database'], TRUE);
 echo 'result: ' . $result . '<br>';*/
-    $url=parse_url(getenv("CLEARDB_DATABASE_URL"));
+    //$url=parse_url(getenv("CLEARDB_DATABASE_URL"));
+    $db = unserialize(getenv('PERSONNEL_DB_DEFAULT'));
 
-    $server = $url["host"];
-    $username = $url["user"];
-    $password = $url["pass"];
-    $db = substr($url["path"],1);
+    $server = $db['hostname'];
+    $username = $db['username'];
+    $password = $db['password'];
+    $db =  $db['database'];
 echo 'Connecting to ' . $db . ' on ' . $username . '@' . $server . '<br>';
     mysqli_connect($server, $username, $password);
 echo 'Connected!';
