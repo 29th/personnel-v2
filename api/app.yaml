@@ -1,0 +1,12 @@
+application: personnel-api
+version: 1
+runtime: php
+api_version: 1
+
+handlers:
+- url: /assets/(.+)
+  static_files: assets/\1
+  application_readable: true
+  
+- url: /.*
+  script: index.php
