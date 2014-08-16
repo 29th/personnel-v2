@@ -13,3 +13,4 @@ coats/*
 vendor
 
 composer.phar
+.elasticbeanstalk/

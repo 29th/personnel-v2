@@ -48,8 +48,45 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default'] = unserialize(getenv('PERSONNEL_DB_DEFAULT'));
-$db['forums'] = unserialize(getenv('PERSONNEL_DB_FORUMS'));
+//$db['default'] = unserialize(getenv('PERSONNEL_DB_DEFAULT'));
+//$db['forums'] = unserialize(getenv('PERSONNEL_DB_FORUMS'));
+
+$db['default'] = array(
+    'hostname' => $_SERVER['RDS_HOSTNAME'],
+    'port'     => $_SERVER['RDS_PORT'],
+    'username' => $_SERVER['RDS_USERNAME'],
+    'password' => $_SERVER['RDS_PASSWORD'],
+    'database' => $_SERVER['RDS_DB_NAME'],
+    'dbdriver' => 'mysqli',
+    'dbprefix' => '',
+    'pconnect' => 1,
+    'db_debug' => 1,
+    'cache_on' => '',
+    'cachedir' => '',
+    'char_set' => 'utf8',
+    'dbcollat' => 'utf8_general_ci',
+    'swap_pre' => '',
+    'autoinit' => 1,
+    'stricton' => ''
+);
+
+$db['forums'] = array(
+    'hostname' => $_SERVER['DB_FORUMS_HOSTNAME'],
+    'username' => $_SERVER['DB_FORUMS_USERNAME'],
+    'password' => $_SERVER['DB_FORUMS_PASSWORD'],
+    'database' => $_SERVER['DB_FORUMS_DATABASE'],
+    'dbdriver' => 'mysqli',
+    'dbprefix' => '',
+    'pconnect' => 1,
+    'db_debug' => 1,
+    'cache_on' => '',
+    'cachedir' => '',
+    'char_set' => 'utf8',
+    'dbcollat' => 'utf8_general_ci',
+    'swap_pre' => '',
+    'autoinit' => 1,
+    'stricton' => ''
+);
 
 
 /* End of file database.php */
