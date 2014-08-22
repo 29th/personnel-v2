@@ -52,11 +52,11 @@ $active_record = TRUE;
 //$db['forums'] = unserialize(getenv('PERSONNEL_DB_FORUMS'));
 
 $db['default'] = array(
-    'hostname' => $_SERVER['RDS_HOSTNAME'],
-    'port'     => $_SERVER['RDS_PORT'],
-    'username' => $_SERVER['RDS_USERNAME'],
-    'password' => $_SERVER['RDS_PASSWORD'],
-    'database' => $_SERVER['RDS_DB_NAME'],
+    'hostname' => $_SERVER['DB_DEFAULT_HOSTNAME'],
+    'port'     => $_SERVER['DB_DEFAULT_PORT'],
+    'username' => $_SERVER['DB_DEFAULT_USERNAME'],
+    'password' => $_SERVER['DB_DEFAULT_PASSWORD'],
+    'database' => $_SERVER['DB_DEFAULT_DATABASE'],
     'dbdriver' => 'mysqli',
     'dbprefix' => '',
     'pconnect' => 1,
