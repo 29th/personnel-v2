@@ -14,3 +14,5 @@ vendor
 
 composer.phar
 .elasticbeanstalk/
+
+.c9

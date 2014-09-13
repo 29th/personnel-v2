@@ -52,11 +52,11 @@ $active_record = TRUE;
 //$db['forums'] = unserialize(getenv('PERSONNEL_DB_FORUMS'));
 
 $db['default'] = array(
-    'hostname' => $_SERVER['DB_DEFAULT_HOSTNAME'],
-    'port'     => $_SERVER['DB_DEFAULT_PORT'],
-    'username' => $_SERVER['DB_DEFAULT_USERNAME'],
-    'password' => $_SERVER['DB_DEFAULT_PASSWORD'],
-    'database' => $_SERVER['DB_DEFAULT_DATABASE'],
+    'hostname' => getenv('DB_DEFAULT_HOSTNAME'),
+    'port'     => getenv('DB_DEFAULT_PORT'),
+    'username' => getenv('DB_DEFAULT_USERNAME'),
+    'password' => getenv('DB_DEFAULT_PASSWORD'),
+    'database' => getenv('DB_DEFAULT_DATABASE'),
     'dbdriver' => 'mysqli',
     'dbprefix' => '',
     'pconnect' => 1,
@@ -71,10 +71,10 @@ $db['default'] = array(
 );
 
 $db['forums'] = array(
-    'hostname' => $_SERVER['DB_FORUMS_HOSTNAME'],
-    'username' => $_SERVER['DB_FORUMS_USERNAME'],
-    'password' => $_SERVER['DB_FORUMS_PASSWORD'],
-    'database' => $_SERVER['DB_FORUMS_DATABASE'],
+    'hostname' => getenv('DB_FORUMS_HOSTNAME'),
+    'username' => getenv('DB_FORUMS_USERNAME'),
+    'password' => getenv('DB_FORUMS_PASSWORD'),
+    'database' => getenv('DB_FORUMS_DATABASE'),
     'dbdriver' => 'mysqli',
     'dbprefix' => '',
     'pconnect' => 1,

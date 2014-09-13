@@ -25,18 +25,18 @@ class Vanilla_Cookie {
          $Config = Gdn::Config($Config);
          
       $DefaultConfig = Gdn::Config('Garden.Cookie');         */
-      $this->CookieName = $_SERVER['VANILLA_COOKIE_NAME'];//$this->GetConfig('Name');//ArrayValue('Name', $Config, $DefaultConfig['Name']);
-      $this->CookiePath = $_SERVER['VANILLA_COOKIE_PATH'];//$this->GetConfig('Path');//ArrayValue('Path', $Config, $DefaultConfig['Path']);
-      $this->CookieDomain = $_SERVER['VANILLA_COOKIE_DOMAIN'];//$this->GetConfig('Domain');//ArrayValue('Domain', $Config, $DefaultConfig['Domain']);
-      $this->CookieHashMethod = $_SERVER['VANILLA_COOKIE_HASH_METHOD'];//$this->GetConfig('HashMethod');//ArrayValue('HashMethod', $Config, $DefaultConfig['HashMethod']);
-      $this->CookieSalt = $_SERVER['VANILLA_COOKIE_SALT'];//$this->GetConfig('Salt');//ArrayValue('Salt', $Config, $DefaultConfig['Salt']);
+      $this->CookieName = getenv('VANILLA_COOKIE_NAME');//$this->GetConfig('Name');//ArrayValue('Name', $Config, $DefaultConfig['Name']);
+      $this->CookiePath = getenv('VANILLA_COOKIE_PATH');//$this->GetConfig('Path');//ArrayValue('Path', $Config, $DefaultConfig['Path']);
+      $this->CookieDomain = getenv('VANILLA_COOKIE_DOMAIN');//$this->GetConfig('Domain');//ArrayValue('Domain', $Config, $DefaultConfig['Domain']);
+      $this->CookieHashMethod = getenv('VANILLA_COOKIE_HASH_METHOD');//$this->GetConfig('HashMethod');//ArrayValue('HashMethod', $Config, $DefaultConfig['HashMethod']);
+      $this->CookieSalt = getenv('VANILLA_COOKIE_SALT');//$this->GetConfig('Salt');//ArrayValue('Salt', $Config, $DefaultConfig['Salt']);
       $this->VolatileMarker = $this->CookieName.'-Volatile';
    }
    
-   public static function GetConfig($key) {
+   /*public static function GetConfig($key) {
        $config = unserialize(getenv('PERSONNEL_VANILLA_COOKIE'));
        return isset($config[$key]) ? $config[$key] : null;
-   }
+   }*/
    
    /**
     * Destroys the user's session cookie - essentially de-authenticating them.
@@ -210,10 +210,10 @@ class Vanilla_Cookie {
    public static function SetCookie($CookieName, $KeyData, $CookieContents, $CookieExpires, $Path = NULL, $Domain = NULL, $CookieHashMethod = NULL, $CookieSalt = NULL) {
       
       if (is_null($Path))
-         $Path = Vanilla_Cookie::GetConfig('Path');//Gdn::Config('Garden.Cookie.Path', '/');
+         $Path = getenv('VANILLA_COOKIE_PATH');//Gdn::Config('Garden.Cookie.Path', '/');
 
       if (is_null($Domain))
-         $Domain = Vanilla_Cookie::GetConfig('Domain');//Gdn::Config('Garden.Cookie.Domain', '');
+         $Domain = getenv('VANILLA_COOKIE_DOMAIN');//Gdn::Config('Garden.Cookie.Domain', '');
 
       // If the domain being set is completely incompatible with the current domain then make the domain work.
       /*$CurrentHost = Gdn::Request()->Host();
@@ -221,10 +221,10 @@ class Vanilla_Cookie {
          $Domain = '';*/
    
       if (!$CookieHashMethod)
-         $CookieHashMethod = Vanilla_Cookie::GetConfig('HashMethod');//Gdn::Config('Garden.Cookie.HashMethod');
+         $CookieHashMethod = getenv('VANILLA_COOKIE_HASH_METHOD');//Gdn::Config('Garden.Cookie.HashMethod');
       
       if (!$CookieSalt)
-         $CookieSalt = Vanilla_Cookie::GetConfig('Salt');//Gdn::Config('Garden.Cookie.Salt');
+         $CookieSalt = getenv('VANILLA_COOKIE_SALT');//Gdn::Config('Garden.Cookie.Salt');
       
       // Create the cookie signature
       $KeyHash = self::_Hash($KeyData, $CookieHashMethod, $CookieSalt);
@@ -257,10 +257,10 @@ class Vanilla_Cookie {
       }
       
       if (is_null($CookieHashMethod))
-         $CookieHashMethod = Vanilla_Cookie::GetConfig('HashMethod');//Gdn::Config('Garden.Cookie.HashMethod');
+         $CookieHashMethod = getenv('VANILLA_COOKIE_HASH_METHOD');//Gdn::Config('Garden.Cookie.HashMethod');
       
       if (is_null($CookieSalt))
-         $CookieSalt = Vanilla_Cookie::GetConfig('Salt');//Gdn::Config('Garden.Cookie.Salt');
+         $CookieSalt = getenv('VANILLA_COOKIE_SALT');//Gdn::Config('Garden.Cookie.Salt');
       
       $CookieData = explode('|', $_COOKIE[$CookieName]);
       if (count($CookieData) < 5) {
@@ -307,10 +307,10 @@ class Vanilla_Cookie {
    public static function DeleteCookie($CookieName, $Path = NULL, $Domain = NULL) {
 
       if (is_null($Path))
-         $Path = Vanilla_Cookie::GetConfig('Path');//Gdn::Config('Garden.Cookie.Path');
+         $Path = getenv('VANILLA_COOKIE_PATH');//Gdn::Config('Garden.Cookie.Path');
 
       if (is_null($Domain))
-         $Domain = Vanilla_Cookie::GetConfig('Domain');//Gdn::Config('Garden.Cookie.Domain');
+         $Domain = getenv('VANILLA_COOKIE_DOMAIN');//Gdn::Config('Garden.Cookie.Domain');
 
       /*$CurrentHost = Gdn::Request()->Host();
       if (!StringEndsWith($CurrentHost, trim($Domain, '.')))
