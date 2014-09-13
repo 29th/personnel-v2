@@ -14,5 +14,6 @@ vendor
 
 composer.phar
 .elasticbeanstalk/
+temp
 
 .c9
