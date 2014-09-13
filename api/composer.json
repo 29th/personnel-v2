@@ -8,10 +8,5 @@
             "name": "Wilson29thID",
             "email": "wilson@29th.org"
         }
-    ],
-    "extra": {
-        "heroku": {
-            "index-document": "index.php"
-        }
-    }
+    ]
 }
