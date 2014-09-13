@@ -25,11 +25,11 @@ class Vanilla_Cookie {
          $Config = Gdn::Config($Config);
          
       $DefaultConfig = Gdn::Config('Garden.Cookie');         */
-      $this->CookieName = $this->GetConfig('Name');//ArrayValue('Name', $Config, $DefaultConfig['Name']);
-      $this->CookiePath = $this->GetConfig('Path');//ArrayValue('Path', $Config, $DefaultConfig['Path']);
-      $this->CookieDomain = $this->GetConfig('Domain');//ArrayValue('Domain', $Config, $DefaultConfig['Domain']);
-      $this->CookieHashMethod = $this->GetConfig('HashMethod');//ArrayValue('HashMethod', $Config, $DefaultConfig['HashMethod']);
-      $this->CookieSalt = $this->GetConfig('Salt');//ArrayValue('Salt', $Config, $DefaultConfig['Salt']);
+      $this->CookieName = $_SERVER['VANILLA_COOKIE_NAME'];//$this->GetConfig('Name');//ArrayValue('Name', $Config, $DefaultConfig['Name']);
+      $this->CookiePath = $_SERVER['VANILLA_COOKIE_PATH'];//$this->GetConfig('Path');//ArrayValue('Path', $Config, $DefaultConfig['Path']);
+      $this->CookieDomain = $_SERVER['VANILLA_COOKIE_DOMAIN'];//$this->GetConfig('Domain');//ArrayValue('Domain', $Config, $DefaultConfig['Domain']);
+      $this->CookieHashMethod = $_SERVER['VANILLA_COOKIE_HASH_METHOD'];//$this->GetConfig('HashMethod');//ArrayValue('HashMethod', $Config, $DefaultConfig['HashMethod']);
+      $this->CookieSalt = $_SERVER['VANILLA_COOKIE_SALT'];//$this->GetConfig('Salt');//ArrayValue('Salt', $Config, $DefaultConfig['Salt']);
       $this->VolatileMarker = $this->CookieName.'-Volatile';
    }
    
