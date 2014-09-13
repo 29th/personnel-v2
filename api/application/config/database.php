@@ -48,7 +48,7 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-//$db['default'] = unserialize(getenv('PERSONNEL_DB_DEFAULT'));
+//$db['default'] = unserialize(getenv('PERSONNEL_DB_DEFAULT')); 
 //$db['forums'] = unserialize(getenv('PERSONNEL_DB_FORUMS'));
 
 $db['default'] = array(
