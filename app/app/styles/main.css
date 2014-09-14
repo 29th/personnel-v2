@@ -124,6 +124,7 @@ body {
 #nprogress .bar,
 #nprogress .spinner {
     margin-top: 50px;
+    z-index: 0;
 }
 
 /* Calendar */

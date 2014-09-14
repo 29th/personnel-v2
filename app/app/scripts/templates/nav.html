@@ -13,7 +13,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ short_name }} <b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li><a href="#members/{{ id }}">Personnel File</a></li>
-            <li><a href="http://29th.org/forums/index.php?action=profile;u={{ id }}">Forum Profile</a></li>
+            <li><a href="{{ forumUrl }}/profile/{{ forum_member_id }}/{{ short_name }}">Forum Profile</a></li>
         </ul>
     </li>
     {{/if}}

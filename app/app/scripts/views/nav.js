@@ -3,8 +3,9 @@ define([
     "underscore",
     "backbone",
     "hbs!templates/nav",
+    "config",
     "marionette"
-], function ($, _, Backbone, Template) {
+], function ($, _, Backbone, Template, config) {
     
     return Backbone.Marionette.ItemView.extend({
         template: Template,
@@ -19,7 +20,8 @@ define([
         },
         serializeData: function () {
             return _.extend({
-                highlight: this.highlight
+                highlight: this.highlight,
+                forumUrl: config.forumUrl
             }, this.model.toJSON());
         }
     });
