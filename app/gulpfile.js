@@ -66,9 +66,11 @@ gulp.task("scripts", function() {
             "jquery-bootstrap": "empty:",
             "moment": "empty:",
             "fullcalendar": "empty:",
+            "vanilla-comments": "empty:",
+            "nprogress": "empty:",
             
             // UMD Wrapped
-            "nprogress": "../vendor/umd/nprogress",
+            //"nprogress": "../vendor/umd/nprogress",
             "bootstrap-datepicker": "../vendor/umd/bootstrap-datepicker",
             "bootstrap-select": "../vendor/umd/bootstrap-select.min",
             

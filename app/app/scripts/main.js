@@ -40,14 +40,17 @@ window.requirejs = window.requirejs || {};
                 "//cdnjs.cloudflare.com/ajax/libs/fullcalendar/1.6.4/fullcalendar.min",
                 "../vendor/fullcalendar/fullcalendar.min"
             ],
-            "vanilla-comments": "//29th.org/vanilla2/js/embed",
-            "nprogress": "../vendor/nprogress/nprogress",
+            "vanilla-comments": "//new.29th.org/forums/js/embed",
+            "nprogress": [
+                "//cdnjs.cloudflare.com/ajax/libs/nprogress/0.1.3/nprogress.min",
+                "../vendor/nprogress/nprogress"
+            ],
             "bbcode": "../vendor/bbcode/src/bbcode",
             "bootstrap-datepicker": "../vendor/bootstrap-datepicker/js/bootstrap-datepicker",
             "backbone.validation": "../vendor/backbone.validation/dist/backbone-validation-amd-min",
             "bootstrap-select": "../vendor/bootstrap-select/bootstrap-select.min",
             "text": "../vendor/text/text",
-            "hbs": "../vendor/requirejs-hbs/hbs",
+            "hbs": "hbs",
             "json": "../vendor/requirejs-plugins/src/json",
             "config": "config.dev"
         },
