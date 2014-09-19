@@ -21,13 +21,8 @@ This repository comes with `personnel_v2.sql`, containing the structure only (no
 ### Set Environment Variables
 Rather than storing secret credentials in PHP files that might accidentally be committed to source control and leaked publicly, sensitive information is accessed via environment variables. Environment variables can be set in various ways depending on the system and environment. A list of the environment variables is provided in `.env.sample`. Some of the values you can fill in yourself; others will have to be obtained from a system administrator if you want to connect to a production system.
 
-Once the values are filled in, the easiest way to install them, if you're running apache, is to create an `.htaccess` file *above* this application's directory (ie. if the application is installed to `/var/www/personnel-api` you would create `/var/www/.htaccess`. This is because the repository already contains its own `.htaccess` file that you would not want to overwrite as it is part of the source control.
+Once the values are filled in, the easiest way to install them, if you're running apache, is to create an `.htaccess` file *above* this application's directory (ie. if the application is installed to `/var/www/personnel-api` you would create `/var/www/.htaccess`). This is because the repository already contains its own `.htaccess` file that you would not want to overwrite as it is part of the source control. Paste the variables inside this file.
 
-Inside the `.htaccess` file, format the environment variables like this:
-```
-SetEnv VARIABLE1_NAME 'value1'
-SetEnv VARIABLE2_NAME 'value2'
-```
 At this point you should now be able to load the application in the browser, with a message of `{"status":true,"message":"Welcome to the API. Enjoy yourself, and good luck getting around. CI v2.1.4"}`
 
 ### Copy Cookie
