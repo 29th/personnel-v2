@@ -19,7 +19,7 @@ var gulp = require("gulp"),
 /**
  * Main execution
  */
-gulp.task("default", ["clean", "umd"], function() {
+gulp.task("default", ["clean"/*, "umd"*/], function() {
     gulp.start("scripts", "styles", "images", "vendor", "html");
 });
 
@@ -29,15 +29,15 @@ gulp.task("default", ["clean", "umd"], function() {
  */
 gulp.task("umd", function() {
     return es.concat(
-        gulp.src([
-            dir.dev + "vendor/bootstrap-datepicker/js/bootstrap-datepicker.js",
-            dir.dev + "vendor/bootstrap-select/bootstrap-select.min.js"
-        ])
-            .pipe(wrap({deps: ["jquery"]}))
-            .pipe(gulp.dest(dir.dev + "vendor/umd")),
-        gulp.src(dir.dev + "vendor/nprogress/nprogress.js")
-            .pipe(wrap({exports: "NProgress", deps: ["jquery"]}))
-            .pipe(gulp.dest(dir.dev + "vendor/umd"))
+	gulp.src(dir.dev + "vendor/bootstrap-datepicker/js/bootstrap-datepicker.js")
+	    .pipe(wrap({deps: ["jquery"]}))
+	    .pipe(gulp.dest(dir.dev + "vendor/umd/")),
+	gulp.src(dir.dev + "vendor/bootstrap-select/dist/js/bootstrap-select.min.js")
+	    .pipe(wrap({deps: ["jquery"]}))
+	    .pipe(gulp.dest(dir.dev + "vendor/umd/")),
+	gulp.src(dir.dev + "vendor/nprogress/nprogress.js")
+	    .pipe(wrap({exports: "NProgress", deps: ["jquery"]}))
+	    .pipe(gulp.dest(dir.dev + "vendor/umd/"))
     );
 });
 
@@ -68,11 +68,13 @@ gulp.task("scripts", function() {
             "fullcalendar": "empty:",
             "vanilla-comments": "empty:",
             "nprogress": "empty:",
+	    "bootstrap-select": "empty:",
+	    "bootstrap-datepicker": "empty:",
             
             // UMD Wrapped
             //"nprogress": "../vendor/umd/nprogress",
-            "bootstrap-datepicker": "../vendor/umd/bootstrap-datepicker",
-            "bootstrap-select": "../vendor/umd/bootstrap-select.min",
+            //"bootstrap-datepicker": "../vendor/umd/bootstrap-datepicker",
+            //"bootstrap-select": "../vendor/umd/bootstrap-select.min",
             
             // Replaced
             "config": "config.prod"
@@ -91,7 +93,7 @@ gulp.task("styles", function() {
         dir.dev + "vendor/nprogress/nprogress.css",
         dir.dev + "vendor/fullcalendar/fullcalendar.css",
         dir.dev + "vendor/bootstrap-datepicker/css/datepicker3.css",
-        dir.dev + "vendor/bootstrap-select/bootstrap-select.min.css",
+        dir.dev + "vendor/bootstrap-select/dist/css/bootstrap-select.min.css",
         dir.dev + "styles/main.css"
     ])
         .pipe(concat("main.min.css"))

@@ -46,9 +46,15 @@ window.requirejs = window.requirejs || {};
                 "../vendor/nprogress/nprogress"
             ],
             "bbcode": "../vendor/bbcode/src/bbcode",
-            "bootstrap-datepicker": "../vendor/bootstrap-datepicker/js/bootstrap-datepicker",
+            "bootstrap-datepicker": [
+		"//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min",
+		"../vendor/bootstrap-datepicker/js/bootstrap-datepicker"
+	    ],
             "backbone.validation": "../vendor/backbone.validation/dist/backbone-validation-amd-min",
-            "bootstrap-select": "../vendor/bootstrap-select/bootstrap-select.min",
+            "bootstrap-select": [
+		"//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min",
+		"../vendor/bootstrap-select/dist/js/bootstrap-select.min"
+	    ],
             "text": "../vendor/text/text",
             "hbs": "hbs",
             "json": "../vendor/requirejs-plugins/src/json",
