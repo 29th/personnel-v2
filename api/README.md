@@ -34,3 +34,10 @@ At this point you should now be able to load the application in the browser, wit
 By default, you will be able to interact with the API like a public user. To log in, you'll need it to be able to see your forum cookie. This application uses the same cookie as the forum it's connected to. Since you'll be running this locally, that cookie won't be shared with this application (the forum is on a different domain than your local environment). To leverage this cookie, go to the forum and copy the value of the `Vanilla` cookie (using something like [EditThisCookie](https://chrome.google.com/webstore/detail/editthiscookie/fngmhnnpilhplaeedifhccceomclgfbg)), then create one when viewing your local application in the browser. Name it `Vanilla` and paste the value in. For this to work, you'll have to have the correct details filled out in your environment variables for the cookie.
 
 Alternatively, you can install your own local version of [Vanilla Forums](http://vanillaforums.org/) and use its cookie. If it's running on the same domain, you won't need to "copy the cookie."
+
+## Troubleshooting
+### Make sure `mod_rewrite` is enabled
+Many apache servers have `mod_rewrite` disabled by default. It's required to allow URL routing in `.htaccess` files. Enter `a2enmod rewrite` and then `sudo service apache2 restart` to restart apache
+
+### Make sure `AllowOverride` is enabled
+This setting is required to allow `.htaccess` files in directories to overwrite default apache settings. Modify apache's primary `.conf` file, typically `/etc/apache2/httpd.conf` and make sure for the public `<Directory>` tag that `AllowOverride` is set to `All` instead of `None`
