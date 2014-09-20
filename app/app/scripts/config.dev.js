@@ -1,9 +1,9 @@
 define(function () {
     return {
         baseUrl: "http://personnel.29th.org",
-        apiHost: "http://personnel-api-c9-wilson29thid.c9.io",
+        apiHost: "/personnel-api",
         coatDir: "http://29th.org/coats",
-        forumUrl: "http://new.29th.org/forums",
+        forumUrl: "http://forums.29th.org",
         vanillaCategoryEnlistments: 62
     };
 });
