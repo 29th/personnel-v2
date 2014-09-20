@@ -20,7 +20,7 @@ class Welcome extends MY_Controller {
 	public function index_get()
 	{
 		//$this->load->view('welcome_message');
-        $this->response(array('status' => true, 'message' => 'Welcome to the API! Enjoy yourself, and good luck getting around. CI v' . CI_VERSION));
+        $this->response(array('status' => true, 'message' => 'Welcome to the API. Enjoy yourself, and good luck getting around. CI v' . CI_VERSION));
 	}
 }
 
