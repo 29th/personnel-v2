@@ -39,7 +39,7 @@ define([
                 }
                 sorted[standard.weapon][standard.badge].push(standard);
             });
-
+            
             //Correcting paths for EIB and SLT
             sorted.EIB['N/A'].aqb_path = 'eib';
             sorted.SLT['N/A'].aqb_path = 'slt';
@@ -83,7 +83,7 @@ define([
               else
               {
                 percent = 0;
-                if ( position.Marksman.aqb )
+                if ( position.Marksman !== undefined && position.Marksman.aqb )
                   percent += 100;
                 else
                 {
@@ -96,7 +96,7 @@ define([
                    });
                   percent +=  Math.round( (count1/count2) * 100 );
                 }
-                if ( position.Sharpshooter.aqb )
+                if ( position.Sharpshooter !== undefined && position.Sharpshooter.aqb )
                   percent += 100;
                 else
                 {
@@ -109,7 +109,7 @@ define([
                    });
                    percent +=  Math.round( (count1/count2) * 100 );
                 }
-                if ( position.Expert.aqb )
+                if ( position.Expert !== undefined && position.Expert.aqb )
                   percent += 100;
                 else
                 {
