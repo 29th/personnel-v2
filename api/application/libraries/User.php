@@ -36,6 +36,7 @@ class User {
             $this->load->model('member_model');
             $this->load->model('assignment_model');
             $this->_member = nest($this->member_model->where('members.forum_member_id', $this->forum_member_id)->get()->row_array());
+            $this->_member['forum_member_id'] = $this->forum_member_id; // In case the member wasn't found
             $this->_member['classes'] = isset($this->_member['id']) ? $this->assignment_model->get_classes($this->_member['id']) : array();
         }
         return $key !== FALSE ? (isset($this->_member[$key]) ? $this->_member[$key] : null) : $this->_member;
