@@ -44,8 +44,8 @@ define([
                     Backbone.history.navigate("enlistments/" + model.get("id"), {
                         trigger: true
                     });
-                }
-                //,error: function() {console.log("ERROR!!!")}
+                },
+                error: function() {console.log("ERROR!!!")}
             });
         }
     });

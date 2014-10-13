@@ -13,6 +13,12 @@ define([
         modelEvents: {
             "change": "render"
         },
+        initialize: function (options) {
+            options = options || {};
+
+            this.permissions = options.permissions || {};
+            this.permissions.on("reset", this.render, this);
+        },
         setHighlight: function (highlight) {
             this.highlight = highlight;
             this.$(".nav li").removeClass("active");
@@ -21,7 +27,8 @@ define([
         serializeData: function () {
             return _.extend({
                 highlight: this.highlight,
-                forumUrl: config.forumUrl
+                forumUrl: config.forumUrl,
+                permissions: this.permissions.length ? this.permissions.pluck("abbr") : []
             }, this.model.toJSON());
         }
     });

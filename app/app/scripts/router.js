@@ -32,6 +32,7 @@ define([
     // Views
     "views/aar",
     "views/assignment_edit",
+    "views/associate",
     "views/calendar",
     "views/discharge",
     "views/enlistment_edit",
@@ -66,7 +67,7 @@ Assignment, Discharge, Enlistment, Event, Member, User,
 // Collections
 Assignments, Awardings, Discharges, Enlistments, EventAttendance, Events, MemberAttendance, MemberAwols, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, UnitAttendance, UnitAwols, Units,
 // Views
-AARView, AssignmentEditView, CalendarView, DischargeView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, FlashView, MemberAdminView, MemberAttendanceView, MemberDischargeView,
+AARView, AssignmentEditView, AssociateView, CalendarView, DischargeView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, FlashView, MemberAdminView, MemberAttendanceView, MemberDischargeView,
 MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, RosterView, ServiceRecordView, UnitAttendanceView, UnitAwolsView, UnitView) {
     "use strict";
 
@@ -75,6 +76,7 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
             "": "roster",
             //"assignments"
             "assignments/:id/edit": "assignment_edit",
+            "associate": "associate",
             "calendar": "calendar",
             "discharges/:id": "discharge",
             "events/:id": "event",
@@ -90,6 +92,7 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
             "units/:filter/*path": "unit",
             "units/:filter": "unit",
         },
+        promises: {},
         initialize: function (options) {
             options = options || {};
             this.app = options.app || new Backbone.Marionette.Application();
@@ -98,17 +101,18 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
             // Fetch user if it doesn't exist
             if( ! this.user) {
                 this.user = new User();
-                $.when(this.user.fetch()).done(function() {
-                    // Fetch user awols
-                    /*if(self.user.get("id")) {
-                        console.log(self.user.get("id"));
-                        self.user.awols = new MemberAwols(null, {member_id: self.user.get("id")});
-                        self.user.awols.fetch();
-                    }*/
-                });
+                this.promises.user = this.user.fetch(); // Allow this promise to delay logic elsewhere
             }
+            
+            // Fetch permissions if they haven't been fetched yet
+            if (!this.permissions) {
+                this.permissions = new Permissions();
+                this.permissions.fetch();
+            }
+            
             var navView = new NavView({
-                model: this.user
+                model: this.user,
+                permissions: this.permissions
             });
             this.app.navRegion.show(navView);
             //vent.trigger("fetch", userFetch);
@@ -203,6 +207,10 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
                 self.showView(view);
             });
         },
+        associate: function() {
+            var associateView = new AssociateView({model: this.user});
+            this.showView(associateView);
+        },
         calendar: function () {
             var self = this,
                 promises = [],
@@ -251,10 +259,10 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
                 memberPermissions = new Permissions(); // User permissions on member being viewed
                 
             // Fetch permissions if they haven't been fetched yet
-            if (!this.permissions) {
+            /*if (!this.permissions) {
                 this.permissions = new Permissions();
                 promises.push(this.permissions.fetch());
-            }
+            }*/
 
             var enlistmentView = new EnlistmentView({
                 model: enlistment,
@@ -302,19 +310,32 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
                 });
 
             this.app.navRegion.currentView.setHighlight("enlistments");
-
-            if (id) {
-                enlistment.id = id;
-                promises.push(enlistment.fetch());
-
-                //util.loading(true);
-                $.when.apply($, promises).done(function () {
-                    //util.loading(false);
-                    self.showView(enlistmentEditView);
-                });
-            } else {
-                self.showView(enlistmentEditView);
-            }
+            
+            // User must be logged in and not already a member
+            $.when(this.promises.user).done(function(user) {
+                // Must be logged in
+                if(self.user.get("forum_member_id") === undefined) {
+                    // not logged in
+                    self.showView(new FlashView({msg: "You must be logged in to view this page", type: "error"}));
+                } else if(self.user.get("classes").length) {
+                    // already a member
+                    self.showView(new FlashView({msg: "You are already a member", type: "error"}));
+                } else {
+                    // Success - logged in and not already a member
+                    if (id) {
+                        enlistment.id = id;
+                        promises.push(enlistment.fetch());
+        
+                        //util.loading(true);
+                        $.when.apply($, promises).done(function () {
+                            //util.loading(false);
+                            self.showView(enlistmentEditView);
+                        });
+                    } else {
+                        self.showView(enlistmentEditView);
+                    }
+                }
+            });
         },
         enlistment_process: function (id) {
             var self = this,
@@ -360,10 +381,10 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
                 }),
                 unitPermissions = new Permissions(); // User permissions on member being viewed
             // Fetch permissions if they haven't been fetched yet
-            if (!this.permissions) {
+            /*if (!this.permissions) {
                 this.permissions = new Permissions();
                 promises.push(this.permissions.fetch());
-            }
+            }*/
 
             // Views
             var eventView = new EventView({
@@ -418,10 +439,10 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
                     member_id: id
                 }); // User permissions on member being viewed
             // Fetch permissions if they haven't been fetched yet
-            if (!this.permissions) {
+            /*if (!this.permissions) {
                 this.permissions = new Permissions();
                 promises.push(this.permissions.fetch());
-            }
+            }*/
 
             // Layout & Views
             var memberLayout = new MemberView({

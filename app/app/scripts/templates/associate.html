@@ -1,0 +1,10 @@
+<h1>Associate Your Account</h1>
+{{#if id}}
+Your account is associated
+{{else}}
+    {{#if forum_member_id}}
+        <button class="btn btn-large">Associate</button>
+    {{else}}
+        You need to <a href="{{ forumUrl }}/entry/signin">login</a> first, then return to this page.
+    {{/if}}
+{{/if}}

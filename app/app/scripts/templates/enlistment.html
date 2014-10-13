@@ -22,9 +22,9 @@
 <h1>
     {{ first_name }} {{#if middle_name}}{{ substring middle_name 0 1 }}. {{/if}}{{ last_name }}
 </h1>
-<span class="label label-{{ enlistment_label status }}">{{ status }}</span> -
-{{#if member.id}}<a href="#members/{{ member.id }}">{{ member.short_name }}</a>{{/if}} -
-{{#if unit.id}}<a href="#members/{{ unit.key }}">{{ unit.abbr }}</a>{{/if}}
+<span class="label label-{{ enlistment_label status }}">{{ status }}</span>
+{{#if member.id}}- <a href="#members/{{ member.id }}">{{ member.short_name }}</a>{{/if}}
+{{#if unit.id}}- <a href="#members/{{ unit.key }}">{{ unit.abbr }}</a>{{/if}}
 
 <table class="table table-horizontal">
     <tr>

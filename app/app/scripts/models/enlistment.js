@@ -38,10 +38,6 @@ define([
                 required: false,
                 maxLength: 60
             },
-            steam_name: {
-                required: false,
-                maxLength: 60
-            },
             steam_id: {
                 required: false,
                 pattern: "number"
@@ -52,13 +48,13 @@ define([
             recruiter: {
                 required: false,
                 maxLength: 128
-            },
+            }/*,
             unit_id: {
                 required: true
             },
             status: {
                 required: true
-            }
+            }*/
         }
     });
 });
