@@ -69,7 +69,7 @@ a:hover
 </head>
 <body>
     <div class="container">
-        <h1>Administration</h1>
+        <h1><?php echo $method ? (isset($pages[$method]) ? $pages[$method] : $method) : 'Administration'; ?></h1>
     	<div class="row">
     	    <div class="col-md-3">
         	    <div class="list-group">

@@ -323,7 +323,9 @@ class Admin extends CI_Controller {
 	
 	public function units()
 	{
-	    $this->grocery_crud->set_table('units');
+	    $this->grocery_crud->set_table('units')
+	        ->columns('name', 'abbr', 'path', 'order', 'timezone', 'class', 'active')
+	        ->fields('id', 'name', 'abbr', 'path', 'order', 'timezone', 'class', 'active');
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'units');
