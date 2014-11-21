@@ -36,7 +36,7 @@ $pages = array(
 <html>
 <head>
 	<meta charset="utf-8" />
-	<title><?php echo $method; ?></title>
+	<title><?php echo $method ? (isset($pages[$method]) ? $pages[$method] : $method) : 'Administration'; ?></title>
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
 <?php if(isset($css_files)): ?>
 <?php foreach($css_files as $file): ?>
