@@ -109,7 +109,7 @@ $route['enlistments/(:num)'] = 'enlistments/view/$1';
 $route['enlistments'] = 'enlistments/index';
 
 // Admin
-$route['admin'] = 'admin/members';
+$route['admin'] = 'admin/home';
 
 // Defaults
 $route['default_controller'] = "welcome";
