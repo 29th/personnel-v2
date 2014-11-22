@@ -74,7 +74,14 @@ class Users extends MY_Controller {
                 } else {
                     //$this->usertracking->track_this();
                     $result = $this->member_model->save($member['id'], array('forum_member_id' => $user_id));
-                    $this->response(array('status' => $result ? true : false));
+                    
+                    // Update forum roles
+                    $this->load->library('vanilla');
+                    if($roles = $this->vanilla->update_roles($member['id'])) {
+                        $this->response(array('status' => true, 'roles' => $roles));
+                    } else {
+                        $this->response(array('status' => false, 'error' => 'There was an issue updating the user\'s roles'));
+                    }
                 }
             }
         }
