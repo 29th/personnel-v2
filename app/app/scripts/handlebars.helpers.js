@@ -128,6 +128,14 @@ define([
         if (context <= options.hash.compare) return options.inverse(this);
         return options.fn(this);
     });
+    
+    /**
+     * If defined
+     */
+    Handlebars.registerHelper('if_defined', function(context, options) {
+        if (context !== undefined) return options.fn(this);
+        return options.inverse(this);
+    });
 
     /**
      * Convert new line (\n\r) to <br>

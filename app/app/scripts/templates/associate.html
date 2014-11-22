@@ -1,9 +1,16 @@
 <h1>Associate Your Account</h1>
 {{#if id}}
-Your account is associated
+<div class="alert alert-info" role="alert">Your account is associated</div>
 {{else}}
     {{#if forum_member_id}}
-        <button class="btn btn-large">Associate</button>
+        <button id="btn-associate" class="btn btn-large">Associate</button>
+        {{#if_defined response.status}}
+            {{#if_eq response.status compare=true}}
+                <div class="alert alert-success" role="alert">Your account has been successfully associated and you have been added to {{length response.roles}} forum groups</div>
+            {{else}}
+                <div class="alert alert-danger" role="alert">{{ response.error }}</div>
+            {{/if_eq}}
+        {{/if_defined}}
     {{else}}
         You need to <a href="{{ forumUrl }}/entry/signin">login</a> first, then return to this page.
     {{/if}}
