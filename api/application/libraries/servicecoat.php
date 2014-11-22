@@ -18,10 +18,16 @@ class ServiceCoat {
 			'e:rifle:dod','e:bar:dod','e:zook:dod','e:mg:dod','e:armor:dod','e:smg:dod','e:sniper:dod','e:mortar:dod',
 			'm:rifle:dh','m:bar:dh','m:zook:dh','m:mg:dh','m:armor:dh','m:smg:dh','m:sniper:dh','m:mortar:dh',
 			's:rifle:dh','s:bar:dh','s:zook:dh','s:mg:dh','s:armor:dh','s:smg:dh','s:sniper:dh','s:mortar:dh',
-			'e:rifle:dh','e:bar:dh','e:zook:dh','e:mg:dh','e:armor:dh','e:smg:dh','e:sniper:dh','e:mortar:dh'
+			'e:rifle:dh','e:bar:dh','e:zook:dh','e:mg:dh','e:armor:dh','e:smg:dh','e:sniper:dh','e:mortar:dh',
+			'm:rifle:ro2','m:bar:ro2','m:zook:ro2','m:mg:ro2','m:smg:ro2','m:sniper:ro2',
+			's:rifle:ro2','s:bar:ro2','s:zook:ro2','s:mg:ro2','s:smg:ro2','s:sniper:ro2',
+			'e:rifle:ro2','e:bar:ro2','e:zook:ro2','e:mg:ro2','e:smg:ro2','e:sniper:ro2',
+			'm:rifle:a3','m:bar:a3','m:zook:a3','m:mg:a3','m:sniper:a3','m:armor:a3','m:smg:a3',
+			's:rifle:a3','s:bar:a3','s:zook:a3','s:mg:a3','s:sniper:a3','s:armor:a3','s:smg:a3',
+			'e:rifle:a3','e:bar:a3','e:zook:a3','e:mg:a3','e:sniper:a3','e:armor:a3','e:smg:a3'
 			);
-		private $scAllARibbons = array('french','ww1v','aocc','eamc','acamp','adef','gcon','aach','arcom','pheart','bstar','sm','lom','sstar','dsm','dsc','ww2v','dms');
-		private $scAllURibbons = array('dh','dod','trenches','battlegrounds','muc');
+		private $scAllARibbons = array('french','ww1v','aocc','eamc','acamp','adef','gcon','aach','arcom','pheart','bstar','sm','lom','sstar','dsm','dsc','ww2v','dms','anpdr','movsm','arcam');
+		private $scAllURibbons = array('dh','dod','trenches','battlegrounds','muc','rs','arma');
 		private $scAllTRBadges = array('eib','cib','cib1','cib2','cib3','cib4','cab','cab1','cab2','cab3','cab4');
 		private $scAllTLBadges = array('rd');
 		private $scAllBLBadges = array('drillsergeant');
@@ -658,6 +664,18 @@ class ServiceCoat {
 				'dms' => array(
 					'num' => 0,
 					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/Defense Meritorious Service Medal Ribbon.png')
+					),
+				'anpdr' => array(
+					'num' => 0,
+					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/Army NCO Professional Development Ribbon.png')
+					),
+				'movsm' => array(
+					'num' => 0,
+					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/Military Outstanding Volunteer Service Medal.png')
+					),
+				'arcam' => array(
+					'num' => 0,
+					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/Army Reserve Components Achievement Medal.png')
 					)
 				);
 			//Initiates the RibArray
@@ -1021,7 +1039,9 @@ class ServiceCoat {
 				'trenches' => 0,
 				'dod' => 0,
 				'dh' => 0,
-				'muc' => 0
+				'muc' => 0,
+				'rs' => 0,
+				'arma' => 0
 				);
 			foreach($this->scURibbons as $ribbon)
 			{
@@ -1175,6 +1195,16 @@ class ServiceCoat {
 					}
 					switch($ribbon)
 					{
+					    case 'arma':
+							$this->scURib = imagecreatefrompng($root . '../coat-resources/RibbonsCUC/arma.png');
+							imagecopy($this->scImage, $this->scURib, $scCurrentURibX, $scCurrentURibY, 0, 0, $scURibbonSize['x'], $scURibbonSize['y']);
+							imagedestroy($this->scURib);
+						break;
+						case 'rs':
+							$this->scURib = imagecreatefrompng($root . '../coat-resources/RibbonsCUC/rs.png');
+							imagecopy($this->scImage, $this->scURib, $scCurrentURibX, $scCurrentURibY, 0, 0, $scURibbonSize['x'], $scURibbonSize['y']);
+							imagedestroy($this->scURib);
+					    break;
 						case 'dh':
 							$this->scURib = imagecreatefrompng($root . '../coat-resources/RibbonsCUC/darkesthour.png');
 							imagecopy($this->scImage, $this->scURib, $scCurrentURibX, $scCurrentURibY, 0, 0, $scURibbonSize['x'], $scURibbonSize['y']);
