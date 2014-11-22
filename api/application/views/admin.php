@@ -4,7 +4,7 @@
 $pages = array(
     'abilities' => 'Abilities',
     'assignments' => 'Assignments',
-    'attendance' => 'Assignments',
+    'attendance' => 'Attendance',
     'awardings' => 'Awardings',
     'awards' => 'Awards',
     'class_permissions' => 'Class Permissions',
