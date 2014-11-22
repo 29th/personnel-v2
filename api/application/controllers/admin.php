@@ -9,8 +9,7 @@ class Admin extends CI_Controller {
         // Normally done by MY_Controller, but this is not a sub-class of that
         $this->load->library('user', array('cookie' => $this->input->cookie(config_item('third_party_cookie'))));
         
-        
-        if( ! $this->user->permission('admin')) {
+        if( ! $this->user->permission('admin') && ! $this->user->permission('admin-' . $this->router->method)) {
             die('Permission denied');
         }
         
@@ -22,6 +21,7 @@ class Admin extends CI_Controller {
 	
 	private function output($output, $method = '') {
 	    $output->method = $method;
+	    $output->permissions = pluck('abbr', $this->user->permissions());
 	    $this->load->view('admin.php', $output);
 	}
 	

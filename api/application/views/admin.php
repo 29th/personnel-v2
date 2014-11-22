@@ -74,7 +74,9 @@ a:hover
     	    <div class="col-md-3">
         	    <div class="list-group">
         	        <?php foreach($pages as $key => $title): ?>
-        	        <a href="<?= site_url('admin/' . $key) ?>" class="list-group-item<?php if($method == $key) echo ' active'; ?>"><?php echo $title; ?></a>
+        	            <?php if(in_array('admin', $permissions) || in_array('admin-' . $key, $permissions)): ?>
+        	                <a href="<?= site_url('admin/' . $key) ?>" class="list-group-item<?php if($method == $key) echo ' active'; ?>"><?php echo $title; ?></a>
+        	            <?php endif; ?>
         	        <?php endforeach; ?>
         	    </div>
     	    </div>
