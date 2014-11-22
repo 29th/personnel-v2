@@ -78,5 +78,12 @@ class Vanilla {
             return $roles; // Won't arrive here if insert failed. Should also arrive here if no roles to add (ie. discharged)
         }
     }
+    
+    /**
+     * Find the steam id associated with the forum member account if it exists
+     */
+    public function get_steam_id($user_id) {
+        return $this->forums_db->query('SELECT `Value` FROM `GDN_UserMeta` WHERE `UserID` = ' . (int) $user_id)->row_array();
+    }
 
 }
