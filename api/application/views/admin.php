@@ -7,6 +7,7 @@ $pages = array(
     'attendance' => 'Attendance',
     'awardings' => 'Awardings',
     'awards' => 'Awards',
+    'banlog' => 'Ban Log',
     'class_permissions' => 'Class Permissions',
     'class_roles' => 'Class Roles',
     'countries' => 'Countries',

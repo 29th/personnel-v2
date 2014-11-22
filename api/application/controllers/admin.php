@@ -103,6 +103,17 @@ class Admin extends CI_Controller {
         $this->output($output, 'awards');
 	}
 	
+	public function banlog()
+	{
+	    $this->grocery_crud->set_table('banlog')
+	        ->columns('date', 'handle', 'roid', 'id_admin')
+	        ->fields('date', 'handle', 'roid', 'id_admin', 'reason', 'comments')
+	        ->set_relation('id_admin', 'members', '{last_name}, {first_name} {middle_name}')->display_as('id_admin', 'Admin');
+        $output = $this->grocery_crud->render();
+ 
+        $this->output($output, 'banlog');
+	}
+	
 	public function class_permissions()
 	{
 	    $this->grocery_crud->set_table('class_permissions')
@@ -162,6 +173,8 @@ class Admin extends CI_Controller {
 	public function events()
 	{
 	    $this->grocery_crud->set_table('events')
+	        ->columns('datetime', 'unit_id', 'title', 'type', 'mandatory', 'server_id', 'report', 'reporter_member_id')
+	        ->fields('datetime', 'unit_id', 'title', 'type', 'mandatory', 'server_id', 'report', 'reporter_member_id')
 	        ->set_relation('unit_id', 'units', 'abbr')->display_as('unit_id', 'Unit')
 	        ->set_relation('server_id', 'servers', 'name')->display_as('server_id', 'Server')
 	        ->set_relation('reporter_member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('reporter_member_id', 'Reporter');
