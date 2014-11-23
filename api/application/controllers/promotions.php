@@ -53,7 +53,7 @@ class Promotions extends MY_Controller {
 		// Create record
 		else {
 		    $this->usertracking->track_this();
-			$data = whitelist($this->post(), array('member_id', 'date', 'old_rank_id', 'new_rank_id', 'forum_id', 'topic_id');
+			$data = whitelist($this->post(), array('member_id', 'date', 'old_rank_id', 'new_rank_id', 'forum_id', 'topic_id'));
 			
 			// Clean date
 			$data['date'] = format_date($data['date'], 'mysqldate');
@@ -65,6 +65,10 @@ class Promotions extends MY_Controller {
             
             // Update service coat
             $this->servicecoat->update($member_id);
+            
+            // Update username
+            $this->load->library('vanilla');
+            $this->vanilla->update_username($member_id);
             
             $this->response(array('status' => $insert_id ? true : false, 'promotion' => $insert_id ? $this->promotion_model->get_by_id($insert_id) : null));
         }
@@ -102,6 +106,10 @@ class Promotions extends MY_Controller {
             // Update service coat
             $this->servicecoat->update($member_id);
             
+            // Update username
+            $this->load->library('vanilla');
+            $this->vanilla->update_username($member_id);
+            
             $this->response(array('status' => $result ? true : false, 'promotion' => $this->promotion_model->get_by_id($promotion_id)));
         }
     }
@@ -128,6 +136,10 @@ class Promotions extends MY_Controller {
             
             // Update service coat
             $this->servicecoat->update($member_id);
+            
+            // Update username
+            $this->load->library('vanilla');
+            $this->vanilla->update_username($member_id);
             
             $this->response(array('status' => true));
         }

@@ -68,6 +68,10 @@ class Members extends MY_Controller {
             // Update service coat
             $this->servicecoat->update($member_id);
             
+            // Update username
+            $this->load->library('vanilla');
+            $this->vanilla->update_username($member_id);
+            
             $this->response(array('status' => $result ? true : false, 'member' => $this->member_model->get_by_id($member_id)));
         }
     }

@@ -213,7 +213,8 @@ class Admin extends CI_Controller {
 	        ->set_relation('country_id', 'countries', 'abbr')->display_as('country_id', 'Country')
 	        ->set_relation('rank_id', 'ranks', 'abbr')->display_as('rank_id', 'Rank')
 	        ->display_as('forum_member_id', 'Forum ID')
-	        ->callback_column('steam_id', array($this, '_callback_members_steam_id'));
+	        ->callback_column('steam_id', array($this, '_callback_members_steam_id'))
+	        ->callback_after_update(array($this, '_callback_members_after_update'));
 	    
 	    // This seemed to delete assignments when I update a member for some reason...
 	    //$crud->set_relation_n_n('units', 'assignments', 'units', 'member_id', 'unit_id', 'abbr', null, '(start_date <= CURDATE() OR start_date IS NULL) AND (end_date > CURDATE() OR end_date IS NULL)');
@@ -230,6 +231,13 @@ class Admin extends CI_Controller {
 	
 	public function _callback_members_steam_id($value, $row) {
 	    return $value ? '<a href="http://steamcommunity.com/profiles/' . $value . '" target="_blank">' . $value . '</a>' : '';
+	}
+	
+	public function _callback_members_after_update($data, $id = null) {
+        $this->load->library('vanilla');
+	    
+        // Update username
+        $this->vanilla->update_username($id);
 	}
 	
 	public function notes()
@@ -267,11 +275,15 @@ class Admin extends CI_Controller {
 	function _callback_promotions_after_change($data, $id = null) {
         $this->load->model('member_model');
         $this->load->model('promotion_model');
+        $this->load->library('vanilla');
         
 	    // Update member's rank to last one TODO: What about when the user has no promotions? (PFC demoted to Pvt)
         if($newest = nest($this->promotion_model->where('promotions.member_id', $data['member_id'])->limit(1)->get()->row_array())) {
             if(isset($newest['new_rank']['id'])) { // Make sure the query actually got a valid result
                 $this->member_model->save($data['member_id'], array('rank_id' => $newest['new_rank']['id']));
+            
+                // Update username
+                $this->vanilla->update_username($data['member_id']);
             }
         }
 	}
@@ -280,12 +292,17 @@ class Admin extends CI_Controller {
 	function _callback_promotions_before_delete($id) {
         $this->load->model('member_model');
         $this->load->model('promotion_model');
+        $this->load->library('vanilla');
+        
 	    $data = (array) $this->promotion_model->get_by_id($id);
         
 	    // Update member's rank to last one TODO: What about when the user has no promotions? (PFC demoted to Pvt)
         if($data['member_id'] && $newest = nest($this->promotion_model->where(array('promotions.member_id' => $data['member_id'], 'promotions.id !=' => $data['id']))->limit(1)->get()->row_array())) {
             if(isset($newest['new_rank']['id'])) { // Make sure the query actually got a valid result
                 $this->member_model->save($data['member_id'], array('rank_id' => $newest['new_rank']['id']));
+            
+                // Update username
+                $this->vanilla->update_username($data['member_id']);
             }
         }
 	}

@@ -74,6 +74,9 @@ class Users extends MY_Controller {
                 } else {
                     //$this->usertracking->track_this();
                     $result = $this->member_model->save($member['id'], array('forum_member_id' => $user_id));
+            
+                    // Update username
+                    $this->vanilla->update_username($member['id']);
                     
                     // Update forum roles
                     if($roles = $this->vanilla->update_roles($member['id'])) {

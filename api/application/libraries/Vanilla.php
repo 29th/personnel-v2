@@ -85,5 +85,20 @@ class Vanilla {
     public function get_steam_id($user_id) {
         return $this->forums_db->query('SELECT `Value` FROM `GDN_UserMeta` WHERE `UserID` = ' . (int) $user_id)->row_array();
     }
+    
+    public function update_username($member_id) {
+        $this->load->model('member_model');
+        
+        // Get member info
+        $member = nest($this->member_model->get_by_id($member_id));
+        
+        // If no forum_member_id, there's nothing to do
+        if( ! $member['forum_member_id']) {
+            //$this->response(array('status' => false, 'error' => 'Member does not have a corresponding forum user id'), 400);
+            return FALSE;
+        }
+        
+        return $this->forums_db->query('UPDATE GDN_User SET `Name` = ? WHERE UserID = ?', array($member['short_name'], $member['forum_member_id']));
+    }
 
 }
