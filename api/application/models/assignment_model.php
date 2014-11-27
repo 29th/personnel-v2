@@ -88,10 +88,6 @@ class Assignment_model extends CRUD_Model {
                 'field' => 'position_id'
                 ,'rules' => 'required|numeric'
             )
-            ,array(
-                'field' => 'access_level'
-                ,'rules' => 'numeric|greater_than[-1]|less_than[2]'
-            )
         );
     }
     
@@ -109,18 +105,14 @@ class Assignment_model extends CRUD_Model {
                 'field' => 'position_id'
                 ,'rules' => 'numeric'
             )
-            ,array(
-                'field' => 'access_level'
-                ,'rules' => 'numeric|greater_than[-1]|less_than[2]'
-            )
         );
     }
     
     public function default_select() {
-        $this->db->select('assignments.id, assignments.start_date, assignments.end_date, assignments.unit_id, assignments.access_level') // Leave `unit_id` for tree sorting
+        $this->db->select('assignments.id, assignments.start_date, assignments.end_date, assignments.unit_id') // Leave `unit_id` for tree sorting
             ->select('assignments.member_id AS `member|id`')
             ->select('units.id AS `unit|id`, units.abbr AS `unit|abbr`, units.name AS `unit|name`, ' . $this->virtual_fields['unit_key'] . ' AS `unit|key`, units.class AS `unit|class`, units.path AS `unit|path`, ' . $this->virtual_fields['depth'] . ' AS `unit|depth`', FALSE)
-            ->select('positions.id AS `position|id`, positions.name AS `position|name`, positions.order AS `position|order`');
+            ->select('positions.id AS `position|id`, positions.name AS `position|name`, positions.order AS `position|order`, positions.access_level AS `position|access_level`');
     }
     
     public function default_join() {

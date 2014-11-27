@@ -51,7 +51,7 @@ class Assignments extends MY_Controller {
         // Create record
         else {
             $this->usertracking->track_this();
-            $data = whitelist($this->post(), array('member_id', 'unit_id', 'position_id', 'access_level', 'start_date', 'end_date'));
+            $data = whitelist($this->post(), array('member_id', 'unit_id', 'position_id', 'start_date', 'end_date'));
             
             // Clean dates or set to NULL if empty
             if(isset($data['start_date'])) $data['start_date'] = $data['start_date'] ? format_date($data['start_date'], 'mysqldate') : NULL;
@@ -86,7 +86,7 @@ class Assignments extends MY_Controller {
         // Update record
         else {
             $this->usertracking->track_this();
-            $data = whitelist($this->post(), array('unit_id', 'position_id', 'access_level', 'start_date', 'end_date'));
+            $data = whitelist($this->post(), array('unit_id', 'position_id', 'start_date', 'end_date'));
             
             // Clean dates or set to NULL if empty
             if(isset($data['start_date'])) $data['start_date'] = $data['start_date'] ? format_date($data['start_date'], 'mysqldate') : NULL;

@@ -22,6 +22,10 @@ class Position_model extends CRUD_Model {
                 'field' => 'description'
                 ,'rules' => 'max_length[100]'
             )
+            ,array(
+                'field' => 'access_level'
+                ,'rules' => 'numeric|greater_than[-1]|less_than[2]'
+            )
         );
     }
     
@@ -42,6 +46,10 @@ class Position_model extends CRUD_Model {
             ,array(
                 'field' => 'description'
                 ,'rules' => 'max_length[100]'
+            )
+            ,array(
+                'field' => 'access_level'
+                ,'rules' => 'numeric|greater_than[-1]|less_than[2]'
             )
         );
     }

@@ -92,7 +92,7 @@ class User {
         return $num_rows ? true : false;
     }
     
-    public function permissions0($member_id = FALSE, $unit_id = FALSE) {
+    /*public function permissions0($member_id = FALSE, $unit_id = FALSE) {
         $permissions = array(
             'class_permissions' => $this->get_class_permissions()
             ,'unit_permissions' => $this->get_unit_permissions()
@@ -100,7 +100,7 @@ class User {
         if($member_id) $permissions = array_merge($permissions, array('viewing_member_permissions' => $this->get_viewing_member_permissions($member_id)));
         if($unit_id) $permissions = array_merge($permissions, array('viewing_unit_permissions' => $this->get_viewing_unit_permissions($unit_id)));
         return $permissions;
-    }
+    }*/
     
     public function permissions($member_id = FALSE, $unit_id = FALSE) {
         $permissions = array();
@@ -209,7 +209,7 @@ class User {
         
         // Get unit permissions for each assignment
         foreach($this->_member['assignments'] as $index => $assignment) {
-            $this->_member['assignments'][$index]['unit_permissions'] = nest($this->unit_permission_model->by_unit($assignment['unit']['id'], $assignment['access_level'])->get()->result_array());
+            $this->_member['assignments'][$index]['unit_permissions'] = nest($this->unit_permission_model->by_unit($assignment['unit']['id'], $assignment['position']['access_level'])->get()->result_array());
         }
         return $this->_member['assignments'];
     }
@@ -229,7 +229,7 @@ class User {
         // Get unit permissions for each assignment
         $this->_member['unit_permissions'] = array();
         foreach($this->_member['assignments'] as $assignment) {
-            $this->_member['unit_permissions'] = array_merge($this->_member['unit_permissions'], nest($this->unit_permission_model->by_unit($assignment['unit']['id'], $assignment['access_level'])->get()->result_array()));
+            $this->_member['unit_permissions'] = array_merge($this->_member['unit_permissions'], nest($this->unit_permission_model->by_unit($assignment['unit']['id'], $assignment['position']['access_level'])->get()->result_array()));
         }
         return $this->_member['unit_permissions'];
     }

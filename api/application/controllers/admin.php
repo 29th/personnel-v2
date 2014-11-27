@@ -41,8 +41,8 @@ class Admin extends CI_Controller {
 	public function assignments()
 	{
 	    $this->grocery_crud->set_table('assignments')
-	        ->columns('member_id', 'unit_id', 'position_id', 'access_level', 'start_date', 'end_date')
-	        ->fields('member_id', 'unit_id', 'position_id', 'access_level', 'start_date', 'end_date')
+	        ->columns('member_id', 'unit_id', 'position_id', 'start_date', 'end_date')
+	        ->fields('member_id', 'unit_id', 'position_id', 'start_date', 'end_date')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member')
 	        ->set_relation('unit_id', 'units', 'abbr')->display_as('unit_id', 'Unit')
 	        ->set_relation('position_id', 'positions', 'name')->display_as('position_id', 'Position');

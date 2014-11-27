@@ -44,7 +44,7 @@ class Vanilla {
         
         // For each assignment, get the corresponding forum roles for the assignment's access level
         foreach($assignments as $assignment) {
-            $assignment_roles = $this->unit_role_model->by_unit($assignment['unit']['id'], $assignment['access_level'])->get()->result_array();
+            $assignment_roles = $this->unit_role_model->by_unit($assignment['unit']['id'], $assignment['position']['access_level'])->get()->result_array();
             if( ! empty($assignment_roles)) {
                 $roles = array_merge($roles, pluck('role_id', $assignment_roles));
             }
