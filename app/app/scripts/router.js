@@ -107,7 +107,7 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
             // Fetch permissions if they haven't been fetched yet
             if (!this.permissions) {
                 this.permissions = new Permissions();
-                this.permissions.fetch();
+                this.permissions.fetch({reset: true});
             }
             
             var navView = new NavView({
