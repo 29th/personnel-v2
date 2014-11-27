@@ -24,10 +24,6 @@ define([
             },
             start_date: {
                 required: true
-            },
-            access_level: {
-                required: true,
-                pattern: "number"
             }
         }
     });
