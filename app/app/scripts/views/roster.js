@@ -13,6 +13,7 @@ define([
         template: Template,
         tagName: "div",
         initialize: function (options) {
+            _.bindAll(this, "onToggleAll");
             options = options || {};
             this.itemViewOptions = this.itemViewOptions || {};
             if (options.eventAttendance) {
@@ -30,6 +31,9 @@ define([
         /*events: {
             "click .header:first": "onClickHeader"
         },*/
+        events: {
+            "click .toggle-all": "onToggleAll"
+        },
         appendHtml: function (collectionView, itemView) {
             // Different append method for attendance roster
             if(this.itemViewOptions.attendance) {
@@ -53,6 +57,11 @@ define([
                 });
             }
         },
+        onToggleAll: function(e) {
+            this.$(".children .panel-collapse").collapse("toggle");
+            e.preventDefault();
+            e.stopImmediatePropagation();
+        }
         /*onClickHeader: function(e) {
             $(e.currentTarget).parent().siblings().toggle(300);
             $(e.currentTarget).parent().parent().toggleClass("collapsed");

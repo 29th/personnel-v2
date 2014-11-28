@@ -3,6 +3,7 @@
         <!--<span class="glyphicon glyphicon-plus icon-collapsed"></span>
         <span class="glyphicon glyphicon-minus icon-expanded"></span>-->
         <a data-toggle="collapse" data-parent="#{{ key }}" href="#collapse-{{ key }}">{{ name }}</a>
+        <a href="#" class="btn toggle-all"><span class="glyphicon glyphicon-fullscreen"></span></a>
     </div>
     <div class="panel-collapse collapse {{#if_gt depth compare=1}}out{{else}}in{{/if_gt}}" id="collapse-{{ key }}">
         <div class="panel-body">

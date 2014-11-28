@@ -94,6 +94,7 @@ gulp.task("styles", function() {
         dir.dev + "vendor/fullcalendar/fullcalendar.css",
         dir.dev + "vendor/bootstrap-datepicker/css/datepicker3.css",
         dir.dev + "vendor/bootstrap-select/dist/css/bootstrap-select.min.css",
+        dir.dev + "styles/theme.css",
         dir.dev + "styles/main.css"
     ])
         .pipe(concat("main.min.css"))
