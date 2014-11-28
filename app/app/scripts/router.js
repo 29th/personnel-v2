@@ -85,7 +85,7 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
             "enlistments/:id/process": "enlistment_process",
             "enlistments/:id": "enlistment",
             "enlistments": "enlistments",
-            "enlist": "enlistment_edit",
+            "enlist": "enlistment_add",
             "members/:id/assign": "assignment_add",
             "members/:id/*path": "member",
             "members/:id": "member",
@@ -301,7 +301,7 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
                 self.showView(enlistmentsView);
             });
         },
-        enlistment_edit: function (id) {
+        enlistment_add: function() {
             var self = this,
                 promises = [],
                 enlistment = new Enlistment(),
@@ -322,19 +322,25 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
                     self.showView(new FlashView({msg: "You are already a member", type: "error"}));
                 } else {
                     // Success - logged in and not already a member
-                    if (id) {
-                        enlistment.id = id;
-                        promises.push(enlistment.fetch());
-        
-                        //util.loading(true);
-                        $.when.apply($, promises).done(function () {
-                            //util.loading(false);
-                            self.showView(enlistmentEditView);
-                        });
-                    } else {
-                        self.showView(enlistmentEditView);
-                    }
+                    self.showView(enlistmentEditView);
                 }
+            });
+        },
+        enlistment_edit: function (id) {
+            var self = this,
+                promises = [],
+                enlistment = new Enlistment({id: id}),
+                enlistmentEditView = new EnlistmentEditView({
+                    model: enlistment
+                });
+
+            this.app.navRegion.currentView.setHighlight("enlistments");
+            promises.push(enlistment.fetch());
+
+            //util.loading(true);
+            $.when.apply($, promises).done(function () {
+                //util.loading(false);
+                self.showView(enlistmentEditView);
             });
         },
         enlistment_process: function (id) {
@@ -346,8 +352,9 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
                 tps = new Units(null, {
                     filter: "TPs",
                     children: true,
-                    inactive: true
+                    inactive: false // This was set to true prior to 2014-11-27, not sure why
                 }),
+                // Units contains the members for recruiter selection
                 units = new Units(null, {
                     children: true,
                     members: true,
