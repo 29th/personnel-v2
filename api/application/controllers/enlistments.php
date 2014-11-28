@@ -69,7 +69,7 @@ class Enlistments extends MY_Controller {
         }
         // Create record
         else {
-            $this->usertracking->track_this();
+            //$this->usertracking->track_this(); (no member id yet)
             $member_id = $this->user->member('id');
             // If no member record
             if( ! $member_id) {

@@ -18,7 +18,7 @@ class Enlistment_model extends CRUD_Model {
             )
             ,array(
                 'field' => 'age'
-                ,'rules' => 'required|numeric'
+                ,'rules' => 'required|max_length[8]'
             )
             ,array(
                 'field' => 'country_id'
