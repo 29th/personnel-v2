@@ -42,11 +42,16 @@ define([
                 return 0;
             });
             
+            var permissions = this.permissions.length ? this.permissions.pluck("abbr") : [],
+                memberPermissions = this.memberPermissions.length ? this.memberPermissions.pluck("abbr") : [],
+                allowedTo = {
+                    editAssignment: memberPermissions.indexOf("assignment_add") !== -1 || permissions.indexOf("assignment_add_any") !== -1
+                };
+            
             return $.extend({
                 items: items,
                 coatDir: config.coatDir,
-                permissions: this.permissions.length ? this.permissions.pluck("abbr") : [],
-                memberPermissions: this.memberPermissions.length ? this.memberPermissions.pluck("abbr") : []
+                allowedTo: allowedTo
             }, this.model.toJSON());
         }
     });

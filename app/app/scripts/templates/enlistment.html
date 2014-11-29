@@ -1,21 +1,23 @@
+{{#if allowedTo.admin}}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
         Admin <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu">
-    {{#if_inarray "enlistment_process_any" compare=permissions}}
+    {{#if allowedTo.processEnlistment}}
         <li><a href="#enlistments/{{ id }}/process">Process Enlistment</a></li>
-    {{/if_inarray}}
+    {{/if}}
     
-    {{#if_inarray "enlistment_edit_any" compare=permissions}}
+    {{#if allowedTo.modifyEnlistment}}
         <li><a href="#enlistments/{{ id }}/edit">Modify Enlistment</a></li>
-    {{/if_inarray}}
+    {{/if}}
     
-    {{#or (if_inarray "profile_edit" compare=memberPermissions) (if_inarray "profile_edit_any" compare=permissions) }}
+    {{#if allowedTo.modifyProfile}}
         <li><a href="#members/{{ member.id }}/edit">Modify Profile</a></li>
-    {{/or}}
+    {{/if}}
     </ul>
 </div>
+{{/if}}
 
 <h1>
     {{ first_name }} {{#if middle_name}}{{ substring middle_name 0 1 }}. {{/if}}{{ last_name }}

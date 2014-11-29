@@ -2,10 +2,10 @@
     <hr>
     <h1 class="row header-row"> {{ @key }} <small>({{this.percentage}}%)</small></h1>
     {{#each this}}
-      {{#unless_eq @key compare='percentage'}}
+      {{#is @key "!==" 'percentage'}}
       <div class="row">
        <div class="col-sm-6">
-        {{#unless_eq @key compare="N/A"}}<h3>{{ @key }}</h3>{{/unless_eq}}
+        {{#is @key "!==" "N/A"}}<h3>{{ @key }}</h3>{{/is}}
         <ul>
         {{#each this}}
             <li style="list-style-type: none">
@@ -25,6 +25,6 @@
         
        </div>
       </div>
-     {{/unless_eq}} 
+     {{/is}} 
     {{/each}}
 {{/each}}

@@ -55,7 +55,8 @@ define([
     "views/unit_awols",
     "views/unit",
     // Extras
-    "handlebars.helpers",
+    "handlebars-helpers",
+    "helpers/custom",
     "jquery-bootstrap",
     "moment",
     "backbone.validation",

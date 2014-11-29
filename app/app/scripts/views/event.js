@@ -5,6 +5,7 @@ define([
     "config",
     "hbs!templates/event",
     "views/event_attendee",
+    "moment",
     "marionette"
 ], function ($, _, Backbone, config, Template, AttendeeView) {
 
@@ -33,12 +34,17 @@ define([
             if (rsvp) this.model.set("user_rsvp", rsvp.toJSON());
         },
         onRender: function () {
-            if (this.model.get("unit").key) this.title = this.model.get("unit").key + " " + this.model.get("type");
+            if (this.model.get("unit") && this.model.get("unit").key) this.title = this.model.get("unit").key + " " + this.model.get("type");
         },
         serializeData: function () {
+            var permissions = this.permissions.length ? this.permissions.pluck("abbr") : [],
+                unitPermissions = this.unitPermissions.length ? this.unitPermissions.pluck("abbr") : [],
+                allowedTo = {
+                    postLoa: this.model.get("user_expected") && this.within24hours(this.model.get("datetime")),
+                    postAar: unitPermissions.indexOf("event_aar") !== -1 || permissions.indexOf("event_aar_any") !== -1
+                };
             return _.extend({
-                permissions: this.permissions.length ? this.permissions.pluck("abbr") : [],
-                unitPermissions: this.unitPermissions.length ? this.unitPermissions.pluck("abbr") : []
+                allowedTo: allowedTo
             }, this.model.toJSON());
         },
         isExpected: function (event) {
@@ -113,6 +119,11 @@ define([
                     });
                 }
             }
+        },
+        within24hours: function(a, b) {
+            var moment_a = moment(a),
+                moment_b = typeof b === "string" ? moment(b) : moment();
+            return Math.abs(moment_a.diff(moment_b, 'hours')) <= 24;
         }
     });
 });

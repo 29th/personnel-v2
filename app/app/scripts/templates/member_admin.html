@@ -1,19 +1,19 @@
-{{#or (length permissions) (length memberPermissions) }}
+{{#if allowedTo.admin }}
 <div class="btn-group pull-right">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
         Admin <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu">
-        {{#or (if_inarray 'profile_edit' compare=memberPermissions) (if_inarray 'profile_edit_any' compare=permissions) }}
+        {{#if allowedTo.modifyProfile }}
             <li><a href="#members/{{ member_id }}/edit">Modify Profile</a></li>
-        {{/or}}
-        {{#or (if_inarray 'assignment_add' compare=memberPermissions) (if_inarray 'assignment_add_any' compare=permissions) }}
+        {{/if}}
+        {{#if allowedTo.assign }}
             <li><a href="#members/{{ member_id }}/assign">Assign</a></li>
-        {{/or}}
-        {{#or (if_inarray 'discharge_add' compare=memberPermissions) (if_inarray 'discharge_add_any' compare=permissions) }}
+        {{/if}}
+        {{#if allowedTo.discharge }}
             <li class="divider"></li>
             <li><a href="#members/{{ member_id }}/discharge">Discharge</a></li>
-        {{/or}}
+        {{/if}}
     </ul>
 </div>
-{{/or}}
+{{/if}}

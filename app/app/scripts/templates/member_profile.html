@@ -1,6 +1,6 @@
 <table class="table">
     <tr>
-        <th>Active Class{{#if_gt classes.length compare=1}}es{{/if_gt}}</th>
+        <th>Active Class{{#is classes.length ">" 1}}es{{/is}}</th>
         <td>{{join classes delimiter=", "}}</td>
     </tr>
     <tr>

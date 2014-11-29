@@ -13,10 +13,10 @@
 <div class="row">
     <div class="col-sm-12">
         <ul class="nav nav-tabs">
-            <li{{#if_eq highlight compare="profile"}} class="active"{{/if_eq}} data-highlight="profile"><a href="#members/{{ id }}">Profile</a></li>
-            <li{{#if_eq highlight compare="servicerecord"}} class="active"{{/if_eq}} data-highlight="servicerecord"><a href="#members/{{ id }}/servicerecord">Service Record</a></li>
-            <li{{#if_eq highlight compare="attendance"}} class="active"{{/if_eq}} data-highlight="attendance"><a href="#members/{{ id }}/attendance">Attendance</a></li>
-            <li{{#if_eq highlight compare="qualifications"}} class="active"{{/if_eq}} data-highlight="qualifications"><a href="#members/{{ id }}/qualifications">Qualifications</a></li>
+            <li{{#is highlight "===" "profile"}} class="active"{{/is}} data-highlight="profile"><a href="#members/{{ id }}">Profile</a></li>
+            <li{{#is highlight "===" "servicerecord"}} class="active"{{/is}} data-highlight="servicerecord"><a href="#members/{{ id }}/servicerecord">Service Record</a></li>
+            <li{{#is highlight "===" "attendance"}} class="active"{{/is}} data-highlight="attendance"><a href="#members/{{ id }}/attendance">Attendance</a></li>
+            <li{{#is highlight "===" "qualifications"}} class="active"{{/is}} data-highlight="qualifications"><a href="#members/{{ id }}/qualifications">Qualifications</a></li>
         </ul>
     </div>
 </div>

@@ -1,15 +1,15 @@
 <ul class="nav navbar-nav">
-    <li{{#if_eq highlight compare="forums"}} class="active"{{/if_eq}} data-highlight="forums"><a href="{{ forumUrl }}">Forums</a></li>
-    <li{{#if_eq highlight compare="roster"}} class="active"{{/if_eq}} data-highlight="roster"><a href="#">Roster</a></li>
-    {{#if_inarray 'event_view_any' compare=permissions}}
-    <li{{#if_eq highlight compare="calendar"}} class="active"{{/if_eq}} data-highlight="calendar"><a href="#calendar">Calendar</a></li>
-    {{/if_inarray}}
-    <li{{#if_eq highlight compare="enlistments"}} class="active"{{/if_eq}} data-highlight="enlistments"><a href="#enlistments">Enlistments</a></li>
+    <li{{#is highlight "===" "forums"}} class="active"{{/is}} data-highlight="forums"><a href="{{ forumUrl }}">Forums</a></li>
+    <li{{#is highlight "===" "roster"}} class="active"{{/is}} data-highlight="roster"><a href="#">Roster</a></li>
+    {{#is 'event_view_any' "in" permissions}}
+    <li{{#is highlight "===" "calendar"}} class="active"{{/is}} data-highlight="calendar"><a href="#calendar">Calendar</a></li>
+    {{/is}}
+    <li{{#is highlight "===" "enlistments"}} class="active"{{/is}} data-highlight="enlistments"><a href="#enlistments">Enlistments</a></li>
 </ul>
 <ul class="nav navbar-nav navbar-right">
     {{#if forum_member_id}}
         {{#unless classes}}
-        <li{{#if_eq highlight compare="enlist"}} class="active"{{/if_eq}} data-highlight="enlist"><a href="#enlist">{{#if short_name}}Re-{{/if}}Enlist</a></li>
+        <li{{#is highlight "===" "enlist"}} class="active"{{/is}} data-highlight="enlist"><a href="#enlist">{{#if short_name}}Re-{{/if}}Enlist</a></li>
         {{/unless}}
     {{else}}
         <li><a href="{{ forumUrl }}/entry/signin">Sign In</a></li>
