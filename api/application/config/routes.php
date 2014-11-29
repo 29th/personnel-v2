@@ -102,6 +102,8 @@ $route['assignments/(:num)'] = 'assignments/view/$1';
 $route['assignments'] = 'assignments/index';
 $route['discharges/(:num)'] = 'discharges/view/$1';
 $route['discharges'] = 'discharges/index';
+$route['qualifications/(:num)'] = 'qualifications/view/$1';
+$route['qualifications'] = 'qualifications/index';
 
 // Enlistments
 $route['enlistments/(:num)/process'] = 'enlistments/process/$1';
