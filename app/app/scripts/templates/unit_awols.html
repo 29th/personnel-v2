@@ -1,5 +1,5 @@
 <div class="btn-group" id="filter-days">
-    <button type="button" class="btn btn-default{{#or (is days "===" 30) (is days "===" "") }} active{{/is}}" data-days="30">30 Days</button>
+    <button type="button" class="btn btn-default{{#is days ">" 30}} active{{/is}}" data-days="30">30 Days</button>
     <button type="button" class="btn btn-default{{#is days "===" 60}} active{{/is}}" data-days="60">60 Days</button>
     <button type="button" class="btn btn-default{{#is days "===" 90}} active{{/is}}" data-days="90">90 Days</button>
 </div>
