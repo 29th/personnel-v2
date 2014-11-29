@@ -20,9 +20,9 @@
         <select class="form-control" name="age" id="age">
             {{#select age}}
             <option value="">Select...</option>
-            <option value="Under 13"{{#if_eq age compare="Under 13"}} selected="selected"{{/if_eq}}>Under 13</option>
+            <option value="Under 13"{{#is age "===" "Under 13"}} selected="selected"{{/is}}>Under 13</option>
             {{#each ages}}
-            <option value="{{ this }}"{{#if_eq age compare=this}} selected="selected"{{/if_eq}}>{{ this }}</option>
+            <option value="{{ this }}"{{#is age "===" this}} selected="selected"{{/is}}>{{ this }}</option>
             {{/each}}
             {{/select}}
         </select>

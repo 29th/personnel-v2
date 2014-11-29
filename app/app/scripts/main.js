@@ -58,6 +58,7 @@ window.requirejs = window.requirejs || {};
             "text": "../vendor/text/text",
             "hbs": "hbs",
             "json": "../vendor/requirejs-plugins/src/json",
+            "handlebars-helpers": "../vendor/handlebars-helpers/src/helpers",
             "config": "config.dev"
         },
         shim: {

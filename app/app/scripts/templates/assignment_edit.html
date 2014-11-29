@@ -33,7 +33,7 @@
             {{#select position.id}}
             <option value="">Select...</option>
             {{#each positions}}
-            <option value="{{ this.id }}">{{ this.name }}{{#if_gteq this.access_level compare=1}} (Leadership){{/if_gteq}}</option>
+            <option value="{{ this.id }}">{{ this.name }}{{#is this.access_level ">=" 1}} (Leadership){{/is}}</option>
             {{/each}}
             {{/select}}
         </select>

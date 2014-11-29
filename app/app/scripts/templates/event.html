@@ -5,16 +5,15 @@
         <h3>{{#if server.name}}{{ server.name }}{{/if}}</h3>
     </div>
     <div class="col-sm-4">
-        {{#and user_expected (within_24_hours datetime) }}
+        {{#if allowedTo.postLoa}}
             <div id="loa-buttons" class="{{#if user_rsvp.excused}}loa-cancel{{else}}loa-post{{/if}}">
                 <button type="button" class="btn btn-default pull-right" id="loa-cancel"><span class="glyphicon glyphicon-minus-sign"></span> Cancel LOA</button>
                 <button type="button" class="btn btn-default pull-right" id="loa-post"><span class="glyphicon glyphicon-plus-sign"></span> Post LOA</button>
             </div>
-            
-        {{/and}}
-        {{#or (if_inarray 'event_aar' compare=unitPermissions) (if_inarray 'event_aar_any' compare=permissions) }}
+        {{/if}}
+        {{#if allowedTo.postAar}}
             <a href="#events/{{ id }}/aar" class="btn btn-default pull-right"><span class="glyphicon glyphicon-list"></span> Post AAR</a>
-        {{/or}}
+        {{/if}}
     </div>
 </div>
 {{#if user_expected}}You {{#if (past datetime)}}were{{else}}are{{/if}} expected to attend{{/if}}

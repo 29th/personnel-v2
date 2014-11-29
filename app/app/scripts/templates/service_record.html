@@ -1,21 +1,21 @@
 <div class="row">
     <div class="col-sm-6">
 {{#each items}}
-    <h3>{{#unless_eq this.date compare="undefined"}}{{dateFormat this.date format="ll"}}{{else}}Unknown{{/unless_eq}}</h3>
+    <h3>{{#is this.date "!==" "undefined"}}{{dateFormat this.date format="ll"}}{{else}}Unknown{{/is}}</h3>
     {{#each this.items }}
         {{#if this.position}}
             <li>
-              Assigned to <a href="#/units/{{ this.unit.key }}" title="{{this.unit.name}}">{{#if_eq this.unit.class compare="Staff" }}{{ this.unit.name}}{{else}}{{ this.unit.abbr }}{{/if_eq}}</a> as a {{ this.position.name }}
-              {{#if_eq this.unit.class compare="Staff" }}{{#if this.end_date}} (until {{dateFormat this.end_date format="ll"}}){{/if}}{{/if_eq}}
+              Assigned to <a href="#/units/{{ this.unit.key }}" title="{{this.unit.name}}">{{#is this.unit.class "===" "Staff" }}{{ this.unit.name}}{{else}}{{ this.unit.abbr }}{{/is}}</a> as a {{ this.position.name }}
+              {{#is this.unit.class "===" "Staff" }}{{#if this.end_date}} (until {{dateFormat this.end_date format="ll"}}){{/if}}{{/is}}
               
-              {{#or (if_inarray 'assignment_add' compare=../../../memberPermissions) (if_inarray 'assignment_add_any' compare=../../../permissions) }}
+              {{#if allowedTo.editAssignment}}
                 <a href="#/assignments/{{ this.id }}/edit"><span class="glyphicon glyphicon-edit"></span></a>
-              {{/or}}
+              {{/if}}
             </li>
         {{/if}}
         {{#if this.new_rank}}
             <li>
-              <img src="images/ranks/16x16/{{ new_rank.filename }}.png" title="{{ rank.name }}">{{#unless_lt this.new_rank.order compare=this.old_rank.order}}Promoted{{else}}Demoted{{/unless_lt}} to {{ this.new_rank.name }}
+              <img src="images/ranks/16x16/{{ new_rank.filename }}.png" title="{{ rank.name }}">{{#is this.new_rank.order ">=" this.old_rank.order}}Promoted{{else}}Demoted{{/is}} to {{ this.new_rank.name }}
             </li>
         {{/if}}
         {{#if this.award}}
@@ -26,9 +26,9 @@
         {{/if}}
         {{#if this.type}}
             <li>
-            {{#if_eq this.type compare='Honorable'}}Honorably{{/if_eq}}
-            {{#if_eq this.type compare='Dishonorable'}}Dishonorably{{/if_eq}}
-            {{#if_eq this.type compare='General'}}Generaly{{/if_eq}}
+            {{#is this.type "===" 'Honorable'}}Honorably{{/is}}
+            {{#is this.type "===" 'Dishonorable'}}Dishonorably{{/is}}
+            {{#is this.type "===" 'General'}}Generally{{/is}}
             <a href="#discharges/{{ this.id }}">Discharged</a></li>
         {{/if}}
     {{/each}}
