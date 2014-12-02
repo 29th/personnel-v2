@@ -4,7 +4,7 @@ FROM tutum/lamp:latest
 RUN apt-get update && apt-get -y install curl
 
 # Install application
-RUN rm -rf app && git clone -b docker https://github.com/29th/personnel-api.git /app
+RUN rm -rf app && git clone -b docker https://github.com/29th/personnel-api.git /app/personnel-api
 
 # Set environment variables
 ENV ENVIRONMENT 'development'
