@@ -198,8 +198,8 @@ class Members extends MY_Controller {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         else {
-            //$qualifications = nest($this->qualification_model->where('qualifications.member_id', $member_id)->get()->result_array());
-            $qualifications = nest($this->standard_model->for_member($member_id)->get()->result_array());
+            $qualifications = nest($this->qualification_model->where('qualifications.member_id', $member_id)->get()->result_array());
+            //$qualifications = nest($this->standard_model->for_member($member_id)->get()->result_array());
             $this->response(array('status' => true, 'qualifications' => $qualifications));
         }
     }

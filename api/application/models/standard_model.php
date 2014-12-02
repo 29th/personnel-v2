@@ -13,7 +13,7 @@ class Standard_model extends CRUD_Model {
     }
     
     public function for_member($member_id) {
-        $this->filter_select('qualifications.id AS `qualification|id`, qualifications.date AS `qualification|date`, qualifications.author_member_id AS `qualification|author_member_id`');
+        $this->filter_select('qualifications.id AS `qualification|id`, qualifications.date AS `qualification|date`, qualifications.author_member_id AS `qualification|author|id`');
         $this->filter_join('qualifications', 'qualifications.standard_id = standards.id AND qualifications.member_id = ' . $this->db->escape($member_id), 'left');
         return $this;
     }
