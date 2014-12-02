@@ -26,6 +26,7 @@ define([
     "collections/positions",
     "collections/promotions",
     "collections/qualifications",
+    "collections/standards",
     "collections/unit_attendance", // Unit attendance
     "collections/unit_awols",
     "collections/units",
@@ -46,9 +47,9 @@ define([
     "views/member_discharge",
     "views/member_edit",
     "views/member_profile",
+    "views/member_qualifications",
     "views/member",
     "views/nav",
-    "views/qualifications",
     "views/roster",
     "views/service_record",
     "views/unit_attendance",
@@ -66,10 +67,10 @@ $, _, Backbone, Marionette, Handlebars, util,
 // Models
 Assignment, Discharge, Enlistment, Event, Member, User,
 // Collections
-Assignments, Awardings, Discharges, Enlistments, EventAttendance, Events, MemberAttendance, MemberAwols, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, UnitAttendance, UnitAwols, Units,
+Assignments, Awardings, Discharges, Enlistments, EventAttendance, Events, MemberAttendance, MemberAwols, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, Standards, UnitAttendance, UnitAwols, Units,
 // Views
 AARView, AssignmentEditView, AssociateView, CalendarView, DischargeView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, FlashView, MemberAdminView, MemberAttendanceView, MemberDischargeView,
-MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, RosterView, ServiceRecordView, UnitAttendanceView, UnitAwolsView, UnitView) {
+MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView, RosterView, ServiceRecordView, UnitAttendanceView, UnitAwolsView, UnitView) {
     "use strict";
 
     return Backbone.Router.extend({
@@ -526,22 +527,29 @@ MemberEditView, MemberProfileView, MemberView, NavView, QualificationsView, Rost
             // Qualifications
             else if (path == "qualifications") {
                 memberLayout.setHighlight("qualifications");
+                
+                // Standards
+                var standards = new Standards();
+                promises.push(standards.fetch());
 
-                //Qualification tics
+                // Qualification tics
                 var qualifications = new Qualifications(null, {
                     member_id: id
                 });
                 promises.push(qualifications.fetch());
 
                 // Awards
-                var awards = new Awardings(null, {
+                /*var awards = new Awardings(null, {
                     member_id: id
                 });
-                promises.push(awards.fetch());
+                promises.push(awards.fetch());*/
 
-                pageView = new QualificationsView({
-                    collection: qualifications,
-                    awards: awards
+                pageView = new MemberQualificationsView({
+                    collection: standards,
+                    qualifications: qualifications,
+                    //awards: awards,
+                    permissions: this.permissions,
+                    memberPermissions: memberPermissions,
                 });
             }
             else if (path == "edit") {
