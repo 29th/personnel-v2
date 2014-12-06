@@ -71,6 +71,9 @@ body {
 .qualification {
     list-style-type: none;
 }
+.qualification small {
+    color: #999999;
+}
 .cursor {
     cursor: pointer;
 }

@@ -5,4 +5,16 @@
         <span class="glyphicon glyphicon-unchecked{{#if allowedTo.addQualification}} cursor{{/if}}" data-standard-id="{{ id }}"></span>
     {{/if}}
     {{ description }}
+    
+    {{#if qualification}}
+    <small>
+        {{#if qualification.date}}
+            {{dateFormat qualification.date format="ll"}}
+        {{/if}}
+        
+        {{#if qualification.author.short_name}}
+            by {{ qualification.author.short_name }}
+        {{/if}}
+    </small>
+    {{/if}}
 </li>
