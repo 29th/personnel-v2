@@ -32,14 +32,15 @@ class Qualification_model extends CRUD_Model {
     
     public function default_select() {
         $this->db->select('qualifications.id, qualifications.date')
-            ->select('qualifications.author_member_id AS `author|id`, ' . $this->virtual_fields['short_name'] . ' AS `author|short_name`', FALSE)
+            ->select('qualifications.author_member_id AS `author|id`')
+            ->select('CONCAT(a_ranks.`abbr`, " ", IF(a_members.`name_prefix` != "", CONCAT(a_members.`name_prefix`, " "), ""), a_members.`last_name`) AS `author|short_name`', FALSE)
             ->select('qualifications.standard_id AS `standard|id`, s.weapon AS `standard|weapon`, s.badge AS `standard|badge`, s.description AS `standard|description`');
     }
     
     public function default_join() {
         $this->db->join('standards AS s', 's.id = qualifications.standard_id')
-            ->join('members', 'members.id = qualifications.author_member_id')
-            ->join('ranks', 'ranks.id = members.rank_id', 'left');
+            ->join('members AS a_members', 'a_members.id = qualifications.author_member_id')
+            ->join('ranks AS a_ranks', 'a_ranks.id = a_members.rank_id', 'left');
     }
     
     public function select_member() {
