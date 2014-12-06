@@ -100,5 +100,9 @@ class Vanilla {
         
         return $this->forums_db->query('UPDATE GDN_User SET `Name` = ? WHERE UserID = ?', array($member['short_name'], $member['forum_member_id']));
     }
+    
+    public function get_role_list() {
+        return $this->forums_db->query('SELECT `RoleID`, `Name` FROM GDN_Role ORDER BY `Sort`')->result_array();
+    }
 
 }

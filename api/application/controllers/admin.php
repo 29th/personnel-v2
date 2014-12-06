@@ -126,9 +126,23 @@ class Admin extends CI_Controller {
 	public function class_roles()
 	{
 	    $this->grocery_crud->set_table('class_roles');
+	    
+        $this->load->library('vanilla');
+        $roles = $this->role_list_to_dropdown($this->vanilla->get_role_list());
+        
+        $this->grocery_crud->field_type('role_id', 'dropdown', $roles)->display_as('role_id', 'Role');
+        
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'class_roles');
+	}
+	
+	private function role_list_to_dropdown($roles) {
+        $dropdown = array();
+        foreach($roles as $role) {
+            $dropdown[$role['RoleID']] = $role['Name'];
+        }
+        return $dropdown;
 	}
 	
 	public function countries()
@@ -379,6 +393,12 @@ class Admin extends CI_Controller {
 	    $this->grocery_crud->set_table('unit_roles')
 	        ->set_relation('unit_id', 'units', 'abbr')->display_as('unit_id', 'Unit')
 	        ->field_type('access_level', 'dropdown', array('0' => 'Default', '1' => 'Leadership'));
+	    
+        $this->load->library('vanilla');
+        $roles = $this->role_list_to_dropdown($this->vanilla->get_role_list());
+        
+        $this->grocery_crud->field_type('role_id', 'dropdown', $roles)->display_as('role_id', 'Role');
+        
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'unit_roles');
