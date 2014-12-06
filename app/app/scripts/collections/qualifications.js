@@ -2,11 +2,13 @@ define([
     "jquery",
     "underscore",
     "backbone",
+    "models/qualification",
     "config"
-], function ($, _, Backbone, config) {
+], function ($, _, Backbone, Qualification, config) {
     "use strict";
 
     return Backbone.Collection.extend({
+        model: Qualification,
         initialize: function (models, options) {
             options = options || {};
             this.member_id = options.member_id || false;

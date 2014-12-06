@@ -67,6 +67,14 @@ body {
     display: none;
 }
 
+/* Qualifications */
+.qualification {
+    list-style-type: none;
+}
+.cursor {
+    cursor: pointer;
+}
+
 /* Collapsible qualifications */
 /*.roster .depth-2 > div:not(.header-row) {
     display: none;

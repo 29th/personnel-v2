@@ -1,0 +1,8 @@
+<li class="qualification">
+    {{#if qualification}}
+        <span class="glyphicon glyphicon-check{{#if allowedTo.addQualification}} cursor{{/if}}" data-standard-id="{{ id }}"></span>
+    {{else}}
+        <span class="glyphicon glyphicon-unchecked{{#if allowedTo.addQualification}} cursor{{/if}}" data-standard-id="{{ id }}"></span>
+    {{/if}}
+    {{ description }}
+</li>

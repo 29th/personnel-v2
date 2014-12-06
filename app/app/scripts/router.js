@@ -529,7 +529,9 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 memberLayout.setHighlight("qualifications");
                 
                 // Standards
-                var standards = new Standards();
+                var standards = new Standards(null, {
+                    hierarchy: true
+                });
                 promises.push(standards.fetch());
 
                 // Qualification tics
@@ -546,6 +548,7 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
 
                 pageView = new MemberQualificationsView({
                     collection: standards,
+                    member_id: id,
                     qualifications: qualifications,
                     //awards: awards,
                     permissions: this.permissions,

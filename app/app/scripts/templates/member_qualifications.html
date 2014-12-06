@@ -17,13 +17,13 @@
                 <li style="list-style-type: none">
                     {{#if this.qualification}}
                         {{#if ../../../../../allowedTo.addQualification }}
-                            <button class="btn btn-xs toggle-qualification" data-id="{{ this.qualification.id }}"><span class="glyphicon glyphicon-check"></span></button>
+                            <button class="btn btn-xs toggle-remove" data-id="{{ this.qualification.id }}"><span class="glyphicon glyphicon-check"></span></button>
                         {{else}}
                             <span class="glyphicon glyphicon-check"></span>
                         {{/if}}
                     {{else}}
                         {{#if ../../../../../allowedTo.addQualification }}
-                            <button class="btn btn-xs toggle-qualification" data-standard-id="{{ this.id }}"><span class="glyphicon glyphicon-unchecked"></span></button>
+                            <button class="btn btn-xs toggle-add" data-standard-id="{{ this.id }}"><span class="glyphicon glyphicon-unchecked"></span></button>
                         {{else}}
                             <span class="glyphicon glyphicon-unchecked"></span>
                         {{/if}}
