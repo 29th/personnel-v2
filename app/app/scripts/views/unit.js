@@ -31,7 +31,7 @@ define([
             }, this.collection.length ? this.collection.at(0).toJSON() : {});
         },
         onRender: function () {
-            var model = this.collection.length ? this.collection.at(0) : {};
+            var model = this.collection.length ? this.collection.at(0) : undefined;
             if (model && model.get("name")) this.title = model.get("name");
         },
     });
