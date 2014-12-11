@@ -8,8 +8,10 @@
               Assigned to <a href="#/units/{{ this.unit.key }}" title="{{this.unit.name}}">{{#is this.unit.class "===" "Staff" }}{{ this.unit.name}}{{else}}{{ this.unit.abbr }}{{/is}}</a> as a {{ this.position.name }}
               {{#is this.unit.class "===" "Staff" }}{{#if this.end_date}} (until {{dateFormat this.end_date format="ll"}}){{/if}}{{/is}}
               
-              {{#if allowedTo.editAssignment}}
+              {{#if ../../../allowedTo.editAssignment}}
                 <a href="#/assignments/{{ this.id }}/edit"><span class="glyphicon glyphicon-edit"></span></a>
+              {{else}}
+                Nope
               {{/if}}
             </li>
         {{/if}}
