@@ -1,20 +1,4 @@
 <form role="form">
-
-    <div class="form-group">
-        <label for="recruiter_member_id">Member</label>
-        <select class="form-control selectpicker" name="member_id" id="member_id" data-live-search="true">
-            {{#select member.id}}
-            <option value="">Select...</option>
-            {{#each units}}
-            <optgroup label="{{ this.abbr }}">
-                {{#each this.members}}
-                <option value="{{ this.id }}">{{ this.short_name }}</option>
-                {{/each}}
-            </optgroup>
-            {{/each}}
-            {{/select}}
-        </select>
-    </div>
     
     <div class="form-group">
         <label for="unit_id">Unit</label>
@@ -48,6 +32,18 @@
         <label for="end_date">End Date</label>
         <input type="text" class="form-control" id="end_date" name="end_date" value="{{ end_date }}" data-provide="datepicker" data-date-format="yyyy-mm-dd">
     </div>
+    
+    {{#if assignments}}
+    <div class="form-group">
+        <label for="former_assignment_id">Transfer From</label>
+        <select class="form-control selectpicker" name="former_assignment_id" id="former_assignment_id" data-live-search="true">
+            <option value="">None</option>
+            {{#each assignments}}
+            <option value="{{ this.id }}">{{ this.unit.abbr }} ({{ this.position.name }})</option>
+            {{/each}}
+        </select>
+    </div>
+    {{/if}}
     
     <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
 </form>

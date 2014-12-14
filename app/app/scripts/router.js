@@ -201,6 +201,13 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 assignment.id = id;
                 promises.push(assignment.fetch());
             }
+            else {
+                view.assignments = new Assignments(null, {
+                    member_id: member_id,
+                    current: true
+                });
+                promises.push(view.assignments.fetch());
+            }
             if(member_id) {
                 assignment.set("member", {id: member_id});
             }

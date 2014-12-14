@@ -2,10 +2,11 @@ define([
     "jquery",
     "underscore",
     "backbone",
+    "models/assignment",
     "hbs!templates/assignment_edit",
     "marionette",
     "bootstrap-datepicker"
-], function ($, _, Backbone, Template) {
+], function ($, _, Backbone, Assignment, Template) {
 
     return Backbone.Marionette.ItemView.extend({
         template: Template,
@@ -23,7 +24,8 @@ define([
         serializeData: function () {
             return $.extend({
                 units: this.units.length ? this.units.toJSON() : {},
-                positions: this.positions.length ? this.positions.toJSON() : {}
+                positions: this.positions.length ? this.positions.toJSON() : {},
+                assignments: this.assignments !== undefined && this.assignments.length ? this.assignments.toJSON() : null
             }, this.model.toJSON());
         },
         onRender: function() {
@@ -31,17 +33,32 @@ define([
         },
         onSubmitForm: function (e) {
             e.preventDefault();
-            var data = $(e.currentTarget).serializeObject(),
-                memberId = this.model.get("member").id;
+            var data = $(e.currentTarget).serializeObject();
+            data.member_id = this.model.get("member").id;
             this.model.save(data, {
                 method: "POST",
                 patch: true,
                 data: data,
                 processData: true,
                 success: function () {
-                    Backbone.history.navigate("members/" + memberId + "/servicerecord", {
-                        trigger: true
-                    });
+                    // End previous assignment if applicable
+                    if(data.former_assignment_id) {
+                        var formerAssignment = new Assignment({id: data.former_assignment_id});
+                        formerAssignment.save(null, {
+                            method: "POST",
+                            data: {end_date: data.start_date},
+                            processData: true,
+                            success: function() {
+                                Backbone.history.navigate("members/" + data.member_id + "/servicerecord", {
+                                    trigger: true
+                                });
+                            }
+                        });
+                    } else {
+                        Backbone.history.navigate("members/" + data.member_id + "/servicerecord", {
+                            trigger: true
+                        });
+                    }
                 }
                 //,error: function() {console.log("ERROR!!!")}
             });
