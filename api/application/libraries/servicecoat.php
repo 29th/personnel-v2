@@ -1273,7 +1273,7 @@ class ServiceCoat {
 			{
 				switch($badge)
 				{
-					case drillsergeant:
+					case 'drillsergeant':
 						$this->scBLDrillSergeantB = imagecreatefrompng($root . '../coat-resources/BadgesOther/DI.png');
 						$scBLDSSize['x'] = imagesx($this->scBLDrillSergeantB);
 						$scBLDSSize['y'] = imagesy($this->scBLDrillSergeantB);
