@@ -223,7 +223,7 @@ class Admin extends CI_Controller {
 	    $crud->set_table('members')
 	        ->set_subject('Member')
 	        ->columns('last_name', 'first_name', 'middle_name', 'rank_id', 'country_id', 'steam_id', 'forum_member_id'/*, 'units', 'classes'*/)
-	        ->fields('id', 'last_name', 'first_name', 'middle_name', 'rank_id', 'forum_member_id', 'country_id', 'city', 'steam_id', 'email')
+	        ->fields('id', 'last_name', 'first_name', 'middle_name', 'forum_member_id', 'country_id', 'city', 'steam_id', 'email')
 	        ->set_relation('country_id', 'countries', 'abbr')->display_as('country_id', 'Country')
 	        ->set_relation('rank_id', 'ranks', 'abbr')->display_as('rank_id', 'Rank')
 	        ->display_as('forum_member_id', 'Forum ID')
