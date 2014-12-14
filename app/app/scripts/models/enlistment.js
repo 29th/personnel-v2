@@ -43,7 +43,8 @@ define([
                 pattern: "number"
             },
             experience: {
-                required: true
+                required: true,
+                msg: "A response to this question is required"
             },
             recruiter: {
                 required: false,
