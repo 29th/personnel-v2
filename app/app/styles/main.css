@@ -164,3 +164,11 @@ body {
     margin: 0;
     padding: 0;
 }
+
+/* Navbar search */
+.navbar-form[role="search"] .bootstrap-select {
+    margin-bottom: 0;
+}
+.search-unit {
+    font-weight: bold;
+}

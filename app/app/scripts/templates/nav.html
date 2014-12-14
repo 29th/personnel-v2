@@ -6,7 +6,9 @@
     {{/is}}
     <li{{#is highlight "===" "enlistments"}} class="active"{{/is}} data-highlight="enlistments"><a href="#enlistments">Enlistments</a></li>
 </ul>
+    
 <ul class="nav navbar-nav navbar-right">
+    
     {{#if forum_member_id}}
         {{#unless classes}}
         <li{{#is highlight "===" "enlist"}} class="active"{{/is}} data-highlight="enlist"><a href="#enlist">{{#if short_name}}Re-{{/if}}Enlist</a></li>
@@ -25,3 +27,16 @@
     </li>
     {{/if}}
 </ul>
+
+<form class="navbar-form navbar-right" role="search">
+    <select class="form-control selectpicker span2" name="search" id="search" data-live-search="true">
+        <option value="" data-content="<span class='glyphicon glyphicon-search'></span>">Search</option>
+        {{#each units}}
+        <option value="units/{{ this.id }}" data-content="<span class='search-unit'>{{ this.abbr }}</span>">{{ this.abbr }}</option>
+            {{#each this.members}}
+            <option value="members/{{ this.id }}">{{ this.short_name }}</option>
+            {{/each}}
+        <option data-divider="true"></option>
+        {{/each}}
+    </select>
+</form>

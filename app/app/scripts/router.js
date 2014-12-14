@@ -107,14 +107,25 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
             }
             
             // Fetch permissions if they haven't been fetched yet
-            if (!this.permissions) {
+            if( ! this.permissions) {
                 this.permissions = new Permissions();
                 this.permissions.fetch({reset: true});
             }
             
+            // Fetch units if they haven't been fetched yet
+            if( ! this.units) {
+                this.units = new Units(null, {
+                    children: true,
+                    members: true,
+                    flat: true
+                });
+                this.units.fetch({reset: true});
+            }
+            
             var navView = new NavView({
                 model: this.user,
-                permissions: this.permissions
+                permissions: this.permissions,
+                units: this.units
             });
             this.app.navRegion.show(navView);
             //vent.trigger("fetch", userFetch);

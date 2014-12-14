@@ -13,11 +13,22 @@ define([
         modelEvents: {
             "change": "render"
         },
+        events: {
+            "change #search": "onSearch"
+        },
         initialize: function (options) {
             options = options || {};
-
+            
+            this.units = options.units || {};
+            this.units.on("reset", this.render, this);
+            
             this.permissions = options.permissions || {};
             this.permissions.on("reset", this.render, this);
+            
+            _.bindAll(this, "onSearch");
+        },
+        onRender: function() {
+            this.$(".selectpicker").selectpicker();
         },
         setHighlight: function (highlight) {
             this.highlight = highlight;
@@ -28,8 +39,17 @@ define([
             return _.extend({
                 highlight: this.highlight,
                 forumUrl: config.forumUrl,
-                permissions: this.permissions.length ? this.permissions.pluck("abbr") : []
+                permissions: this.permissions.length ? this.permissions.pluck("abbr") : [],
+                units: this.units.length ? this.units.toJSON() : []
             }, this.model.toJSON());
+        },
+        onSearch: function(e) {
+            var hash = e.currentTarget.value;
+            if(hash) {
+                Backbone.history.navigate(hash, {
+                    trigger: true
+                });
+            }
         }
     });
 });
