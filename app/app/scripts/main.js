@@ -52,7 +52,7 @@ window.requirejs = window.requirejs || {};
             ],
             "backbone.validation": "../vendor/backbone.validation/dist/backbone-validation-amd-min",
             "bootstrap-select": [
-                "//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min",
+                "//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min",
                 "../vendor/bootstrap-select/dist/js/bootstrap-select.min"
             ],
             "text": "../vendor/text/text",
