@@ -50,8 +50,8 @@ class ServiceCoat {
 	{
 		global $root;
 		//Image Variables
-			$this->scImage = imagecreatefrompng($root . '../coat-resources/29th_ServiceJacket.png');
-			$this->scImageSig = imagecreatefrompng($root . '../coat-resources/29th_ServiceJacketSig.png');
+			$this->scImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . '29th_ServiceJacket.png');
+			$this->scImageSig = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . '29th_ServiceJacketSig.png');
 			$this->scImgSize = array();
 			$this->scImgSize['x'] = imagesx($this->scImage);
 			$this->scImgSize['y'] = imagesy($this->scImage);
@@ -142,7 +142,7 @@ class ServiceCoat {
 	{
 		global $root;
 		//Init a large image with trans
-			$CutterImage = imagecreatefrompng($root . '../coat-resources/blank500.png');
+			$CutterImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'blank500.png');
 			$CutterImgSizeX = imagesx($CutterImage);
 			$CutterImgSizeY = imagesy($CutterImage);
 			$ImageSizeX = imagesx($image);
@@ -175,7 +175,7 @@ class ServiceCoat {
 	private function handlePatchs() //Done
 	{
 		global $root;
-		$this->sc29thPatch = imagecreatefrompng($root . '../coat-resources/29th_Patch.png');
+		$this->sc29thPatch = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . '29th_Patch.png');
 		imagecopy($this->scImage, $this->sc29thPatch, 0, 0, 0, 0, $this->scImgSize['x'], $this->scImgSize['y']);
 		imagedestroy($this->sc29thPatch);
 	}
@@ -183,17 +183,17 @@ class ServiceCoat {
 	private function handleOfficerInsig() //Done
 	{
 		global $root;
-		$this->scLapelCover = imagecreatefrompng($root . '../coat-resources/Lapel_Cover.png');
+		$this->scLapelCover = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Lapel_Cover.png');
 		imagecopy($this->scImage, $this->scLapelCover, 0, 0, 0, 0, $this->scImgSize['x'], $this->scImgSize['y']);
 		imagedestroy($this->scLapelCover);
 		$this->scInsignia = strtolower($this->scInsignia);
 		if($this->scInsignia == "747th"){
-			$this->scArmorOfficer = imagecreatefrompng($root . '../coat-resources/InsigniaBranch/armor_officer.png');
+			$this->scArmorOfficer = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'InsigniaBranch/armor_officer.png');
 			imagecopy($this->scImage, $this->scArmorOfficer, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 			imagedestroy($this->scArmorOfficer);
 		}
 		else{
-			$this->scInfantryOfficer = imagecreatefrompng($root . '../coat-resources/InsigniaBranch/infantry_officer.png');	
+			$this->scInfantryOfficer = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'InsigniaBranch/infantry_officer.png');	
 			imagecopy($this->scImage, $this->scInfantryOfficer, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 			imagedestroy($this->scInfantryOfficer);
 		}
@@ -203,17 +203,17 @@ class ServiceCoat {
 	private function handleEnlistedInsig() //Done
 	{
 		global $root;
-		$this->scLapelCover = imagecreatefrompng($root . '../coat-resources/Lapel_Cover.png');
+		$this->scLapelCover = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Lapel_Cover.png');
 		imagecopy($this->scImage, $this->scLapelCover, 0, 0, 0, 0, $this->scImgSize['x'], $this->scImgSize['y']);
 		imagedestroy($this->scLapelCover);
 		$this->scInsignia = strtolower($this->scInsignia);
 		if($this->scInsignia == "747th"){
-			$this->scArmorEnlisted = imagecreatefrompng($root . '../coat-resources/InsigniaBranch/armor_enlisted.png');
+			$this->scArmorEnlisted = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'InsigniaBranch/armor_enlisted.png');
 			imagecopy($this->scImage, $this->scArmorEnlisted, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 			imagedestroy($this->scArmorEnlisted);
 		}
 		else{
-			$this->scInfantryEnlisted = imagecreatefrompng($root . '../coat-resources/InsigniaBranch/infantry_enlisted.png');
+			$this->scInfantryEnlisted = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'InsigniaBranch/infantry_enlisted.png');
 			imagecopy($this->scImage, $this->scInfantryEnlisted, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 			imagedestroy($this->scInfantryEnlisted);	
 		}				
@@ -230,91 +230,91 @@ class ServiceCoat {
 				$this->handleEnlistedInsig();			
 			break;
 			case 'pfc':
-				$this->scRankpfc = imagecreatefrompng($root . '../coat-resources/RanksEnlisted/PFC.png');
+				$this->scRankpfc = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksEnlisted/PFC.png');
 				imagecopy($this->scImage, $this->scRankpfc, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 				imagedestroy($this->scRankpfc);
 				$this->handleEnlistedInsig();				
 			break;
 			case 'cpl':
-				$this->scRankcpl = imagecreatefrompng($root . '../coat-resources/RanksEnlisted/CPL.png');
+				$this->scRankcpl = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksEnlisted/CPL.png');
 				imagecopy($this->scImage, $this->scRankcpl, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 				imagedestroy($this->scRankcpl);
 				$this->handleEnlistedInsig();		
 			break;
 			case 't5':
-				$this->scRankt5 = imagecreatefrompng($root . '../coat-resources/RanksEnlisted/T5.png');
+				$this->scRankt5 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksEnlisted/T5.png');
 				imagecopy($this->scImage, $this->scRankt5, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 				imagedestroy($this->scRankt5);
 				$this->handleEnlistedInsig();	
 			break;
 			case 'sgt':
-				$this->scRanksgt = imagecreatefrompng($root . '../coat-resources/RanksEnlisted/SGT.png');
+				$this->scRanksgt = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksEnlisted/SGT.png');
 				imagecopy($this->scImage, $this->scRanksgt, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 				imagedestroy($this->scRanksgt);
 				$this->handleEnlistedInsig();		
 			break;
 			case 't4':
-				$this->scRankt4 = imagecreatefrompng($root . '../coat-resources/RanksEnlisted/T4.png');
+				$this->scRankt4 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksEnlisted/T4.png');
 				imagecopy($this->scImage, $this->scRankt4, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 				imagedestroy($this->scRankt4);
 				$this->handleEnlistedInsig();				
 			break;
 			case 'ssgt':
-				$this->scRankssgt = imagecreatefrompng($root . '../coat-resources/RanksEnlisted/SSGT.png');
+				$this->scRankssgt = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksEnlisted/SSGT.png');
 				imagecopy($this->scImage, $this->scRankssgt, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 				imagedestroy($this->scRankssgt);
 				$this->handleEnlistedInsig();				
 			break;
 			case 't3':
-				$this->scRankt3 = imagecreatefrompng($root . '../coat-resources/RanksEnlisted/T3.png');
+				$this->scRankt3 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksEnlisted/T3.png');
 				imagecopy($this->scImage, $this->scRankt3, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 				imagedestroy($this->scRankt3);
 				$this->handleEnlistedInsig();
 			break;
 			case 'tsgt':
-				$this->scRanktsgt = imagecreatefrompng($root . '../coat-resources/RanksEnlisted/TSGT.png');
+				$this->scRanktsgt = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksEnlisted/TSGT.png');
 				imagecopy($this->scImage, $this->scRanktsgt, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 				imagedestroy($this->scRanktsgt);				
 				$this->handleEnlistedInsig();
 			break;
 			case 'msgt':
-				$this->scRankmsgt = imagecreatefrompng($root . '../coat-resources/RanksEnlisted/MSGT.png');
+				$this->scRankmsgt = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksEnlisted/MSGT.png');
 				imagecopy($this->scImage, $this->scRankmsgt, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 				imagedestroy($this->scRankmsgt);
 				$this->handleEnlistedInsig();				
 			break;
 			case 'fsgt':
-				$this->scRankfsgt = imagecreatefrompng($root . '../coat-resources/RanksEnlisted/FSGT.png');
+				$this->scRankfsgt = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksEnlisted/FSGT.png');
 				imagecopy($this->scImage, $this->scRankfsgt, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 				imagedestroy($this->scRankfsgt);
 				$this->handleEnlistedInsig();				
 			break;
 			case '2lt':
-				$this->scRank2lt = imagecreatefrompng($root . '../coat-resources/RanksOfficer/2LT.png');
+				$this->scRank2lt = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksOfficer/2LT.png');
 				imagecopy($this->scImage, $this->scRank2lt, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 				imagedestroy($this->scRank2lt);	
 				$this->handleOfficerInsig();						
 			break;
 			case '1lt':
-				$this->scRank1lt = imagecreatefrompng($root . '../coat-resources/RanksOfficer/1LT.png');
+				$this->scRank1lt = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksOfficer/1LT.png');
 				imagecopy($this->scImage, $this->scRank1lt, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 				imagedestroy($this->scRank1lt);
 				$this->handleOfficerInsig();			
 			break;
 			case 'cpt':
-				$this->scRankcpt = imagecreatefrompng($root . '../coat-resources/RanksOfficer/CPT.png');
+				$this->scRankcpt = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksOfficer/CPT.png');
 				imagecopy($this->scImage, $this->scRankcpt, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 				imagedestroy($this->scRankcpt);
 				$this->handleOfficerInsig();
 			break;
 			case 'maj':
-				$this->scRankmaj = imagecreatefrompng($root . '../coat-resources/RanksOfficer/MAJ.png');
+				$this->scRankmaj = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksOfficer/MAJ.png');
 				imagecopy($this->scImage, $this->scRankmaj, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 				imagedestroy($this->scRankmaj);
 				$this->handleOfficerInsig();
 			break;
 			case 'lt col':
-				$this->scRankltcol = imagecreatefrompng($root . '../coat-resources/RanksOfficer/LTCOL.png');
+				$this->scRankltcol = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksOfficer/LTCOL.png');
 				imagecopy($this->scImage, $this->scRankltcol, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 				imagedestroy($this->scRankltcol);
 				$this->handleOfficerInsig();	
@@ -335,11 +335,11 @@ class ServiceCoat {
 		global $root;
 		if(count($this->scAQBadges) > 0)
 		{
-			$temp_image = imagecreatefrompng($root . '../coat-resources/BadgesAQB/expert_badge.png');
+			$temp_image = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesAQB/expert_badge.png');
 			$scMarksBadgeSize['x'] = imagesx($temp_image);
 			$scMarksBadgeSize['y'] = imagesy($temp_image);
 			imagedestroy($temp_image);
-			$temp_image = imagecreatefrompng($root . '../coat-resources/BadgesAQB/rifle_clasps.png');
+			$temp_image = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesAQB/rifle_clasps.png');
 			$scClaspsSize['x'] = imagesx($temp_image);
 			$scClaspsSize['y'] = imagesy($temp_image);
 			imagedestroy($temp_image);
@@ -434,28 +434,28 @@ class ServiceCoat {
 				switch($scBadgeAttr[1])
 				{
 					case 'rifle':
-						$scClaspsList['rifle'] = imagecreatefrompng($root . '../coat-resources/BadgesAQB/rifle_clasps.png');
+						$scClaspsList['rifle'] = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesAQB/rifle_clasps.png');
 					break;
 					case 'smg':
-						$scClaspsList['smg'] = imagecreatefrompng($root . '../coat-resources/BadgesAQB/submachinegun_clasps.png');
+						$scClaspsList['smg'] = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesAQB/submachinegun_clasps.png');
 					break;
 					case 'mg':
-						$scClaspsList['mg'] = imagecreatefrompng($root . '../coat-resources/BadgesAQB/machinegun_clasps.png');
+						$scClaspsList['mg'] = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesAQB/machinegun_clasps.png');
 					break;
 					case 'bar':
-						$scClaspsList['bar'] = imagecreatefrompng($root . '../coat-resources/BadgesAQB/autorifle_clasps.png');
+						$scClaspsList['bar'] = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesAQB/autorifle_clasps.png');
 					break;
 					case 'zook':
-						$scClaspsList['zook'] = imagecreatefrompng($root . '../coat-resources/BadgesAQB/antitank_clasps.png');
+						$scClaspsList['zook'] = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesAQB/antitank_clasps.png');
 					break;
 					case 'armor':
-						$scClaspsList['armor'] = imagecreatefrompng($root . '../coat-resources/BadgesAQB/armor_clasps.png');
+						$scClaspsList['armor'] = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesAQB/armor_clasps.png');
 					break;
 					case 'sniper':
-						$scClaspsList['sniper'] = imagecreatefrompng($root . '../coat-resources/BadgesAQB/sniper_clasps.png');
+						$scClaspsList['sniper'] = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesAQB/sniper_clasps.png');
 					break;
 					case 'mortar':
-						$scClaspsList['mortar'] = imagecreatefrompng($root . '../coat-resources/BadgesAQB/mortar_clasps.png');
+						$scClaspsList['mortar'] = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesAQB/mortar_clasps.png');
 					break;
 					default: break;
 				}
@@ -466,7 +466,7 @@ class ServiceCoat {
 						switch($scNClaspsExpert)
 						{
 							case 1:
-								$scMarksBadgeArray['slot1'] = imagecreatefrompng($root . '../coat-resources/BadgesAQB/expert_badge.png');
+								$scMarksBadgeArray['slot1'] = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesAQB/expert_badge.png');
 						imagecopy($scMarksBadgeArray['slot1'], $scClaspsList[$scBadgeAttr[1]], $scMarksClaspsPos['pos1']['x'], $scMarksClaspsPos['pos1']['y'], 0, 0, $scClaspsSize['x'], $scClaspsSize['y']);
 								$scNClaspsExpert++;
 							break;
@@ -488,7 +488,7 @@ class ServiceCoat {
 						switch($scNClaspsSharps)
 						{
 						case 1:
-							$scMarksBadgeArray['slot2'] = imagecreatefrompng($root . '../coat-resources/BadgesAQB/sharpshooter_badge.png');
+							$scMarksBadgeArray['slot2'] = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesAQB/sharpshooter_badge.png');
 						imagecopy($scMarksBadgeArray['slot2'], $scClaspsList[$scBadgeAttr[1]], $scMarksClaspsPos['pos1']['x'], $scMarksClaspsPos['pos1']['y'], 0, 0, $scClaspsSize['x'], $scClaspsSize['y']);
 							$scNClaspsSharps++;
 						break;
@@ -510,7 +510,7 @@ class ServiceCoat {
 						switch($scNClaspsMarks)
 						{
 						case 1:
-							$scMarksBadgeArray['slot3'] = imagecreatefrompng($root . '../coat-resources/BadgesAQB/marksman_badge.png');
+							$scMarksBadgeArray['slot3'] = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesAQB/marksman_badge.png');
 						imagecopy($scMarksBadgeArray['slot3'], $scClaspsList[$scBadgeAttr[1]], $scMarksClaspsPos['pos1']['x'], $scMarksClaspsPos['pos1']['y'], 0, 0, $scClaspsSize['x'], $scClaspsSize['y']);
 							$scNClaspsMarks++;
 						break;
@@ -588,94 +588,94 @@ class ServiceCoat {
 		global $root;
 		if(count($this->scARibbons) > 0)
 		{
-			$temp_img = imagecreatefrompng($root . '../coat-resources/Ribbons/French Croix de Guerre Medal.png');
+			$temp_img = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/French Croix de Guerre Medal.png');
 			$scRibSize['x'] = imagesx($temp_img);
 			$scRibSize['y'] = imagesy($temp_img);
 			imagedestroy($temp_img);
 			$scRibAwards = array(
 				'french' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/French Croix de Guerre Medal.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/French Croix de Guerre Medal.png')
 					),
 				'ww1v' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/WWI Victory Medal.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/WWI Victory Medal.png')
 					),
 				'aocc' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/Army of Occupation Medal.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Army of Occupation Medal.png')
 					),
 				'eamc' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/European-African-Middle Eastern Campaign Medal.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/European-African-Middle Eastern Campaign Medal.png')
 					),
 				'acamp' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/American Campaign Medal.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/American Campaign Medal.png')
 					),
 				'adef' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/American Defense Service Medal.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/American Defense Service Medal.png')
 					),
 				'gcon' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/Good Conduct Medal.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Good Conduct Medal.png')
 					),	
 				'aach' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/Army Achievement Medal.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Army Achievement Medal.png')
 					),
 				'arcom' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/Army Commendation Medal.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Army Commendation Medal.png')
 					),
 				'pheart' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/Purple Heart.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Purple Heart.png')
 					),
 				'bstar' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/Bronze Star.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Bronze Star.png')
 					),
 				'sm' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/Soldiers Medal.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Soldiers Medal.png')
 					),
 				'lom' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/Legion of Merit.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Legion of Merit.png')
 					),
 				'sstar' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/Silver Star.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Silver Star.png')
 					),
 				'dsm' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/Distinguished Service Medal.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Distinguished Service Medal.png')
 					),
 				'dsc' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/Distinguished Service Cross.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Distinguished Service Cross.png')
 					),
 				'ww2v' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/WWII Victory Medal.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/WWII Victory Medal.png')
 					),
 				'dms' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/Defense Meritorious Service Medal Ribbon.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Defense Meritorious Service Medal Ribbon.png')
 					),
 				'anpdr' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/Army NCO Professional Development Ribbon.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Army NCO Professional Development Ribbon.png')
 					),
 				'movsm' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/Military Outstanding Volunteer Service Medal.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Military Outstanding Volunteer Service Medal.png')
 					),
 				'arcam' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng($root . '../coat-resources/Ribbons/Army Reserve Components Achievement Medal.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Army Reserve Components Achievement Medal.png')
 					)
 				);
 			//Initiates the RibArray
@@ -698,7 +698,7 @@ class ServiceCoat {
 			$scRibRows = floor($scRibAmount / 3); //Get amount of rows
 			$scRibRemain = ($scRibAmount % 3); //Get remainder
 			if($scRibRemain == 0) $scRibRemain = $scRibAmount;
-			$scRibShadowImage = imagecreatefrompng($root . '../coat-resources/Ribbons/Ribbon_Shadow.png');
+			$scRibShadowImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Ribbon_Shadow.png');
 			foreach($scRibAwards as $award => $num)
 			{
 				if($scRibAwards[$award]['num']){
@@ -810,7 +810,7 @@ class ServiceCoat {
 						if($scRibAwards[$award]['num'] > 1) {
 							// print medal with oak leaf
 							$leaf = min(10, $scRibAwards[$award]['num']-1); // we only have images from 1-10
-							$this->scOakLeaf = imagecreatefrompng($root . '../coat-resources/OakLeafs/ol_' . $leaf . '.png');
+							$this->scOakLeaf = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'OakLeafs/ol_' . $leaf . '.png');
 							imagecopy($scRibAwards[$award]['img'], $this->scOakLeaf, 0, 0, 0, 0, $scRibSize['x'], $scRibSize['y']);
 							imagedestroy($this->scOakLeaf);
 						}
@@ -821,52 +821,52 @@ class ServiceCoat {
 							break;
 							case 2:
 								// print medal with oak leaf
-								$this->scOakLeaf = imagecreatefrompng($root . '../coat-resources/OakLeafs/ol_1.png');
+								$this->scOakLeaf = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'OakLeafs/ol_1.png');
 								imagecopy($scRibAwards[$award]['img'], $this->scOakLeaf, 0, 0, 0, 0, $scRibSize['x'], $scRibSize['y']);
 								imagedestroy($this->scOakLeaf);
 							break;
 							case 3:
-								$this->scOakLeaf = imagecreatefrompng($root . '../coat-resources/OakLeafs/ol_2.png');
+								$this->scOakLeaf = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'OakLeafs/ol_2.png');
 								imagecopy($scRibAwards[$award]['img'], $this->scOakLeaf, 0, 0, 0, 0, $scRibSize['x'], $scRibSize['y']);
 								imagedestroy($this->scOakLeaf);
 							break;
 							case 4:
-								$this->scOakLeaf = imagecreatefrompng($root . '../coat-resources/OakLeafs/ol_3.png');
+								$this->scOakLeaf = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'OakLeafs/ol_3.png');
 								imagecopy($scRibAwards[$award]['img'], $this->scOakLeaf, 0, 0, 0, 0, $scRibSize['x'], $scRibSize['y']);
 								imagedestroy($this->scOakLeaf);
 							break;
 							case 5:
-								$this->scOakLeaf = imagecreatefrompng($root . '../coat-resources/OakLeafs/ol_4.png');
+								$this->scOakLeaf = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'OakLeafs/ol_4.png');
 								imagecopy($scRibAwards[$award]['img'], $this->scOakLeaf, 0, 0, 0, 0, $scRibSize['x'], $scRibSize['y']);
 								imagedestroy($this->scOakLeaf);
 							break;
 							case 6:
-								$this->scOakLeaf = imagecreatefrompng($root . '../coat-resources/OakLeafs/ol_5.png');
+								$this->scOakLeaf = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'OakLeafs/ol_5.png');
 								imagecopy($scRibAwards[$award]['img'], $this->scOakLeaf, 0, 0, 0, 0, $scRibSize['x'], $scRibSize['y']);
 								imagedestroy($this->scOakLeaf);
 							break;
 							case 7:
-								$this->scOakLeaf = imagecreatefrompng($root . '../coat-resources/OakLeafs/ol_6.png');
+								$this->scOakLeaf = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'OakLeafs/ol_6.png');
 								imagecopy($scRibAwards[$award]['img'], $this->scOakLeaf, 0, 0, 0, 0, $scRibSize['x'], $scRibSize['y']);
 								imagedestroy($this->scOakLeaf);
 							break;
 							case 8:
-								$this->scOakLeaf = imagecreatefrompng($root . '../coat-resources/OakLeafs/ol_7.png');
+								$this->scOakLeaf = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'OakLeafs/ol_7.png');
 								imagecopy($scRibAwards[$award]['img'], $this->scOakLeaf, 0, 0, 0, 0, $scRibSize['x'], $scRibSize['y']);
 								imagedestroy($this->scOakLeaf);
 							break;
 							case 9:
-								$this->scOakLeaf = imagecreatefrompng($root . '../coat-resources/OakLeafs/ol_8.png');
+								$this->scOakLeaf = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'OakLeafs/ol_8.png');
 								imagecopy($scRibAwards[$award]['img'], $this->scOakLeaf, 0, 0, 0, 0, $scRibSize['x'], $scRibSize['y']);
 								imagedestroy($this->scOakLeaf);
 							break;
 							case 10:
-								$this->scOakLeaf = imagecreatefrompng($root . '../coat-resources/OakLeafs/ol_9.png');
+								$this->scOakLeaf = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'OakLeafs/ol_9.png');
 								imagecopy($scRibAwards[$award]['img'], $this->scOakLeaf, 0, 0, 0, 0, $scRibSize['x'], $scRibSize['y']);
 								imagedestroy($this->scOakLeaf);
 							break;
 							case 11:
-								$this->scOakLeaf = imagecreatefrompng($root . '../coat-resources/OakLeafs/ol_10.png');
+								$this->scOakLeaf = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'OakLeafs/ol_10.png');
 								imagecopy($scRibAwards[$award]['img'], $this->scOakLeaf, 0, 0, 0, 0, $scRibSize['x'], $scRibSize['y']);
 								imagedestroy($this->scOakLeaf);
 							break;
@@ -918,7 +918,7 @@ class ServiceCoat {
 			$scARRibbonRows = $scRibRows;
 			if($scRibRemain > 0 && $scRibRemain < 3) $scARRibbonRows = $scRibRows + 1;
 			//Combat Infantry Positioning
-			$temp_ciimage = imagecreatefrompng($root . '../coat-resources/BadgesEIB&CIB/CIB_4.png');
+			$temp_ciimage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesEIB&CIB/CIB_4.png');
 			$scCIBadgeSize['x'] = imagesx($temp_ciimage);
 			$scCIBadgeSize['y'] = imagesy($temp_ciimage);
 			imagedestroy($temp_ciimage);
@@ -935,37 +935,37 @@ class ServiceCoat {
 				if($value >= 1){
 					switch($badge){
 						case 'cib4':
-							$this->scARBadgeCIB4 = imagecreatefrompng($root . '../coat-resources/BadgesEIB&CIB/CIB_4.png');
+							$this->scARBadgeCIB4 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesEIB&CIB/CIB_4.png');
 							imagecopy($this->scImage, $this->scARBadgeCIB4, $scCIBadgeCurrentX, $scCIBadgeCurrentY, 0, 0, $scCIBadgeSize['x'], $scCIBadgeSize['y']);
 							imagedestroy($this->scARBadgeCIB4);
 							$scTRCurrentBadge++;
 						break;
 						case 'cib3':
-							$this->scARBadgeCIB3 = imagecreatefrompng($root . '../coat-resources/BadgesEIB&CIB/CIB_3.png');
+							$this->scARBadgeCIB3 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesEIB&CIB/CIB_3.png');
 							imagecopy($this->scImage, $this->scARBadgeCIB3, $scCIBadgeCurrentX, $scCIBadgeCurrentY, 0, 0, $scCIBadgeSize['x'], $scCIBadgeSize['y']);
 							imagedestroy($this->scARBadgeCIB3);
 							$scTRCurrentBadge++;
 						break;
 						case 'cib2':
-							$this->scARBadgeCIB2 = imagecreatefrompng($root . '../coat-resources/BadgesEIB&CIB/CIB_2.png');
+							$this->scARBadgeCIB2 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesEIB&CIB/CIB_2.png');
 							imagecopy($this->scImage, $this->scARBadgeCIB2, $scCIBadgeCurrentX, $scCIBadgeCurrentY, 0, 0, $scCIBadgeSize['x'], $scCIBadgeSize['y']);
 							imagedestroy($this->scARBadgeCIB2);
 							$scTRCurrentBadge++;
 						break;
 						case 'cib1':
-							$this->scARBadgeCIB1 = imagecreatefrompng($root . '../coat-resources/BadgesEIB&CIB/CIB_1.png');
+							$this->scARBadgeCIB1 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesEIB&CIB/CIB_1.png');
 							imagecopy($this->scImage, $this->scARBadgeCIB1, $scCIBadgeCurrentX, $scCIBadgeCurrentY, 0, 0, $scCIBadgeSize['x'], $scCIBadgeSize['y']);
 							imagedestroy($this->scARBadgeCIB1);
 							$scTRCurrentBadge++;
 						break;
 						case 'cib':
-							$this->scARBadgeCIB1 = imagecreatefrompng($root . '../coat-resources/BadgesEIB&CIB/CIB_1.png');
+							$this->scARBadgeCIB1 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesEIB&CIB/CIB_1.png');
 							imagecopy($this->scImage, $this->scARBadgeCIB1, $scCIBadgeCurrentX, $scCIBadgeCurrentY, 0, 0, $scCIBadgeSize['x'], $scCIBadgeSize['y']);
 							imagedestroy($this->scARBadgeCIB1);
 							$scTRCurrentBadge++;
 						break;
 						case 'eib':
-							$this->scARBadgeEIB = imagecreatefrompng($root . '../coat-resources/BadgesEIB&CIB/EIB.png');
+							$this->scARBadgeEIB = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesEIB&CIB/EIB.png');
 							imagecopy($this->scImage, $this->scARBadgeEIB, $scCIBadgeCurrentX, $scCIBadgeCurrentY, 0, 0, $scCIBadgeSize['x'], $scCIBadgeSize['y']);
 							imagedestroy($this->scARBadgeEIB);
 							$scTRCurrentBadge++;
@@ -978,7 +978,7 @@ class ServiceCoat {
 				}
 			}
 			//Combat Action Positioning
-			$temp_caimage = imagecreatefrompng($root . '../coat-resources/BadgesCAB/CAB4.png');
+			$temp_caimage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesCAB/CAB4.png');
 			$scCABadgeSize['x'] = imagesx($temp_caimage);
 			$scCABadgeSize['y'] = imagesy($temp_caimage);
 			imagedestroy($temp_caimage);
@@ -996,27 +996,27 @@ class ServiceCoat {
 				if($value >= 1){
 					switch($badge){
 						case 'cab4':
-							$this->scARBadgeCAB4 = imagecreatefrompng($root . '../coat-resources/BadgesCAB/CAB4.png');
+							$this->scARBadgeCAB4 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesCAB/CAB4.png');
 							imagecopy($this->scImage, $this->scARBadgeCAB4, $scCABadgeCurrentX, $scCABadgeCurrentY, 0, 0, $scCABadgeSize['x'], $scCABadgeSize['y']);
 							imagedestroy($this->scARBadgeCAB4);
 						break;
 						case 'cab3':
-							$this->scARBadgeCAB3 = imagecreatefrompng($root . '../coat-resources/BadgesCAB/CAB3.png');
+							$this->scARBadgeCAB3 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesCAB/CAB3.png');
 							imagecopy($this->scImage, $this->scARBadgeCAB3, $scCABadgeCurrentX, $scCABadgeCurrentY, 0, 0, $scCABadgeSize['x'], $scCABadgeSize['y']);
 							imagedestroy($this->scARBadgeCAB3);
 						break;
 						case 'cab2':
-							$this->scARBadgeCAB2 = imagecreatefrompng($root . '../coat-resources/BadgesCAB/CAB2.png');
+							$this->scARBadgeCAB2 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesCAB/CAB2.png');
 							imagecopy($this->scImage, $this->scARBadgeCAB2, $scCABadgeCurrentX, $scCABadgeCurrentY, 0, 0, $scCABadgeSize['x'], $scCABadgeSize['y']);
 							imagedestroy($this->scARBadgeCAB2);
 						break;
 						case 'cab1':
-							$this->scARBadgeCAB1 = imagecreatefrompng($root . '../coat-resources/BadgesCAB/CAB1.png');
+							$this->scARBadgeCAB1 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesCAB/CAB1.png');
 							imagecopy($this->scImage, $this->scARBadgeCAB1, $scCABadgeCurrentX, $scCABadgeCurrentY, 0, 0, $scCABadgeSize['x'], $scCABadgeSize['y']);
 							imagedestroy($this->scARBadgeCAB1);
 						break;
 						case 'cab':
-							$this->scARBadgeCAB1 = imagecreatefrompng($root . '../coat-resources/BadgesCAB/CAB1.png');
+							$this->scARBadgeCAB1 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesCAB/CAB1.png');
 							imagecopy($this->scImage, $this->scARBadgeCAB1, $scCABadgeCurrentX, $scCABadgeCurrentY, 0, 0, $scCABadgeSize['x'], $scCABadgeSize['y']);
 							imagedestroy($this->scARBadgeCAB1);
 						break;
@@ -1071,7 +1071,7 @@ class ServiceCoat {
 			$scURibRows = floor($scNumURibbons / $scMaxURibPR); //Get amount of rows
 			$scURibRemain = ($scNumURibbons % $scMaxURibPR); //Get remainder
 			if($scURibRemain == 0) $scURibRemain = $scNumURibbons;		
-			$scURibShadow = imagecreatefrompng($root . '../coat-resources/RibbonsCUC/Uribbon_Shadow.png');
+			$scURibShadow = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RibbonsCUC/Uribbon_Shadow.png');
 			foreach($scURibRibbons as $ribbon => $num)
 			{
 				if($num > 0)
@@ -1196,37 +1196,37 @@ class ServiceCoat {
 					switch($ribbon)
 					{
 					    case 'arma':
-							$this->scURib = imagecreatefrompng($root . '../coat-resources/RibbonsCUC/arma.png');
+							$this->scURib = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RibbonsCUC/arma.png');
 							imagecopy($this->scImage, $this->scURib, $scCurrentURibX, $scCurrentURibY, 0, 0, $scURibbonSize['x'], $scURibbonSize['y']);
 							imagedestroy($this->scURib);
 						break;
 						case 'rs':
-							$this->scURib = imagecreatefrompng($root . '../coat-resources/RibbonsCUC/rs.png');
+							$this->scURib = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RibbonsCUC/rs.png');
 							imagecopy($this->scImage, $this->scURib, $scCurrentURibX, $scCurrentURibY, 0, 0, $scURibbonSize['x'], $scURibbonSize['y']);
 							imagedestroy($this->scURib);
 					    break;
 						case 'dh':
-							$this->scURib = imagecreatefrompng($root . '../coat-resources/RibbonsCUC/darkesthour.png');
+							$this->scURib = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RibbonsCUC/darkesthour.png');
 							imagecopy($this->scImage, $this->scURib, $scCurrentURibX, $scCurrentURibY, 0, 0, $scURibbonSize['x'], $scURibbonSize['y']);
 							imagedestroy($this->scURib);
 						break;
 						case 'dod':
-							$this->scURib = imagecreatefrompng($root . '../coat-resources/RibbonsCUC/dayofdefeat.png');
+							$this->scURib = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RibbonsCUC/dayofdefeat.png');
 							imagecopy($this->scImage, $this->scURib, $scCurrentURibX, $scCurrentURibY, 0, 0, $scURibbonSize['x'], $scURibbonSize['y']);
 							imagedestroy($this->scURib);
 						break;
 						case 'trenches':
-							$this->scURib = imagecreatefrompng($root . '../coat-resources/RibbonsCUC/thetrenches.png');
+							$this->scURib = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RibbonsCUC/thetrenches.png');
 							imagecopy($this->scImage, $this->scURib, $scCurrentURibX, $scCurrentURibY, 0, 0, $scURibbonSize['x'], $scURibbonSize['y']);
 							imagedestroy($this->scURib);
 						break;
 						case 'battlegrounds':
-							$this->scURib = imagecreatefrompng($root . '../coat-resources/RibbonsCUC/battlegrounds.png');
+							$this->scURib = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RibbonsCUC/battlegrounds.png');
 							imagecopy($this->scImage, $this->scURib, $scCurrentURibX, $scCurrentURibY, 0, 0, $scURibbonSize['x'], $scURibbonSize['y']);
 							imagedestroy($this->scURib);
 						break;
 						case 'muc':
-							$this->scURib = imagecreatefrompng($root . '../coat-resources/RibbonsCUC/MeritoriousUnitCitation.png');
+							$this->scURib = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RibbonsCUC/MeritoriousUnitCitation.png');
 							imagecopy($this->scImage, $this->scURib, $scCurrentURibX, $scCurrentURibY, 0, 0, $scURibbonSize['x'], $scURibbonSize['y']);
 							imagedestroy($this->scURib);
 						break;
@@ -1249,7 +1249,7 @@ class ServiceCoat {
 						{
 							$scTLRibbonRows = $scURibRows + 1;
 						}
-						$this->scTLrupduck = imagecreatefrompng($root . '../coat-resources/BadgesOther/RupturedDuck.png');
+						$this->scTLrupduck = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesOther/RupturedDuck.png');
 						$scRupturedDuckSizeX = imagesx($this->scTLrupduck);
 						$scRupturedDuckSizeY = imagesy($this->scTLrupduck);
 						$scRupturedDuckX = ($scURibMidPos['x'] - ($scRupturedDuckSizeX / 2));
@@ -1274,7 +1274,7 @@ class ServiceCoat {
 				switch($badge)
 				{
 					case 'drillsergeant':
-						$this->scBLDrillSergeantB = imagecreatefrompng($root . '../coat-resources/BadgesOther/DI.png');
+						$this->scBLDrillSergeantB = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesOther/DI.png');
 						$scBLDSSize['x'] = imagesx($this->scBLDrillSergeantB);
 						$scBLDSSize['y'] = imagesy($this->scBLDrillSergeantB);
 						$scBLDSPos['x'] = 215 - ($scBLDSSize['x'] / 2);
@@ -1321,27 +1321,27 @@ class ServiceCoat {
 					switch($badge)
 					{
 						case recruiter5:
-							$this->scRBImage = imagecreatefrompng($root . '../coat-resources/BadgesOther/RB5.png');
+							$this->scRBImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesOther/RB5.png');
 							$scRBImage['x'] = imagesx($this->scRBImage);
 							$scRBImage['y'] = imagesy($this->scRBImage);
 						break;
 						case recruiter4:
-							$this->scRBImage = imagecreatefrompng($root . '../coat-resources/BadgesOther/RB4.png');
+							$this->scRBImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesOther/RB4.png');
 							$scRBImage['x'] = imagesx($this->scRBImage);
 							$scRBImage['y'] = imagesy($this->scRBImage);
 						break;
 						case recruiter3:
-							$this->scRBImage = imagecreatefrompng($root . '../coat-resources/BadgesOther/RB3.png');
+							$this->scRBImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesOther/RB3.png');
 							$scRBImage['x'] = imagesx($this->scRBImage);
 							$scRBImage['y'] = imagesy($this->scRBImage);
 						break;
 						case recruiter2:
-							$this->scRBImage = imagecreatefrompng($root . '../coat-resources/BadgesOther/RB2.png');
+							$this->scRBImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesOther/RB2.png');
 							$scRBImage['x'] = imagesx($this->scRBImage);
 							$scRBImage['y'] = imagesy($this->scRBImage);
 						break;
 						case recruiter:
-							$this->scRBImage = imagecreatefrompng($root . '../coat-resources/BadgesOther/RB1.png');
+							$this->scRBImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesOther/RB1.png');
 							$scRBImage['x'] = imagesx($this->scRBImage);
 							$scRBImage['y'] = imagesy($this->scRBImage);
 						break;
@@ -1358,7 +1358,7 @@ class ServiceCoat {
 			if($scBRMPBadge) $scNumBRBadges++; 
 			if($scBRMPBadge)
 			{
-				$this->scMPImage = imagecreatefrompng($root . '../coat-resources/BadgesOther/MP.png');
+				$this->scMPImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesOther/MP.png');
 				$scMPImage['x'] = imagesx($this->scMPImage);
 				$scMPImage['y'] = imagesy($this->scMPImage);
 				$scBRActual[mp] = 1;
@@ -1421,7 +1421,7 @@ class ServiceCoat {
 			return true;
 		}
 		else{
-			$this->scWaterMark = imagecreatefrompng($root . '../coat-resources/Watermark/29th_watermark.png');
+			$this->scWaterMark = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Watermark/29th_watermark.png');
 			imagecopy($this->scImage, $this->scWaterMark, 0, 0, 0, 0, $this->scImgSize['x'], $this->scImgSize['y']);
 			imagedestroy($this->scWaterMark);
 		}
@@ -1433,12 +1433,12 @@ class ServiceCoat {
 		//Setup Enlisted/Officer Jacket
 			if($this->getIsOfficer($this->scRank))
 			{
-				$this->scImage = imagecreatefrompng($root . '../coat-resources/29th_ServiceOfficerJacket.png');
+				$this->scImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . '29th_ServiceOfficerJacket.png');
 			}
 		//Handle Name
-			$imageForText = imagecreatefrompng($root . '../coat-resources/blank_name.png'); //sets up image for name
+			$imageForText = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'blank_name.png'); //sets up image for name
 			$scNameColor2 = imagecolorallocate($imageForText, 219, 219, 219); //initiates color used for text
-			$this->imageftboxtoImage($imageForText, $root . '../coat-resources/Fonts/arial.ttf', 12, 0, 50, 150, 0, ALIGN_CENTER, VALIGN_MIDDLE, $this->scName, $scNameColor2);
+			$this->imageftboxtoImage($imageForText, getenv('DIR_COAT_RESOURCES') . 'Fonts/arial.ttf', 12, 0, 50, 150, 0, ALIGN_CENTER, VALIGN_MIDDLE, $this->scName, $scNameColor2);
 			$imageForText = $this->imagetransrotate($imageForText, 1);
 			imagecopy($this->scImage, $imageForText, 143, 320, 0, 0, $this->scImgSize['x'], $this->scImgSize['y']);
 			imagedestroy($imageForText);
@@ -1452,7 +1452,8 @@ class ServiceCoat {
 			$this->handleMarksmanBadges();
 			//$this->checkAccess();
 		//Handle Saving and Croping
-			$name_String = $root . "coats/";
+			//$name_String = $root . "coats/";
+			$name_String = getenv('DIR_COAT_PUBLIC');
 			$name_StringSig = "sig";
 			$name_String2 = ".png";
 		//Croping Variables
