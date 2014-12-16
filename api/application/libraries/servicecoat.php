@@ -73,7 +73,7 @@ class ServiceCoat {
 	}
 	
 	public function update($member_id) {
-	    if(file_exists('../coat-resources')) {
+	    if(file_exists(getenv('DIR_COAT_RESOURCES'))) {
     	    $this->load->model('member_model');
     	    $this->load->model('awarding_model');
     	    
