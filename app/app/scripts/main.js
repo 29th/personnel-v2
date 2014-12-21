@@ -56,6 +56,7 @@ window.requirejs = window.requirejs || {};
                 "../vendor/bootstrap-select/dist/js/bootstrap-select.min"
             ],
             "enquire": "../vendor/enquire/dist/enquire.min",
+            "jquery-nestable": "jquery.nestable.min",
             "text": "../vendor/text/text",
             "hbs": "hbs",
             "json": "../vendor/requirejs-plugins/src/json",

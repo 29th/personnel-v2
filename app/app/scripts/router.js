@@ -62,6 +62,7 @@ define([
     "moment",
     "backbone.validation",
     "enquire",
+    "jquery-nestable",
     "theme",
     "validation.config"
 ], function (
