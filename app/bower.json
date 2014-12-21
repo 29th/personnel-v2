@@ -34,7 +34,8 @@
     "backbone.validation": "~0.7.1",
     "bootstrap-select": "~1.6.3",
     "fontawesome": "~4.1.0",
-    "handlebars-helpers": "~2.0.0"
+    "handlebars-helpers": "~2.0.0",
+    "enquire": "~2.1.2"
   },
   "resolutions": {
     "jquery": "~2.1.0",

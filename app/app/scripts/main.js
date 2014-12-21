@@ -55,6 +55,7 @@ window.requirejs = window.requirejs || {};
                 "//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min",
                 "../vendor/bootstrap-select/dist/js/bootstrap-select.min"
             ],
+            "enquire": "../vendor/enquire/dist/enquire.min",
             "text": "../vendor/text/text",
             "hbs": "hbs",
             "json": "../vendor/requirejs-plugins/src/json",

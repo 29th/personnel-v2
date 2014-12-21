@@ -1,42 +1,88 @@
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h2>Service Record</h2></div>
+            <div class="panel-body">
+            
 {{#each items}}
     <h3>{{#is this.date "!==" "undefined"}}{{dateFormat this.date format="ll"}}{{else}}Unknown{{/is}}</h3>
+    
     {{#each this.items }}
         {{#if this.position}}
-            <li>
-              Assigned to <a href="#/units/{{ this.unit.key }}" title="{{this.unit.name}}">{{#is this.unit.class "===" "Staff" }}{{ this.unit.name}}{{else}}{{ this.unit.abbr }}{{/is}}</a> as a {{ this.position.name }}
+        <div class="shortcut-tiles tiles-info">
+            <div class="tiles-body">
+                <div class="pull-left"><i class="fa fa-exchange"></i></div>
+            </div>
+            <div class="tiles-footer">
+                Assigned to <a href="#/units/{{ this.unit.key }}" title="{{this.unit.name}}">{{#is this.unit.class "===" "Staff" }}{{ this.unit.name}}{{else}}{{ this.unit.abbr }}{{/is}}</a> as a {{ this.position.name }}
               {{#is this.unit.class "===" "Staff" }}{{#if this.end_date}} (until {{dateFormat this.end_date format="ll"}}){{/if}}{{/is}}
               
-              {{#if ../../../allowedTo.editAssignment}}
-                <a href="#/assignments/{{ this.id }}/edit"><span class="glyphicon glyphicon-edit"></span></a>
-              {{else}}
-                Nope
-              {{/if}}
-            </li>
+                {{#if ../../../allowedTo.editAssignment}}
+                <a href="#/assignments/{{ this.id }}/edit" class="shortcut-tiles tiles-info">Edit</a>
+                {{/if}}
+            </div>
+        </div>
         {{/if}}
         {{#if this.new_rank}}
-            <li>
-              <img src="images/ranks/16x16/{{ new_rank.filename }}.png" title="{{ rank.name }}">{{#is this.new_rank.order ">=" this.old_rank.order}}Promoted{{else}}Demoted{{/is}} to {{ this.new_rank.name }}
-            </li>
+        <div class="shortcut-tiles tiles-orange">
+            <div class="tiles-body">
+                <div class="pull-left">
+                    <img src="images/ranks/60x60/{{ this.new_rank.filename }}.png" title="{{ this.new_rank.name }}">
+                </div>
+            </div>
+            <div class="tiles-footer">
+                Rank changed to {{ this.new_rank.name }}
+            </div>
+        </div>
         {{/if}}
         {{#if this.award}}
-            <li> <img src="images/awards/{{#award_img_name this.award.abbr}}{{/award_img_name}}.gif" title="{{ this.award.name }}"> Awarded {{ this.award.name }}</li>
+        <div class="shortcut-tiles tiles-primary">
+            <div class="tiles-body">
+                <div class="pull-left">
+                    <img src="images/awards/{{#award_img_name this.award.abbr}}{{/award_img_name}}.gif" title="{{ this.award.name }}">
+                </div>
+            </div>
+            <div class="tiles-footer">
+                Awarded {{ this.award.name }}
+            </div>
+        </div>
         {{/if}}
         {{#if this.status}}
-            <li><a href="#enlistments/{{ this.id }}">Enlisted</a>{{#if this.unit_id}} in the <a href="#units/{{ this.unit.key }}">{{ this.unit.abbr }}</a>{{/if}}</li>
+        <a href="#enlistments/{{ this.id }}" class="shortcut-tiles tiles-indigo">
+            <div class="tiles-body">
+                <div class="pull-left"><i class="fa fa-file-text"></i></div>
+            </div>
+            <div class="tiles-footer">
+                Enlisted{{#if this.unit_id}} in the {{ this.unit.abbr }}{{/if}}
+            </div>
+        </a>
         {{/if}}
         {{#if this.type}}
-            <li>
-            {{#is this.type "===" 'Honorable'}}Honorably{{/is}}
-            {{#is this.type "===" 'Dishonorable'}}Dishonorably{{/is}}
-            {{#is this.type "===" 'General'}}Generally{{/is}}
-            <a href="#discharges/{{ this.id }}">Discharged</a></li>
+        <a href="#discharges/{{ this.id }}" class="shortcut-tiles tiles-brown">
+            <div class="tiles-body">
+                <div class="pull-left"><i class="fa fa-minus-square"></i></div>
+            </div>
+            <div class="tiles-footer">
+                {{#is this.type "===" 'Honorable'}}Honorably{{/is}}
+                {{#is this.type "===" 'Dishonorable'}}Dishonorably{{/is}}
+                {{#is this.type "===" 'General'}}Generally{{/is}}
+                Discharged
+            </div>
+        </a>
         {{/if}}
     {{/each}}
 {{/each}}
+            </div>
+        </div>
     </div>
-    <div class="col-sm-6">
-    {{#if steam_id}}<a href="{{ coatDir }}/{{ steam_id }}.png"><img src="{{ coatDir }}/{{ steam_id }}.png" class="coat"></a>{{/if}}
+    <div class="col-md-6">
+    {{#if steam_id}}
+        <div class="panel panel-default">
+            <div class="panel-heading"><h2>Service Coat</h2></div>
+            <div class="panel-body">
+                <a href="{{ coatDir }}/{{ steam_id }}.png"><img src="{{ coatDir }}/{{ steam_id }}.png" class="coat"></a>
+            </div>
+        </div>
+    {{/if}}
     </div>
 </div>

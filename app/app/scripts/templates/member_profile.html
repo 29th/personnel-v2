@@ -1,22 +1,29 @@
-<table class="table">
-    <tr>
-        <th>Active Class{{#is classes.length ">" 1}}es{{/is}}</th>
-        <td>{{join classes delimiter=", "}}</td>
-    </tr>
-    <tr>
-        <th>Country</th>
-        <td>
-            {{#if this.country.abbr}}<img src="images/countries/{{ toLowerCase this.country.abbr }}.png" title="{{ this.country.name }}">{{/if}} {{ country.name }}
-        </td>
-    </tr>
-    <tr>
-        <th>Steam ID</th>
-        <td>{{ steam_id }}</td>
-    </tr>
-    {{#is forum_member_id "!==" "0"}}
-    <tr>
-        <th>Forum Profile</th>
-        <td><a href="{{ forumUrl }}/profile/{{ forum_member_id }}/{{ short_name }}">View Profile</a></td>
-    </tr>
-    {{/is}}
-</table>
+<div class="panel panel-default">
+    <div class="panel-heading"><h2>Profile</h2></div>
+    <div class="panel-body panel-no-padding">
+    
+        <table class="table">
+            <tr>
+                <th>Active Class{{#is classes.length ">" 1}}es{{/is}}</th>
+                <td>{{join classes delimiter=", "}}</td>
+            </tr>
+            <tr>
+                <th>Country</th>
+                <td>
+                    {{#if this.country.abbr}}<img src="images/countries/{{ toLowerCase this.country.abbr }}.png" title="{{ this.country.name }}">{{/if}} {{ country.name }}
+                </td>
+            </tr>
+            <tr>
+                <th>Steam ID</th>
+                <td>{{ steam_id }}</td>
+            </tr>
+            {{#is forum_member_id "!==" "0"}}
+            <tr>
+                <th>Forum Profile</th>
+                <td><a href="{{ forumUrl }}/profile/{{ forum_member_id }}/{{ short_name }}">View Profile</a></td>
+            </tr>
+            {{/is}}
+        </table>
+        
+    </div>
+</div>

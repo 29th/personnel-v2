@@ -61,6 +61,8 @@ define([
     "jquery-bootstrap",
     "moment",
     "backbone.validation",
+    "enquire",
+    "theme",
     "validation.config"
 ], function (
 $, _, Backbone, Marionette, Handlebars, util,

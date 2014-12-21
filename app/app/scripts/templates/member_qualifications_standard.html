@@ -1,8 +1,8 @@
 <li class="qualification">
     {{#if qualification}}
-        <span class="glyphicon glyphicon-check{{#if allowedTo.addQualification}} cursor{{/if}}" data-standard-id="{{ id }}"></span>
+        <i class="fa fa-check-square{{#if allowedTo.addQualification}} cursor{{/if}}" data-standard-id="{{ id }}"></i>
     {{else}}
-        <span class="glyphicon glyphicon-unchecked{{#if allowedTo.addQualification}} cursor{{/if}}" data-standard-id="{{ id }}"></span>
+        <i class="fa fa-square{{#if allowedTo.addQualification}} cursor{{/if}}" data-standard-id="{{ id }}"></i>
     {{/if}}
     {{ description }}
     

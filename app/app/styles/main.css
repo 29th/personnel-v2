@@ -2,6 +2,14 @@ body {
     padding-top: 60px;
     padding-bottom: 40px;
 }
+
+/* Navbar */
+.navbar-brand {
+    background: url("../images/site-logo.png") no-repeat -35px top;
+}
+.nav-roster-unit {
+    font-weight: bold;
+}
         
 /* Roster */
 .roster .depth-1 .header {
@@ -68,9 +76,9 @@ body {
 }
 
 /* Qualifications */
-.qualification {
+/*.qualification {
     list-style-type: none;
-}
+}*/
 .qualification small {
     color: #999999;
 }
@@ -163,12 +171,4 @@ body {
     border: none;
     margin: 0;
     padding: 0;
-}
-
-/* Navbar search */
-.navbar-form[role="search"] .bootstrap-select {
-    margin-bottom: 0;
-}
-.search-unit {
-    font-weight: bold;
 }

@@ -1,13 +1,30 @@
-<ul class="nav navbar-nav">
-    <li{{#is highlight "===" "forums"}} class="active"{{/is}} data-highlight="forums"><a href="{{ forumUrl }}">Forums</a></li>
-    <li{{#is highlight "===" "roster"}} class="active"{{/is}} data-highlight="roster"><a href="#">Roster</a></li>
-    {{#is 'event_view_any' "in" permissions}}
-    <li{{#is highlight "===" "calendar"}} class="active"{{/is}} data-highlight="calendar"><a href="#calendar">Calendar</a></li>
-    {{/is}}
-    <li{{#is highlight "===" "enlistments"}} class="active"{{/is}} data-highlight="enlistments"><a href="#enlistments">Enlistments</a></li>
-</ul>
+<div class="yamm navbar-left navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        <li{{#is highlight "===" "forums"}} class="active"{{/is}} data-highlight="forums"><a href="{{ forumUrl }}">Forums</a></li>
+        <li{{#is highlight "===" "roster"}} class="active"{{/is}} data-highlight="roster"><a href="#">Roster</a></li>
+        {{#is 'event_view_any' "in" permissions}}
+        <li{{#is highlight "===" "calendar"}} class="active"{{/is}} data-highlight="calendar"><a href="#calendar">Calendar</a></li>
+        {{/is}}
+        <li{{#is highlight "===" "enlistments"}} class="active"{{/is}} data-highlight="enlistments"><a href="#enlistments">Enlistments</a></li>
+    </ul>
+</div>
     
-<ul class="nav navbar-nav navbar-right">
+<ul class="nav navbar-nav toolbar pull-right">
+
+    <li class="dropdown toolbar-icon-bg language-switcher" id="widget-searchbox">
+        <a href="#" class="dropdown-toggle tooltips" data-toggle="dropdown"><span class="icon-bg"><i class="fa fa-fw fa-users"></i></span></a>
+        
+        <div class="dropdown-menu arrow dropdown-menu">
+            <ul class="scrollthis">
+                {{#each units}}
+                <li class="nav-roster-unit"><a href="#units/{{ this.id }}">{{ this.abbr }}</a></li>
+                    {{#each this.members}}
+                    <li><a href="#members/{{ this.id }}">{{ this.short_name }}</a></li>
+                    {{/each}}
+                {{/each}}
+            </ul>
+        </div>
+    </li>
     
     {{#if forum_member_id}}
         {{#unless classes}}
@@ -26,17 +43,6 @@
         </ul>
     </li>
     {{/if}}
-</ul>
 
-<form class="navbar-form navbar-right" role="search">
-    <select class="form-control selectpicker span2" name="search" id="search" data-live-search="true">
-        <option value="" data-content="<span class='glyphicon glyphicon-search'></span>">Search</option>
-        {{#each units}}
-        <option value="units/{{ this.id }}" data-content="<span class='search-unit'>{{ this.abbr }}</span>">{{ this.abbr }}</option>
-            {{#each this.members}}
-            <option value="members/{{ this.id }}">{{ this.short_name }}</option>
-            {{/each}}
-        <option data-divider="true"></option>
-        {{/each}}
-    </select>
-</form>
+        
+</ul>
