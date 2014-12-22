@@ -12,7 +12,18 @@ body {
 }
         
 /* Roster */
-.roster .depth-1 .header {
+.dd-list, .dd-list .dd-list {
+    padding-left: 0 !important;
+}
+@media (min-width: 768px) {
+    .dd-list, .dd-list .dd-list {
+        padding-left: 15px !important;
+    }
+}
+.roster-unit {
+    font-size: 80%;
+}
+/*.roster .depth-1 .header {
     font-size: 170%;
     font-weight: bold;
     border-bottom: 5px black solid;
@@ -42,9 +53,6 @@ body {
 .roster .header a {
     color: #000;
 }
-/*.roster .depth-4 .header-row {
-    display: none;
-}*/
 .roster .unit {
     padding-top: 15px;
 }
@@ -59,13 +67,10 @@ body {
 }
 .roster label a {
     font-weight: normal;
-}
+}*/
 
 /* Collapsible Roster */
-/*.roster .depth-2 > div:not(.header-row) {
-    display: none;
-}*/
-.roster .collapsed > div:not(.header-row) {
+/*.roster .collapsed > div:not(.header-row) {
     display: none;
 }
 .roster .collapsed > .header-row > .header > .icon-expanded {
@@ -73,7 +78,7 @@ body {
 }
 .roster .unit:not(.collapsed) > .header-row > .header > .icon-collapsed {
     display: none;
-}
+}*/
 
 /* Qualifications */
 /*.qualification {
