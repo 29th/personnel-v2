@@ -38,6 +38,9 @@ gulp.task("umd", function() {
 	gulp.src(dir.dev + "scripts/theme.js")
 	    .pipe(wrap({deps: ["jquery"]}))
 	    .pipe(gulp.dest(dir.dev + "vendor/umd/")),
+	gulp.src(dir.dev + "scripts/jquery.nestable.min.js")
+	    .pipe(wrap({deps: ["jquery"]}))
+	    .pipe(gulp.dest(dir.dev + "vendor/umd/")),
 	gulp.src(dir.dev + "vendor/nprogress/nprogress.js")
 	    .pipe(wrap({exports: "NProgress", deps: ["jquery"]}))
 	    .pipe(gulp.dest(dir.dev + "vendor/umd/"))
@@ -74,6 +77,7 @@ gulp.task("scripts", function() {
             "bootstrap-select": "empty:",
             "bootstrap-datepicker": "empty:",
             "theme": "../vendor/umd/theme",
+            "jquery-nestable": "../vendor/umd/jquery.nestable.min",
             
             // UMD Wrapped
             //"nprogress": "../vendor/umd/nprogress",
@@ -99,6 +103,7 @@ gulp.task("styles", function() {
         dir.dev + "vendor/bootstrap-datepicker/css/datepicker3.css",
         dir.dev + "vendor/bootstrap-select/dist/css/bootstrap-select.min.css",
         dir.dev + "styles/theme.css",
+        dir.dev + "styles/jquery.nestable.css",
         dir.dev + "styles/main.css"
     ])
         .pipe(concat("main.min.css"))
