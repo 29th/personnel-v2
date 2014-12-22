@@ -19,7 +19,7 @@ var gulp = require("gulp"),
 /**
  * Main execution
  */
-gulp.task("default", ["clean"/*, "umd"*/], function() {
+gulp.task("default", ["clean", "umd"], function() {
     gulp.start("scripts", "styles", "images", "vendor", "html");
 });
 
@@ -33,6 +33,9 @@ gulp.task("umd", function() {
 	    .pipe(wrap({deps: ["jquery"]}))
 	    .pipe(gulp.dest(dir.dev + "vendor/umd/")),
 	gulp.src(dir.dev + "vendor/bootstrap-select/dist/js/bootstrap-select.min.js")
+	    .pipe(wrap({deps: ["jquery"]}))
+	    .pipe(gulp.dest(dir.dev + "vendor/umd/")),
+	gulp.src(dir.dev + "scripts/theme.js")
 	    .pipe(wrap({deps: ["jquery"]}))
 	    .pipe(gulp.dest(dir.dev + "vendor/umd/")),
 	gulp.src(dir.dev + "vendor/nprogress/nprogress.js")
@@ -68,8 +71,9 @@ gulp.task("scripts", function() {
             "fullcalendar": "empty:",
             "vanilla-comments": "empty:",
             "nprogress": "empty:",
-	    "bootstrap-select": "empty:",
-	    "bootstrap-datepicker": "empty:",
+            "bootstrap-select": "empty:",
+            "bootstrap-datepicker": "empty:",
+            "theme": "../vendor/umd/theme",
             
             // UMD Wrapped
             //"nprogress": "../vendor/umd/nprogress",
