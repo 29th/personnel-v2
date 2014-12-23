@@ -74,6 +74,7 @@ define([
         itemView: StandardView,
         itemViewContainer: "ul",
         template: BadgeTemplate,
+        className: "tab-panel",
         initialize: function(options) {
             this.collection = this.model.get("children");
             this.rootOptions = options.rootOptions || {};
@@ -87,6 +88,7 @@ define([
     
     var WeaponView = Backbone.Marionette.CompositeView.extend({
         itemView: BadgeView,
+        itemViewContainer: ".tab-content",
         template: WeaponTemplate,
         initialize: function(options) {
             this.collection = this.model.get("children");
