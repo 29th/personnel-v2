@@ -19,7 +19,7 @@ class Finances extends MY_Controller {
 			$skip = $this->input->get('skip') ? $this->input->get('skip') : 0;
 			$finances = nest($this->finance_model->paginate('', $skip)->result_array());
 			$count = $this->finance_model->total_rows;
-			$this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'finance_model' => $finances));
+			$this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'finances' => $finances));
 		}
     }
     
