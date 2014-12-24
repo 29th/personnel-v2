@@ -15,6 +15,7 @@ define([
     return Backbone.Marionette.CompositeView.extend({
         template: Template,
         itemView: ItemView,
+        title: "Finances",
         itemViewContainer: "#rows"
         /**
          * Necessary because our collection will finish fetching before this view is rendered,

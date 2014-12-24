@@ -1,22 +1,33 @@
-<div class="btn-group" id="filter-status">
-    <button type="button" class="btn btn-default active" data-status="">All</button>
-    <button type="button" class="btn btn-default" data-status="pending">Pending</button>
-    <button type="button" class="btn btn-default" data-status="accepted">Accepted</button>
-    <button type="button" class="btn btn-default" data-status="denied">Denied</button>
-    <button type="button" class="btn btn-default" data-status="withdrawn">Withdrawn</button>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>Enlistments</h2>
+        <div class="panel-ctrls">
+            <div class="btn-group" id="filter-status">
+                <button type="button" class="btn btn-default active" data-status="">All</button>
+                <button type="button" class="btn btn-default" data-status="pending">Pending</button>
+                <button type="button" class="btn btn-default" data-status="accepted">Accepted</button>
+                <button type="button" class="btn btn-default" data-status="denied">Denied</button>
+                <button type="button" class="btn btn-default" data-status="withdrawn">Withdrawn</button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body panel-no-padding">
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Unit</th>
+                        <th>Name</th>
+                        <th>Liaison</th>
+                    </tr>
+                </thead>
+                <tbody id="rows"></tbody>
+            </table>
+        </div>
+
+        <button class="btn btn-large btn-block more" type="button" data-loading-text="Loading" data-error-text="Error">More</button>
+    </div>
 </div>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Unit</th>
-            <th>Name</th>
-            <th>Liaison</th>
-        </tr>
-    </thead>
-    <tbody id="rows"></tbody>
-</table>
-
-<button class="btn btn-large btn-block more" type="button" data-loading-text="Loading" data-error-text="Error">More</button>

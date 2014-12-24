@@ -1,11 +1,20 @@
-<div class="yamm navbar-left navbar-collapse collapse">
+<div class="navbar-left navbar-collapse collapse">
     <ul class="nav navbar-nav">
-        <li{{#is highlight "===" "forums"}} class="active"{{/is}} data-highlight="forums"><a href="{{ forumUrl }}">Forums</a></li>
-        <li{{#is highlight "===" "roster"}} class="active"{{/is}} data-highlight="roster"><a href="#">Roster</a></li>
-        {{#is 'event_view_any' "in" permissions}}
-        <li{{#is highlight "===" "calendar"}} class="active"{{/is}} data-highlight="calendar"><a href="#calendar">Calendar</a></li>
-        {{/is}}
-        <li{{#is highlight "===" "enlistments"}} class="active"{{/is}} data-highlight="enlistments"><a href="#enlistments">Enlistments</a></li>
+        <li><a href="{{ forumUrl }}">Forums</a></li>
+        <li class="active dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Personnel <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Roster</a></li>
+                {{#is 'event_view_any' "in" permissions}}
+                <li><a href="#calendar">Calendar</a></li>
+                {{/is}}
+                <li><a href="#enlistments">Enlistments</a></li>
+                {{#is 'finances_view' "in" permissions}}
+                <li><a href="#finances">Finances</a></li>
+                {{/is}}
+            </ul>
+        </li>
+        
     </ul>
 </div>
     
