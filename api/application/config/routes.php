@@ -110,6 +110,9 @@ $route['enlistments/(:num)/process'] = 'enlistments/process/$1';
 $route['enlistments/(:num)'] = 'enlistments/view/$1';
 $route['enlistments'] = 'enlistments/index';
 
+// Finances
+$route['finances'] = 'finances/index';
+
 // Admin
 $route['admin'] = 'admin/home';
 
