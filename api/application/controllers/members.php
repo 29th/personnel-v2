@@ -346,10 +346,9 @@ class Members extends MY_Controller {
     }
     
     /**
-     * SERVICE COAT
-     * TODO: Add permissions and add it to member admin drop-down
+     * UPDATE SERVICE COAT
      */
-    public function coat_get($member_id) {
+    public function coat_post($member_id) {
         // Must have permission to modify profile, add promotion, or add awarding for this member or for any member, as these actions require a service coat updated
         if( ! $this->user->permission('profile_edit', $member_id) && ! $this->user->permission('profile_edit_any')
         &&  ! $this->user->permission('promotion_add', $member_id) && ! $this->user->permission('promotion_add_any')
@@ -364,7 +363,10 @@ class Members extends MY_Controller {
         }
     }
     
-    public function roles_get($member_id) {
+    /**
+     * UPDATE FORUM ROLES
+     */
+    public function roles_post($member_id) {
         // Must have permission to modify assignments for this member or for any member
         if( ! $this->user->permission('assignment_add', $member_id) && ! $this->user->permission('assignment_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
