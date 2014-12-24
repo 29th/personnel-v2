@@ -213,6 +213,10 @@ define([
     Handlebars.registerHelper('length', function (x) {
         return x.length;
     });
+    
+    Handlebars.registerHelper('decimals', function(a, b) {
+        return a.toFixed(b);
+    });
 
     Handlebars.registerHelper('select', function (value, options) {
         var $el = $('<select />').html(options.fn(this));
@@ -302,6 +306,6 @@ define([
             console.log("====================");
             console.log(optionalValue);
         }
-    });
+    });)
 
 });

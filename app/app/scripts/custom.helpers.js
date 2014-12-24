@@ -199,5 +199,9 @@
         $el.find('[value=' + value + ']').attr({'selected':'selected'});
         return $el.html();
     });
+    
+    Handlebars.registerHelper('decimals', function(a, b) {
+        return a.toFixed(b);
+    });
 
 }));

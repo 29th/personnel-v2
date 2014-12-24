@@ -1,0 +1,10 @@
+<td>{{ date }}</td>
+<td>{{#if member.id }}{{ member.short_name }}{{else}}{{ vendor }}{{/if}}</td>
+<td>
+    {{#is amount_received ">" 0}}
+    <span class="finances-credit">${{decimals amount_received }}</span>
+    {{else}}
+    <span class="finances-debit">(${{decimals amount_paid }})</span>
+    {{/is}}
+</td>
+<td>{{#if fee}}${{decimals fee }}{{/if}}</td>

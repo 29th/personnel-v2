@@ -177,3 +177,11 @@ body {
     margin: 0;
     padding: 0;
 }
+
+/* Finances */
+.finances-credit {
+    color: green;
+}
+.finances-debit {
+    color: red;
+}

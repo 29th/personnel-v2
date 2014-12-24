@@ -59,6 +59,10 @@ define([
     Handlebars.registerHelper('length', function (x) {
         return x.length;
     });
+    
+    Handlebars.registerHelper('decimals', function(a) {
+        return Number(a).toFixed(2);
+    });
 
     Handlebars.registerHelper('select', function (value, options) {
         var $el = $('<select />').html(options.fn(this));
