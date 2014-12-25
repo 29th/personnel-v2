@@ -32,7 +32,9 @@ class Admin extends CI_Controller {
 	
 	public function abilities()
 	{
-	    $this->grocery_crud->set_table('abilities');
+	    $this->grocery_crud->set_table('abilities')
+	        ->display_as('abbr', 'Abbreviation')
+	        ->required_fields('name', 'abbr');
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'abilities');
@@ -43,6 +45,7 @@ class Admin extends CI_Controller {
 	    $this->grocery_crud->set_table('assignments')
 	        ->columns('member_id', 'unit_id', 'position_id', 'start_date', 'end_date')
 	        ->fields('member_id', 'unit_id', 'position_id', 'start_date', 'end_date')
+	        ->required_fields('member_id', 'unit_id', 'position_id', 'start_date')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member')
 	        ->set_relation('unit_id', 'units', 'abbr')->display_as('unit_id', 'Unit')
 	        ->set_relation('position_id', 'positions', 'name')->display_as('position_id', 'Position');
@@ -78,6 +81,7 @@ class Admin extends CI_Controller {
 	public function attendance()
 	{
 	    $this->grocery_crud->set_table('attendance')
+	        ->required_fields('event_id', 'member_id')
 	        ->set_relation('event_id', 'events', '{datetime} {title}')->display_as('event_id', 'Event')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member');
         $output = $this->grocery_crud->render();
@@ -88,6 +92,7 @@ class Admin extends CI_Controller {
 	public function awardings()
 	{
 	    $this->grocery_crud->set_table('awardings')
+	        ->required_fields('member_id', 'date', 'award_id')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member')
 	        ->set_relation('award_id', 'awards', 'title')->display_as('award_id', 'Award');
         $output = $this->grocery_crud->render();
@@ -97,7 +102,8 @@ class Admin extends CI_Controller {
 	
 	public function awards()
 	{
-	    $this->grocery_crud->set_table('awards');
+	    $this->grocery_crud->set_table('awards')
+	        ->required_fields('code', 'title');
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'awards');
@@ -108,6 +114,7 @@ class Admin extends CI_Controller {
 	    $this->grocery_crud->set_table('banlog')
 	        ->columns('date', 'handle', 'roid', 'id_admin')
 	        ->fields('date', 'handle', 'roid', 'id_admin', 'reason', 'comments')
+	        ->required_fields('date', 'handle', 'roid', 'id_admin', 'reason')
 	        ->set_relation('id_admin', 'members', '{last_name}, {first_name} {middle_name}')->display_as('id_admin', 'Admin');
         $output = $this->grocery_crud->render();
  
@@ -117,6 +124,7 @@ class Admin extends CI_Controller {
 	public function class_permissions()
 	{
 	    $this->grocery_crud->set_table('class_permissions')
+	        ->required_fields('ability_id')
 	        ->set_relation('ability_id', 'abilities', 'abbr')->display_as('ability_id', 'Ability');
         $output = $this->grocery_crud->render();
  
@@ -125,7 +133,8 @@ class Admin extends CI_Controller {
 	
 	public function class_roles()
 	{
-	    $this->grocery_crud->set_table('class_roles');
+	    $this->grocery_crud->set_table('class_roles')
+	        ->required_fields('role_id');
 	    
         $this->load->library('vanilla');
         $roles = $this->role_list_to_dropdown($this->vanilla->get_role_list());
@@ -147,7 +156,9 @@ class Admin extends CI_Controller {
 	
 	public function countries()
 	{
-	    $this->grocery_crud->set_table('countries');
+	    $this->grocery_crud->set_table('countries')
+	        ->display_as('abbr', 'Abbreviation')
+	        ->required_fields('abbr', 'name');
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'countries');
@@ -156,6 +167,7 @@ class Admin extends CI_Controller {
 	public function demerits()
 	{
 	    $this->grocery_crud->set_table('demerits')
+	        ->required_fields('member_id', 'author_member_id', 'date', 'reason')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member')
 	        ->set_relation('author_member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('author_member_id', 'Author');
         $output = $this->grocery_crud->render();
@@ -166,6 +178,7 @@ class Admin extends CI_Controller {
 	public function discharges()
 	{
 	    $this->grocery_crud->set_table('discharges')
+	        ->required_fields('member_id', 'date', 'type', 'reason')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member');
         $output = $this->grocery_crud->render();
  
@@ -175,6 +188,7 @@ class Admin extends CI_Controller {
 	public function enlistments()
 	{
 	    $this->grocery_crud->set_table('enlistments')
+	        ->required_fields('member_id', 'date')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member')
 	        ->set_relation('liaison_member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('liaison_member_id', 'Liaison')
 	        ->set_relation('unit_id', 'units', 'abbr')->display_as('unit_id', 'TP')
@@ -187,10 +201,12 @@ class Admin extends CI_Controller {
 	public function events()
 	{
 	    $this->grocery_crud->set_table('events')
-	        ->columns('datetime', 'unit_id', 'title', 'type', 'mandatory', 'server_id', 'report', 'reporter_member_id')
-	        ->fields('datetime', 'unit_id', 'title', 'type', 'mandatory', 'server_id', 'report', 'reporter_member_id')
+	        ->columns('datetime', 'unit_id', 'type', 'mandatory', 'server_id')
+	        ->fields('datetime', 'unit_id', 'type', 'mandatory', 'server_id', 'report', 'reporter_member_id')
+	        ->display_as('datetime', 'Date/time')
+	        ->required_fields('datetime', 'unit_id', 'type')
 	        ->set_relation('unit_id', 'units', 'abbr')->display_as('unit_id', 'Unit')
-	        ->set_relation('server_id', 'servers', 'name')->display_as('server_id', 'Server')
+	        ->set_relation('server_id', 'servers', '{name} ({game})')->display_as('server_id', 'Server')
 	        ->set_relation('reporter_member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('reporter_member_id', 'Reporter');
         $output = $this->grocery_crud->render();
  
@@ -200,20 +216,25 @@ class Admin extends CI_Controller {
 	public function finances()
 	{
 	    $this->grocery_crud->set_table('finances')
+	        ->columns('date', 'member_id', 'vendor', 'amount_received', 'amount_paid', 'fee', 'notes')
+	        ->required_fields('date') // not sure how to do OR here
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member');
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'finances');
 	}
 	
-	public function loa()
+	/**
+	 * Needs to be renamed Extended loa
+	 */
+	/*public function loa()
 	{
 	    $this->grocery_crud->set_table('loa')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member');
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'loa');
-	}
+	}*/
     
     public function members()
 	{
@@ -224,6 +245,7 @@ class Admin extends CI_Controller {
 	        ->set_subject('Member')
 	        ->columns('last_name', 'first_name', 'middle_name', 'rank_id', 'country_id', 'steam_id', 'forum_member_id'/*, 'units', 'classes'*/)
 	        ->fields('id', 'last_name', 'first_name', 'middle_name', 'forum_member_id', 'country_id', 'city', 'steam_id', 'email')
+	        ->required_fields('last_name', 'first_name')
 	        ->set_relation('country_id', 'countries', 'abbr')->display_as('country_id', 'Country')
 	        ->set_relation('rank_id', 'ranks', 'abbr')->display_as('rank_id', 'Rank')
 	        ->display_as('forum_member_id', 'Forum ID')
@@ -254,7 +276,10 @@ class Admin extends CI_Controller {
         $this->vanilla->update_username($id);
 	}
 	
-	public function notes()
+	/**
+	 * Excluded because permissions not brought over
+	 */
+	/*public function notes()
 	{
 	    $this->grocery_crud->set_table('notes')
 	        ->set_relation('subject_member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('subject_member_id', 'Subject')
@@ -262,11 +287,13 @@ class Admin extends CI_Controller {
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'notes');
-	}
+	}*/
 	
 	public function positions()
 	{
 	    $this->grocery_crud->set_table('positions')
+	        ->columns('name', 'active', 'order', 'access_level')
+	        ->required_fields('name', 'access_level')
 	        ->field_type('access_level', 'dropdown', array('0' => 'Default', '1' => 'Leadership'));
         $output = $this->grocery_crud->render();
  
@@ -276,6 +303,8 @@ class Admin extends CI_Controller {
 	public function promotions()
 	{
 	    $this->grocery_crud->set_table('promotions')
+	        ->columns('member_id', 'date', 'old_rank_id', 'new_rank_id')
+	        ->required_fields('member_id', 'date', 'old_rank_id', 'new_rank_id')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member')
 	        ->set_relation('old_rank_id', 'ranks', 'abbr')->display_as('old_rank_id', 'Old Rank')
 	        ->set_relation('new_rank_id', 'ranks', 'abbr')->display_as('new_rank_id', 'New Rank');
@@ -325,6 +354,7 @@ class Admin extends CI_Controller {
 	public function qualifications()
 	{
 	    $this->grocery_crud->set_table('qualifications')
+	        ->required_fields('member_id', 'standard_id')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member')
 	        ->set_relation('standard_id', 'standards', '({weapon}:{badge}) {description}')->display_as('standard_id', 'Standard')
 	        ->set_relation('author_member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('author_member_id', 'Author');
@@ -335,7 +365,8 @@ class Admin extends CI_Controller {
 	
 	public function ranks()
 	{
-	    $this->grocery_crud->set_table('ranks');
+	    $this->grocery_crud->set_table('ranks')
+	        ->required_fields('name', 'abbr');
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'ranks');
@@ -344,6 +375,7 @@ class Admin extends CI_Controller {
 	public function schedules()
 	{
 	    $this->grocery_crud->set_table('schedules')
+	        ->required_fields('unit_id', 'type', 'day_of_week', 'hour_of_day')
 	        ->set_relation('unit_id', 'units', 'abbr')->display_as('unit_id', 'Unit')
 	        ->set_relation('server_id', 'servers', 'name')->display_as('server_id', 'Server');
         $output = $this->grocery_crud->render();
@@ -353,7 +385,8 @@ class Admin extends CI_Controller {
 	
 	public function servers()
 	{
-	    $this->grocery_crud->set_table('servers');
+	    $this->grocery_crud->set_table('servers')
+	        ->required_fields('name', 'abbr', 'address', 'game');
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'servers');
@@ -361,7 +394,9 @@ class Admin extends CI_Controller {
 	
 	public function standards()
 	{
-	    $this->grocery_crud->set_table('standards');
+	    $this->grocery_crud->set_table('standards')
+	        ->columns('weapon', 'game', 'badge', 'description')
+	        ->required_fields('weapon', 'badge', 'description');
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'standards');
@@ -371,7 +406,9 @@ class Admin extends CI_Controller {
 	{
 	    $this->grocery_crud->set_table('units')
 	        ->columns('name', 'abbr', 'path', 'order', 'timezone', 'class', 'active')
-	        ->fields('id', 'name', 'abbr', 'path', 'order', 'timezone', 'class', 'active');
+	        ->fields('id', 'name', 'abbr', 'path', 'order', 'timezone', 'class', 'active')
+	        ->required_fields('name', 'abbr', 'path', 'class')
+	        ->display_as('abbr', 'Abbreviation');
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'units');
@@ -380,6 +417,7 @@ class Admin extends CI_Controller {
 	public function unit_permissions()
 	{
 	    $this->grocery_crud->set_table('unit_permissions')
+	        ->required_fields('unit_id', 'access_level', 'ability_id')
 	        ->set_relation('unit_id', 'units', 'abbr')->display_as('unit_id', 'Unit')
 	        ->set_relation('ability_id', 'abilities', 'abbr')->display_as('ability_id', 'Ability')
 	        ->field_type('access_level', 'dropdown', array('0' => 'Default', '1' => 'Leadership'));
@@ -391,6 +429,7 @@ class Admin extends CI_Controller {
 	public function unit_roles()
 	{
 	    $this->grocery_crud->set_table('unit_roles')
+	        ->required_fields('unit_id', 'access_level', 'role_id')
 	        ->set_relation('unit_id', 'units', 'abbr')->display_as('unit_id', 'Unit')
 	        ->field_type('access_level', 'dropdown', array('0' => 'Default', '1' => 'Leadership'));
 	    
@@ -411,8 +450,10 @@ class Admin extends CI_Controller {
 	public function usertracking()
 	{
 	    $this->grocery_crud->set_table('usertracking')
+	        ->columns('datetime', 'user_identifier', 'request_uri', 'request_method', 'client_ip')
+	        ->order_by('datetime', 'desc')
 	        ->set_relation('user_identifier', 'members', '{last_name}, {first_name} {middle_name}')->display_as('user_identifier', 'Member')
-	        ->display_as('session_id', 'Session')->display_as('request_uri', 'URL')->display_as('request_method', 'Method')
+	        ->display_as('session_id', 'Session')->display_as('request_uri', 'URL')->display_as('request_method', 'Method')->display_as('datetime', 'Date/time')
 	        ->unset_add()->unset_edit()->unset_delete();
         $output = $this->grocery_crud->render();
  
