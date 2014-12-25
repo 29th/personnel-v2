@@ -9,7 +9,7 @@ class Finances extends MY_Controller {
     /**
      * INDEX
      */
-    public function index_get() {
+    public function index_get($filter_type = FALSE, $filter = FALSE) {
 		// Must have permission to view this type of record for this member or for any member
 		if( ! $this->user->permission('finances_view')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
@@ -17,7 +17,11 @@ class Finances extends MY_Controller {
 		// View records
 		else {
 			$skip = $this->input->get('skip') ? $this->input->get('skip') : 0;
-			$finances = nest($this->finance_model->paginate('', $skip)->result_array());
+			$model = $this->finance_model;
+			if($filter_type == 'members' && $filter) {
+			    $model->where('finances.member_id', $filter);
+			}
+			$finances = nest($model->paginate('', $skip)->result_array());
 			$count = $this->finance_model->total_rows;
 			$this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'finances' => $finances));
 		}

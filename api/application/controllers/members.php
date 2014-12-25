@@ -79,7 +79,7 @@ class Members extends MY_Controller {
     /**
      * PROMOTIONS
      */
-    public function promotions_get($member_id) {
+    /*public function promotions_get($member_id) {
         $this->load->model('promotion_model');
 		
         // Must have permission to view this member's profile or any member's profile
@@ -90,7 +90,7 @@ class Members extends MY_Controller {
             $promotions = nest($this->promotion_model->where('promotions.member_id', $member_id)->get()->result_array());
             $this->response(array('status' => true, 'promotions' => $promotions));
         }
-    }
+    }*/
     
     /*public function promotions_post($member_id) {
         if( ! $this->user->permission('promotion_add', $member_id) && ! $this->user->permission('promotion_add_any')) {

@@ -16,12 +16,22 @@ class Promotions extends MY_Controller {
     
 	/**
      * INDEX
-     * We don't want to be able to fetch a list of promotions for all members, no need
      */
-    /*public function index_get() {
-        $promotions = $this->promotion_model->get()->result();
-        $this->response(array('status' => true, 'promotions' => $promotions));
-    }*/
+    public function index_get($filter_type = FALSE, $filter = FALSE) {
+        // Must have permission to view this member's profile or any member's profile
+        if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
+            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+        }
+        // View records
+        else {
+            $model = $this->promotion_model;
+            if($filter_type == 'members' && $filter) {
+                $model->where('promotions.member_id', $filter);
+            }
+            $promotions = nest($model->get()->result_array());
+            $this->response(array('status' => true, 'promotions' => $promotions));
+        }
+    }
     
 	/**
 	 * VIEW

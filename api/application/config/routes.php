@@ -39,8 +39,7 @@
 */
 
 // Custom
-$route['members/(:num)/promotions/(:num)'] = 'members/promotions/$1/$2';
-$route['members/(:num)/promotions'] = 'members/promotions/$1';
+$route['members/(:num)/promotions'] = 'promotions/index/members/$1';
 $route['members/(:num)/awardings/(:num)'] = 'members/awardings/$1/$2';
 $route['members/(:num)/awardings'] = 'members/awardings/$1';
 $route['members/(:num)/qualifications/(:num)'] = 'members/qualifications/$1/$2';
@@ -55,6 +54,7 @@ $route['members/(:num)/awols'] = 'members/awols/$1';
 $route['members/(:num)/discharge'] = 'members/discharge/$1';
 $route['members/(:num)/coat'] = 'members/coat/$1';
 $route['members/(:num)/roles'] = 'members/roles/$1';
+$route['members/(:num)/finances'] = 'finances/index/members/$1';
 $route['members/(:num)'] = 'members/view/$1';
 //$route['members'] = 'members/index';
 
