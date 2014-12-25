@@ -14,9 +14,8 @@ class Discharges extends MY_Controller {
     
     /**
      * INDEX
-     * This should be done by member or by unit
      */
-    /*public function index_get() {
+    public function index_get($member_id = FALSE) {
         // Must have permission to view any member's profile
         if( ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
@@ -24,11 +23,15 @@ class Discharges extends MY_Controller {
         // Index records
         else {
             $skip = $this->input->get('skip') ? $this->input->get('skip') : 0;
-            $discharges = nest($this->discharge_model->paginate('', $skip)->result_array());
+            $model = $this->discharge_model;
+            if($member_id) {
+                $model->where('discharges.member_id', $member_id);
+            }
+            $discharges = nest($model->paginate('', $skip)->result_array());
             $count = $this->discharge_model->total_rows;
             $this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'discharges' => $discharges));
         }
-    }*/
+    }
     
     /**
      * VIEW

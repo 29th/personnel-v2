@@ -19,7 +19,7 @@ class Enlistments extends MY_Controller {
      * INDEX
      * Paginates
      */
-    public function index_get() {
+    public function index_get($member_id = FALSE) {
         // Must have permission to view any member's profile
         if( ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
@@ -29,7 +29,12 @@ class Enlistments extends MY_Controller {
             $status = $this->input->get('status', TRUE);
             $skip = $this->input->get('skip') ? $this->input->get('skip', TRUE) : 0;
             $model = $this->enlistment_model;
-            if($status) $model->by_status($status);
+            if($status) {
+                $model->by_status($status);
+            }
+            if($member_id) {
+                $model->where('enlistments.member_id', $member_id);
+            }
             $enlistments = nest($model->paginate('', $skip)->result_array());
             $count = $this->enlistment_model->total_rows;
             $this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'enlistments' => $enlistments));

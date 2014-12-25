@@ -14,12 +14,22 @@ class Assignments extends MY_Controller {
     
     /**
      * INDEX
-     * We don't want to be able to fetch a list of assignments for all members, no need
      */
-    /*public function index_get() {
-        $assignments = $this->assignment_model->get()->result();
-        $this->response(array('status' => true, 'assignments' => $assignments));
-    }*/
+    public function index_get($member_id = FALSE) {
+        // Must have permission to view this member's profile or any member's profile
+        if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
+            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+        }
+        else {
+            $model = $this->assignment_model;
+            if($member_id) {
+                $model->where('assignments.member_id', $member_id);
+            }
+            if($this->input->get('current')) $model->by_date();
+            $assignments = nest($model->order_by('priority')->get()->result_array());
+            $this->response(array('status' => true, 'assignments' => $assignments));
+        }
+    }
     
     /**
      * VIEW

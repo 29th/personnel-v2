@@ -132,7 +132,7 @@ class Members extends MY_Controller {
     /**
      * AWARDS
      */
-    public function awardings_get($member_id) {
+    /*public function awardings_get($member_id) {
         $this->load->model('awarding_model');
 		
         // Must have permission to view this member's profile or any member's profile
@@ -143,7 +143,7 @@ class Members extends MY_Controller {
             $awardings = nest($this->awarding_model->where('awardings.member_id', $member_id)->get()->result_array());
             $this->response(array('status' => true, 'awardings' => $awardings));
         }
-    }
+    }*/
     
     /*public function awardings_post($member_id) {
         if( ! $this->user->permission('awarding_add', $member_id) && ! $this->user->permission('awarding_add_any')) {
@@ -171,7 +171,7 @@ class Members extends MY_Controller {
     /**
      * ATTENDANCE
      */
-    public function attendance_get($member_id) {
+    /*public function attendance_get($member_id) {
         $this->load->model('attendance_model');
 		
         // Must have permission to view this member's profile or any member's profile
@@ -184,14 +184,14 @@ class Members extends MY_Controller {
             $count = $this->attendance_model->total_rows;
             $this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'attendance' => $attendance));
         }
-    }
+    }*/
     
     /**
      * Qualifications
      */
-    public function qualifications_get($member_id) {
+    /*public function qualifications_get($member_id) {
         $this->load->model('qualification_model');
-        $this->load->model('standard_model');
+        //$this->load->model('standard_model');
 		
         // Must have permission to view this member's profile or any member's profile
         if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
@@ -202,7 +202,7 @@ class Members extends MY_Controller {
             //$qualifications = nest($this->standard_model->for_member($member_id)->get()->result_array());
             $this->response(array('status' => true, 'qualifications' => $qualifications));
         }
-    }
+    }*/
     
     /*public function qualifications_post($member_id) {
         if( ! $this->user->permission('qualification_add', $member_id) && ! $this->user->permission('qualification_add_any')) {
@@ -230,7 +230,7 @@ class Members extends MY_Controller {
     /**
      * ASSIGNMENTS
      */
-    public function assignments_get($member_id) {
+    /*public function assignments_get($member_id) {
         // Must have permission to view this member's profile or any member's profile
         if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
@@ -241,7 +241,7 @@ class Members extends MY_Controller {
             $assignments = nest($model->get()->result_array());
             $this->response(array('status' => true, 'assignments' => $assignments));
         }
-    }
+    }*/
     
     /*public function assignments_post($member_id, $assignment_id = FALSE) {
         if( ! $this->user->permission('assignment_add', $member_id) && ! $this->user->permission('assignment_add_any')) {
@@ -278,7 +278,7 @@ class Members extends MY_Controller {
     /**
      * ENLISTMENTS
      */
-    public function enlistments_get($member_id) {
+    /*public function enlistments_get($member_id) {
         $this->load->model('enlistment_model');
 		
         // Must have permission to view this member's profile or any member's profile
@@ -289,12 +289,12 @@ class Members extends MY_Controller {
             $enlistments = nest($this->enlistment_model->where('enlistments.member_id', $member_id)->get()->result_array());
             $this->response(array('status' => true, 'enlistments' => $enlistments));
         }
-    }
+    }/*
     
     /**
      * DISCHARGES
      */
-    public function discharges_get($member_id) {
+    /*public function discharges_get($member_id) {
         $this->load->model('discharge_model');
 		
         // Must have permission to view this member's profile or any member's profile
@@ -305,7 +305,7 @@ class Members extends MY_Controller {
             $discharges = nest($this->discharge_model->where('discharges.member_id', $member_id)->get()->result_array());
             $this->response(array('status' => true, 'discharges' => $discharges));
         }
-    }
+    }*/
     
     /**
      * AWOLs

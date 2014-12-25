@@ -17,16 +17,17 @@ class Promotions extends MY_Controller {
 	/**
      * INDEX
      */
-    public function index_get($filter_type = FALSE, $filter = FALSE) {
+    public function index_get($member_id = FALSE) {
         // Must have permission to view this member's profile or any member's profile
         if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // View records
         else {
+			$skip = $this->input->get('skip') ? $this->input->get('skip') : 0;
             $model = $this->promotion_model;
-            if($filter_type == 'members' && $filter) {
-                $model->where('promotions.member_id', $filter);
+            if($member_id) {
+                $model->where('promotions.member_id', $member_id);
             }
             $promotions = nest($model->get()->result_array());
             $this->response(array('status' => true, 'promotions' => $promotions));

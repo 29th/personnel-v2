@@ -15,8 +15,20 @@ class Qualifications extends MY_Controller {
     /**
      * INDEX
      */
-    /*public function index_get() {
-    }*/
+    public function index_get($member_id) {
+        // Must have permission to view this member's profile or any member's profile
+        if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
+            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+        }
+        else {
+            $model = $this->qualification_model;
+            if($member_id) {
+                $model->where('qualifications.member_id', $member_id);
+            }
+            $qualifications = nest($model->get()->result_array());
+            $this->response(array('status' => true, 'qualifications' => $qualifications));
+        }
+    }
     
     /**
      * VIEW

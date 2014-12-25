@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Awarding extends MY_Controller {
+class Awardings extends MY_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('awarding_model');
@@ -15,12 +15,22 @@ class Awarding extends MY_Controller {
     
     /**
      * INDEX
-     * We don't want to be able to fetch a list of awardings for all members, no need
      */
-    /*public function index_get() {
-        $awardings = $this->awarding_model->get()->result();
-        $this->response(array('status' => true, 'awardings' => $awardings));
-    }*/
+    public function index_get($member_id = FALSE) {
+        // Must have permission to view this member's profile or any member's profile
+        if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
+            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+        }
+        // View records
+        else {
+            $model = $this->awarding_model;
+            if($member_id) {
+                $model->where('awardings.member_id', $member_id);
+            }
+            $awardings = nest($model->get()->result_array());
+            $this->response(array('status' => true, 'awardings' => $awardings));
+        }
+    }
     
     /**
      * VIEW
