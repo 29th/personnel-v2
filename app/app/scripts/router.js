@@ -65,7 +65,7 @@ define([
     "backbone.validation",
     "enquire",
     "jquery-nestable",
-    "theme",
+    //"theme",
     "validation.config"
 ], function (
 $, _, Backbone, Marionette, Handlebars, util,

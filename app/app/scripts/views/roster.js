@@ -6,9 +6,8 @@ define([
     "handlebars",
     "hbs!templates/roster_nestable",
     "hbs!templates/roster_nestable_container",
-    "hbs!templates/roster_attendance",
     "marionette"
-], function ($, _, Backbone, Marionette, Handlebars, Template, TemplateContainer, AttendanceTemplate) {
+], function ($, _, Backbone, Marionette, Handlebars, Template, TemplateContainer) {
     
     var ItemView = Backbone.Marionette.CompositeView.extend({
         template: Template,
@@ -22,28 +21,19 @@ define([
                 this.eventAttendance = options.eventAttendance;
                 this.itemViewOptions.eventAttendance = options.eventAttendance;
             }
-            // If attendance is true, use the attendance template
             if (options.attendance) {
-                this.template = AttendanceTemplate;
                 this.itemViewOptions.attendance = true;
             }
             if(this.model.get("children").length) {
                 this.collection = this.model.get("children");
             }
-            //this.$el.addClass("unit").addClass("depth-" + this.model.get("depth"));
             this.$el.attr("data-id", this.model.get("id"));
         },
-        /*events: {
-            "click .header:first": "onClickHeader"
-        },*/
-        /*appendHtml: function (collectionView, itemView) {
-            // Different append method for attendance roster
-            if(this.itemViewOptions.attendance) {
-                this.$el.append(itemView.el);
-            } else {
-                collectionView.$(".children:first").append(itemView.el);
-            }
-        },*/
+        serializeData: function() {
+            return $.extend({
+                attendance: this.itemViewOptions.attendance
+            }, this.model.toJSON());
+        },
         onBeforeRender: function () {
             // If eventAttendance is set, add attended and excused values to each member
             if (!_.isEmpty(this.eventAttendance)) {
@@ -59,10 +49,6 @@ define([
                 });
             }
         }
-        /*onClickHeader: function(e) {
-            $(e.currentTarget).parent().siblings().toggle(300);
-            $(e.currentTarget).parent().parent().toggleClass("collapsed");
-        }*/
     });
 
     return Backbone.Marionette.CompositeView.extend({

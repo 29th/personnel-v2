@@ -21,8 +21,8 @@ define([
                     ignoreTimezone: false
                 },
                 buttonText: {
-                    prev: "<i class=\"glyphicon glyphicon-arrow-left\"></i>",
-                    next: "<i class=\"glyphicon glyphicon-arrow-right\"></i>"
+                    prev: "<i class=\"fa fa-caret-left\"></i>",
+                    next: "<i class=\"fa fa-caret-right\"></i>"
                 }
                 //,year: 2011
                 //,month: 5

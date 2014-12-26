@@ -9,9 +9,19 @@
 {{#if members.length}}
     {{#each members}}
     <li>
-        {{#if this.rank.filename}}<img src="images/ranks/16x16/{{ this.rank.filename }}.png" title="{{ this.rank.name }}">{{/if}}
-        <a href="#members/{{ this.id }}">{{ this.short_name }}</a>
-        <span class="roster-unit">{{ position.name }}</span>
+        {{#if ../attendance}}
+            <label>
+                <input type="checkbox" name="attendance" value="{{ this.id }}"{{#if this.attended}} checked="checked"{{/if}}>
+                <a href="#members/{{ this.id }}">{{ this.short_name }}</a>
+                {{#if this.excused}}<span class="label label-warning">Excused</span>{{/if}}
+            </label>
+
+        {{else}}
+
+            {{#if this.rank.filename}}<img src="images/ranks/16x16/{{ this.rank.filename }}.png" title="{{ this.rank.name }}">{{/if}}
+            <a href="#members/{{ this.id }}">{{ this.short_name }}</a>
+            <span class="roster-unit">{{ position.name }}</span>
+        {{/if}}
     </li>
     {{/each}}
 {{/if}}
