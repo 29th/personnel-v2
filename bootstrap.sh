@@ -41,7 +41,7 @@ git clone https://github.com/29th/personnel-api.git /vagrant/repositories/person
 ln -s /vagrant/repositories/personnel-api /var/www/html/
 
 echo 'Installing Vanilla...'
-git clone https://github.com/29th/vanilla.git /vagrant/repositories/forums
+git clone --recursive -b 29th-extensions https://github.com/29th/vanilla.git /vagrant/repositories/forums
 chmod -R 777 /vagrant/repositories/forums/conf
 chmod -R 777 /vagrant/repositories/forums/uploads
 chmod -R 777 /vagrant/repositories/forums/cache
