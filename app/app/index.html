@@ -22,13 +22,21 @@
 </head>
 <body>
     
-    <header class="navbar navbar-inverse navbar-fixed-top clearfix" role="banner">
+    <nav class="navbar navbar-inverse navbar-fixed-top clearfix" role="banner">
         <div class="container">
-            <a class="navbar-brand" href="#">Personnel</a>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Personnel</a>
+            </div>
             
-            <div id="nav"></div>
+            <div id="nav" class="navbar-collapse collapse"></div>
         </div>
-    </header>
+    </nav>
     
     <!-- Main Content Container -->
     <div class="container" id="main"></div>
