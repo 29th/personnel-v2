@@ -74,6 +74,7 @@ $route['finances'] = 'finances/index';
 
 // Extended LOAs
 $route['eloas'] = 'eloas/index';
+$route['eloas/(:num)'] = 'eloas/view';
 
 // Admin
 $route['admin'] = 'admin/home';
