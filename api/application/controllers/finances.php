@@ -30,8 +30,8 @@ class Finances extends MY_Controller {
     /**
      * VIEW
      */
-    public function view_get($ability_id) {
-        $ability = $this->finance_model->get_by_id($ability_id);
-        $this->response(array('status' => true, 'finances' => $ability));
+    public function view_get($finance_id) {
+        $finance = $this->finance_model->get_by_id($finance_id);
+        $this->response(array('status' => true, 'finance' => $finance));
     }
 }

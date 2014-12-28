@@ -13,6 +13,7 @@ $route['members/(:num)/discharge'] = 'members/discharge/$1';
 $route['members/(:num)/coat'] = 'members/coat/$1';
 $route['members/(:num)/roles'] = 'members/roles/$1';
 $route['members/(:num)/finances'] = 'finances/index/$1';
+$route['members/(:num)/eloas'] = 'eloas/index/$1';
 $route['members/(:num)'] = 'members/view/$1';
 //$route['members'] = 'members/index';
 
@@ -70,6 +71,9 @@ $route['enlistments'] = 'enlistments/index';
 
 // Finances
 $route['finances'] = 'finances/index';
+
+// Extended LOAs
+$route['eloas'] = 'eloas/index';
 
 // Admin
 $route['admin'] = 'admin/home';
