@@ -185,6 +185,19 @@ class Admin extends CI_Controller {
         $this->output($output, 'discharges');
 	}
 	
+	public function eloas()
+	{
+	    $this->grocery_crud->set_table('eloas')
+	    	->columns('member_id', 'start_date', 'end_date', 'reason', 'availability')
+	    	->fields('member_id', 'start_date', 'end_date', 'posting_date', 'reason', 'availability')
+	    	->required_fields('member_id', 'start_date', 'end_date', 'posting_date')
+	    	->order_by('posting_date', 'desc')
+	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member');
+        $output = $this->grocery_crud->render();
+ 
+        $this->output($output, 'eloas');
+	}
+	
 	public function enlistments()
 	{
 	    $this->grocery_crud->set_table('enlistments')
@@ -223,18 +236,6 @@ class Admin extends CI_Controller {
  
         $this->output($output, 'finances');
 	}
-	
-	/**
-	 * Needs to be renamed Extended loa
-	 */
-	/*public function loa()
-	{
-	    $this->grocery_crud->set_table('loa')
-	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member');
-        $output = $this->grocery_crud->render();
- 
-        $this->output($output, 'loa');
-	}*/
     
     public function members()
 	{

@@ -4,8 +4,30 @@ class ELOA_model extends CRUD_Model {
     public $table = 'eloas';
     public $primary_key = 'eloas.id';
     
+    public function validation_rules_add() {
+        return array(
+            array(
+                'field' => 'member_id'
+                ,'rules' => 'required|numeric'
+            )
+            ,array(
+                'field' => 'start_date'
+                ,'rules' => 'required'
+            )
+            ,array(
+                'field' => 'end_date'
+                ,'rules' => 'required'
+            )
+        );
+    }
+    
+    public function validation_rules_edit() {
+        return array(
+        );
+    }
+    
     public function default_select() {
-        $this->db->select('SQL_CALC_FOUND_ROWS eloas.id, eloas.start_date, eloas.end_date, eloas.reason, eloas.availability, members.id AS `member|id`', FALSE)
+        $this->db->select('SQL_CALC_FOUND_ROWS eloas.id, eloas.start_date, eloas.end_date, eloas.posting_date, eloas.reason, eloas.availability, members.id AS `member|id`', FALSE)
             ->select($this->virtual_fields['short_name'] . ' AS `member|short_name`', FALSE);
     }
     

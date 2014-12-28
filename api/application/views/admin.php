@@ -13,6 +13,7 @@ $pages = array(
     'countries' => 'Countries',
     'demerits' => 'Demerits',
     'discharges' => 'Discharges',
+    'eloas' => 'Extended LOAs',
     'enlistments' => 'Enlistments',
     'events' => 'Events',
     'finances' => 'Finances',

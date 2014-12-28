@@ -17,7 +17,7 @@ class ELOAs extends MY_Controller {
      */
     public function index_get($member_id = FALSE) {
 		// Must have permission to view this type of record for this member or for any member
-		if( ! $this->user->permission('eloas_view')) {
+		if( ! $this->user->permission('eloas_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// View records
@@ -39,10 +39,7 @@ class ELOAs extends MY_Controller {
     /**
      * VIEW
      */
-    public function view_get($loa_id) {
-        $eloa = $this->eloa_model->get_by_id($loa_id);
-        $this->response(array('status' => true, 'eloa' => $eloa));
-    }
+    //public function view_get($loa_id) {}
     
     /**
      * CREATE
@@ -56,13 +53,28 @@ class ELOAs extends MY_Controller {
         else if($this->eloa_model->run_validation('validation_rules_add') === FALSE) {
             $this->response(array('status' => false, 'error' => $this->eloa_model->validation_errors), 400);
         }
+        // Ensure start date is not in the past
+        else if(strtotime($this->post('start_date')) < strtotime('midnight')) {
+            $this->response(array('status' => false, 'error' => 'Start date cannot be in the past'), 400);
+        }
+        // Ensure start date is not after end date
+        else if(strtotime($this->post('start_date')) > strtotime($this->post('end_date'))) {
+            $this->response(array('status' => false, 'error' => 'Start date cannot be after end date'), 400);
+        }
         // Update record
         else {
             $this->usertracking->track_this();
             $data = whitelist($this->post(), array('member_id', 'start_date', 'end_date', 'reason', 'availability'));
+
+            // Set datetime of posting
+            $data['posting_date'] = format_date('now', 'mysqldatetime');
+
+            // Clean dates
+            $data['start_date'] = format_date($data['start_date'], 'mysqldate');
+            $data['end_date'] = format_date($data['end_date'], 'mysqldate');
             
             $insert_id = $this->eloa_model->save(NULL, $data);
-            $new_record = $insert_id ? $this->eloa_model->view($insert_id) : null;
+            $new_record = $insert_id ? nest($this->eloa_model->get_by_id($insert_id)) : null;
             $this->response(array('status' => $insert_id ? true : false, 'eloa' => $new_record));
         }
     }
@@ -73,12 +85,20 @@ class ELOAs extends MY_Controller {
     public function view_post($eloa_id) {
         // Must have permission to edit this member's eloas or any member's eloas
         $eloa = nest($this->eloa_model->get_by_id($eloa_id));
-        if( ! $this->user->permission('eloas_edit', $eloa['member']['id']) && ! $this->user->permission('eloas_edit_any')) {
+        if( ! $this->user->permission('eloas_add', $eloa['member']['id']) && ! $this->user->permission('eloas_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation
-        else if($this->eloa_model->run_validation('validation_rules_edit') === FALSE) {
+        /*else if($this->eloa_model->run_validation('validation_rules_edit') === FALSE) {
             $this->response(array('status' => false, 'error' => $this->eloa_model->validation_errors), 400);
+        }*/
+        // Ensure start date is not in the past
+        else if(strtotime($this->post('start_date')) < strtotime('midnight')) {
+            $this->response(array('status' => false, 'error' => 'Start date cannot be in the past'), 400);
+        }
+        // Ensure start date is not after end date
+        else if(strtotime($this->post('start_date')) > strtotime($this->post('end_date'))) {
+            $this->response(array('status' => false, 'error' => 'Start date cannot be after end date'), 400);
         }
         // Update record
         else {
@@ -87,7 +107,7 @@ class ELOAs extends MY_Controller {
                 
             $result = $this->eloa_model->save($eloa_id, $data);
             
-            $this->response(array('status' => $result ? true : false, 'eloa' => $this->eloa_model->get_by_id($eloa_id)));
+            $this->response(array('status' => $result ? true : false, 'eloa' => nest($this->eloa_model->get_by_id($eloa_id))));
         }
     }
 }
