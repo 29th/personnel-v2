@@ -6,6 +6,7 @@ class Events extends MY_Controller {
         $this->load->model('event_model');
         $this->load->model('attendance_model');
         $this->load->model('assignment_model');
+        $this->load->model('eloa_model');
     }
     
     /**
@@ -137,7 +138,15 @@ class Events extends MY_Controller {
             }
             if($this->post('absent')) {
                 $absent = $this->filter_expected($event_id, $this->post('absent'));
-                if( ! empty($absent)) $this->attendance_model->set_attendance($event_id, $absent, false);
+                if( ! empty($absent)) {
+                    $this->attendance_model->set_attendance($event_id, $absent, false);
+
+                    // Third, check if any absentees are on Extended LOA and mark them excused
+                    $eloas = pluck('member|id', $this->eloa_model->active($event['datetime'])->by_member($absent)->get()->result_array());
+                    if(sizeof($eloas)) {
+                        $this->attendance_model->set_excused($event_id, $eloas, true);
+                    }
+                }
             }
             
             $this->response(array('status' => $result ? true : false, 'event' => nest($this->event_model->get_by_id($event_id))));
