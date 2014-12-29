@@ -10,7 +10,6 @@ define([
         settings: {
             limit: 15
         },
-        model: EventAttendee,
         initialize: function (models, options) {
             options = options || {};
             this.filter = options.filter || false;

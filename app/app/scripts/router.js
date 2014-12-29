@@ -16,6 +16,7 @@ define([
     "collections/assignments",
     "collections/awardings",
     "collections/discharges",
+    "collections/eloas",
     "collections/enlistments",
     "collections/event_attendance", // Attendees of an event
     "collections/events",
@@ -37,6 +38,7 @@ define([
     "views/associate",
     "views/calendar",
     "views/discharge",
+    "views/eloas",
     "views/enlistment_edit",
     "views/enlistment_process",
     "views/enlistments",
@@ -72,9 +74,9 @@ $, _, Backbone, Marionette, Handlebars, util,
 // Models
 Assignment, Discharge, Enlistment, Event, Member, User,
 // Collections
-Assignments, Awardings, Discharges, Enlistments, EventAttendance, Events, Finances, MemberAttendance, MemberAwols, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, Standards, UnitAttendance, UnitAwols, Units,
+Assignments, Awardings, Discharges, ELOAs, Enlistments, EventAttendance, Events, Finances, MemberAttendance, MemberAwols, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, Standards, UnitAttendance, UnitAwols, Units,
 // Views
-AARView, AssignmentEditView, AssociateView, CalendarView, DischargeView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, FinancesView, FlashView, MemberAdminView, MemberAttendanceView, MemberDischargeView,
+AARView, AssignmentEditView, AssociateView, CalendarView, DischargeView, ELOAsView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, FinancesView, FlashView, MemberAdminView, MemberAttendanceView, MemberDischargeView,
 MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView, RosterView, ServiceRecordView, UnitAttendanceView, UnitAwolsView, UnitView) {
     "use strict";
 
@@ -86,13 +88,14 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
             "associate": "associate",
             "calendar": "calendar",
             "discharges/:id": "discharge",
-            "events/:id": "event",
-            "events/:id/aar": "aar",
+            "eloas": "eloas",
             "enlistments/:id/edit": "enlistment_edit",
             "enlistments/:id/process": "enlistment_process",
             "enlistments/:id": "enlistment",
             "enlistments": "enlistments",
             "enlist": "enlistment_add",
+            "events/:id": "event",
+            "events/:id/aar": "aar",
             "finances": "finances",
             "members/:id/assign": "assignment_add",
             "members/:id/*path": "member",
@@ -275,6 +278,21 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 $.when.apply($, promises).done(function() {
                     self.showView(dischargeView);
                 });
+        },
+        eloas: function() {
+            var self = this,
+                promises = [],
+                eloas = new ELOAs();
+
+            var eloasView = new ELOAsView({
+                collection: eloas
+            });
+
+            promises.push(eloas.fetch());
+
+            $.when.apply($, promises).done(function () {
+                self.showView(eloasView);
+            });
         },
         enlistment: function (id) {
             var self = this,

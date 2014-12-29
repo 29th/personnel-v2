@@ -1,0 +1,9 @@
+<td><a href="#members/{{ member.id }}">{{ member.short_name }}</a></td>
+<td>{{ start_date }}</td>
+<td>{{ end_date }}</td>
+<td>
+	{{ reason }}
+	{{#if availability}}
+		- Availability: {{ availability }}
+	{{/if}}
+</td>
