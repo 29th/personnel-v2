@@ -24,6 +24,7 @@ class Attendance_model extends CRUD_Model {
         $this->filter_join('events', 'events.id = attendance.event_id');
         $this->filter_join('units', 'units.id = events.unit_id');
         $this->filter_where('attendance.member_id', $member_id);
+        $this->filter_where('events.reporter_member_id IS NOT NULL');
         $this->filter_order_by('events.datetime DESC');
         return $this;
     }
@@ -36,6 +37,7 @@ class Attendance_model extends CRUD_Model {
         $this->filter_join('events', 'events.id = attendance.event_id');
         $this->filter_join('units', 'units.id = events.unit_id');
         $this->filter_where('(units.id = ' . $unit_id . ' OR units.path LIKE "%/' . $unit_id . '/%")');
+        $this->filter_where('events.reporter_member_id IS NOT NULL');
         $this->filter_group_by('attendance.event_id');
         $this->filter_order_by('events.datetime DESC');
         return $this;

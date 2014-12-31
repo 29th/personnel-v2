@@ -57,7 +57,7 @@ class Vanilla {
         }
         
         // Eliminate duplicates
-        $roles = array_unique($roles);
+        $roles = array_values(array_unique($roles));
         
         // Delete all of the user's roles from forums database ** by forum_member_id NOT member_id
         if( ! $this->forums_db->query('DELETE FROM `GDN_UserRole` WHERE `UserID` = ?', $member['forum_member_id'])) {
