@@ -39,7 +39,7 @@ class Qualification_model extends CRUD_Model {
     
     public function default_join() {
         $this->db->join('standards AS s', 's.id = qualifications.standard_id')
-            ->join('members AS a_members', 'a_members.id = qualifications.author_member_id')
+            ->join('members AS a_members', 'a_members.id = qualifications.author_member_id', 'left')
             ->join('ranks AS a_ranks', 'a_ranks.id = a_members.rank_id', 'left');
     }
     
