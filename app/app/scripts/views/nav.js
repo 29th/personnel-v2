@@ -31,6 +31,7 @@ define([
             return _.extend({
                 highlight: this.highlight,
                 forumUrl: config.forumUrl,
+                wikiUrl: config.wikiUrl,
                 permissions: this.permissions.length ? this.permissions.pluck("abbr") : [],
                 units: this.units.length ? this.units.toJSON() : []
             }, this.model.toJSON());
