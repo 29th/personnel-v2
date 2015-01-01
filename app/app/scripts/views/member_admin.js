@@ -22,7 +22,7 @@ define([
                 memberPermissions = this.memberPermissions.length ? this.memberPermissions.pluck("abbr") : [],
                 allowedTo = {
                     modifyProfile: memberPermissions.indexOf("profile_edit") !== -1 || permissions.indexOf("profile_edit_any") !== -1,
-                    assign: memberPermissions.indexOf("assignment_add") !== -1 || permissions.indexOf("assignment_add_any") !== -1,
+                    assign: permissions.indexOf("assignment_add") !== -1 || permissions.indexOf("assignment_add_any") !== -1,
                     discharge: memberPermissions.indexOf("discharge_add") !== -1 || permissions.indexOf("discharge_add_any") !== -1
                 };
             allowedTo.admin = allowedTo.modifyProfile || allowedTo.assign || allowedTo.discharge;
