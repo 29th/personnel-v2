@@ -50,10 +50,8 @@ class Assignments extends MY_Controller {
      * CREATE
      */
     public function index_post() {
-        // Must have permission to create this type of record for this member in this unit or for any member
-        if( ! $this->user->permission('assignment_add', $this->post('member_id'))
-        && ! $this->user->permission('assignment_add', null, $this->post('unit_id'))
-        && ! $this->user->permission('assignment_add_any')) {
+        // Must have permission to assign to this unit or any unit
+        if( ! $this->user->permission('assignment_add', null, $this->post('unit_id')) && ! $this->user->permission('assignment_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation
@@ -87,10 +85,10 @@ class Assignments extends MY_Controller {
         if( ! ($assignment = nest($this->assignment_model->select_member()->get_by_id($assignment_id)))) {
             $this->response(array('status' => false, 'error' => 'Assignment not found'), 404);
         }
-        // Must have permission to create this type of record for this member in this unit or for any member
-        else if( ! $this->user->permission('assignment_add', $assignment['member']['id'])
-        && ! $this->user->permission('assignment_add', null, $this->post('unit_id'))
-        && ! $this->user->permission('assignment_add_any')) {
+        // Must have permission to assign to the new unit and the old unit, or permission to assign to any unit
+        else if( ! ($this->user->permission('assignment_add', null, $assignment['unit']['id'])
+                    && $this->user->permission('assignment_add', null, $this->post('unit_id'))
+                ) && ! $this->user->permission('assignment_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation
