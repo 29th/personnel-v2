@@ -142,9 +142,16 @@ class Enlistments extends MY_Controller {
         // Process enlistment
         else {
             $this->usertracking->track_this();
+
             // First, update enlistment record
-            $data = whitelist($this->post(), array('status', 'unit_id', 'recruiter_member_id'));
-            $data['liaison_member_id'] = $this->user->member('id');
+            $whitelist = array('status', 'unit_id', 'recruiter_member_id');
+
+            // Allow liaison if has permission
+            if($this->user->permission('enlistment_assign_any')) {
+                array_push($whitelist, 'liaison_member_id');
+            }
+            $data = whitelist($this->post(), $whitelist);
+            
 			if(isset($data['unit_id'])) $data['unit_id'] = $data['unit_id'] ? $data['unit_id'] : NULL; // Should be null if empty
 			if(isset($data['recruiter_member_id'])) $data['recruiter_member_id'] = $data['recruiter_member_id'] ? $data['recruiter_member_id'] : NULL; // Should be null if empty
             //if(isset($data['unit_id']) && ! $data['unit_id']) $data['unit_id'] = NULL; // Done in model
