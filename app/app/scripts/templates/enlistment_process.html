@@ -5,7 +5,11 @@
             {{#select unit_id}}
             <option value="">Select...</option>
             {{#each tps}}
-            <option value="{{ this.id }}">{{ this.abbr }}{{#if this.timezone }} ({{ this.timezone }}){{/if}}</option>
+            <option value="{{ this.id }}">
+                {{ this.abbr }}
+                {{#if this.game }}({{ this.game }}){{/if}}
+                {{#if this.timezone }}({{ this.timezone }}){{/if}}
+            </option>
             {{/each}}
             {{/select}}
         </select>
