@@ -143,7 +143,7 @@ class Assignment_model extends CRUD_Model {
         $this->filter_select('countries.abbr AS `country|abbr`, countries.name AS `country|name`');
         $this->filter_join('members', 'members.id = assignments.member_id');
         $this->filter_join('ranks', 'ranks.id = members.rank_id');
-        $this->filter_join('countries', 'countries.id = members.country_id');
+        $this->filter_join('countries', 'countries.id = members.country_id', 'left');
         
         // If seeking members of child units, look for $unit_id in path or id
         if($children !== FALSE) {
