@@ -17,13 +17,22 @@ define([
             options = options || {};
             this.tps = options.tps || {};
             this.units = options.units || {};
+
+            this.permissions = options.permissions || {};
+            this.permissions.on("reset", this.render, this);
+
             _.bindAll(this, "onSubmitForm");
             Backbone.Validation.bind(this);
         },
         serializeData: function () {
+            var permissions = this.permissions.length ? this.permissions.pluck("abbr") : [],
+                allowedTo = {
+                    assignLiaison: permissions.indexOf("enlistment_assign_any") !== -1
+                };
             return $.extend({
                 tps: this.tps.length ? this.tps.at(0).get("children").toJSON() : {},
-                units: this.units.length ? this.units.toJSON() : {}
+                units: this.units.length ? this.units.toJSON() : {},
+                allowedTo: allowedTo
             }, this.model.toJSON());
         },
         onRender: function() {

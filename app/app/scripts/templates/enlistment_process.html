@@ -42,5 +42,23 @@
         <p class="help-block">{{#if recruiter}}Applicant wrote: {{ recruiter }}{{/if}}</p>
     </div>
     
+    {{#if allowedTo.assignLiaison}}
+    <div class="form-group">
+        <label for="liaison_member_id">Liaison</label>
+        <select class="form-control selectpicker" name="liaison_member_id" id="liaison_member_id" data-live-search="true">
+            {{#select liaison_member_id}}
+            <option value="">Select...</option>
+            {{#each units}}
+            <optgroup label="{{ this.abbr }}">
+                {{#each this.members}}
+                <option value="{{ this.id }}">{{ this.short_name }}</option>
+                {{/each}}
+            </optgroup>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    {{/if}}
+    
     <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
 </form>

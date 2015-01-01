@@ -407,7 +407,8 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 enlistmentProcessView = new EnlistmentProcessView({
                     model: enlistment,
                     tps: tps,
-                    units: units
+                    units: units,
+                    permissions: this.permissions
                 });
 
             this.app.navRegion.currentView.setHighlight("enlistments");
