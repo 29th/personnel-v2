@@ -276,7 +276,14 @@ class CRUD_Model extends CI_Model {
                 }
             }
 
-            $this->db->where($this->primary_key, $id);
+            if(is_array($id))
+            {
+                $this->db->where_in($this->primary_key, $id);
+            }
+            else
+            {
+                $this->db->where($this->primary_key, $id);
+            }
             $this->db->update($this->table, $db_array);
 
             return $id;

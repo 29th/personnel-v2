@@ -417,10 +417,20 @@ class Admin extends CI_Controller {
 	        ->columns('name', 'abbr', 'path', 'order', 'game', 'timezone', 'class', 'active')
 	        ->fields('id', 'name', 'abbr', 'path', 'order', 'game', 'timezone', 'class', 'active')
 	        ->required_fields('name', 'abbr', 'path', 'class')
-	        ->display_as('abbr', 'Abbreviation');
+	        ->display_as('abbr', 'Abbreviation')
+	        ->callback_after_update(array($this, '_callback_units_after_update'));
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'units');
+	}
+	
+	public function _callback_units_after_update($data, $id = null) {
+		if($id && $data['active'] == 0) {
+        	$this->load->model('assignment_model');
+
+        	$assignments = pluck('id', $this->assignment_model->by_date('now')->by_unit($id)->get()->result_array());
+			$this->assignment_model->save($assignments, array('end_date' => format_date('now', 'mysqldate')));
+        }
 	}
 	
 	public function unit_permissions()

@@ -138,7 +138,7 @@ class Assignment_model extends CRUD_Model {
      * Get members by unit id
      */
     public function by_unit($unit_id, $children = FALSE) {
-        $this->filter_select('assignments.member_id AS id, positions.name AS `position|name`, ranks.name AS `rank|name`, ranks.abbr AS `rank|abbr`, ranks.filename AS `rank|filename`');
+        $this->filter_select('positions.name AS `position|name`, ranks.name AS `rank|name`, ranks.abbr AS `rank|abbr`, ranks.filename AS `rank|filename`');
         $this->filter_select($this->virtual_fields['short_name'] . ' AS short_name', FALSE);
         $this->filter_select('countries.abbr AS `country|abbr`, countries.name AS `country|name`');
         $this->filter_join('members', 'members.id = assignments.member_id');
