@@ -41,8 +41,8 @@ git clone https://github.com/29th/personnel-api.git /vagrant/repositories/person
 ln -s /vagrant/repositories/personnel-api /var/www/html/
 
 echo 'Installing Vanilla...'
-git clone --recursive https://github.com/29th/vanilla.git ${DIR_CWD}forums
-(cd ${DIR_CWD}forums && git checkout 29th-extensions)
+git clone https://github.com/29th/vanilla.git /vagrant/repositories/forums
+(cd /vagrant/repositories/forums && git checkout 29th-extensions && git submodule update --init --recursive)
 ln -s /vagrant/config.php /vagrant/repositories/forums/conf/
 chmod -R 777 /vagrant/repositories/forums/conf
 chmod -R 777 /vagrant/repositories/forums/uploads
