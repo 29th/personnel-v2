@@ -1,5 +1,6 @@
 export DEBIAN_FRONTEND=noninteractive
-add-apt-repository -y ppa:chris-lea/node.js
+#add-apt-repository -y ppa:chris-lea/node.js
+curl -sL https://deb.nodesource.com/setup | sudo bash -
 apt-get update && apt-get install -y git nodejs
 # Don't apt-get upgrade http://stackoverflow.com/a/15093460/589391
 # Limit mysql memory use for install
