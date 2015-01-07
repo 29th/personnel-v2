@@ -7,7 +7,7 @@ define([
     "views/event_attendee",
     "moment",
     "marionette"
-], function ($, _, Backbone, config, Template, AttendeeView) {
+], function ($, _, Backbone, config, Template, AttendeeView, moment) {
 
     return Backbone.Marionette.CompositeView.extend({
         template: Template,
@@ -49,7 +49,7 @@ define([
         },
         isExpected: function (event) {
             var expected = false;
-            if (this.options.userAssignments.length && event.get("unit").id) {
+            if (this.options.userAssignments.length && event.get("unit") && event.get("unit").id) {
                 this.options.userAssignments.any(function (assignment) {
                     if (!assignment.get("path_array")) {
                         assignment.set("path_array", assignment.get("unit").path.split("/").map(function (i) {
@@ -121,9 +121,9 @@ define([
             }
         },
         within24hours: function(a, b) {
-            var moment_a = moment(a),
-                moment_b = typeof b === "string" ? moment(b) : moment();
-            return Math.abs(moment_a.diff(moment_b, 'hours')) <= 24;
+            var moment_a = moment(a), // event datetime
+                moment_b = typeof b === "string" ? moment(b) : moment(); // now
+            return moment_a.isAfter(moment_b) || Math.abs(moment_a.diff(moment_b, 'hours')) <= 24;
         }
     });
 });
