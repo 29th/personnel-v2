@@ -1,7 +1,7 @@
   $(function(){
     $('.datetime-input').datetime({
 		userLang	: 'en',
-		americanMode: true,
+		americanMode: false,
 	});
     
 	$('.datetime-input-clear').button();
