@@ -3,7 +3,7 @@ var gulp = require("gulp"),
     concat = require("gulp-concat"),
     minifyCSS = require("gulp-minify-css"),
     rjs = require("gulp-requirejs"),
-    clean = require("gulp-clean"),
+    del = require("del"),
     processhtml = require("gulp-processhtml"),
     minifyHTML = require("gulp-minify-html"),
     wrap = require("gulp-wrap-umd"),
@@ -145,13 +145,8 @@ gulp.task("html", function() {
  * Clean
  * Clean out the build directory for a new compile, but leave .git files and CNAME file
  */
-gulp.task("clean", function() {
-    return gulp.src([
-        dir.prod + "**/*",
-        "!" + dir.prod + ".git", // Don't erase the .git folder or CNAME
-        "!" + dir.prod + "CNAME"
-    ], {read: false})
-        .pipe(clean());
+gulp.task("clean", function(cb) {
+    return del(dir.prod, cb);
 });
 
 /**
