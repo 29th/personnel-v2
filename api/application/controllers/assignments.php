@@ -1,5 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+define('DAY', 60*60*24);
+
 class Assignments extends MY_Controller {
     public function __construct() {
         parent::__construct();
@@ -27,8 +29,21 @@ class Assignments extends MY_Controller {
             }
             if($this->input->get('current')) $model->by_date();
             $assignments = nest($model->order_by('priority')->get()->result_array());
-            $this->response(array('status' => true, 'assignments' => $assignments));
+            $duration = $this->calculate_duration($assignments);
+            $this->response(array('status' => true, 'duration' => $duration, 'assignments' => $assignments));
         }
+    }
+    
+    private function calculate_duration($assignments) {
+        $days = array();
+        foreach($assignments as $assignment) {
+            $start_date = strtotime($assignment['start_date']);
+            $end_date = strtotime($assignment['end_date'] ?: format_date('now', 'mysqldate'));
+            for($i = $start_date; $i < $end_date; $i = $i + DAY) {
+                $days[format_date($i, 'mysqldate')] = true;
+            }
+        }
+        return sizeof($days);
     }
     
     /**
