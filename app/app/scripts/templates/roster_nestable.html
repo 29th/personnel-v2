@@ -12,14 +12,14 @@
         {{#if ../attendance}}
             <label>
                 <input type="checkbox" name="attendance" value="{{ this.id }}"{{#if this.attended}} checked="checked"{{/if}}>
-                <a href="#members/{{ this.id }}">{{ this.short_name }}</a>
+                {{ this.member.short_name }}
                 {{#if this.excused}}<span class="label label-warning">Excused</span>{{/if}}
             </label>
 
         {{else}}
 
             {{#if this.rank.filename}}<img src="images/ranks/16x16/{{ this.rank.filename }}.png" title="{{ this.rank.name }}">{{/if}}
-            <a href="#members/{{ this.id }}">{{ this.short_name }}</a>
+            <a href="#members/{{ this.member.id }}">{{ this.member.short_name }}</a>
             <span class="roster-unit">{{ position.name }}</span>
         {{/if}}
     </li>
