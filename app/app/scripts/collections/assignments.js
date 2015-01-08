@@ -18,6 +18,7 @@ define([
             return url;
         },
         parse: function (response, options) {
+            this.duration = response.duration || null;
             return response.assignments || [];
         }
     });

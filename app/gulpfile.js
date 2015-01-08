@@ -43,6 +43,9 @@ gulp.task("umd", function() {
 	    .pipe(gulp.dest(dir.dev + "vendor/umd/")),
 	gulp.src(dir.dev + "vendor/nprogress/nprogress.js")
 	    .pipe(wrap({exports: "NProgress", deps: ["jquery"]}))
+	    .pipe(gulp.dest(dir.dev + "vendor/umd/")),
+	gulp.src(dir.dev + "vendor/moment-duration-format/lib/moment-duration-format.js")
+	    .pipe(wrap({deps: ["moment"]}))
 	    .pipe(gulp.dest(dir.dev + "vendor/umd/"))
     );
 });
@@ -78,6 +81,7 @@ gulp.task("scripts", function() {
             "bootstrap-datepicker": "empty:",
             "theme": "../vendor/umd/theme",
             "jquery-nestable": "../vendor/umd/jquery.nestable.min",
+            "moment-duration-format": "../vendor/umd/moment-duration-format",
             
             // UMD Wrapped
             //"nprogress": "../vendor/umd/nprogress",

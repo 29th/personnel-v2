@@ -3,7 +3,8 @@ define([
     "underscore",
     "handlebars",
     "moment",
-    "bbcode"
+    "bbcode",
+    "moment-duration-format"
 ], function ($, _, Handlebars, moment, bbcode) {
 
     /** 
@@ -120,6 +121,10 @@ define([
 
     Handlebars.registerHelper('past', function (date) {
         return moment(date).isBefore(moment());
+    });
+    
+    Handlebars.registerHelper('duration', function(days) {
+        return moment.duration(days, 'days').format('Y [years], M [months], [and] D [days]');
     });
 
     Handlebars.registerHelper('award_img_name', function (award) {

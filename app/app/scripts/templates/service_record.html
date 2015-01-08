@@ -4,6 +4,10 @@
             <div class="panel-heading"><h2>Service Record</h2></div>
             <div class="panel-body">
             
+{{#if duration}}
+<h2 class="duration">{{duration duration}} of service</h2>
+{{/if}}
+            
 {{#each items}}
     <h3>{{#is this.date "!==" "undefined"}}{{dateFormat this.date format="ll"}}{{else}}Unknown{{/is}}</h3>
     

@@ -58,6 +58,7 @@ window.requirejs = window.requirejs || {};
             "theme": "theme",
             "enquire": "../vendor/enquire/dist/enquire.min",
             "jquery-nestable": "jquery.nestable.min",
+            "moment-duration-format": "../vendor/moment-duration-format/lib/moment-duration-format",
             "text": "../vendor/text/text",
             "hbs": "hbs",
             "json": "../vendor/requirejs-plugins/src/json",
@@ -105,6 +106,9 @@ window.requirejs = window.requirejs || {};
             },
             "validation.config": {
                 deps: ["backbone.validation"]
+            },
+            "moment-duration-format": {
+                deps: ["moment"]
             }
         },
         hbs: {

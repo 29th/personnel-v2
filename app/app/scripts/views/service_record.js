@@ -50,6 +50,7 @@ define([
             
             return $.extend({
                 items: items,
+                duration: this.assignments.duration,
                 coatDir: config.coatDir,
                 allowedTo: allowedTo
             }, this.model.toJSON());
