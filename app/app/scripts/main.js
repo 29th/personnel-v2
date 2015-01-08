@@ -108,6 +108,7 @@ window.requirejs = window.requirejs || {};
                 deps: ["backbone.validation"]
             },
             "moment-duration-format": {
+                exports: "moment",
                 deps: ["moment"]
             }
         },

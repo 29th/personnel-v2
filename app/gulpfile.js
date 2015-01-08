@@ -45,7 +45,7 @@ gulp.task("umd", function() {
 	    .pipe(wrap({exports: "NProgress", deps: ["jquery"]}))
 	    .pipe(gulp.dest(dir.dev + "vendor/umd/")),
 	gulp.src(dir.dev + "vendor/moment-duration-format/lib/moment-duration-format.js")
-	    .pipe(wrap({deps: ["moment"]}))
+	    .pipe(wrap({exports: "moment", deps: ["moment"]}))
 	    .pipe(gulp.dest(dir.dev + "vendor/umd/"))
     );
 });

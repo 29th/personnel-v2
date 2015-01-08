@@ -2,9 +2,8 @@ define([
     "jquery",
     "underscore",
     "handlebars",
-    "moment",
-    "bbcode",
-    "moment-duration-format"
+    "moment-duration-format",
+    "bbcode"
 ], function ($, _, Handlebars, moment, bbcode) {
 
     /** 
