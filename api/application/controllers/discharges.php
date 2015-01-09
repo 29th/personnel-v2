@@ -63,10 +63,9 @@ class Discharges extends MY_Controller {
         // Create record
         else {
             $this->usertracking->track_this();
-            $data = whitelist($this->post(), array('member_id', 'date', 'type', 'reason', 'was_reversed', 'forum_id', 'topic_id'));
+            $data = whitelist($this->post(), array('member_id', 'type', 'reason', 'forum_id', 'topic_id'));
 			
-			// Clean date
-			$data['date'] = format_date($data['date'], 'mysqldate');
+			$data['date'] = format_date('now', 'mysqldate');
 			
             $insert_id = $this->discharge_model->save(NULL, $data);
             $this->response(array('status' => $insert_id ? true : false, 'discharge' => $insert_id ? nest($this->discharge_model->get_by_id($insert_id)) : null));
@@ -92,10 +91,7 @@ class Discharges extends MY_Controller {
         // Update record
         else {
             $this->usertracking->track_this();
-            $data = whitelist($this->post(), array('date', 'type', 'reason', 'was_reversed', 'forum_id', 'topic_id'));
-			
-			// Clean date
-			$data['date'] = format_date($data['date'], 'mysqldate');
+            $data = whitelist($this->post(), array('date', 'type', 'reason', 'forum_id', 'topic_id'));
 			
             $result = $this->discharge_model->save($discharge_id, $data);
             $this->response(array('status' => $result ? true : false, 'discharge' => nest($this->discharge_model->get_by_id($discharge_id))));

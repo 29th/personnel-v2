@@ -11,15 +11,7 @@ class Discharge_model extends CRUD_Model {
                 ,'rules' => 'required|numeric'
             )
             ,array(
-                'field' => 'date'
-                ,'rules' => 'required'
-            )
-            ,array(
                 'field' => 'type'
-                ,'rules' => 'required'
-            )
-            ,array(
-                'field' => 'reason'
                 ,'rules' => 'required'
             )
             ,array(
