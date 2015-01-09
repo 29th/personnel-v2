@@ -30,11 +30,25 @@ define([
             this.$el.attr("data-id", this.model.get("id"));
         },
         serializeData: function() {
+            // If eventAttendance is set, add attended and excused values to each member
+            if (!_.isEmpty(this.eventAttendance)) {
+                eventAttendance = this.eventAttendance;
+                _.each(this.model.get("members"), function (member) {
+                    var record = eventAttendance.find(function (model) {
+                        return model.get("member").id === member.member.id;
+                    });
+                    if (record) {
+                        member.attended = record.get("attended");
+                        member.excused = record.get("excused");
+                    }
+                });
+            }
+            
             return $.extend({
                 attendance: this.itemViewOptions.attendance
             }, this.model.toJSON());
         },
-        onBeforeRender: function () {
+        /*onBeforeRender: function () {
             // If eventAttendance is set, add attended and excused values to each member
             if (!_.isEmpty(this.eventAttendance)) {
                 eventAttendance = this.eventAttendance;
@@ -48,7 +62,7 @@ define([
                     }
                 });
             }
-        }
+        }*/
     });
 
     return Backbone.Marionette.CompositeView.extend({

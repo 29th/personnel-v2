@@ -1,10 +1,10 @@
 <div class="row header">
-    <div class="col-sm-8">
+    <div class="col-md-8">
         <h1>{{ type }} <small><a href="#units/{{ unit.key }}">{{ unit.name }}</a></small></h1>
         <h2>{{dateFormat datetime format="ll HH:mm"}} <small>{{#if mandatory}} Mandatory {{else}} Non-Mandatory {{/if}}</small></h2>
         <h3>{{#if server.name}}{{ server.name }}{{/if}}</h3>
     </div>
-    <div class="col-sm-4">
+    <div class="col-md-4">
         {{#if allowedTo.postLoa}}
             <div id="loa-buttons" class="{{#if user_rsvp.excused}}loa-cancel{{else}}loa-post{{/if}}">
                 <button type="button" class="btn btn-default pull-right" id="loa-cancel"><span class="glyphicon glyphicon-minus-sign"></span> Cancel LOA</button>
@@ -18,8 +18,13 @@
 </div>
 {{#if user_expected}}You {{#if (past datetime)}}were{{else}}are{{/if}} expected to attend{{/if}}
 
-{{#if report}}
-<div class="well">{{ bbcode report }}</div>
-{{/if}}
-
-<ul id="attendance"></ul>
+<div class="row">
+    <div class="col-md-4">
+        <ul id="attendance"></ul>
+    </div>
+    <div class="col-md-8">
+        {{#if report}}
+        <div class="well">{{ bbcode report }}</div>
+        {{/if}}
+    </div>
+</div>
