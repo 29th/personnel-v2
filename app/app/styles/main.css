@@ -23,67 +23,6 @@ body {
 .roster-unit {
     font-size: 80%;
 }
-/*.roster .depth-1 .header {
-    font-size: 170%;
-    font-weight: bold;
-    border-bottom: 5px black solid;
-}
-.roster .depth-2 .header {
-    font-size: 150%;
-    font-weight: bold;
-    border-bottom: 3px black solid;
-}
-.roster .depth-3 .header {
-    font-size: 120%;
-    font-weight: bold;
-    border-bottom: 1px black solid;
-}
-.roster .depth-4 .header {
-    font-size: 110%;
-    padding-left: 30px;
-}
-.roster .depth-5 .header {
-    font-size: 110%;
-    padding-left: 50px;
-}
-.roster .depth-6 .header {
-    font-size: 110%;
-    padding-left: 70px;
-}
-.roster .header a {
-    color: #000;
-}
-.roster .unit {
-    padding-top: 15px;
-}
-.roster .abbr {
-    font-weight: bold;
-}
-.roster .abbr a {
-    color: #000;
-}
-.roster .count {
-    font-size: 80%;
-}
-.roster label a {
-    font-weight: normal;
-}*/
-
-/* Collapsible Roster */
-/*.roster .collapsed > div:not(.header-row) {
-    display: none;
-}
-.roster .collapsed > .header-row > .header > .icon-expanded {
-    display: none;
-}
-.roster .unit:not(.collapsed) > .header-row > .header > .icon-collapsed {
-    display: none;
-}*/
-
-/* Qualifications */
-/*.qualification {
-    list-style-type: none;
-}*/
 .qualification small {
     color: #999999;
 }
@@ -184,4 +123,11 @@ body {
 }
 .finances-debit {
     color: red;
+}
+
+/* Event AAR */
+.reporter {
+    font-style: italic;
+    border-top: 1px #333 dashed;
+    margin-top: 10px;
 }

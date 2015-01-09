@@ -24,7 +24,12 @@
     </div>
     <div class="col-md-8">
         {{#if report}}
-        <div class="well">{{ bbcode report }}</div>
+        <div class="well">
+            {{ bbcode report }}
+            {{#if reporter.short_name }}
+                <div class="reporter">Reported by <a href="#members/{{ reporter.id }}">{{ reporter.short_name }}</a></div>
+            {{/if}}
+        </div>
         {{/if}}
     </div>
 </div>
