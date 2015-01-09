@@ -1,6 +1,6 @@
 <div class="row header">
     <div class="col-sm-8">
-        <h1>{{ type }} <small><a href="#units/{{ unit.abbr }}">{{ unit.name }}</a></small></h1>
+        <h1>{{ type }} <small><a href="#units/{{ unit.key }}">{{ unit.name }}</a></small></h1>
         <h2>{{dateFormat datetime format="ll HH:mm"}} <small>{{#if mandatory}} Mandatory {{else}} Non-Mandatory {{/if}}</small></h2>
         <h3>{{#if server.name}}{{ server.name }}{{/if}}</h3>
     </div>
