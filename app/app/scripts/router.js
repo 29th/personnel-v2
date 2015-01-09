@@ -622,8 +622,10 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
             }
             else if (path == "discharge") {
                 memberLayout.setHighlight("profile");
+                var discharge = new Discharge();
                 pageView = new MemberDischargeView({
-                    model: member
+                    model: discharge,
+                    member: member
                 });
             }
             // Profile

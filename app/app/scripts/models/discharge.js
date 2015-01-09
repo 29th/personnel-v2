@@ -8,10 +8,25 @@ define([
 
     return Backbone.Model.extend({
         url: function () {
-            return config.apiHost + "/discharges/" + this.id;
+            var url = config.apiHost + "/discharges";
+            if(this.id) url += "/" + this.id;
+            return url;
         },
         parse: function (response, options) {
             return response.discharge || {};
+        },
+        validation: {
+            type: {
+                required: true
+            },
+            reason: {
+                required: true
+            },
+            topic_id: {
+                required: true,
+                pattern: "number",
+                msg: "If there is no topic ID, enter 0"
+            }
         }
     });
 });
