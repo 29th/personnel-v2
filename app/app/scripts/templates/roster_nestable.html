@@ -10,7 +10,6 @@
     {{#each members}}
     <li>
         {{#if ../attendance}}
-        {{debug}}
             <label>
                 <input type="checkbox" name="attendance" value="{{ this.member.id }}"{{#if this.attended}} checked="checked"{{/if}}>
                 {{ this.member.short_name }}
