@@ -23,7 +23,7 @@
                 {{#each units}}
                 <li class="nav-roster-unit"><a href="#units/{{ this.id }}">{{ this.abbr }}</a></li>
                     {{#each this.members}}
-                    <li><a href="#members/{{ this.id }}">{{ this.short_name }}</a></li>
+                    <li><a href="#members/{{ this.member.id }}">{{ this.member.short_name }}</a></li>
                     {{/each}}
                 {{/each}}
             </ul>

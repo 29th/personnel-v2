@@ -11,7 +11,7 @@
     <li>
         {{#if ../attendance}}
             <label>
-                <input type="checkbox" name="attendance" value="{{ this.id }}"{{#if this.attended}} checked="checked"{{/if}}>
+                <input type="checkbox" name="attendance" value="{{ this.member.id }}"{{#if this.attended}} checked="checked"{{/if}}>
                 {{ this.member.short_name }}
                 {{#if this.excused}}<span class="label label-warning">Excused</span>{{/if}}
             </label>
