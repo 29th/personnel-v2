@@ -37,7 +37,7 @@
             {{#each units}}
             <optgroup label="{{ this.abbr }}">
                 {{#each this.members}}
-                <option value="{{ this.id }}">{{ this.short_name }}</option>
+                <option value="{{ this.member.id }}">{{ this.member.short_name }}</option>
                 {{/each}}
             </optgroup>
             {{/each}}
@@ -55,7 +55,7 @@
             {{#each units}}
             <optgroup label="{{ this.abbr }}">
                 {{#each this.members}}
-                <option value="{{ this.id }}">{{ this.short_name }}</option>
+                <option value="{{ this.member.id }}">{{ this.member.short_name }}</option>
                 {{/each}}
             </optgroup>
             {{/each}}
