@@ -154,6 +154,7 @@ class Enlistments extends MY_Controller {
             
 			if(isset($data['unit_id'])) $data['unit_id'] = $data['unit_id'] ? $data['unit_id'] : NULL; // Should be null if empty
 			if(isset($data['recruiter_member_id'])) $data['recruiter_member_id'] = $data['recruiter_member_id'] ? $data['recruiter_member_id'] : NULL; // Should be null if empty
+			if(isset($data['liaison_member_id'])) $data['liaison_member_id'] = $data['liaison_member_id'] ? $data['liaison_member_id'] : NULL; // Should be null if empty
             //if(isset($data['unit_id']) && ! $data['unit_id']) $data['unit_id'] = NULL; // Done in model
             
             $this->enlistment_model->save($enlistment_id, $data);
