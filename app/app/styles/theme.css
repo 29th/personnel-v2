@@ -21971,6 +21971,11 @@ a.shortcut-tiles {
 .shortcut-tiles.tiles-alizarin:hover .tiles-footer {
   background: #e05b39;
 }
+
+.tiles-footer a {
+  color: black;
+}
+
 .tiles-sparkline {
   background: #fff;
   border: 1px solid #dadfe3;

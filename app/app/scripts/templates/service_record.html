@@ -18,7 +18,7 @@
                 <div class="pull-left"><i class="fa fa-exchange"></i></div>
             </div>
             <div class="tiles-footer">
-                Assigned to <a href="#/units/{{ this.unit.key }}" title="{{this.unit.name}}">{{#is this.unit.class "===" "Staff" }}{{ this.unit.name}}{{else}}{{ this.unit.abbr }}{{/is}}</a> as a {{ this.position.name }}
+                Assigned to <b><a href="#/units/{{ this.unit.key }}" title="{{this.unit.name}}">{{#is this.unit.class "===" "Staff" }}{{ this.unit.name}}{{else}}{{ this.unit.abbr }}{{/is}}</a></b> as a {{ this.position.name }}
               {{#is this.unit.class "===" "Staff" }}{{#if this.end_date}} (until {{dateFormat this.end_date format="ll"}}){{/if}}{{/is}}
               
                 {{#if ../../../allowedTo.editAssignment}}
