@@ -53,7 +53,7 @@ class Units extends MY_Controller {
 					$units = $this->members_in_parents($members, $units, 'unit_id', 'id', 'members');
 					
 					// Calculate number of unique members
-					$unique_members = (array_unique(pluck('id', pluck('member', $members))));
+					//$unique_members = (array_unique(pluck('id', pluck('member', $members))));
 				}
 				
 				// If we got children, shuffle them
@@ -70,7 +70,7 @@ class Units extends MY_Controller {
 				}
 			}
 			
-			$this->response(array('status' => true, 'unique_members' => $unique_members, $key => $units));
+			$this->response(array('status' => true, $key => $units));
 		}
     }
 	
