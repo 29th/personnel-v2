@@ -51,6 +51,9 @@ class Units extends MY_Controller {
 					$members = $members->order_by($this->input->get('order') ? $this->input->get('order') : 'rank');
 					$members = nest($members->get()->result_array()); // Get members of this unit, including members of this unit's children, who are current
 					$units = $this->members_in_parents($members, $units, 'unit_id', 'id', 'members');
+					
+					// Calculate number of unique members
+					$unique_members = (array_unique(pluck('id', pluck('member', $members))));
 				}
 				
 				// If we got children, shuffle them
@@ -67,7 +70,7 @@ class Units extends MY_Controller {
 				}
 			}
 			
-			$this->response(array('status' => true, $key => $units));
+			$this->response(array('status' => true, 'unique_members' => $unique_members, $key => $units));
 		}
     }
 	
@@ -232,7 +235,7 @@ class Units extends MY_Controller {
         }
 		// View records
 		else {
-		    $members = pluck('id', $this->assignment_model->by_date('now')->by_unit($unit_id, TRUE)->get()->result_array()); // Include children
+		    $members = pluck('member|id', $this->assignment_model->by_date('now')->by_unit($unit_id, TRUE)->get()->result_array()); // Include children
 			$awols = nest($this->attendance_model->awols($members, $days)->get()->result_array());
 			$grouped_and_sorted = $this->sort_awols($this->group_awols($awols));
 			$this->response(array('status' => true, 'awols' => $grouped_and_sorted));
