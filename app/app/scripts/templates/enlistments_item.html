@@ -1,4 +1,4 @@
-<td><a href="#enlistments/{{ this.id }}">{{dateFormat this.date format="ll"}}</a></td>
+<td><a href="#enlistments/{{ this.id }}">{{dateFormat this.date}}</a></td>
 <td><span class="label label-{{ enlistment_label this.status }}">{{ this.status }}</span></td>
 <td><a href="#units/{{ this.unit.key }}">{{ this.unit.abbr }}</a></td>
 <td>{{ this.last_name }}{{#if this.first_name}}, {{ this.first_name }}{{/if}}{{#if middle_name}} {{ substring middle_name 0 1 }}.{{/if}}</td>

@@ -9,7 +9,7 @@
 {{/if}}
             
 {{#each items}}
-    <h3>{{#is this.date "!==" "undefined"}}{{dateFormat this.date format="ll"}}{{else}}Unknown{{/is}}</h3>
+    <h3>{{#is this.date "!==" "undefined"}}{{dateFormat this.date}}{{else}}Unknown{{/is}}</h3>
     
     {{#each this.items }}
         {{#if this.position}}
@@ -18,7 +18,7 @@
                 <div class="pull-left"><i class="fa fa-exchange"></i></div>
                 <div class="pull-right">
                     Assigned to <a href="#/units/{{ this.unit.key }}" title="{{this.unit.name}}">{{#is this.unit.class "===" "Staff" }}{{ this.unit.name}}{{else}}{{ this.unit.abbr }}{{/is}}</a> as a {{ this.position.name }}
-                  {{#is this.unit.class "===" "Staff" }}{{#if this.end_date}} (until {{dateFormat this.end_date format="ll"}}){{/if}}{{/is}}
+                    {{#is this.unit.class "===" "Staff" }}{{#if this.end_date}} (until {{dateFormat this.end_date}}){{/if}}{{/is}}
                   
                     {{#if ../../../allowedTo.editAssignment}}
                     <a href="#/assignments/{{ this.id }}/edit"><i class="fa fa-edit"></i></a>
