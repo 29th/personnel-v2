@@ -57,6 +57,11 @@ body {
     padding: 0;
 }
 
+.service-record-assignment a {
+    color: black;
+    font-weight: bold;
+}
+
 /* Unit Profile */
 .unit .title {
     font-size: 200%;
