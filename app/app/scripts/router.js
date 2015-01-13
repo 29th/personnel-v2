@@ -558,6 +558,12 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 });
                 promises.push(enlistments.fetch());
 
+                // Finances
+                var finances = new Finances(null, {
+                    member_id: id
+                });
+                promises.push(finances.fetch());
+
                 // (Assignments already fetched)
                 pageView = new ServiceRecordView({
                     model: member,
@@ -567,7 +573,8 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                     promotions: promotions,
                     awardings: awardings,
                     discharges: discharges,
-                    enlistments: enlistments
+                    enlistments: enlistments,
+                    finances: finances
                 });
             }
             // Attendance

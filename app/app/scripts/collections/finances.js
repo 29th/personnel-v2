@@ -12,11 +12,13 @@ define([
         },
         initialize: function (models, options) {
             options = options || {};
-            this.filter = options.filter || false;
+            this.member_id = options.member_id || false;
             this.skip = 0;
         },
         url: function () {
-            var url = config.apiHost + "/finances";
+            var url = config.apiHost;
+            if (this.member_id) url += "/members/" + this.member_id;
+            url += "/finances";
             if (this.skip) url += "?skip=" + this.skip;
             return url;
         },
@@ -25,7 +27,7 @@ define([
             return this;
         },
         parse: function (response, options) {
-            this.more = parseInt(response.count, 10) > parseInt(response.skip, 10) + response.finances.length;
+            this.more = response.count ? (parseInt(response.count, 10) > parseInt(response.skip, 10) + response.finances.length) : false;
             return response.finances || [];
         }
     });

@@ -57,10 +57,17 @@ body {
     padding: 0;
 }
 
-.service-record-assignment a {
-    color: black;
-    font-weight: bold;
+/* Service Record */
+.member .info-tiles .tiles-body, .member .info-tiles .tiles-body i {
+    font-size: 16px;
 }
+.service-record-assignment a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/* Service Coat */
+.coat { max-width: 100%; }
 
 /* Unit Profile */
 .unit .title {
@@ -110,9 +117,6 @@ body {
 #flash .alert {
     display: inline-block;
 }
-
-/* Service Coat */
-.coat { max-width: 100%; }
 
 #vanilla-comments iframe {
     width: 100%;

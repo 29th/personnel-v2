@@ -13,66 +13,76 @@
     
     {{#each this.items }}
         {{#if this.position}}
-        <div class="shortcut-tiles tiles-info service-record-assignment">
+        <div class="info-tiles tiles-info service-record-assignment">
             <div class="tiles-body">
                 <div class="pull-left"><i class="fa fa-exchange"></i></div>
-            </div>
-            <div class="tiles-footer">
-                Assigned to <a href="#/units/{{ this.unit.key }}" title="{{this.unit.name}}">{{#is this.unit.class "===" "Staff" }}{{ this.unit.name}}{{else}}{{ this.unit.abbr }}{{/is}}</a> as a {{ this.position.name }}
-              {{#is this.unit.class "===" "Staff" }}{{#if this.end_date}} (until {{dateFormat this.end_date format="ll"}}){{/if}}{{/is}}
-              
-                {{#if ../../../allowedTo.editAssignment}}
-                <a href="#/assignments/{{ this.id }}/edit" class="shortcut-tiles tiles-info">Edit</a>
-                {{/if}}
+                <div class="pull-right">
+                    Assigned to <a href="#/units/{{ this.unit.key }}" title="{{this.unit.name}}">{{#is this.unit.class "===" "Staff" }}{{ this.unit.name}}{{else}}{{ this.unit.abbr }}{{/is}}</a> as a {{ this.position.name }}
+                  {{#is this.unit.class "===" "Staff" }}{{#if this.end_date}} (until {{dateFormat this.end_date format="ll"}}){{/if}}{{/is}}
+                  
+                    {{#if ../../../allowedTo.editAssignment}}
+                    <a href="#/assignments/{{ this.id }}/edit"><i class="fa fa-edit"></i></a>
+                    {{/if}}
+                </div>
             </div>
         </div>
         {{/if}}
         {{#if this.new_rank}}
-        <div class="shortcut-tiles tiles-orange">
+        <div class="info-tiles tiles-orange service-record-promotion">
             <div class="tiles-body">
                 <div class="pull-left">
-                    <img src="images/ranks/60x60/{{ this.new_rank.filename }}.png" title="{{ this.new_rank.name }}">
+                    <img src="images/ranks/16x16/{{ this.new_rank.filename }}.png" title="{{ this.new_rank.name }}">
                 </div>
-            </div>
-            <div class="tiles-footer">
-                Rank changed to {{ this.new_rank.name }}
+                <div class="pull-right">
+                    Rank changed to {{ this.new_rank.name }}
+                </div>
             </div>
         </div>
         {{/if}}
         {{#if this.award}}
-        <div class="shortcut-tiles tiles-primary">
+        <div class="info-tiles tiles-sky service-record-awarding">
             <div class="tiles-body">
                 <div class="pull-left">
                     <img src="images/awards/{{#award_img_name this.award.abbr}}{{/award_img_name}}.gif" title="{{ this.award.name }}">
                 </div>
-            </div>
-            <div class="tiles-footer">
+                <div class="pull-right">
                 Awarded {{ this.award.name }}
+                </div>
             </div>
         </div>
         {{/if}}
         {{#if this.status}}
-        <a href="#enlistments/{{ this.id }}" class="shortcut-tiles tiles-indigo">
+        <a href="#enlistments/{{ this.id }}" class="info-tiles tiles-indigo service-record-enlistment">
             <div class="tiles-body">
                 <div class="pull-left"><i class="fa fa-file-text"></i></div>
-            </div>
-            <div class="tiles-footer">
-                Enlisted{{#if this.unit_id}} in the {{ this.unit.abbr }}{{/if}}
+                <div class="pull-right">
+                    Enlisted{{#if this.unit_id}} in the {{ this.unit.abbr }}{{/if}}
+                </div>
             </div>
         </a>
         {{/if}}
         {{#if this.type}}
-        <a href="#discharges/{{ this.id }}" class="shortcut-tiles tiles-brown">
+        <a href="#discharges/{{ this.id }}" class="info-tiles tiles-success service-record-discharge">
             <div class="tiles-body">
                 <div class="pull-left"><i class="fa fa-minus-square"></i></div>
-            </div>
-            <div class="tiles-footer">
-                {{#is this.type "===" 'Honorable'}}Honorably{{/is}}
-                {{#is this.type "===" 'Dishonorable'}}Dishonorably{{/is}}
-                {{#is this.type "===" 'General'}}Generally{{/is}}
-                Discharged
+                <div class="pull-right">
+                    {{#is this.type "===" 'Honorable'}}Honorably{{/is}}
+                    {{#is this.type "===" 'Dishonorable'}}Dishonorably{{/is}}
+                    {{#is this.type "===" 'General'}}Generally{{/is}}
+                    Discharged
+                </div>
             </div>
         </a>
+        {{/if}}
+        {{#if this.amount_received}}
+        <div class="info-tiles tiles-primary service-record-donation">
+            <div class="tiles-body">
+                <div class="pull-left"><i class="fa fa-money"></i></div>
+                <div class="pull-right">
+                    Donated ${{ decimals this.amount_received }}
+                </div>
+            </div>
+        </div>
         {{/if}}
     {{/each}}
 {{/each}}
