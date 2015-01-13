@@ -74,10 +74,11 @@ define([
         itemView: StandardView,
         itemViewContainer: "ul",
         template: BadgeTemplate,
-        className: "tab-panel",
+        className: "tab-pane",
         initialize: function(options) {
             this.collection = this.model.get("children");
             this.rootOptions = options.rootOptions || {};
+            this.$el.addClass(this.model.get("badge"));
         },
         itemViewOptions: function() {
             return {
@@ -98,6 +99,11 @@ define([
             return {
                 rootOptions: this.rootOptions
             };
+        },
+        serializeData: function() {
+            return $.extend({
+                badges: this.collection.toJSON()
+            }, this.model.toJSON());
         }
     });
     
