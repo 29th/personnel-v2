@@ -52,6 +52,7 @@ define([
                 status = btn.data("status");
             $(".btn-group .btn").removeClass("active");
             btn.addClass("active");
+            this.collection.resetPage();
             this.collection.setFilter("status", status).fetch({
                 success: function () {
                     self.checkMoreButton();

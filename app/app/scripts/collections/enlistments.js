@@ -30,6 +30,10 @@ define([
             this.skip += this.settings.limit;
             return this;
         },
+        resetPage: function() {
+            this.skip = 0;
+            return this;
+        },
         parse: function (response, options) {
             this.more = parseInt(response.count, 10) > parseInt(response.skip, 10) + response.enlistments.length;
             return response.enlistments || [];
