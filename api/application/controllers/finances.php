@@ -16,12 +16,17 @@ class Finances extends MY_Controller {
         }
 		// View records
 		else {
-			$skip = $this->input->get('skip') ? $this->input->get('skip') : 0;
+            $skip = $this->input->get('skip') ? $this->input->get('skip') : 0;
 			$model = $this->finance_model;
 			if($member_id) {
 			    $model->where('finances.member_id', $member_id);
+			    $model->get();
 			}
-			$finances = nest($model->paginate('', $skip)->result_array());
+			// Otherwise paginate
+			else {
+			    $model->paginate('', $skip);
+			}
+			$finances = nest($model->result_array());
 			$count = $this->finance_model->total_rows;
 			$this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'finances' => $finances));
 		}
