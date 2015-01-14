@@ -15,6 +15,7 @@ $route['members/(:num)/roles'] = 'members/roles/$1';
 $route['members/(:num)/finances'] = 'finances/index/$1';
 $route['members/(:num)/eloas'] = 'eloas/index/$1';
 $route['members/(:num)'] = 'members/view/$1';
+$route['members'] = 'members/view';
 //$route['members'] = 'members/index';
 
 // Units

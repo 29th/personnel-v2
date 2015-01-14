@@ -24,7 +24,19 @@ class Members extends MY_Controller {
     /**
      * VIEW
      */
-    public function view_get($member_id) {
+    public function view_get($member_id = FALSE) {
+        // If no member ID provided, check querystrings for other identifiers
+        if( ! $member_id) {
+            if($forum_member_id = $this->input->get('forum_member_id')) {
+                $member = $this->member_model->where('forum_member_id', $forum_member_id)->get()->row_array();
+                $member_id = $member['id'];
+            } else if($steam_id = $this->input->get('steam_id')) {
+                $member = $this->member_model->where('steam_id', $steam_id)->get()->row_array();
+                $member_id = $member['id'];
+            } else {
+                $this->response(array('status' => false, 'error' => 'No member ID provided', 404));
+            }
+        }
         // Must have permission to view this member's profile or any member's profile
         if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
