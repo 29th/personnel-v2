@@ -45,7 +45,6 @@ define([
         onToggleQualification: function(e) {
             var self = this;
             if(this.model.get("qualification")) {
-                console.log("Deleting", this.model.get("qualification").toJSON());
                 this.model.get("qualification").destroy({
                     wait: true,
                     success: function() {
@@ -74,10 +73,13 @@ define([
         itemView: StandardView,
         itemViewContainer: "ul",
         template: BadgeTemplate,
-        className: "tab-panel",
+        className: "tab-pane",
         initialize: function(options) {
             this.collection = this.model.get("children");
             this.rootOptions = options.rootOptions || {};
+            this.rootOptions.badge = this.model.get("badge");
+            var className = (this.rootOptions.game + this.rootOptions.weapon + this.model.get("badge")).replace(/ /g, "");
+            this.$el.addClass(className);
         },
         itemViewOptions: function() {
             return {
@@ -93,11 +95,23 @@ define([
         initialize: function(options) {
             this.collection = this.model.get("children");
             this.rootOptions = options.rootOptions || {};
+            this.rootOptions.weapon = this.model.get("weapon");
         },
         itemViewOptions: function() {
             return {
                 rootOptions: this.rootOptions
             };
+        },
+        serializeData: function() {
+            return $.extend({
+                badges: this.collection.toJSON(),
+                game: this.rootOptions.game
+            }, this.model.toJSON());
+        },
+        onRender: function() {
+            // Set first badge tab to be displayed by default
+            this.$(".tab-pane").eq(0).addClass("active");
+            this.$(".nav-tabs li").eq(0).addClass("active");
         }
     });
     
@@ -107,6 +121,7 @@ define([
         initialize: function(options) {
             this.collection = this.model.get("children");
             this.rootOptions = options.rootOptions || {};
+            this.rootOptions.game = this.model.get("game");
         },
         itemViewOptions: function() {
             return {

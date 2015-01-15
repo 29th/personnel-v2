@@ -3,15 +3,16 @@
         <h2>{{ weapon }}</h2>
         <div>
             <ul class="nav nav-tabs pull-right">
-                {{#each children}}
-                <li><a href="#" data-toggle="tab">{{ this.badge }}</a></li>
+            {{#is badges.length ">" "1"}}
+                {{#each badges}}
+                <li><a href=".{{ str_replace ../game " " "" }}{{ str_replace ../weapon " " "" }}{{ str_replace this.badge " " "" }}" data-toggle="tab">{{ this.badge }}</a></li>
                 {{/each}}
+            {{/is}}
             </ul>
         </div>
     </div>
     <div class="panel-body">
         <div class="tab-content">
-            <div class="tab-panel active" id="tab1"></div>
         </div>
     </div>
 </div>
