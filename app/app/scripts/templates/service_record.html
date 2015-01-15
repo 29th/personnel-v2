@@ -31,7 +31,9 @@
         <div class="info-tiles tiles-orange service-record-promotion">
             <div class="tiles-body">
                 <div class="pull-left">
+                  {{#is new_rank.name "!==" "Cadet" }} 
                     <img src="images/ranks/16x16/{{ this.new_rank.filename }}.png" title="{{ this.new_rank.name }}">
+                  {{/is}}
                 </div>
                 <div class="pull-right">
                     Rank changed to {{ this.new_rank.name }}
