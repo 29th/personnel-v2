@@ -1,7 +1,19 @@
 <div class="panel panel-default">
     <div class="panel-heading"><h2>Attendance</h2></div>
     <div class="panel-body panel-no-padding">
-    
+        <div>
+            <table class="table table-striped" style="background-color:red;">
+              {{#each percentage}}  
+                <thead>
+                    <tr>
+                        <td>{{@key}}</td>
+                        <td>this</td>
+                    </tr>
+                </thead>
+                <tbody id="rows"></tbody>
+              {{/each}}
+            </table>
+        </div>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
