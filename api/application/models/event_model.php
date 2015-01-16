@@ -68,7 +68,7 @@ class Event_model extends CRUD_Model {
     }
     
     public function default_select() {
-        $this->db->select('events.id, events.datetime, events.type, events.mandatory, events.report, NOW() > events.datetime AS occurred, events.reporter_member_id AS `reporter|id`')
+        $this->db->select('events.id, events.datetime, events.type, events.mandatory, events.report, NOW() > events.datetime AS occurred, events.reporter_member_id AS `reporter|id`, report_posting_date, report_edit_date')
             ->select('units.id AS `unit|id`, units.abbr AS `unit|abbr`, units.name AS `unit|name`')
             ->select($this->virtual_fields['unit_key'] . ' AS `unit|key`', FALSE)
             ->select($this->virtual_fields['short_name'] . ' AS `reporter|short_name`', FALSE)

@@ -128,7 +128,18 @@ class Events extends MY_Controller {
             $this->usertracking->track_this();
             // First, update the event record
             $data = whitelist($this->post(), array('report'));
+            
+            // Update the reporter
             $data['reporter_member_id'] = $this->user->member('id');
+            
+            // If no report exists already, include the creation date
+            if( ! $event['report']) {
+                $data['report_posting_date'] = format_date('now', 'mysqldatetime');
+            }
+            
+            // Update the edit date
+            $data['report_edit_date'] = format_date('now', 'mysqldatetime');
+            
             $result = $this->event_model->save($event_id, $data);
             
             // Second, update the attendance, filtering out anyone not expected
