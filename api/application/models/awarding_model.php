@@ -55,7 +55,7 @@ class Awarding_model extends CRUD_Model {
     }
     
     public function default_select() {
-        $this->db->select('awardings.id, awardings.date, awardings.topic_id') // Add awardings.forum_id
+        $this->db->select('SQL_CALC_FOUND_ROWS awardings.id, awardings.date, awardings.forum_id, awardings.topic_id', FALSE)
             ->select('a.code AS `award|abbr`, a.title AS `award|name`, a.image AS `award|filename`'); // Change code to abbr, title to name, image to filename
     }
     
@@ -65,5 +65,13 @@ class Awarding_model extends CRUD_Model {
     
     public function default_order_by() {
         $this->db->order_by('awardings.date DESC');
+    }
+    
+    public function members() {
+        $this->filter_select('awardings.member_id AS `member|id`');
+        $this->filter_select($this->virtual_fields['short_name'] . ' AS `member|short_name`', FALSE);
+        $this->filter_join('members', 'members.id = awardings.member_id');
+        $this->filter_join('ranks', 'ranks.id = members.rank_id');
+        return $this;
     }
 }

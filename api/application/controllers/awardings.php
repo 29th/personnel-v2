@@ -23,12 +23,20 @@ class Awardings extends MY_Controller {
         }
         // View records
         else {
+			$skip = $this->input->get('skip') ? $this->input->get('skip') : 0;
             $model = $this->awarding_model;
             if($member_id) {
                 $model->where('awardings.member_id', $member_id);
+                $model->get();
             }
-            $awardings = nest($model->get()->result_array());
-            $this->response(array('status' => true, 'awardings' => $awardings));
+			// Otherwise paginate
+			else {
+			    $model->members(); // include members
+			    $model->paginate('', $skip);
+			}
+            $awardings = nest($model->result_array());
+			$count = $this->awarding_model->total_rows;
+            $this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'awardings' => $awardings));
         }
     }
     

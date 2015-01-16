@@ -28,9 +28,16 @@ class Promotions extends MY_Controller {
             $model = $this->promotion_model;
             if($member_id) {
                 $model->where('promotions.member_id', $member_id);
+                $model->get();
             }
-            $promotions = nest($model->get()->result_array());
-            $this->response(array('status' => true, 'promotions' => $promotions));
+			// Otherwise paginate
+			else {
+			    $model->members(); // include members
+			    $model->paginate('', $skip);
+			}
+            $promotions = nest($model->result_array());
+			$count = $this->promotion_model->total_rows;
+            $this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'promotions' => $promotions));
         }
     }
     
