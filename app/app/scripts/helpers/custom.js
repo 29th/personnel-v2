@@ -56,6 +56,14 @@ define([
         return a - b;
     });
 
+    Handlebars.registerHelper('multiply', function (a, b) {
+        return a * b;
+    });
+
+    Handlebars.registerHelper('divide', function (a, b) {
+        return a / b;
+    });
+
     Handlebars.registerHelper('length', function (x) {
         return x.length;
     });
@@ -141,6 +149,13 @@ define([
 
     Handlebars.registerHelper('str_replace', function (str, from, to) {
         return str.replace(from, to);
+    });
+
+    Handlebars.registerHelper('times', function(n, block) {
+        var accum = '';
+        for(var i = 0; i < n; ++i)
+            accum += block.fn(i);
+        return accum;
     });
     
     // debug helper

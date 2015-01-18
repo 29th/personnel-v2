@@ -10,6 +10,7 @@ define([
         template: Template,
         className: "unit",
         title: "Unit",
+        numColumns: 1,
         initialize: function (options) {
             options = options || {};
         },
@@ -27,7 +28,8 @@ define([
         },
         serializeData: function () {
             return _.extend({
-                highlight: this.highlight
+                highlight: this.highlight,
+                numColumns: this.numColumns
             }, this.collection.length ? this.collection.at(0).toJSON() : {});
         },
         onRender: function () {

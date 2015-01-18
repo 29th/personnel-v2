@@ -58,6 +58,7 @@ define([
     "views/service_record",
     "views/unit_attendance",
     "views/unit_awols",
+    "views/unit_profile",
     "views/unit",
     // Extras
     "handlebars-helpers",
@@ -77,7 +78,7 @@ Assignment, Discharge, Enlistment, Event, Member, User,
 Assignments, Awardings, Discharges, ELOAs, Enlistments, EventAttendance, Events, Finances, MemberAttendance, MemberAwols, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, Standards, UnitAttendance, UnitAwols, Units,
 // Views
 AARView, AssignmentEditView, AssociateView, CalendarView, DischargeView, ELOAsView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, FinancesView, FlashView, MemberAdminView, MemberAttendanceView, MemberDischargeView,
-MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView, RosterView, ServiceRecordView, UnitAttendanceView, UnitAwolsView, UnitView) {
+MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView, RosterView, ServiceRecordView, UnitAttendanceView, UnitAwolsView, UnitProfileView, UnitView) {
     "use strict";
 
     return Backbone.Router.extend({
@@ -691,7 +692,7 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
 
             this.app.navRegion.currentView.setHighlight("roster");
 
-            var pageView;
+            var columnViews = [];
             path = path ? path.replace(/\//g, "") : "";
 
             // Attendance
@@ -703,9 +704,9 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 });
                 promises.push(unitAttendance.fetch());
 
-                pageView = new UnitAttendanceView({
+                columnViews.push(new UnitAttendanceView({
                     collection: unitAttendance
-                });
+                }));
             }
             // AWOLs
             else if (path == "awols") {
@@ -716,9 +717,9 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 });
                 promises.push(unitAwols.fetch());
 
-                pageView = new UnitAwolsView({
+                columnViews.push(UnitAwolsView({
                     collection: unitAwols
-                });
+                }));
             }
             // Roster
             else {
@@ -726,9 +727,11 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
 
                 units.children = true;
                 units.members = true;
-                pageView = new RosterView({
+                columnViews.push(new RosterView({
                     collection: units
-                });
+                }), new UnitProfileView({
+                    collection: units
+                }));
             }
 
             // Fetches
@@ -738,8 +741,15 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
             //util.loading(true);
             $.when.apply($, promises).done(function () {
                 //util.loading(false);
+                unitLayout.numColumns = columnViews.length;
                 self.showView(unitLayout);
-                if (pageView) unitLayout.pageRegion.show(pageView);
+                //if (pageView) unitLayout.pageRegion.show(pageView);
+                if(columnViews.length) {
+                    _.each(columnViews, function(columnView, index) {
+                        unitLayout.addRegion("col" + index, "#col" + index);
+                        unitLayout["col" + index].show(columnView);
+                    });
+                }
             });
         },
     });
