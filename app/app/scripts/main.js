@@ -33,7 +33,7 @@ window.requirejs = window.requirejs || {};
                 "../vendor/bootstrap/dist/js/bootstrap.min"
             ],
             "moment": [
-                "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min",
+                "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min",
                 "../vendor/moment/min/moment.min"
             ],
             "fullcalendar": [
@@ -59,6 +59,7 @@ window.requirejs = window.requirejs || {};
             "enquire": "../vendor/enquire/dist/enquire.min",
             "jquery-nestable": "jquery.nestable.min",
             "moment-duration-format": "../vendor/moment-duration-format/lib/moment-duration-format",
+            "moment-timezone": "../vendor/moment-timezone/builds/moment-timezone-with-data.min",
             "text": "../vendor/text/text",
             "hbs": "hbs",
             "json": "../vendor/requirejs-plugins/src/json",

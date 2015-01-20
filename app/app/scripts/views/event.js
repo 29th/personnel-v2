@@ -6,6 +6,7 @@ define([
     "hbs!templates/event",
     "views/event_attendee",
     "moment",
+    "moment-timezone",
     "marionette"
 ], function ($, _, Backbone, config, Template, AttendeeView, moment) {
 
@@ -120,10 +121,10 @@ define([
                 }
             }
         },
-        within24hours: function(a, b) {
-            var moment_a = moment(a), // event datetime
-                moment_b = typeof b === "string" ? moment(b) : moment(); // now
-            return moment_a.isAfter(moment_b) || Math.abs(moment_a.diff(moment_b, 'hours')) <= 24;
+        within24hours: function(a) {
+            var moment_a = moment.tz(a, "America/New_York"), // event datetime
+                moment_b = moment(); // now
+            return moment_a.isAfter(moment_b) || Math.abs(moment_a.diff(moment_b, "hours")) <= 24;
         }
     });
 });
