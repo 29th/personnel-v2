@@ -717,7 +717,7 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 });
                 promises.push(unitAwols.fetch());
 
-                columnViews.push(UnitAwolsView({
+                columnViews.push(new UnitAwolsView({
                     collection: unitAwols
                 }));
             }
