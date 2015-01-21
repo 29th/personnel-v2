@@ -7,6 +7,7 @@ define([
     "util",
     // Models
     "models/assignment",
+    "models/demerit",
     "models/discharge",
     "models/enlistment",
     "models/event",
@@ -15,6 +16,7 @@ define([
     // Collections
     "collections/assignments",
     "collections/awardings",
+    "collections/demerits",
     "collections/discharges",
     "collections/eloas",
     "collections/enlistments",
@@ -37,6 +39,7 @@ define([
     "views/assignment_edit",
     "views/associate",
     "views/calendar",
+    "views/demerit",
     "views/discharge",
     "views/eloas",
     "views/enlistment_edit",
@@ -73,11 +76,11 @@ define([
 ], function (
 $, _, Backbone, Marionette, Handlebars, util,
 // Models
-Assignment, Discharge, Enlistment, Event, Member, User,
+Assignment, Demerit, Discharge, Enlistment, Event, Member, User,
 // Collections
-Assignments, Awardings, Discharges, ELOAs, Enlistments, EventAttendance, Events, Finances, MemberAttendance, MemberAwols, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, Standards, UnitAttendance, UnitAwols, Units,
+Assignments, Awardings, Demerits, Discharges, ELOAs, Enlistments, EventAttendance, Events, Finances, MemberAttendance, MemberAwols, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, Standards, UnitAttendance, UnitAwols, Units,
 // Views
-AARView, AssignmentEditView, AssociateView, CalendarView, DischargeView, ELOAsView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, FinancesView, FlashView, MemberAdminView, MemberAttendanceView, MemberDischargeView,
+AARView, AssignmentEditView, AssociateView, CalendarView, DemeritView, DischargeView, ELOAsView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, FinancesView, FlashView, MemberAdminView, MemberAttendanceView, MemberDischargeView,
 MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView, RosterView, ServiceRecordView, UnitAttendanceView, UnitAwolsView, UnitProfileView, UnitView) {
     "use strict";
 
@@ -88,6 +91,7 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
             "assignments/:id/edit": "assignment_edit",
             "associate": "associate",
             "calendar": "calendar",
+            "demerits/:id": "demerit",
             "discharges/:id": "discharge",
             "eloas": "eloas",
             "enlistments/:id/edit": "enlistment_edit",
@@ -109,7 +113,7 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
             options = options || {};
             this.app = options.app || new Backbone.Marionette.Application();
             var self = this;
-            
+            console.log("init");
             // Fetch user if it doesn't exist
             if( ! this.user) {
                 this.user = new User();
@@ -262,6 +266,23 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 //util.loading(false);
                 self.showView(calendarView);
             });
+        },
+        demerit: function(id) {
+            var self = this,
+                promises = [],
+                demerit = new Demerit({
+                    id: id
+                }),
+                demeritView = new DemeritView({
+                    model: demerit
+                });
+                console.log("here");
+                this.app.navRegion.currentView.setHighlight("roster");
+                promises.push(demerit.fetch());
+                
+                $.when.apply($, promises).done(function() {
+                    self.showView(demeritView);
+                });
         },
         discharge: function(id) {
             var self = this,
@@ -565,6 +586,12 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 });
                 promises.push(finances.fetch());
 
+                // Demerits
+                var demerits = new Demerits(null, {
+                    member_id: id
+                });
+                promises.push(demerits.fetch());
+
                 // (Assignments already fetched)
                 pageView = new ServiceRecordView({
                     model: member,
@@ -575,7 +602,8 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                     awardings: awardings,
                     discharges: discharges,
                     enlistments: enlistments,
-                    finances: finances
+                    finances: finances,
+                    demerits: demerits
                 });
             }
             // Attendance

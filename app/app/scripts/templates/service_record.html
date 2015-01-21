@@ -84,6 +84,16 @@
             </div>
         </div>
         {{/if}}
+        {{#if this.reason}}
+        <a href="#demerits/{{ this.id }}" class="info-tiles tiles-inverse service-record-demerit">
+            <div class="tiles-body">
+                <div class="pull-left"><i class="fa fa-file-text-o"></i></div>
+                <div class="pull-right">
+                    Received a demerit
+                </div>
+            </div>
+        </a>
+        {{/if}}
     {{/each}}
 {{/each}}
             </div>
