@@ -9,7 +9,8 @@ class Demerit_model extends CRUD_Model {
             ->select($this->virtual_fields['short_name'] . ' AS `member|short_name`', FALSE)
             
             // Author
-            ->select('demerits.author_member_id AS `author|id`, ' . $this->virtual_fields['short_name'] . ' AS `author|short_name`', FALSE);
+            ->select('demerits.author_member_id AS `author|id`')
+            ->select('CONCAT(a_ranks.`abbr`, " ", IF(a_members.`name_prefix` != "", CONCAT(a_members.`name_prefix`, " "), ""), a_members.`last_name`) AS `author|short_name`', FALSE);
     }
     
     public function default_join() {
@@ -18,8 +19,8 @@ class Demerit_model extends CRUD_Model {
             ->join('ranks', 'ranks.id = members.rank_id', 'left');
             
         // Author
-        $this->db->join('members AS am', 'am.id = demerits.author_member_id', 'left')
-            ->join('ranks AS ar', 'ar.id = am.rank_id', 'left');
+        $this->db->join('members AS a_members', 'a_members.id = demerits.author_member_id', 'left')
+            ->join('ranks AS a_ranks', 'a_ranks.id = a_members.rank_id', 'left');
     }
     
     public function default_order_by() {
