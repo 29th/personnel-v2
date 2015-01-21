@@ -5,7 +5,7 @@ class Demerit_model extends CRUD_Model {
     public $primary_key = 'demerits.id';
     
     public function default_select() {
-        $this->db->select('SQL_CALC_FOUND_ROWS demerits.date, demerits.reason, demerits.forum_id, demerits.topic_id, members.id AS `member|id`', FALSE)
+        $this->db->select('SQL_CALC_FOUND_ROWS demerits.id, demerits.date, demerits.reason, demerits.forum_id, demerits.topic_id, members.id AS `member|id`', FALSE)
             ->select($this->virtual_fields['short_name'] . ' AS `member|short_name`', FALSE)
             
             // Author
