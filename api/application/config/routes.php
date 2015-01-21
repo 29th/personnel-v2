@@ -14,6 +14,7 @@ $route['members/(:num)/coat'] = 'members/coat/$1';
 $route['members/(:num)/roles'] = 'members/roles/$1';
 $route['members/(:num)/finances'] = 'finances/index/$1';
 $route['members/(:num)/eloas'] = 'eloas/index/$1';
+$route['members/(:num)/demerits'] = 'demerits/index/$1';
 $route['members/(:num)'] = 'members/view/$1';
 $route['members'] = 'members/view';
 //$route['members'] = 'members/index';
@@ -64,6 +65,8 @@ $route['discharges/(:num)'] = 'discharges/view/$1';
 $route['discharges'] = 'discharges/index';
 $route['qualifications/(:num)'] = 'qualifications/view/$1';
 $route['qualifications'] = 'qualifications/index';
+$route['demerits/(:num)'] = 'demerits/view/$1';
+$route['demerits'] = 'demerits/index';
 
 // Enlistments
 $route['enlistments/(:num)/process'] = 'enlistments/process/$1';
