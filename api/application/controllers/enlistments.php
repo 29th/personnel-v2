@@ -47,7 +47,7 @@ class Enlistments extends MY_Controller {
     public function view_get($enlistment_id) {
         $enlistment = nest($this->enlistment_model->get_by_id($enlistment_id));
         // Must have permission to view this member's profile or any member's profile
-        if( ! $this->user->permission('profile_view', $enlistment['member']['id']) && ! $this->user->permission('profile_view_any')) {
+        if( ! $this->user->permission('profile_view', array('member' => $enlistment['member']['id'])) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // View record

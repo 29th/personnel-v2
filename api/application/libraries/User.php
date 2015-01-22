@@ -135,9 +135,25 @@ class User {
     /**
      * Wrapper for outside use
      */
-    public function permission($ability, $member_id = FALSE, $unit_id = FALSE) {        
+    /*public function permission($ability, $member_id = FALSE, $unit_id = FALSE) {
         if($member_id) return $this->unit_permission_on_member($ability, $member_id);
         if($unit_id) return $this->unit_permission_on_unit($ability, $unit_id);
+        return ($this->class_permission($ability) || $this->unit_permission($ability));
+    }*/
+    
+    /**
+     * Wrapper for outside use
+     * ex. $this->user->permission('profile_view', array('member' => $member_id))
+     */
+    public function permission($ability, $entity = FALSE) {
+        if($entity && is_array($entity)) {
+            if(isset($entity['member'])) {
+                return $this->unit_permission_on_member($ability, $entity['member']);
+            }
+            if(isset($entity['unit'])) {
+                return $this->unit_permission_on_unit($ability, $entity['unit']);
+            }
+        }
         return ($this->class_permission($ability) || $this->unit_permission($ability));
     }
     

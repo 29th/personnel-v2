@@ -18,7 +18,7 @@ class Awardings extends MY_Controller {
      */
     public function index_get($member_id = FALSE) {
         // Must have permission to view this member's profile or any member's profile
-        if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
+        if( ! $this->user->permission('profile_view', array('member' => $member_id)) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // View records
@@ -46,7 +46,7 @@ class Awardings extends MY_Controller {
     public function view_get($awarding_id) {
         // Must have permission to view this member's profile or any member's profile
         $awarding = nest($this->awarding_model->get_by_id($awarding_id));
-        if( ! $this->user->permission('profile_view', $awarding['member_id']) && ! $this->user->permission('profile_view_any')) {
+        if( ! $this->user->permission('profile_view', array('member' => $awarding['member_id'])) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // View record
@@ -60,7 +60,7 @@ class Awardings extends MY_Controller {
      */
     public function index_post() {
         // Must have permission to create this type of record for this member or for any member
-        if( ! $this->user->permission('awarding_add', $this->post('member_id')) && ! $this->user->permission('awarding_add_any')) {
+        if( ! $this->user->permission('awarding_add', array('member' => $this->post('member_id'))) && ! $this->user->permission('awarding_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation
@@ -93,7 +93,7 @@ class Awardings extends MY_Controller {
             $this->response(array('status' => false, 'error' => 'Record not found'), 404);
         }
         // Must have permission to create this type of record for this member or for any member
-        else if( ! $this->user->permission('awarding_add', $awarding['member_id']) && ! $this->user->permission('awarding_add_any')) {
+        else if( ! $this->user->permission('awarding_add', array('member' => $awarding['member_id'])) && ! $this->user->permission('awarding_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation
@@ -126,7 +126,7 @@ class Awardings extends MY_Controller {
             $this->response(array('status' => false, 'error' => 'Record not found'), 404);
         }
         // Must have permission to delete this type of record for this member or for any member
-        else if( ! $this->user->permission('awarding_delete', $awarding['member_id']) && ! $this->user->permission('awarding_delete_any')) {
+        else if( ! $this->user->permission('awarding_delete', array('member' => $awarding['member_id'])) && ! $this->user->permission('awarding_delete_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Delete record

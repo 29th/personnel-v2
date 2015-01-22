@@ -46,7 +46,7 @@ class ELOAs extends MY_Controller {
      */
     public function index_post() {
         // Must have permission to create this member's eloas or any member's eloas
-        if( ! $this->user->permission('eloas_add', $this->post('member_id')) && ! $this->user->permission('eloas_add_any')) {
+        if( ! $this->user->permission('eloas_add', array('member' => $this->post('member_id'))) && ! $this->user->permission('eloas_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation
@@ -85,7 +85,7 @@ class ELOAs extends MY_Controller {
     public function view_post($eloa_id) {
         // Must have permission to edit this member's eloas or any member's eloas
         $eloa = nest($this->eloa_model->get_by_id($eloa_id));
-        if( ! $this->user->permission('eloas_add', $eloa['member']['id']) && ! $this->user->permission('eloas_add_any')) {
+        if( ! $this->user->permission('eloas_add', array('member' => $eloa['member']['id'])) && ! $this->user->permission('eloas_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation

@@ -82,7 +82,7 @@ class Units extends MY_Controller {
 		$parent_unit_id = $path[sizeof($path)-1];
 		
         // Must have permission to create a unit within this unit or within any unit
-        if( ! $this->user->permission('unit_add', null, $parent_unit_id) && ! $this->user->permission('unit_add_any')) {
+        if( ! $this->user->permission('unit_add', array('unit' => $parent_unit_id)) && ! $this->user->permission('unit_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// Form validation
@@ -115,7 +115,7 @@ class Units extends MY_Controller {
 		}
         
 		// Must have permission to create a unit within this unit and within the proposed unit or within any unit
-		if(( ! $this->user->permission('unit_add', null, $unit_id) || ! $this->user->permission('unit_add', null, $parent_unit_id)) && ! $this->user->permission('unit_add_any')) {
+		if(( ! $this->user->permission('unit_add', array('unit' => $unit_id)) || ! $this->user->permission('unit_add', array('unit' => $parent_unit_id))) && ! $this->user->permission('unit_add_any')) {
 			$this->response(array('status' => false, 'error' => 'Permission denied'), 403);
 		}
 		// Form validation
@@ -144,7 +144,7 @@ class Units extends MY_Controller {
 		    $unit_id = isset($unit['id']) ? $unit['id'] : NULL;
 		}
 		// Must have permission to delete this type of record for this member or for any member
-		if( ! $this->user->permission('unit_delete', null, $unit_id) && ! $this->user->permission('unit_delete_any')) {
+		if( ! $this->user->permission('unit_delete', array('unit' => $unit_id)) && ! $this->user->permission('unit_delete_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// Delete record
@@ -171,7 +171,7 @@ class Units extends MY_Controller {
 		}
         
 		// Must have permission to view this type of record for this member or for any member
-		if( ! $this->user->permission('unit_stats', null, $unit_id) && ! $this->user->permission('unit_stats_any')) {
+		if( ! $this->user->permission('unit_stats', array('unit' => $unit_id)) && ! $this->user->permission('unit_stats_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// View records
@@ -200,7 +200,7 @@ class Units extends MY_Controller {
 		}
         
 		// Must have permission to view this type of record for this member or for any member
-		if( ! $this->user->permission('unit_stats', null, $unit_id) && ! $this->user->permission('unit_stats_any')) {
+		if( ! $this->user->permission('unit_stats', array('unit' => $unit_id)) && ! $this->user->permission('unit_stats_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// View records
@@ -230,7 +230,7 @@ class Units extends MY_Controller {
 		}
         
 		// Must have permission to view this type of record for this member or for any member
-		if( ! $this->user->permission('unit_stats', null, $unit_id) && ! $this->user->permission('unit_stats_any')) {
+		if( ! $this->user->permission('unit_stats', array('unit' => $unit_id)) && ! $this->user->permission('unit_stats_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// View records

@@ -19,7 +19,7 @@ class Promotions extends MY_Controller {
      */
     public function index_get($member_id = FALSE) {
         // Must have permission to view this member's profile or any member's profile
-        if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
+        if( ! $this->user->permission('profile_view', array('member' => $member_id)) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // View records
@@ -47,7 +47,7 @@ class Promotions extends MY_Controller {
     public function view_get($promotion_id) {
         // Must have permission to view this member's profile or any member's profile
         $promotion = nest($this->promotion_model->get_by_id($promotion_id));
-        if( ! $this->user->permission('profile_view', $promotion['member_id']) && ! $this->user->permission('profile_view_any')) {
+        if( ! $this->user->permission('profile_view', array('member' => $promotion['member_id'])) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// View record
@@ -61,7 +61,7 @@ class Promotions extends MY_Controller {
 	 */
     public function index_post() {
         // Must have permission to create this type of record for this member or for any member
-		if( ! $this->user->permission('promotion_add', $this->post('member_id')) && ! $this->user->permission('promotion_add_any')) {
+		if( ! $this->user->permission('promotion_add', array('member' => $this->post('member_id'))) && ! $this->user->permission('promotion_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// Form validation
@@ -101,7 +101,7 @@ class Promotions extends MY_Controller {
             $this->response(array('status' => false, 'error' => 'Record not found'), 404);
         }
 		// Must have permission to create this type of record for this member or for any member
-		else if( ! $this->user->permission('promotion_add', $promotion['member_id']) && ! $this->user->permission('promotion_add_any')) {
+		else if( ! $this->user->permission('promotion_add', array('member' => $promotion['member_id'])) && ! $this->user->permission('promotion_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// Form validation
@@ -141,7 +141,7 @@ class Promotions extends MY_Controller {
             $this->response(array('status' => false, 'error' => 'Record not found'), 404);
         }
 		// Must have permission to delete this type of record for this member or for any member
-		else if( ! $this->user->permission('promotion_delete', $promotion['member_id']) && ! $this->user->permission('promotion_delete_any')) {
+		else if( ! $this->user->permission('promotion_delete', array('member' => $promotion['member_id'])) && ! $this->user->permission('promotion_delete_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// Delete record

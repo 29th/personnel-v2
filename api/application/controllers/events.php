@@ -57,7 +57,7 @@ class Events extends MY_Controller {
      */
     public function index_post() {
         // Must have permission to create this type of record for this unit or for any unit
-        if( ! $this->user->permission('event_add', null, $this->post('unit_id')) && ! $this->user->permission('event_add_any')) {
+        if( ! $this->user->permission('event_add', array('unit' => $this->post('unit_id'))) && ! $this->user->permission('event_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation
@@ -87,7 +87,7 @@ class Events extends MY_Controller {
             $this->response(array('status' => false, 'error' => 'Record not found'), 404);
         }
         // Must have permission to create this type of record for this unit or for any unit
-        else if( ! $this->user->permission('event_add', null, $event['unit']['id']) && ! $this->user->permission('event_add_any')) {
+        else if( ! $this->user->permission('event_add', array('unit' => $event['unit']['id'])) && ! $this->user->permission('event_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation
@@ -116,7 +116,7 @@ class Events extends MY_Controller {
             $this->response(array('status' => false, 'error' => 'Record not found'), 404);
         }
         // Must have permission to post an AAR for this unit or for any unit
-        else if( ! $this->user->permission('event_aar', null, $event['unit']['id']) && ! $this->user->permission('event_aar_any')) {
+        else if( ! $this->user->permission('event_aar', array('unit' => $event['unit']['id'])) && ! $this->user->permission('event_aar_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation
@@ -186,7 +186,7 @@ class Events extends MY_Controller {
         if( ! $member_id) $member_id = $user_id; // If not posting absence for another member, post absence for self
         
         // Must be logged in, posting absence for self, have permission to post absence for this member or for any member
-        if(( ! $user_id || $user_id !== $member_id) && ! $this->user->permission('event_excuse', $member_id) && ! $this->user->permission('event_excuse_any')) {
+        if(( ! $user_id || $user_id !== $member_id) && ! $this->user->permission('event_excuse', array('member' => $member_id)) && ! $this->user->permission('event_excuse_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         else {

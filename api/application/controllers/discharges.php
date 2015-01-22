@@ -39,7 +39,7 @@ class Discharges extends MY_Controller {
     public function view_get($discharge_id) {
         // Must have permission to view this member's profile or any member's profile
         $discharge = nest($this->discharge_model->get_by_id($discharge_id));
-        if( ! $this->user->permission('profile_view', $discharge['member']['id']) && ! $this->user->permission('profile_view_any')) {
+        if( ! $this->user->permission('profile_view', array('member' => $discharge['member']['id'])) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // View record
@@ -53,7 +53,7 @@ class Discharges extends MY_Controller {
      */
     public function index_post() {
         // Must have permission to create this type of record for this member or for any member
-        if( ! $this->user->permission('discharge_add', $this->post('member_id')) && ! $this->user->permission('discharge_add_any')) {
+        if( ! $this->user->permission('discharge_add', array('member' => $this->post('member_id'))) && ! $this->user->permission('discharge_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation
@@ -81,7 +81,7 @@ class Discharges extends MY_Controller {
             $this->response(array('status' => false, 'error' => 'Record not found'), 404);
         }
         // Must have permission to create this type of record for this member or for any member
-        else if( ! $this->user->permission('discharge_add', $discharge['member']['id']) && ! $this->user->permission('discharge_add_any')) {
+        else if( ! $this->user->permission('discharge_add', array('member' => $discharge['member']['id'])) && ! $this->user->permission('discharge_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation
@@ -107,7 +107,7 @@ class Discharges extends MY_Controller {
             $this->response(array('status' => false, 'error' => 'Record not found'), 404);
         }
         // Must have permission to delete this type of record for this member or for any member
-        else if( ! $this->user->permission('discharge_delete', $discharge['member']['id']) && ! $this->user->permission('discharge_delete_any')) {
+        else if( ! $this->user->permission('discharge_delete', array('member' => $discharge['member']['id'])) && ! $this->user->permission('discharge_delete_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Delete record
