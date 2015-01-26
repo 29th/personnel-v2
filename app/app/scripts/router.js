@@ -113,7 +113,7 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
             options = options || {};
             this.app = options.app || new Backbone.Marionette.Application();
             var self = this;
-            console.log("init");
+            
             // Fetch user if it doesn't exist
             if( ! this.user) {
                 this.user = new User();
