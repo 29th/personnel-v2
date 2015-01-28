@@ -21,12 +21,13 @@ define([
             this.discharges = options.discharges || false;
             this.enlistments = options.enlistments || false;
             this.finances = options.finances || false;
+            this.demerits = options.demerits || false;
         },
         serializeData: function () {
             var items = []
             // Group everything together by date
             ,
-                dates = _.groupBy(this.assignments.toJSON().concat(this.promotions.toJSON(), this.awardings.toJSON(), this.discharges.toJSON(), this.enlistments.toJSON(), this.finances.toJSON()), function (item) {
+                dates = _.groupBy(this.assignments.toJSON().concat(this.promotions.toJSON(), this.awardings.toJSON(), this.discharges.toJSON(), this.enlistments.toJSON(), this.finances.toJSON(), this.demerits.toJSON()), function (item) {
                     return item.start_date || item.date;
                 });
             // Transform grouped-by data into an array of dates with items

@@ -26,8 +26,7 @@
                 </div>
             </div>
         </div>
-        {{/if}}
-        {{#if this.new_rank}}
+        {{else}}{{#if this.new_rank}}
         <div class="info-tiles tiles-orange service-record-promotion">
             <div class="tiles-body">
                 <div class="pull-left">
@@ -40,8 +39,7 @@
                 </div>
             </div>
         </div>
-        {{/if}}
-        {{#if this.award}}
+        {{else}}{{#if this.award}}
         <div class="info-tiles tiles-sky service-record-awarding">
             <div class="tiles-body">
                 <div class="pull-left">
@@ -52,8 +50,7 @@
                 </div>
             </div>
         </div>
-        {{/if}}
-        {{#if this.status}}
+        {{else}}{{#if this.status}}
         <a href="#enlistments/{{ this.id }}" class="info-tiles tiles-indigo service-record-enlistment">
             <div class="tiles-body">
                 <div class="pull-left"><i class="fa fa-file-text"></i></div>
@@ -62,8 +59,7 @@
                 </div>
             </div>
         </a>
-        {{/if}}
-        {{#if this.type}}
+        {{else}}{{#if this.type}}
         <a href="#discharges/{{ this.id }}" class="info-tiles tiles-success service-record-discharge">
             <div class="tiles-body">
                 <div class="pull-left"><i class="fa fa-minus-square"></i></div>
@@ -75,8 +71,7 @@
                 </div>
             </div>
         </a>
-        {{/if}}
-        {{#if this.amount_received}}
+        {{else}}{{#if this.amount_received}}
         <div class="info-tiles tiles-primary service-record-donation">
             <div class="tiles-body">
                 <div class="pull-left"><i class="fa fa-money"></i></div>
@@ -85,7 +80,16 @@
                 </div>
             </div>
         </div>
-        {{/if}}
+        {{else}}{{#if this.reason}}
+        <a href="#demerits/{{ this.id }}" class="info-tiles tiles-inverse service-record-demerit">
+            <div class="tiles-body">
+                <div class="pull-left"><i class="fa fa-file-text-o"></i></div>
+                <div class="pull-right">
+                    Received a demerit
+                </div>
+            </div>
+        </a>
+        {{/if}}{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}
     {{/each}}
 {{/each}}
             </div>

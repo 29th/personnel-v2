@@ -7,6 +7,7 @@ define([
     "util",
     // Models
     "models/assignment",
+    "models/demerit",
     "models/discharge",
     "models/enlistment",
     "models/event",
@@ -15,6 +16,7 @@ define([
     // Collections
     "collections/assignments",
     "collections/awardings",
+    "collections/demerits",
     "collections/discharges",
     "collections/eloas",
     "collections/enlistments",
@@ -37,6 +39,7 @@ define([
     "views/assignment_edit",
     "views/associate",
     "views/calendar",
+    "views/demerit",
     "views/discharge",
     "views/eloas",
     "views/enlistment_edit",
@@ -58,6 +61,7 @@ define([
     "views/service_record",
     "views/unit_attendance",
     "views/unit_awols",
+    "views/unit_profile",
     "views/unit",
     // Extras
     "handlebars-helpers",
@@ -72,12 +76,12 @@ define([
 ], function (
 $, _, Backbone, Marionette, Handlebars, util,
 // Models
-Assignment, Discharge, Enlistment, Event, Member, User,
+Assignment, Demerit, Discharge, Enlistment, Event, Member, User,
 // Collections
-Assignments, Awardings, Discharges, ELOAs, Enlistments, EventAttendance, Events, Finances, MemberAttendance, MemberAwols, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, Standards, UnitAttendance, UnitAwols, Units,
+Assignments, Awardings, Demerits, Discharges, ELOAs, Enlistments, EventAttendance, Events, Finances, MemberAttendance, MemberAwols, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, Standards, UnitAttendance, UnitAwols, Units,
 // Views
-AARView, AssignmentEditView, AssociateView, CalendarView, DischargeView, ELOAsView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, FinancesView, FlashView, MemberAdminView, MemberAttendanceView, MemberDischargeView,
-MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView, RosterView, ServiceRecordView, UnitAttendanceView, UnitAwolsView, UnitView) {
+AARView, AssignmentEditView, AssociateView, CalendarView, DemeritView, DischargeView, ELOAsView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, FinancesView, FlashView, MemberAdminView, MemberAttendanceView, MemberDischargeView,
+MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView, RosterView, ServiceRecordView, UnitAttendanceView, UnitAwolsView, UnitProfileView, UnitView) {
     "use strict";
 
     return Backbone.Router.extend({
@@ -87,6 +91,7 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
             "assignments/:id/edit": "assignment_edit",
             "associate": "associate",
             "calendar": "calendar",
+            "demerits/:id": "demerit",
             "discharges/:id": "discharge",
             "eloas": "eloas",
             "enlistments/:id/edit": "enlistment_edit",
@@ -261,6 +266,23 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 //util.loading(false);
                 self.showView(calendarView);
             });
+        },
+        demerit: function(id) {
+            var self = this,
+                promises = [],
+                demerit = new Demerit({
+                    id: id
+                }),
+                demeritView = new DemeritView({
+                    model: demerit
+                });
+                console.log("here");
+                this.app.navRegion.currentView.setHighlight("roster");
+                promises.push(demerit.fetch());
+                
+                $.when.apply($, promises).done(function() {
+                    self.showView(demeritView);
+                });
         },
         discharge: function(id) {
             var self = this,
@@ -564,6 +586,12 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 });
                 promises.push(finances.fetch());
 
+                // Demerits
+                var demerits = new Demerits(null, {
+                    member_id: id
+                });
+                promises.push(demerits.fetch());
+
                 // (Assignments already fetched)
                 pageView = new ServiceRecordView({
                     model: member,
@@ -574,7 +602,8 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                     awardings: awardings,
                     discharges: discharges,
                     enlistments: enlistments,
-                    finances: finances
+                    finances: finances,
+                    demerits: demerits
                 });
             }
             // Attendance
@@ -691,7 +720,7 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
 
             this.app.navRegion.currentView.setHighlight("roster");
 
-            var pageView;
+            var columnViews = [];
             path = path ? path.replace(/\//g, "") : "";
 
             // Attendance
@@ -703,9 +732,9 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 });
                 promises.push(unitAttendance.fetch());
 
-                pageView = new UnitAttendanceView({
+                columnViews.push(new UnitAttendanceView({
                     collection: unitAttendance
-                });
+                }));
             }
             // AWOLs
             else if (path == "awols") {
@@ -716,9 +745,9 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 });
                 promises.push(unitAwols.fetch());
 
-                pageView = new UnitAwolsView({
+                columnViews.push(new UnitAwolsView({
                     collection: unitAwols
-                });
+                }));
             }
             // Roster
             else {
@@ -726,9 +755,11 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
 
                 units.children = true;
                 units.members = true;
-                pageView = new RosterView({
+                columnViews.push(new RosterView({
                     collection: units
-                });
+                }), new UnitProfileView({
+                    collection: units
+                }));
             }
 
             // Fetches
@@ -738,8 +769,15 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
             //util.loading(true);
             $.when.apply($, promises).done(function () {
                 //util.loading(false);
+                unitLayout.numColumns = columnViews.length;
                 self.showView(unitLayout);
-                if (pageView) unitLayout.pageRegion.show(pageView);
+                //if (pageView) unitLayout.pageRegion.show(pageView);
+                if(columnViews.length) {
+                    _.each(columnViews, function(columnView, index) {
+                        unitLayout.addRegion("col" + index, "#col" + index);
+                        unitLayout["col" + index].show(columnView);
+                    });
+                }
             });
         },
     });

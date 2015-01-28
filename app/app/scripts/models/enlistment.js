@@ -39,7 +39,7 @@ define([
                 maxLength: 60
             },
             steam_id: {
-                required: false,
+                required: true,
                 pattern: "number"
             },
             experience: {

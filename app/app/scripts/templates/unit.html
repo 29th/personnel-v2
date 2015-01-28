@@ -13,6 +13,8 @@
         </ul>
     </div>
 </div>
-<div class="row">
-    <div class="col-sm-12" id="page"></div>
+<div class="row" id="page">
+    {{#times numColumns}}
+        <div class="col-md-{{ divide 12 ../numColumns }}" id="col{{ this }}"></div>
+    {{/times}}
 </div>

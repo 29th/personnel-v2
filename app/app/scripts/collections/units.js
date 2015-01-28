@@ -75,7 +75,7 @@ define([
                 flattened.push(val);
                 if (val.children) {
                     if (val.children.length) {
-                        flattened = flattened.concat(self.flatten(val.children));
+                        flattened = flattened.concat(self.flatten(_.isFunction(val.children.toJSON) ? val.children.toJSON() : val.children));
                     }
                     delete val.children;
                 }
