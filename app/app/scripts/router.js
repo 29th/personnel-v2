@@ -30,6 +30,7 @@ define([
     "collections/positions",
     "collections/promotions",
     "collections/qualifications",
+    "collections/servers",
     "collections/standards",
     "collections/unit_attendance", // Unit attendance
     "collections/unit_awols",
@@ -47,6 +48,7 @@ define([
     "views/enlistments",
     "views/enlistment",
     "views/event",
+    "views/event_edit",
     "views/finances",
     "views/flash",
     "views/member_admin",
@@ -78,9 +80,9 @@ $, _, Backbone, Marionette, Handlebars, util,
 // Models
 Assignment, Demerit, Discharge, Enlistment, Event, Member, User,
 // Collections
-Assignments, Awardings, Demerits, Discharges, ELOAs, Enlistments, EventAttendance, Events, Finances, MemberAttendance, MemberAwols, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, Standards, UnitAttendance, UnitAwols, Units,
+Assignments, Awardings, Demerits, Discharges, ELOAs, Enlistments, EventAttendance, Events, Finances, MemberAttendance, MemberAwols, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, Servers, Standards, UnitAttendance, UnitAwols, Units,
 // Views
-AARView, AssignmentEditView, AssociateView, CalendarView, DemeritView, DischargeView, ELOAsView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, FinancesView, FlashView, MemberAdminView, MemberAttendanceView, MemberDischargeView,
+AARView, AssignmentEditView, AssociateView, CalendarView, DemeritView, DischargeView, ELOAsView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, EventEditView, FinancesView, FlashView, MemberAdminView, MemberAttendanceView, MemberDischargeView,
 MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView, RosterView, ServiceRecordView, UnitAttendanceView, UnitAwolsView, UnitProfileView, UnitView) {
     "use strict";
 
@@ -99,6 +101,7 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
             "enlistments/:id": "enlistment",
             "enlistments": "enlistments",
             "enlist": "enlistment_add",
+            "events/create": "event_edit",
             "events/:id": "event",
             "events/:id/aar": "aar",
             "finances": "finances",
@@ -469,7 +472,7 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 userAssignments: userAssignments,
                 permissions: this.permissions,
                 unitPermissions: unitPermissions
-            })
+            });
 
             // Watch fetch event to show loading indicator (LOA)
 /*eventAttendance.on("request", function() { util.loading(true); })
@@ -489,6 +492,27 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                     //util.loading(false);
                     self.showView(eventView);
                 });
+            });
+        },
+        event_edit: function() {
+            var self = this,
+                promises = [],
+                event = new Event(),
+                servers = new Servers(),
+                units = new Units(null, {
+                    children: true,
+                    members: true,
+                    flat: true
+                }),
+                eventEditView = new EventEditView({
+                    model: event,
+                    servers: servers,
+                    units: units
+                });
+            promises.push(servers.fetch(), units.fetch());
+                
+            $.when.apply($, promises).done(function() {
+                self.showView(eventEditView);
             });
         },
         finances: function() {
