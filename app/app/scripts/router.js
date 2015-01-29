@@ -159,7 +159,8 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 expectedUnits = new Units(null, {
                     children: true,
                     members: true,
-                    active: true
+                    active: true,
+                    distinct: true
                 }),
                 eventAttendance = new EventAttendance(null, {
                     id: id

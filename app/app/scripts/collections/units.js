@@ -48,6 +48,7 @@ define([
             this.order = options.order || false;
             this.historic = options.historic || false;
             this.flat = options.flat || false;
+            this.distinct = options.distinct || false;
         },
         url: function () {
             var params = {},
@@ -58,6 +59,7 @@ define([
             if (this.inactive) params.inactive = this.inactive;
             if (this.order) params.order = this.order;
             if (this.historic) params.historic = this.historic;
+            if (this.distinct) params.distinct = this.distinct;
             if (!_.isEmpty(params)) url += "?" + $.param(params);
             return url;
         },
