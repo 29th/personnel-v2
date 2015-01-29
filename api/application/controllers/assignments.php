@@ -43,12 +43,12 @@ class Assignments extends MY_Controller {
         foreach($assignments as $assignment) {
             $start_date = strtotime($assignment['start_date']);
             $end_date = strtotime($assignment['end_date'] ?: format_date('now', 'mysqldate'));
-            if ( format_date($start_date, 'mysqldate') > $gdDate[0]['date'] )
+            if ( sizeof($gdDate) < 1 || format_date($start_date, 'mysqldate') > $gdDate[0]['date'] )
             {  
-              for($i = $start_date; $i < $end_date; $i = $i + DAY) 
-              {
-                  $days[format_date($i, 'mysqldate')] = true;
-              }
+                for($i = $start_date; $i < $end_date; $i = $i + DAY) 
+                {
+                    $days[format_date($i, 'mysqldate')] = true;
+                }
             }
         }
         return sizeof($days);
