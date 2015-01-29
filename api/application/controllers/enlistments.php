@@ -47,7 +47,7 @@ class Enlistments extends MY_Controller {
     public function view_get($enlistment_id) {
         $enlistment = nest($this->enlistment_model->get_by_id($enlistment_id));
         // Must have permission to view this member's profile or any member's profile
-        if( ! $this->user->permission('profile_view', $enlistment['member']['id']) && ! $this->user->permission('profile_view_any')) {
+        if( ! $this->user->permission('profile_view', array('member' => $enlistment['member']['id'])) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // View record
@@ -154,6 +154,7 @@ class Enlistments extends MY_Controller {
             
 			if(isset($data['unit_id'])) $data['unit_id'] = $data['unit_id'] ? $data['unit_id'] : NULL; // Should be null if empty
 			if(isset($data['recruiter_member_id'])) $data['recruiter_member_id'] = $data['recruiter_member_id'] ? $data['recruiter_member_id'] : NULL; // Should be null if empty
+			if(isset($data['liaison_member_id'])) $data['liaison_member_id'] = $data['liaison_member_id'] ? $data['liaison_member_id'] : NULL; // Should be null if empty
             //if(isset($data['unit_id']) && ! $data['unit_id']) $data['unit_id'] = NULL; // Done in model
             
             $this->enlistment_model->save($enlistment_id, $data);

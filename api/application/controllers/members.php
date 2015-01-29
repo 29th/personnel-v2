@@ -24,9 +24,21 @@ class Members extends MY_Controller {
     /**
      * VIEW
      */
-    public function view_get($member_id) {
+    public function view_get($member_id = FALSE) {
+        // If no member ID provided, check querystrings for other identifiers
+        if( ! $member_id) {
+            if($forum_member_id = $this->input->get('forum_member_id')) {
+                $member = $this->member_model->where('forum_member_id', $forum_member_id)->get()->row_array();
+                $member_id = $member['id'];
+            } else if($steam_id = $this->input->get('steam_id')) {
+                $member = $this->member_model->where('steam_id', $steam_id)->get()->row_array();
+                $member_id = $member['id'];
+            } else {
+                $this->response(array('status' => false, 'error' => 'No member ID provided', 404));
+            }
+        }
         // Must have permission to view this member's profile or any member's profile
-        if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
+        if( ! $this->user->permission('profile_view', array('member' => $member_id)) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // View record
@@ -48,7 +60,7 @@ class Members extends MY_Controller {
      */
     public function view_post($member_id) {
         // Must have permission to view this member's profile or any member's profile
-        if( ! $this->user->permission('profile_edit', $member_id) && ! $this->user->permission('profile_edit_any')) {
+        if( ! $this->user->permission('profile_edit', array('member' => $member_id)) && ! $this->user->permission('profile_edit_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation
@@ -315,7 +327,7 @@ class Members extends MY_Controller {
         $days = $this->input->get('days') ? (int) $this->input->get('days') : 30;
 		
         // Must have permission to view this member's profile or any member's profile
-        if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
+        if( ! $this->user->permission('profile_view', array('member' => $member_id)) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         else {
@@ -329,7 +341,7 @@ class Members extends MY_Controller {
      */
     public function discharge_post($member_id) {
         // Must have permission to discharge this member or any member
-        if( ! $this->user->permission('discharge_add', $member_id) && ! $this->user->permission('discharge_add_any')) {
+        if( ! $this->user->permission('discharge_add', array('member' => $member_id)) && ! $this->user->permission('discharge_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Execute
@@ -350,9 +362,9 @@ class Members extends MY_Controller {
      */
     public function coat_post($member_id) {
         // Must have permission to modify profile, add promotion, or add awarding for this member or for any member, as these actions require a service coat updated
-        if( ! $this->user->permission('profile_edit', $member_id) && ! $this->user->permission('profile_edit_any')
-        &&  ! $this->user->permission('promotion_add', $member_id) && ! $this->user->permission('promotion_add_any')
-        &&  ! $this->user->permission('awarding_add', $member_id) && ! $this->user->permission('awarding_add_any')) {
+        if( ! $this->user->permission('profile_edit', array('member' => $member_id)) && ! $this->user->permission('profile_edit_any')
+        &&  ! $this->user->permission('promotion_add', array('member' => $member_id)) && ! $this->user->permission('promotion_add_any')
+        &&  ! $this->user->permission('awarding_add', array('member' => $member_id)) && ! $this->user->permission('awarding_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Execute
@@ -368,7 +380,7 @@ class Members extends MY_Controller {
      */
     public function roles_post($member_id) {
         // Must have permission to modify assignments for this member or for any member
-        if( ! $this->user->permission('assignment_add', $member_id) && ! $this->user->permission('assignment_add_any')) {
+        if( ! $this->user->permission('assignment_add', array('member' => $member_id)) && ! $this->user->permission('assignment_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Execute

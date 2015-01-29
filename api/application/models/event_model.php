@@ -68,15 +68,18 @@ class Event_model extends CRUD_Model {
     }
     
     public function default_select() {
-        $this->db->select('events.id, events.datetime, events.type, events.mandatory, events.report, NOW() > events.datetime AS occurred')
+        $this->db->select('events.id, events.datetime, events.type, events.mandatory, events.report, NOW() > events.datetime AS occurred, events.reporter_member_id AS `reporter|id`, report_posting_date, report_edit_date')
             ->select('units.id AS `unit|id`, units.abbr AS `unit|abbr`, units.name AS `unit|name`')
             ->select($this->virtual_fields['unit_key'] . ' AS `unit|key`', FALSE)
+            ->select($this->virtual_fields['short_name'] . ' AS `reporter|short_name`', FALSE)
             ->select('events.server_id AS `server|id`, servers.name AS `server|name`, servers.abbr AS `server|abbr`');
     }
     
     public function default_join() {
         $this->db->join('units', 'units.id = events.unit_id', 'left')
-            ->join('servers', 'servers.id = events.server_id', 'left');
+            ->join('servers', 'servers.id = events.server_id', 'left')
+            ->join('members', 'members.id = events.reporter_member_id', 'left')
+            ->join('ranks', 'ranks.id = members.rank_id', 'left');;
     }
     
     public function default_order_by() {

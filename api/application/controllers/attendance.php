@@ -17,7 +17,7 @@ class Attendance extends MY_Controller {
      */
     public function index_get($member_id = FALSE) {
         // Must have permission to view this member's profile or any member's profile
-        if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
+        if( ! $this->user->permission('profile_view', array('member' => $member_id)) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         else {

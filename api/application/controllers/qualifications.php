@@ -17,7 +17,7 @@ class Qualifications extends MY_Controller {
      */
     public function index_get($member_id) {
         // Must have permission to view this member's profile or any member's profile
-        if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
+        if( ! $this->user->permission('profile_view', array('member' => $member_id)) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         else {
@@ -41,7 +41,7 @@ class Qualifications extends MY_Controller {
      */
     public function index_post() {
         // Must have permission to create this type of record for this member or for any member
-        if( ! $this->user->permission('qualification_add', $this->post('member_id')) && ! $this->user->permission('qualification_add_any')) {
+        if( ! $this->user->permission('qualification_add', array('member' => $this->post('member_id'))) && ! $this->user->permission('qualification_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation
@@ -78,7 +78,7 @@ class Qualifications extends MY_Controller {
             $this->response(array('status' => false, 'error' => 'Qualification not found'), 404);
         }
         // Must have permission to delete this type of record for this member or for any member
-        else if( ! $this->user->permission('qualification_delete', $qualification['member']['id']) && ! $this->user->permission('qualification_delete_any')) {
+        else if( ! $this->user->permission('qualification_delete', array('member' => $qualification['member']['id'])) && ! $this->user->permission('qualification_delete_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Delete record

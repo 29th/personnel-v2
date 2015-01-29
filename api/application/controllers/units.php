@@ -48,9 +48,13 @@ class Units extends MY_Controller {
 				if($this->input->get('members') == 'true') {
 					$members = $this->assignment_model->by_unit($units[0]['id'], $this->input->get("children") ? TRUE : FALSE);
 					if( ! $this->input->get('historic')) $members = $members->by_date('now');
+					if($this->input->get('distinct')) $members = $members->distinct_members();
 					$members = $members->order_by($this->input->get('order') ? $this->input->get('order') : 'rank');
 					$members = nest($members->get()->result_array()); // Get members of this unit, including members of this unit's children, who are current
 					$units = $this->members_in_parents($members, $units, 'unit_id', 'id', 'members');
+					
+					// Calculate number of unique members
+					//$unique_members = (array_unique(pluck('id', pluck('member', $members))));
 				}
 				
 				// If we got children, shuffle them
@@ -79,7 +83,7 @@ class Units extends MY_Controller {
 		$parent_unit_id = $path[sizeof($path)-1];
 		
         // Must have permission to create a unit within this unit or within any unit
-        if( ! $this->user->permission('unit_add', null, $parent_unit_id) && ! $this->user->permission('unit_add_any')) {
+        if( ! $this->user->permission('unit_add', array('unit' => $parent_unit_id)) && ! $this->user->permission('unit_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// Form validation
@@ -112,7 +116,7 @@ class Units extends MY_Controller {
 		}
         
 		// Must have permission to create a unit within this unit and within the proposed unit or within any unit
-		if(( ! $this->user->permission('unit_add', null, $unit_id) || ! $this->user->permission('unit_add', null, $parent_unit_id)) && ! $this->user->permission('unit_add_any')) {
+		if(( ! $this->user->permission('unit_add', array('unit' => $unit_id)) || ! $this->user->permission('unit_add', array('unit' => $parent_unit_id))) && ! $this->user->permission('unit_add_any')) {
 			$this->response(array('status' => false, 'error' => 'Permission denied'), 403);
 		}
 		// Form validation
@@ -141,7 +145,7 @@ class Units extends MY_Controller {
 		    $unit_id = isset($unit['id']) ? $unit['id'] : NULL;
 		}
 		// Must have permission to delete this type of record for this member or for any member
-		if( ! $this->user->permission('unit_delete', null, $unit_id) && ! $this->user->permission('unit_delete_any')) {
+		if( ! $this->user->permission('unit_delete', array('unit' => $unit_id)) && ! $this->user->permission('unit_delete_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// Delete record
@@ -168,7 +172,7 @@ class Units extends MY_Controller {
 		}
         
 		// Must have permission to view this type of record for this member or for any member
-		if( ! $this->user->permission('unit_stats', null, $unit_id) && ! $this->user->permission('unit_stats_any')) {
+		if( ! $this->user->permission('unit_stats', array('unit' => $unit_id)) && ! $this->user->permission('unit_stats_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// View records
@@ -197,7 +201,7 @@ class Units extends MY_Controller {
 		}
         
 		// Must have permission to view this type of record for this member or for any member
-		if( ! $this->user->permission('unit_stats', null, $unit_id) && ! $this->user->permission('unit_stats_any')) {
+		if( ! $this->user->permission('unit_stats', array('unit' => $unit_id)) && ! $this->user->permission('unit_stats_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// View records
@@ -227,12 +231,12 @@ class Units extends MY_Controller {
 		}
         
 		// Must have permission to view this type of record for this member or for any member
-		if( ! $this->user->permission('unit_stats', null, $unit_id) && ! $this->user->permission('unit_stats_any')) {
+		if( ! $this->user->permission('unit_stats', array('unit' => $unit_id)) && ! $this->user->permission('unit_stats_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// View records
 		else {
-		    $members = pluck('id', $this->assignment_model->by_date('now')->by_unit($unit_id, TRUE)->get()->result_array()); // Include children
+		    $members = pluck('member|id', $this->assignment_model->by_date('now')->by_unit($unit_id, TRUE)->get()->result_array()); // Include children
 			$awols = nest($this->attendance_model->awols($members, $days)->get()->result_array());
 			$grouped_and_sorted = $this->sort_awols($this->group_awols($awols));
 			$this->response(array('status' => true, 'awols' => $grouped_and_sorted));

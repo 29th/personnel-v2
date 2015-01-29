@@ -20,7 +20,7 @@ class Assignments extends MY_Controller {
      */
     public function index_get($member_id = FALSE) {
         // Must have permission to view this member's profile or any member's profile
-        if( ! $this->user->permission('profile_view', $member_id) && ! $this->user->permission('profile_view_any')) {
+        if( ! $this->user->permission('profile_view', array('member' => $member_id)) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         else {
@@ -60,7 +60,7 @@ class Assignments extends MY_Controller {
     public function view_get($assignment_id) {
         // Must have permission to view this member's profile or any member's profile
         $assignment = nest($this->assignment_model->select_member()->get_by_id($assignment_id));
-        if( ! $this->user->permission('profile_view', $assignment['member']['id']) && ! $this->user->permission('profile_view_any')) {
+        if( ! $this->user->permission('profile_view', array('member' => $assignment['member']['id'])) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // View record
@@ -74,7 +74,7 @@ class Assignments extends MY_Controller {
      */
     public function index_post() {
         // Must have permission to assign to this unit or any unit
-        if( ! $this->user->permission('assignment_add', null, $this->post('unit_id')) && ! $this->user->permission('assignment_add_any')) {
+        if( ! $this->user->permission('assignment_add', array('unit' => $this->post('unit_id'))) && ! $this->user->permission('assignment_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation
@@ -109,8 +109,8 @@ class Assignments extends MY_Controller {
             $this->response(array('status' => false, 'error' => 'Assignment not found'), 404);
         }
         // Must have permission to assign to the new unit and the old unit, or permission to assign to any unit
-        else if( ! ($this->user->permission('assignment_add', null, $assignment['unit']['id'])
-                    && $this->user->permission('assignment_add', null, $this->post('unit_id'))
+        else if( ! ($this->user->permission('assignment_add', array('unit' => $assignment['unit']['id']))
+                    && $this->user->permission('assignment_add', array('unit' => $this->post('unit_id')))
                 ) && ! $this->user->permission('assignment_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
@@ -147,7 +147,7 @@ class Assignments extends MY_Controller {
             $this->response(array('status' => false, 'error' => 'Assignment not found'), 404);
         }
         // Must have permission to delete this type of record for this member or for any member
-        else if( ! $this->user->permission('assignment_delete', $assignment['member']['id']) && ! $this->user->permission('assignment_delete_any')) {
+        else if( ! $this->user->permission('assignment_delete', array('member' => $assignment['member']['id'])) && ! $this->user->permission('assignment_delete_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Delete record

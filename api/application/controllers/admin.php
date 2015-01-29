@@ -95,10 +95,32 @@ class Admin extends CI_Controller {
 	        ->required_fields('member_id', 'date', 'award_id')
 	        ->field_type('forum_id', 'dropdown', array('1' => 'PHPBB', '2' => 'SMF', '3' => 'Vanilla'))->display_as('forum_id', 'Forum')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member')
-	        ->set_relation('award_id', 'awards', 'title')->display_as('award_id', 'Award');
+	        ->set_relation('award_id', 'awards', 'title')->display_as('award_id', 'Award')
+	        ->callback_after_insert(array($this, '_callback_awardings_after_update'))
+	        ->callback_after_update(array($this, '_callback_awardings_after_update'))
+	        ->callback_before_delete(array($this, '_callback_awardings_before_delete'));
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'awardings');
+	}
+	
+	public function _callback_awardings_after_update($data, $id = null) {
+        $this->load->library('servicecoat');
+	    
+        // Update username
+        $this->servicecoat->update($data['member_id']);
+	}
+	
+	// This one has to be done before because after, the record doesn't exist so we don't know which member to update...ugh
+	function _callback_awardings_before_delete($id) {
+        $this->load->model('awarding_model');
+        $this->load->library('servicecoat');
+        
+	    $data = (array) nest($this->awarding_model->members()->get_by_id($id));
+        
+        // Update coat
+        $this->load->library('servicecoat');
+        $this->servicecoat->update($data['member']['id']);
 	}
 	
 	public function awards()
@@ -337,6 +359,10 @@ class Admin extends CI_Controller {
             
                 // Update username
                 $this->vanilla->update_username($data['member_id']);
+                
+                // Update coat
+                $this->load->library('servicecoat');
+                $this->servicecoat->update($data['member_id']);
             }
         }
 	}
@@ -356,6 +382,10 @@ class Admin extends CI_Controller {
             
                 // Update username
                 $this->vanilla->update_username($data['member_id']);
+                
+                // Update coat
+                $this->load->library('servicecoat');
+                $this->servicecoat->update($data['member_id']);
             }
         }
 	}
