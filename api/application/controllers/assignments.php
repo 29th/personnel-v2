@@ -31,7 +31,7 @@ class Assignments extends MY_Controller {
             if($this->input->get('current')) $model->by_date();
             $assignments = nest($model->order_by('priority')->get()->result_array());
             $duration = $this->calculate_duration($assignments,$member_id);
-            $this->response(array('status' => true, 'duration' => $duration, 'assignments' => $assignments ));
+            $this->response(array('status' => true, 'duration' => $duration[0], 'gddate' => $duration[1], 'assignments' => $assignments ));
         }
     }
     
@@ -40,22 +40,21 @@ class Assignments extends MY_Controller {
         $this->discharge_model->where('type','General');
         $this->discharge_model->where('discharges.member_id',$member_id);
         $gdDate = $this->discharge_model->get()->result_array();
+        $gdDate = ( $gdDate ? $gdDate[0]['date'] : '9999-99-99' );
         foreach($assignments as $assignment) {
             $start_date = strtotime($assignment['start_date']);
             $end_date = strtotime($assignment['end_date'] ?: format_date('now', 'mysqldate'));
-            if ( sizeof($gdDate) < 1 || format_date($start_date, 'mysqldate') > $gdDate[0]['date'] )
-            {  
-                for($i = $start_date; $i < $end_date; $i = $i + DAY) 
-                {
+            if ( format_date($start_date, 'mysqldate') > $gdDate ) {  
+                for($i = $start_date; $i < $end_date; $i = $i + DAY) {
                     $days[format_date($i, 'mysqldate')] = true;
                 }
             }
         }
-        return sizeof($days);
+        return array( sizeof($days), $gdDate );
     }
     
     /**
-     * VIEW
+     * VIEW                                                 $gdDate[0]['date']
      */
     public function view_get($assignment_id) {
         // Must have permission to view this member's profile or any member's profile
