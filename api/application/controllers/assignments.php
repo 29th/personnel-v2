@@ -39,8 +39,9 @@ class Assignments extends MY_Controller {
         $days = array();
         $this->discharge_model->where('type','General');
         $this->discharge_model->where('discharges.member_id',$member_id);
+        $this->discharge_model->order_by('date DESC');
         $gdDate = $this->discharge_model->get()->result_array();
-        $gdDate = ( $gdDate ? $gdDate[0]['date'] : '9999-99-99' );
+        $gdDate = ( $gdDate ? $gdDate[0]['date'] : '0000-00-00' );
         foreach($assignments as $assignment) {
             $start_date = strtotime($assignment['start_date']);
             $end_date = strtotime($assignment['end_date'] ?: format_date('now', 'mysqldate'));
