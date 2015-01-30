@@ -66,6 +66,10 @@ body {
     text-decoration: underline;
 }
 
+.before-gd {
+    text-decoration: line-through;
+}
+
 /* Service Coat */
 .coat { max-width: 100%; }
 

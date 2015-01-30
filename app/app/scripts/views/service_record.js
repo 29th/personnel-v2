@@ -53,6 +53,7 @@ define([
             return $.extend({
                 items: items,
                 duration: this.assignments.duration,
+                gddate: this.assignments.gddate, 
                 coatDir: config.coatDir,
                 allowedTo: allowedTo
             }, this.model.toJSON());
