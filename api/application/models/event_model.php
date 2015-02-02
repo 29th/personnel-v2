@@ -15,10 +15,6 @@ class Event_model extends CRUD_Model {
                 ,'rules' => 'required|numeric'
             )
             ,array(
-                'field' => 'title'
-                ,'rules' => 'required|max_length[64]'
-            )
-            ,array(
                 'field' => 'type'
                 ,'rules' => 'required|max_length[32]'
             )

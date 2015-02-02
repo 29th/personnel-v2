@@ -67,14 +67,24 @@ class Events extends MY_Controller {
         // Create record
         else {
             $this->usertracking->track_this();
-            $data = whitelist($this->post(), array('datetime', 'unit_id', 'title', 'type', 'mandatory', 'server_id'));
+            $data = whitelist($this->post(), array('datetime', 'unit_id', 'type', 'mandatory', 'server_id'));
+
+            // Ensure datetime is an array
+            if( ! is_array($data['datetime'])) $data['datetime'] = array($data['datetime']);
+
+            $new_records = array();
+            $logs = array();
+            // For each datetime
+            foreach($data['datetime'] as $datetime) {
+                $entry_data = $data;
+                $entry_data['datetime'] = $datetime;
 			
-			// Clean date
-			$data['datetime'] = format_date($data['datetime'], 'mysqldatetime');
-			
-            $insert_id = $this->event_model->save(NULL, $data);
-            $new_record = $insert_id ? $this->event_model->view($insert_id) : null;
-            $this->response(array('status' => $insert_id ? true : false, 'event' => $new_record));
+    			// Clean date
+    			$entry_data['datetime'] = format_date($entry_data['datetime'], 'mysqldatetime');
+                $insert_id = $this->event_model->save(NULL, $entry_data);
+                $new_records []= $insert_id ? nest($this->event_model->get_by_id($insert_id)) : null;
+            }
+            $this->response(array('status' => sizeof($new_records) ? true : false, 'events' => $new_records));
         }
     }
     
