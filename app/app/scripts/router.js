@@ -101,7 +101,7 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
             "enlistments/:id": "enlistment",
             "enlistments": "enlistments",
             "enlist": "enlistment_add",
-            "events/create": "event_edit",
+            "events/add": "event_edit",
             "events/:id": "event",
             "events/:id/aar": "aar",
             "finances": "finances",
@@ -259,6 +259,7 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 ,
                 calendarView = new CalendarView({
                     collection: events,
+                    permissions: this.permissions,
                     userAssignments: userAssignments
                 });
 

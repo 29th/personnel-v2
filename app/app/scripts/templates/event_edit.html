@@ -4,6 +4,19 @@
         <label for="date">Date</label>
         <input type="text" class="form-control" id="date" name="date" value="{{ date }}" data-provide="datepicker" data-date-format="yyyy-mm-dd"{{#unless id}} data-date-multidate="true"{{/unless}}>
     </div>
+
+    <div class="form-group">
+        <label for="time">Time</label>
+        <select class="form-control selectpicker" name="time" id="time" data-live-search="true">
+            {{#select time}}
+            <option value="">Select...</option>
+            {{#times 24}}
+            <option value="{{ this }}:00:00">{{ this }}:00</option>
+            <option value="{{ this }}:30:00">{{ this }}:30</option>
+            {{/times}}
+            {{/select}}
+        </select>
+    </div>
     
     <div class="form-group">
         <label for="unit_id">Unit</label>

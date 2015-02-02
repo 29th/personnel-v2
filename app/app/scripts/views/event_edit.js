@@ -4,7 +4,8 @@ define([
     "backbone",
     "hbs!templates/event_edit",
     "marionette",
-    "bootstrap-datepicker"
+    "bootstrap-datepicker",
+    "backbone.validation"
 ], function ($, _, Backbone, Template) {
 
     return Backbone.Marionette.ItemView.extend({
@@ -17,8 +18,8 @@ define([
             options = options || {};
             this.units = options.units || {};
             this.servers = options.servers || {};
-            _.bindAll(this, "onSubmitForm");
             Backbone.Validation.bind(this);
+            _.bindAll(this, "onSubmitForm");
         },
         serializeData: function () {
             return $.extend({
@@ -30,20 +31,27 @@ define([
             this.$(".selectpicker").selectpicker();
         },
         onSubmitForm: function (e) {
-            /*e.preventDefault();
+            e.preventDefault();
             var data = $(e.currentTarget).serializeObject();
+
+            // Format date(s) and time
+            data["datetime"] = data["date"].split(",");
+            for(var i in data["datetime"]) {
+                data["datetime"][i] += " " + data["time"];
+            }
+
             this.model.save(data, {
                 method: "POST",
                 patch: true,
                 data: data,
                 processData: true,
-                success: function () {
-                    Backbone.history.navigate("events/" + 0, {
+                success: function (model, response, options) {
+                    Backbone.history.navigate(response.events.length === 1 ? "events/" + response.events[0].id : "calendar", {
                         trigger: true
                     });
                 }
                 //,error: function() {console.log("ERROR!!!")}
-            });*/
+            });
         }
     });
 });

@@ -45,9 +45,21 @@ define([
                 }
             }
         },
-        initialize: function () {
+        initialize: function (options) {
             _.bindAll(this, "getEvents");
             this.settings.calendar.events = this.getEvents;
+            this.permissions = options.permissions || {};
+            this.permissions.on("reset", this.render, this);
+        },
+        serializeData: function () {
+            var permissions = this.permissions.length ? this.permissions.pluck("abbr") : [],
+                allowedTo = {
+                    addEvent: (permissions.indexOf("event_add_any") !== -1 || permissions.indexOf("event_add") !== -1)
+                };
+                
+            return $.extend({
+                allowedTo: allowedTo
+            }, this.collection.toJSON());
         },
         onShow: function () {
             this.$("#calendar").fullCalendar(this.settings.calendar);
