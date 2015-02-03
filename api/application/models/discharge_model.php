@@ -83,14 +83,4 @@ class Discharge_model extends CRUD_Model {
     public function default_order_by() {
         $this->db->order_by('discharges.date DESC');
     }
-    
-    // Won't work, need to go by assignments
-    public function by_unit($unit_id) {
-        $this->filter_select('events.unit_id AS `unit|id`, units.abbr AS `unit|abbr`, ' . $this->virtual_fields['unit_key'] . ' AS `unit|key`', FALSE);
-        $this->filter_join('units', 'units.id = events.unit_id');
-        $this->filter_where('(units.id = ' . $unit_id . ' OR units.path LIKE "%/' . $unit_id . '/%")');
-        $this->filter_group_by('attendance.event_id');
-        $this->filter_order_by('events.datetime DESC');
-        return $this;
-    }
 }

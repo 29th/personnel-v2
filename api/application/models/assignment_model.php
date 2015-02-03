@@ -175,6 +175,11 @@ class Assignment_model extends CRUD_Model {
         return $this;
     }
     
+    public function distinct_members() {
+        $this->filter_group_by('assignments.member_id');
+        return $this;
+    }
+    
     /*public function order_for_member() {
         $this->filter_order_by('units.class, `unit|depth`, positions.order DESC');
         return $this;

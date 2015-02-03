@@ -17,28 +17,54 @@ class Promotions extends MY_Controller {
 	/**
      * INDEX
      */
-    public function index_get($member_id = FALSE) {
+    public function index_member_get($member_id) {
         // Must have permission to view this member's profile or any member's profile
         if( ! $this->user->permission('profile_view', array('member' => $member_id)) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+        } else {
+            $this->index(array('member_id' => $member_id));
         }
-        // View records
-        else {
-			$skip = $this->input->get('skip') ? $this->input->get('skip') : 0;
-            $model = $this->promotion_model;
-            if($member_id) {
-                $model->where('promotions.member_id', $member_id);
-                $model->get();
-            }
-			// Otherwise paginate
-			else {
-			    $model->members(); // include members
-			    $model->paginate('', $skip);
-			}
-            $promotions = nest($model->result_array());
-			$count = $this->promotion_model->total_rows;
-            $this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'promotions' => $promotions));
+    }
+    public function index_unit_get($unit_id) {
+        // Must have permission to view this unit's profiles or any unit's profiles
+        if( ! $this->user->permission('profile_view', array('unit' => $unit_id)) && ! $this->user->permission('profile_view_any')) {
+            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+        } else {
+            $this->index(array('unit_id' => $unit_id));
         }
+    }
+    public function index_get($unit_id) {
+        // Must have permission to view this unit's profiles or any unit's profiles
+        if( ! $this->user->permission('profile_view_any')) {
+            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+        } else {
+            $this->index();
+        }
+    }
+
+    private function index($filter = FALSE) {
+		$skip = $this->input->get('skip') ? $this->input->get('skip') : 0;
+        $model = $this->promotion_model;
+
+        // Filter by member
+        if(isset($filter['member_id'])) {
+            $model->where('promotions.member_id', $filter['member_id']);
+        }
+
+        // Filter by unit
+        if(isset($filter['unit_id'])) {
+            $model->by_unit($filter['unit_id']);
+            $model->select_member(); // include members
+        }
+
+        // All records
+		else {
+		    $model->select_member(); // include members
+		}
+
+        $promotions = nest($model->paginate('', $skip)->result_array());
+		$count = $this->promotion_model->total_rows;
+        $this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'promotions' => $promotions));
     }
     
 	/**
