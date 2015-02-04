@@ -4,8 +4,9 @@ define([
     "backbone",
     "config",
     "hbs!templates/service_record",
+    "moment",
     "marionette"
-], function ($, _, Backbone, config, Template) {
+], function ($, _, Backbone, config, Template, moment) {
     
     return Backbone.Marionette.ItemView.extend({
         template: Template,
@@ -24,9 +25,9 @@ define([
             this.demerits = options.demerits || false;
         },
         serializeData: function () {
-            var items = []
+            var items = [],
+                dischargeDate = this.assignments.discharge_date,
             // Group everything together by date
-            ,
                 dates = _.groupBy(this.assignments.toJSON().concat(this.promotions.toJSON(), this.awardings.toJSON(), this.discharges.toJSON(), this.enlistments.toJSON(), this.finances.toJSON(), this.demerits.toJSON()), function (item) {
                     return item.start_date || item.date;
                 });
@@ -34,6 +35,7 @@ define([
             _.each(dates, function (dateItems, date) {
                 items.push({
                     date: date,
+                    beforeDischarge: dischargeDate && moment(date).isBefore(dischargeDate),
                     items: dateItems
                 });
             }); 
@@ -53,7 +55,6 @@ define([
             return $.extend({
                 items: items,
                 duration: this.assignments.duration,
-                gddate: this.assignments.gddate, 
                 coatDir: config.coatDir,
                 allowedTo: allowedTo
             }, this.model.toJSON());
