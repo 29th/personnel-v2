@@ -7,13 +7,15 @@
 {{#if duration}}
 <h2 class="duration">{{duration duration}} of service</h2>
 {{/if}}
+
+
             
 {{#each items}}
-    <h3>{{#is this.date "!==" "undefined"}}{{dateFormat this.date}}{{else}}Unknown{{/is}}</h3>
+    <h3{{#if this.beforeDischarge}} class="before-discharge"{{/if}}>{{#is this.date "!==" "undefined"}}{{dateFormat this.date}}{{else}}Unknown{{/is}}</h3>
     
     {{#each this.items }}
         {{#if this.position}}
-        <div class="info-tiles tiles-info service-record-assignment">
+        <div class="info-tiles tiles-info service-record-assignment{{#if ../../beforeDischarge}} before-discharge{{/if}}">
             <div class="tiles-body">
                 <div class="pull-left"><i class="fa fa-exchange"></i></div>
                 <div class="pull-right">
@@ -27,18 +29,20 @@
             </div>
         </div>
         {{else}}{{#if this.new_rank}}
-        <div class="info-tiles tiles-orange service-record-promotion">
+        <div class="info-tiles tiles-orange service-record-promotion{{#if ../../../beforeDischarge}} before-discharge{{/if}}">
             <div class="tiles-body">
                 <div class="pull-left">
+                  {{#is new_rank.name "!==" "Cadet" }} 
                     <img src="images/ranks/16x16/{{ this.new_rank.filename }}.png" title="{{ this.new_rank.name }}">
+                  {{/is}}
                 </div>
-                <div class="pull-right">
+                <div class="pull-right">    
                     Rank changed to {{ this.new_rank.name }}
                 </div>
             </div>
         </div>
         {{else}}{{#if this.award}}
-        <div class="info-tiles tiles-sky service-record-awarding">
+        <div class="info-tiles tiles-sky service-record-awarding{{#if ../../../../beforeDischarge}} before-discharge{{/if}}">
             <div class="tiles-body">
                 <div class="pull-left">
                     <img src="images/awards/{{#award_img_name this.award.abbr}}{{/award_img_name}}.gif" title="{{ this.award.name }}">
@@ -49,7 +53,7 @@
             </div>
         </div>
         {{else}}{{#if this.status}}
-        <a href="#enlistments/{{ this.id }}" class="info-tiles tiles-indigo service-record-enlistment">
+        <a href="#enlistments/{{ this.id }}" class="info-tiles tiles-indigo service-record-enlistment{{#if ../../../../../beforeDischarge}} before-discharge{{/if}}">
             <div class="tiles-body">
                 <div class="pull-left"><i class="fa fa-file-text"></i></div>
                 <div class="pull-right">
@@ -58,7 +62,7 @@
             </div>
         </a>
         {{else}}{{#if this.type}}
-        <a href="#discharges/{{ this.id }}" class="info-tiles tiles-success service-record-discharge">
+        <a href="#discharges/{{ this.id }}" class="info-tiles tiles-success service-record-discharge{{#if ../../../../../../beforeDischarge}} before-discharge{{/if}}">
             <div class="tiles-body">
                 <div class="pull-left"><i class="fa fa-minus-square"></i></div>
                 <div class="pull-right">
@@ -79,7 +83,7 @@
             </div>
         </div>
         {{else}}{{#if this.reason}}
-        <a href="#demerits/{{ this.id }}" class="info-tiles tiles-inverse service-record-demerit">
+        <a href="#demerits/{{ this.id }}" class="info-tiles tiles-inverse service-record-demerit{{#if ../../../../../../../../beforeDischarge}} before-discharge{{/if}}">
             <div class="tiles-body">
                 <div class="pull-left"><i class="fa fa-file-text-o"></i></div>
                 <div class="pull-right">

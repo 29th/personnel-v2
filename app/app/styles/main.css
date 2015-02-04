@@ -66,6 +66,10 @@ body {
     text-decoration: underline;
 }
 
+.before-discharge, .before-discharge div div {
+    text-decoration: line-through;
+}
+
 /* Service Coat */
 .coat { max-width: 100%; }
 

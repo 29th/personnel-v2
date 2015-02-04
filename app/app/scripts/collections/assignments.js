@@ -19,6 +19,7 @@ define([
         },
         parse: function (response, options) {
             this.duration = response.duration || null;
+            this.discharge_date = response.discharge_date || null;
             return response.assignments || [];
         }
     });
