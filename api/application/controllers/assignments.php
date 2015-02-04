@@ -6,6 +6,7 @@ class Assignments extends MY_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('assignment_model');
+        $this->load->model('discharge_model');
     }
     
     /**
@@ -29,25 +30,32 @@ class Assignments extends MY_Controller {
             }
             if($this->input->get('current')) $model->by_date();
             $assignments = nest($model->order_by('priority')->get()->result_array());
-            $duration = $this->calculate_duration($assignments);
-            $this->response(array('status' => true, 'duration' => $duration, 'assignments' => $assignments));
+            $duration = $this->calculate_duration($assignments,$member_id);
+            $this->response(array('status' => true, 'duration' => $duration[0], 'gddate' => $duration[1], 'assignments' => $assignments ));
         }
     }
     
-    private function calculate_duration($assignments) {
+    private function calculate_duration($assignments,$member_id) {
         $days = array();
+        $this->discharge_model->where('type !=','Honorable');
+        $this->discharge_model->where('discharges.member_id',$member_id);
+        $this->discharge_model->order_by('date DESC');
+        $gdDate = $this->discharge_model->get()->result_array();
+        $gdDate = ( $gdDate ? $gdDate[0]['date'] : '0000-00-00' );
         foreach($assignments as $assignment) {
             $start_date = strtotime($assignment['start_date']);
             $end_date = strtotime($assignment['end_date'] ?: format_date('now', 'mysqldate'));
-            for($i = $start_date; $i < $end_date; $i = $i + DAY) {
-                $days[format_date($i, 'mysqldate')] = true;
+            if ( format_date($start_date, 'mysqldate') > $gdDate ) {  
+                for($i = $start_date; $i < $end_date; $i = $i + DAY) {
+                    $days[format_date($i, 'mysqldate')] = true;
+                }
             }
         }
-        return sizeof($days);
+        return array( sizeof($days), $gdDate );
     }
     
     /**
-     * VIEW
+     * VIEW                                                 $gdDate[0]['date']
      */
     public function view_get($assignment_id) {
         // Must have permission to view this member's profile or any member's profile
