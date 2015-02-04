@@ -37,7 +37,7 @@ class Assignments extends MY_Controller {
     
     private function calculate_duration($assignments,$member_id) {
         $days = array();
-        $this->discharge_model->where('type','General');
+        $this->discharge_model->where('type !=','Honorable');
         $this->discharge_model->where('discharges.member_id',$member_id);
         $this->discharge_model->order_by('date DESC');
         $gdDate = $this->discharge_model->get()->result_array();
