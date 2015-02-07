@@ -85,6 +85,16 @@ class Member_model extends CRUD_Model {
     
     public function default_order_by() {
         $this->db//->order_by('ranks.order DESC')
-            ->order_by('units.class, `unit|depth`, positions.order');
+            ->order_by('units.class, `unit|depth`, positions.order DESC');
+    }
+
+    public function active() {
+        $this->filter_where('assignments.id IS NOT NULL');
+        return $this;
+    }
+    
+    public function distinct_members() {
+        $this->filter_group_by('members.id');
+        return $this;
     }
 }

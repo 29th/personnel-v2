@@ -19,7 +19,17 @@ class Members extends MY_Controller {
      * INDEX
      * We don't want to be able to fetch a list of members for all units, no need
      */
-    //public function index_get() {}
+    public function index_get() {
+        // Must have permission to view this member's profile or any member's profile
+        if( ! $this->user->permission('profile_view_any')) {
+            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+        }
+        // View records
+        else {
+            $members = nest($this->member_model->active()->distinct_members()->get()->result_array());
+            $this->response(array('status' => true, 'count' => sizeof($members), 'members' => $members));
+        }
+    }
     
     /**
      * VIEW
