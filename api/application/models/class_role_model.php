@@ -1,4 +1,6 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); class Class_Role_model extends CRUD_Model {
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Class_Role_model extends MY_Model {
     public $table = 'class_roles';
     public $primary_key = 'class_roles.id';
     

@@ -70,7 +70,7 @@
     }
 }*/
 
-class Assignment_model extends CRUD_Model {
+class Assignment_model extends MY_Model {
     public $table = 'assignments';
     public $primary_key = 'assignments.id';
     

@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Unit_model extends CRUD_Model {
+class Unit_model extends MY_Model {
     public $table = 'units';
     public $primary_key = 'units.id';
     

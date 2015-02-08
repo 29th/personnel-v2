@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Rank_model extends CRUD_Model {
+class Rank_model extends MY_Model {
     public $table = 'ranks';
     public $primary_key = 'ranks.id';
     
