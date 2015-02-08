@@ -112,9 +112,4 @@ class Unit_model extends MY_Model {
         }
         return $this;
     }
-    
-    private function getByUnitKey($unit_key) {
-        $query = $this->db->query("SELECT units.id FROM units WHERE " . $this->virtual_fields['unit_key'] . ' = ' . $this->db->escape($unit_key));
-        return $query->row_array();
-    }
 }
