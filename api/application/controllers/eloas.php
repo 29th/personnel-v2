@@ -1,10 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class ELOAs extends MY_Controller {
-    public function __construct() {
-        parent::__construct();
-        $this->load->model('eloa_model');
-    }
+    public $model_name = 'eloa_model';
+    public $abilities = array(
+        'view_any' => 'eloa_view_any',
+        'view' => 'eloa_view'
+    );
     
     /**
      * PRE-FLIGHT
@@ -14,27 +15,8 @@ class ELOAs extends MY_Controller {
     
     /**
      * INDEX
+     * Handled by index_filter_get in MY_Controller
      */
-    public function index_get($member_id = FALSE) {
-		// Must have permission to view this type of record for this member or for any member
-		if( ! $this->user->permission('eloas_view_any')) {
-            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
-        }
-		// View records
-		else {
-			$skip = $this->input->get('skip') ? $this->input->get('skip') : 0;
-			$model = $this->eloa_model;
-			if($member_id) {
-			    $model->by_member($member_id);
-			}
-            if($this->input->get('active')) {
-                $model->active();
-            }
-			$eloas = nest($model->paginate('', $skip)->result_array());
-			$count = $this->eloa_model->total_rows;
-			$this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'eloas' => $eloas));
-		}
-    }
     
     /**
      * VIEW
@@ -46,7 +28,7 @@ class ELOAs extends MY_Controller {
      */
     public function index_post() {
         // Must have permission to create this member's eloas or any member's eloas
-        if( ! $this->user->permission('eloas_add', array('member' => $this->post('member_id'))) && ! $this->user->permission('eloas_add_any')) {
+        if( ! $this->user->permission('eloa_add', array('member' => $this->post('member_id'))) && ! $this->user->permission('eloa_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation
@@ -85,7 +67,7 @@ class ELOAs extends MY_Controller {
     public function view_post($eloa_id) {
         // Must have permission to edit this member's eloas or any member's eloas
         $eloa = nest($this->eloa_model->get_by_id($eloa_id));
-        if( ! $this->user->permission('eloas_add', array('member' => $eloa['member']['id'])) && ! $this->user->permission('eloas_add_any')) {
+        if( ! $this->user->permission('eloa_add', array('member' => $eloa['member']['id'])) && ! $this->user->permission('eloa_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation

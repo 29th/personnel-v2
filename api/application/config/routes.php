@@ -1,8 +1,8 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 // Members
-$route['members/(:num)/promotions'] = 'promotions/index/$1';
-$route['members/(:num)/awardings'] = 'awardings/index/$1';
+$route['members/(:num)/promotions'] = 'promotions/index_filter/member/$1';
+$route['members/(:num)/awardings'] = 'awardings/index_filter/member/$1';
 $route['members/(:num)/qualifications'] = 'qualifications/index/$1';
 $route['members/(:num)/assignments'] = 'assignments/index/$1';
 $route['members/(:num)/attendance'] = 'attendance/index/$1';
@@ -12,15 +12,20 @@ $route['members/(:num)/awols'] = 'members/awols/$1';
 $route['members/(:num)/discharge'] = 'members/discharge/$1';
 $route['members/(:num)/coat'] = 'members/coat/$1';
 $route['members/(:num)/roles'] = 'members/roles/$1';
-$route['members/(:num)/finances'] = 'finances/index/$1';
-$route['members/(:num)/eloas'] = 'eloas/index/$1';
-$route['members/(:num)/demerits'] = 'demerits/index/$1';
+$route['members/(:num)/finances'] = 'finances/index_filter/member/$1';
+$route['members/(:num)/eloas'] = 'eloas/index_filter/member/$1';
+$route['members/(:num)/demerits'] = 'demerits/index_filter/member/$1';
 $route['members/(:num)'] = 'members/view/$1';
 $route['members'] = 'members/index';
 
 // Units
 $route['units/(:any)/attendance'] = 'units/attendance/$1';
 $route['units/(:any)/awols'] = 'units/awols/$1';
+$route['units/(:any)/awardings'] = 'awardings/index_filter/unit/$1';
+$route['units/(:any)/promotions'] = 'promotions/index_filter/unit/$1';
+$route['units/(:any)/demerits'] = 'demerits/index_filter/unit/$1';
+$route['units/(:any)/eloas'] = 'eloas/index_filter/unit/$1';
+$route['units/(:any)/finances'] = 'finances/index_filter/unit/$1';
 $route['units/(:any)'] = 'units/view/$1';
 $route['units'] = 'units/index';
 
@@ -55,9 +60,9 @@ $route['positions'] = 'positions/index';
 
 // Member-related CRUD
 $route['promotions/(:num)'] = 'promotions/view/$1';
-$route['promotions'] = 'promotions/index';
+$route['promotions'] = 'promotions/index_filter';
 $route['awardings/(:num)'] = 'awardings/view/$1';
-$route['awardings'] = 'awardings/index';
+$route['awardings'] = 'awardings/index_filter';
 $route['assignments/(:num)'] = 'assignments/view/$1';
 $route['assignments'] = 'assignments/index';
 $route['discharges/(:num)'] = 'discharges/view/$1';
@@ -65,7 +70,7 @@ $route['discharges'] = 'discharges/index';
 $route['qualifications/(:num)'] = 'qualifications/view/$1';
 $route['qualifications'] = 'qualifications/index';
 $route['demerits/(:num)'] = 'demerits/view/$1';
-$route['demerits'] = 'demerits/index';
+$route['demerits'] = 'demerits/index_filter';
 
 // Enlistments
 $route['enlistments/(:num)/process'] = 'enlistments/process/$1';
@@ -73,10 +78,10 @@ $route['enlistments/(:num)'] = 'enlistments/view/$1';
 $route['enlistments'] = 'enlistments/index';
 
 // Finances
-$route['finances'] = 'finances/index';
+$route['finances'] = 'finances/index_filter';
 
 // Extended LOAs
-$route['eloas'] = 'eloas/index';
+$route['eloas'] = 'eloas/index_filter';
 $route['eloas/(:num)'] = 'eloas/view/$1';
 
 // Admin
