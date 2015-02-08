@@ -1,0 +1,25 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>Activity</h2>
+    </div>
+    <div class="panel-body">
+    	{{#each items}}
+    	<h3>{{dateFormat this.date}}</h3>
+    	<ul>
+    		{{#each items}}
+    		<li>
+    		{{#if this.new_rank}}
+    			<a href="#members/{{this.member.id}}">{{this.member.short_name}}</a>'s rank was changed to {{this.new_rank.name}}
+    		{{else}}{{#if this.award}}
+    			<a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> was awarded the {{this.award.name}}
+    		{{else}}{{#if this.amount_received}}
+    			<a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> donated ${{this.amount_received}}
+    		{{else}}{{#if this.reason}}
+    			<a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> received a <a href="#demerits/{{this.id}}">demerit</a>
+    		{{/if}}{{/if}}{{/if}}{{/if}}
+    		</li>
+    		{{/each}}
+    	</ul>
+    	{{/each}}
+    </div>
+</div>

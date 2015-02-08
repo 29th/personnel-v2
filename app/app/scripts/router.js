@@ -61,9 +61,9 @@ define([
     "views/nav",
     "views/roster",
     "views/service_record",
+    "views/unit_activity",
     "views/unit_attendance",
     "views/unit_awols",
-    "views/unit_profile",
     "views/unit",
     // Extras
     "handlebars-helpers",
@@ -83,7 +83,7 @@ Assignment, Demerit, Discharge, Enlistment, Event, Member, User,
 Assignments, Awardings, Demerits, Discharges, ELOAs, Enlistments, EventAttendance, Events, Finances, MemberAttendance, MemberAwols, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, Servers, Standards, UnitAttendance, UnitAwols, Units,
 // Views
 AARView, AssignmentEditView, AssociateView, CalendarView, DemeritView, DischargeView, ELOAsView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, EventEditView, FinancesView, FlashView, MemberAdminView, MemberAttendanceView, MemberDischargeView,
-MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView, RosterView, ServiceRecordView, UnitAttendanceView, UnitAwolsView, UnitProfileView, UnitView) {
+MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView, RosterView, ServiceRecordView, UnitActivityView, UnitAttendanceView, UnitAwolsView, UnitView) {
     "use strict";
 
     return Backbone.Router.extend({
@@ -281,7 +281,6 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 demeritView = new DemeritView({
                     model: demerit
                 });
-                console.log("here");
                 this.app.navRegion.currentView.setHighlight("roster");
                 promises.push(demerit.fetch());
                 
@@ -781,10 +780,46 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
 
                 units.children = true;
                 units.members = true;
+
+
+                // Promotions
+                var promotions = new Promotions(null, {
+                    unit_id: filter || "Bn"
+                });
+                promises.push(promotions.fetch());
+
+                // Awardings
+                var awardings = new Awardings(null, {
+                    unit_id: filter || "Bn"
+                });
+                promises.push(awardings.fetch());
+
+                // Finances
+                var finances = new Finances(null, {
+                    unit_id: filter || "Bn"
+                });
+                promises.push(finances.fetch());
+
+                // Demerits
+                var demerits = new Demerits(null, {
+                    unit_id: filter || "Bn"
+                });
+                promises.push(demerits.fetch());
+
+                // Extended LOAs
+                var eloas = new ELOAs(null, {
+                    unit_id: filter || "Bn"
+                });
+                promises.push(demerits.fetch());
+
                 columnViews.push(new RosterView({
                     collection: units
-                }), new UnitProfileView({
-                    collection: units
+                }), new UnitActivityView({
+                    promotions: promotions,
+                    awardings: awardings,
+                    finances: finances,
+                    demerits: demerits,
+                    eloas: eloas
                 }));
             }
 

@@ -12,13 +12,19 @@ define([
         initialize: function (models, options) {
             options = options || {};
             this.member_id = options.member_id || false;
+            this.unit_id = options.unit_id || null;
             this.skip = 0;
         },
         url: function () {
             var url = config.apiHost;
-            if (this.member_id) url += "/members/" + this.member_id;
+            if(this.member_id) {
+                url += "/members/" + this.member_id;
+            }
+            else if(this.unit_id) {
+                url += "/units/" + this.unit_id;
+            }
             url += "/finances";
-            if (this.skip) url += "?skip=" + this.skip;
+            if(this.skip) url += "?skip=" + this.skip;
             return url;
         },
         nextPage: function () {
