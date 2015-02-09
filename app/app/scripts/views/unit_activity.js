@@ -46,7 +46,7 @@ define([
                 return 0;
             });
 
-            return {items: items};
+            return {items: items, forumUrl: config.forumUrl};
         }
     });
 });
