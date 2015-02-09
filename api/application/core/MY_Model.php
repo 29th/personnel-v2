@@ -30,6 +30,7 @@ class MY_Model extends CRUD_Model {
             $this->filter_where('(units.id = ' . $lookup['id'] . ' OR (units.path LIKE "%/' . $lookup['id'] . '/%"))');
         }
         $this->filter_where('assignments.end_date IS NULL'); // Only include current members
+        $this->filter_group_by($this->primary_key);
         return $this;
     }
     

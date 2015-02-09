@@ -94,6 +94,7 @@ class Discharge_model extends MY_Model {
         } elseif($lookup = $this->getByUnitKey($unit_id)) {
             $this->filter_where('(units.id = ' . $lookup['id'] . ' OR (units.path LIKE "%/' . $lookup['id'] . '/%"))');
         }
+        $this->filter_group_by($this->primary_key);
         return $this;
     }
 }
