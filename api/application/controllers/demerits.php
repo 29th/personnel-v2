@@ -22,7 +22,7 @@ class Demerits extends MY_Controller {
           }
           // View records
           else {
-               $demerit = nest($this->demerit_model->get_by_id($demerit_id));
+               $demerit = nest($this->demerit_model->select_member()->get_by_id($demerit_id));
                $this->response(array('status' => true, 'demerit' => $demerit));
           }
      }

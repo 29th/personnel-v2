@@ -1,10 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Discharges extends MY_Controller {
-    public function __construct() {
-        parent::__construct();
-        $this->load->model('discharge_model');
-    }
+     public $model_name = 'discharge_model';
+     public $abilities = array(
+          'view_any' => 'profile_view_any',
+          'view' => 'profile_view'
+     );
     
     /**
      * PRE-FLIGHT
@@ -14,24 +15,8 @@ class Discharges extends MY_Controller {
     
     /**
      * INDEX
+     * Handled by index_filter_get in MY_Controller
      */
-    public function index_get($member_id = FALSE) {
-        // Must have permission to view any member's profile
-        if( ! $this->user->permission('profile_view_any')) {
-            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
-        }
-        // Index records
-        else {
-            $skip = $this->input->get('skip') ? $this->input->get('skip') : 0;
-            $model = $this->discharge_model;
-            if($member_id) {
-                $model->where('discharges.member_id', $member_id);
-            }
-            $discharges = nest($model->paginate('', $skip)->result_array());
-            $count = $this->discharge_model->total_rows;
-            $this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'discharges' => $discharges));
-        }
-    }
     
     /**
      * VIEW
