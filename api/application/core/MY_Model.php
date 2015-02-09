@@ -37,4 +37,11 @@ class MY_Model extends CRUD_Model {
         $query = $this->db->query("SELECT units.id FROM units WHERE " . $this->virtual_fields['unit_key'] . ' = ' . $this->db->escape($unit_key));
         return $query->row_array();
     }
+    
+    public function by_date($start = FALSE, $end = FALSE) {
+        $date = $this->date_field ? $this->date_field : 'date';
+        $this->filter_where($this->table . '.' . $date . ' >=', format_date($start, 'mysqldate'))
+            ->filter_where($this->table . '.' . $date . ' <=', format_date($end, 'mysqldate'));
+        return $this;
+    }
 }

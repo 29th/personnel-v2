@@ -41,7 +41,17 @@ class MY_Controller extends REST_Controller {
                 $model->select_member(); // include members
             }
 
-            $records = nest($model->paginate('', $skip)->result_array());
+            // If date range
+            if($this->input->get('from') && $this->input->get('to')
+                && (round((strtotime($this->input->get('to')) - strtotime($this->input->get('from')))/60/60/24, 1) <= 30)) {
+                $model->by_date($this->input->get('from'), $this->input->get('to'))->get();
+            }
+            // Otherwise paginate
+            else {
+                $model->paginate('', $skip);
+            }
+
+            $records = nest($model->result_array());
             $count = $this->{$this->model_name}->total_rows;
             $this->response(array('status' => true, 'count' => $count, 'skip' => $skip, $model->table => $records));
         }

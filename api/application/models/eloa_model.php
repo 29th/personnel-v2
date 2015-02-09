@@ -3,6 +3,7 @@
 class ELOA_model extends MY_Model {
     public $table = 'eloas';
     public $primary_key = 'eloas.id';
+    public $date_field = 'posting.date';
     
     public function validation_rules_add() {
         return array(
