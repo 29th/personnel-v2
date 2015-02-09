@@ -784,33 +784,51 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
 
                 // Promotions
                 var promotions = new Promotions(null, {
-                    unit_id: filter || "Bn"
+                    unit_id: filter || "Bn",
+                    from: "30 days ago",
+                    to: "today"
                 });
                 promises.push(promotions.fetch());
 
                 // Awardings
                 var awardings = new Awardings(null, {
-                    unit_id: filter || "Bn"
+                    unit_id: filter || "Bn",
+                    from: "30 days ago",
+                    to: "today"
                 });
                 promises.push(awardings.fetch());
 
                 // Finances
                 var finances = new Finances(null, {
-                    unit_id: filter || "Bn"
+                    unit_id: filter || "Bn",
+                    from: "30 days ago",
+                    to: "today"
                 });
                 promises.push(finances.fetch());
 
                 // Demerits
                 var demerits = new Demerits(null, {
-                    unit_id: filter || "Bn"
+                    unit_id: filter || "Bn",
+                    from: "30 days ago",
+                    to: "today"
                 });
                 promises.push(demerits.fetch());
 
                 // Extended LOAs
                 var eloas = new ELOAs(null, {
-                    unit_id: filter || "Bn"
+                    unit_id: filter || "Bn",
+                    from: "30 days ago",
+                    to: "today"
                 });
-                promises.push(demerits.fetch());
+                promises.push(eloas.fetch());
+
+                // Discharges
+                var discharges = new Discharges(null, {
+                    unit_id: filter || "Bn",
+                    from: "30 days ago",
+                    to: "today"
+                });
+                promises.push(discharges.fetch());
 
                 columnViews.push(new RosterView({
                     collection: units
@@ -819,7 +837,8 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                     awardings: awardings,
                     finances: finances,
                     demerits: demerits,
-                    eloas: eloas
+                    eloas: eloas,
+                    discharges: discharges
                 }));
             }
 

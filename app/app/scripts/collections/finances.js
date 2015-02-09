@@ -14,6 +14,8 @@ define([
             this.member_id = options.member_id || false;
             this.unit_id = options.unit_id || null;
             this.skip = 0;
+            this.from = options.from || null;
+            this.to = options.to || null;
         },
         url: function () {
             var url = config.apiHost;
@@ -24,7 +26,13 @@ define([
                 url += "/units/" + this.unit_id;
             }
             url += "/finances";
-            if(this.skip) url += "?skip=" + this.skip;
+
+            var params = [];
+            if(this.skip) params.push("skip=" + this.skip);
+            if(this.from) params.push("from=" + this.from);
+            if(this.to) params.push("to=" + this.to);
+            if(params.length) url += "?" + params.join("&");
+            
             return url;
         },
         nextPage: function () {

@@ -6,6 +6,15 @@ define([
     "config",
     "marionette"
 ], function ($, _, Backbone, Template, config) {
+
+    var groupActivity = function(dates, collection, type, dateKey) {
+        _.each(collection, function(model) {
+            var date = model[dateKey].split(" ")[0]
+            if(dates[date] === undefined) dates[date] = {date: date};
+            if(dates[date][type] === undefined) dates[date][type] = [];
+            dates[date][type].push(model);
+        });
+    }
     
     return Backbone.Marionette.ItemView.extend({
         template: Template,
@@ -17,27 +26,21 @@ define([
             this.finances = options.finances || null;
             this.demerits = options.demerits || null;
             this.eloas = options.eloas || null;
+            this.discharges = options.discharges || null;
         },
         serializeData: function () {
             var items = [],
-            // Group everything together by date
-                dates = _.groupBy(this.promotions.toJSON().concat(
-                    this.awardings.toJSON(),
-                    this.finances.toJSON(),
-                    this.demerits.toJSON(),
-                    this.eloas.toJSON()
-                ), function (item) {
-                    return item.start_date || item.date;
-                });
-            // Transform grouped-by data into an array of dates with items
-            _.each(dates, function (dateItems, date) {
-                items.push({
-                    date: date,
-                    items: dateItems
-                });
-            }); 
+                dates = {};
+
+            groupActivity(dates, this.promotions.toJSON(), "promotions", "date");
+            groupActivity(dates, this.awardings.toJSON(), "awardings", "date");
+            groupActivity(dates, this.finances.toJSON(), "finances", "date");
+            groupActivity(dates, this.demerits.toJSON(), "demerits", "date");
+            groupActivity(dates, this.eloas.toJSON(), "eloas", "posting_date");
+            groupActivity(dates, this.discharges.toJSON(), "discharges", "date");
+
             // Sort descending by date
-            items.sort(function (a, b) {
+            items = _.values(dates).sort(function (a, b) {
                 if (a.date < b.date) return 1;
                 if (b.date < a.date) return -1;
                 return 0;

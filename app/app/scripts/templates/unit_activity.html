@@ -6,19 +6,43 @@
     	{{#each items}}
     	<h3>{{dateFormat this.date}}</h3>
     	<ul>
-    		{{#each items}}
-    		<li>
-    		{{#if this.new_rank}}
-    			<a href="#members/{{this.member.id}}">{{this.member.short_name}}</a>'s rank was changed to {{this.new_rank.name}}
-    		{{else}}{{#if this.award}}
-    			<a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> was awarded the {{this.award.name}}
-    		{{else}}{{#if this.amount_received}}
-    			<a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> donated ${{this.amount_received}}
-    		{{else}}{{#if this.reason}}
-    			<a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> received a <a href="#demerits/{{this.id}}">demerit</a>
-    		{{/if}}{{/if}}{{/if}}{{/if}}
-    		</li>
-    		{{/each}}
+
+        {{#if this.promotions}}
+            {{#each this.promotions}}
+                <li><a href="#members/{{this.member.id}}">{{this.member.short_name}}</a>'s rank was changed to {{this.new_rank.name}}</li>
+            {{/each}}
+        {{/if}}
+
+        {{#if this.awardings}}
+            {{#each this.awardings}}
+                <li><a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> was awarded the {{this.award.name}}</li>
+            {{/each}}
+        {{/if}}
+
+        {{#if this.finances}}
+            {{#each this.finances}}
+                <li><a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> donated ${{this.amount_received}}</li>
+            {{/each}}
+        {{/if}}
+
+        {{#if this.eloas}}
+            {{#each this.eloas}}
+                <li><a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> posted an <a href="#eloas">Extended LOA</a></li>
+            {{/each}}
+        {{/if}}
+
+        {{#if this.discharges}}
+            {{#each this.discharges}}
+                <li><a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> was <a href="#discharges/{{this.id}}">discharged</a></li>
+            {{/each}}
+        {{/if}}
+
+        {{#if this.demerits}}
+            {{#each this.demerits}}
+                <li><a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> received a <a href="#demerits/{{this.id}}">demerit</a></li>
+            {{/each}}
+        {{/if}}
+        
     	</ul>
     	{{/each}}
     </div>
