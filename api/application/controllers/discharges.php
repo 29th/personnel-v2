@@ -23,7 +23,7 @@ class Discharges extends MY_Controller {
      */
     public function view_get($discharge_id) {
         // Must have permission to view this member's profile or any member's profile
-        $discharge = nest($this->discharge_model->get_by_id($discharge_id));
+        $discharge = nest($this->discharge_model->select_member()->get_by_id($discharge_id));
         if( ! $this->user->permission('profile_view', array('member' => $discharge['member']['id'])) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
