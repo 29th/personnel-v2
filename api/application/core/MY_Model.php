@@ -39,7 +39,7 @@ class MY_Model extends CRUD_Model {
     }
     
     public function by_date($start = FALSE, $end = FALSE) {
-        $date = $this->date_field ? $this->date_field : 'date';
+        $date = isset($this->date_field) ? $this->date_field : 'date';
         $this->filter_where($this->table . '.' . $date . ' >=', format_date($start, 'mysqldate'))
             ->filter_where($this->table . '.' . $date . ' <=', format_date($end, 'mysqldate'));
         return $this;
