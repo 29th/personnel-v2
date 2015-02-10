@@ -20,6 +20,11 @@ class MY_Model extends CRUD_Model {
         return $this;
     }
 
+    public function by_member($member_id) {
+        $this->filter_where($this->table . '.member_id', $member_id);
+        return $this;
+    }
+
     public function by_unit($unit_id) {
         $this->filter_join('assignments', 'assignments.member_id = ' . $this->table . '.member_id');
         $this->filter_join('units', 'units.id = assignments.unit_id');
@@ -40,9 +45,9 @@ class MY_Model extends CRUD_Model {
     }
     
     public function by_date($start = FALSE, $end = FALSE) {
-        $date = isset($this->date_field) ? $this->date_field : 'date';
-        $this->filter_where($this->table . '.' . $date . ' >=', format_date($start, 'mysqldate'))
-            ->filter_where($this->table . '.' . $date . ' <=', format_date($end, 'mysqldate'));
+        $date_field = isset($this->date_field) ? $this->date_field : $this->table . '.date';
+        if($start) $this->filter_where($date_field . ' >=', format_date($start, 'mysqldate'));
+        if($end) $this->filter_where($date_field . ' <=', format_date($end, 'mysqldate'));
         return $this;
     }
 }

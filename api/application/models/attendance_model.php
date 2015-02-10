@@ -3,6 +3,7 @@
 class Attendance_model extends MY_Model {
     public $table = 'attendance';
     public $primary_key = 'attendance.id';
+    public $date_field = 'events.datetime';
     
     public function default_select() {
         $this->db->select('SQL_CALC_FOUND_ROWS attendance.attended, attendance.excused', FALSE); // SQL_CALC_FOUND_ROWS allows a COUNT after the query
@@ -17,12 +18,21 @@ class Attendance_model extends MY_Model {
         $this->filter_order_by('ranks.order DESC');
         return $this;
     }
+
+    private function select_event() {
+        $this->filter_select('events.id AS `event|id`, events.datetime AS `event|datetime`, events.type AS `event|type`, events.mandatory AS `event|mandatory`');
+        $this->filter_join('events', 'events.id = attendance.event_id');
+        return $this;
+    }
+
+    private function select_unit() {
+        $this->filter_select('events.unit_id AS `unit|id`, units.abbr AS `unit|abbr`, ' . $this->virtual_fields['unit_key'] . ' AS `unit|key`', FALSE);
+        $this->filter_join('units', 'units.id = events.unit_id');
+        return $this;
+    }
     
     public function by_member($member_id) {
-        $this->filter_select('events.id AS `event|id`, events.datetime AS `event|datetime`, events.type AS `event|type`, events.mandatory AS `event|mandatory`');
-        $this->filter_select('events.unit_id AS `unit|id`, units.abbr AS `unit|abbr`, ' . $this->virtual_fields['unit_key'] . ' AS `unit|key`', FALSE);
-        $this->filter_join('events', 'events.id = attendance.event_id');
-        $this->filter_join('units', 'units.id = events.unit_id');
+        $this->select_event()->select_unit();
         $this->filter_where('attendance.member_id', $member_id);
         $this->filter_where('events.reporter_member_id IS NOT NULL');
         $this->filter_order_by('events.datetime DESC');
@@ -31,19 +41,24 @@ class Attendance_model extends MY_Model {
     
     // I could do select * from assignments where member_id IN (list of member IDs) group by event_id....but what if they've since been transferred...nevermind
     public function by_unit($unit_id) {
-        $this->filter_select('events.id AS `event|id`, events.datetime AS `event|datetime`, events.type AS `event|type`, events.mandatory AS `event|mandatory`');
-        $this->filter_select('events.unit_id AS `unit|id`, units.abbr AS `unit|abbr`, ' . $this->virtual_fields['unit_key'] . ' AS `unit|key`', FALSE);
+        $this->select_event()->select_unit();
         $this->filter_select('SUM(attendance.attended) AS attended, COUNT(attendance.attended) - SUM(attendance.attended) AS absent, SUM(IF(attendance.attended = 0, IF(attendance.excused = 1, 1, 0), 0)) AS excused', FALSE);
-        $this->filter_join('events', 'events.id = attendance.event_id');
-        $this->filter_join('units', 'units.id = events.unit_id');
-        $this->filter_where('(units.id = ' . $unit_id . ' OR units.path LIKE "%/' . $unit_id . '/%")');
+
+        if(is_numeric($unit_id)) {
+            $this->filter_where('(units.id = ' . $unit_id . ' OR units.path LIKE "%/' . $unit_id . '/%")');
+        } elseif($lookup = $this->getByUnitKey($unit_id)) {
+            $this->filter_where('(units.id = ' . $lookup['id'] . ' OR (units.path LIKE "%/' . $lookup['id'] . '/%"))');
+        }
+
         $this->filter_where('events.reporter_member_id IS NOT NULL');
         $this->filter_group_by('attendance.event_id');
         $this->filter_order_by('events.datetime DESC');
         return $this;
     }
+
+    public function select_member() {}
     
-    public function by_date($start = FALSE, $end = FALSE) {        
+    /*public function by_date($start = FALSE, $end = FALSE) {        
         if($start !== FALSE && $end !== FALSE) {
             $start = format_date($start, 'mysqldate');
             $end = format_date($end, 'mysqldate');
@@ -54,7 +69,7 @@ class Attendance_model extends MY_Model {
                 ->filter_where('YEAR(events.datetime) = YEAR(NOW())');
         }
         return $this;
-    }
+    }*/
     
     public function awols($member_id, $days = 30) {
         $this->filter_select('attendance.member_id AS `member|id`, ' . $this->virtual_fields['short_name'] . ' AS `member|short_name`', FALSE);

@@ -17,7 +17,7 @@ class MY_Controller extends REST_Controller {
     }
 
     // Standard GET index allowing filtering by member and unit. Common across many controllers.
-    public function index_filter_get($filter_key = FALSE, $filter_value = FALSE) {
+    public function index_get($filter_key = FALSE, $filter_value = FALSE) {
         if( ! $this->user->permission($this->abilities['view_any'])
             && ($filter_key && ! $this->user->permission($this->abilities['view'], array($filter_key => $filter_value))) ) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
@@ -27,7 +27,7 @@ class MY_Controller extends REST_Controller {
             
             // Filter by member
             if($filter_key == 'member') {
-                $model->where($model->table . '.member_id', $filter_value);
+                $model->by_member($filter_value);
             }
 
             // Filter by unit
@@ -43,7 +43,7 @@ class MY_Controller extends REST_Controller {
 
             // If date range
             if($this->input->get('from') && $this->input->get('to')
-                && (round((strtotime($this->input->get('to')) - strtotime($this->input->get('from')))/60/60/24, 1) <= 30)) {
+                && (round((strtotime($this->input->get('to')) - strtotime($this->input->get('from')))/60/60/24, 1) <= 45)) {
                 $model->by_date($this->input->get('from'), $this->input->get('to'))->get();
             }
             // Otherwise paginate

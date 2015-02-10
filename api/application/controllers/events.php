@@ -1,9 +1,14 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Events extends MY_Controller {
+    public $model_name = 'event_model';
+    public $abilities = array(
+        'view_any' => 'event_view_any',
+        'view' => 'event_view'
+    );
+
     public function __construct() {
         parent::__construct();
-        $this->load->model('event_model');
         $this->load->model('attendance_model');
         $this->load->model('assignment_model');
         $this->load->model('eloa_model');
@@ -19,21 +24,13 @@ class Events extends MY_Controller {
     
     /**
      * INDEX
-     * // TODO: Enforce 60 day gap max or add pagination
+     * Handled by index_filter_get in MY_Controller, but first allow reported query
      */
-    public function index_get() {
-        // Must have permission to view any event
-        if( ! $this->user->permission('event_view_any')) {
-            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+    public function index_filter_get($filter_key = FALSE, $filter_value = FALSE) {
+        if($this->input->get('reported')) {
+            $this->{$this->model_name}->reported($this->input->get('reported') == 'true' ? TRUE : FALSE);
         }
-        // Index records
-        else {
-            $from = $this->input->get('from') ? $this->input->get('from') : '30 days ago';
-            $to = $this->input->get('to') ? $this->input->get('to') : 'today';
-            
-            $events = nest($this->event_model->by_date($from, $to)->get()->result_array());
-            $this->response(array('status' => true, 'events' => $events));
-        }
+        parent::index_filter_get($filter_key, $filter_value);
     }
     
     /**

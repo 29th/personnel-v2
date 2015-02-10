@@ -3,6 +3,7 @@
 class Event_model extends MY_Model {
     public $table = 'events';
     public $primary_key = 'events.id';
+    public $date_field = 'events.datetime';
     
     public function validation_rules_add() {
         return array(
@@ -64,7 +65,7 @@ class Event_model extends MY_Model {
     }
     
     public function default_select() {
-        $this->db->select('events.id, events.datetime, events.type, events.mandatory, events.report, NOW() > events.datetime AS occurred, events.reporter_member_id AS `reporter|id`, report_posting_date, report_edit_date')
+        $this->db->select('SQL_CALC_FOUND_ROWS events.id, events.datetime, events.type, events.mandatory, events.report, NOW() > events.datetime AS occurred, events.reporter_member_id AS `reporter|id`, report_posting_date, report_edit_date', FALSE)
             ->select('units.id AS `unit|id`, units.abbr AS `unit|abbr`, units.name AS `unit|name`')
             ->select($this->virtual_fields['unit_key'] . ' AS `unit|key`', FALSE)
             ->select($this->virtual_fields['short_name'] . ' AS `reporter|short_name`', FALSE)
@@ -79,10 +80,10 @@ class Event_model extends MY_Model {
     }
     
     public function default_order_by() {
-        $this->db->order_by('events.datetime');
+        $this->db->order_by('events.datetime DESC');
     }
     
-    public function by_date($start = FALSE, $end = FALSE) {
+    /*public function by_date($start = FALSE, $end = FALSE) {
         if($start !== FALSE && $end !== FALSE) {
             $start = format_date($start, 'mysqldate');
             $end = format_date($end, 'mysqldate');
@@ -92,6 +93,23 @@ class Event_model extends MY_Model {
             $this->filter_where('MONTH(events.datetime) = MONTH(NOW())')
                 ->filter_where('YEAR(events.datetime) = YEAR(NOW())');
         }
+        return $this;
+    }*/
+
+    public function select_member() {}
+
+    public function by_unit($unit_id) {
+        if(is_numeric($unit_id)) {
+            $this->filter_where('(units.id = ' . $unit_id . ' OR units.path LIKE "%/' . $unit_id . '/%")');
+        } elseif($lookup = $this->getByUnitKey($unit_id)) {
+            $this->filter_where('(units.id = ' . $lookup['id'] . ' OR (units.path LIKE "%/' . $lookup['id'] . '/%"))');
+        }
+        $this->filter_group_by($this->primary_key);
+        return $this;
+    }
+
+    public function reported($bool) {
+        $this->filter_where('events.reporter_member_id IS ' . ($bool ? 'NOT NULL' : 'NULL'));
         return $this;
     }
 }
