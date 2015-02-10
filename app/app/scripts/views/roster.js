@@ -17,12 +17,9 @@ define([
         initialize: function (options) {
             options = options || {};
             this.itemViewOptions = this.itemViewOptions || {};
-            if (options.eventAttendance) {
-                this.eventAttendance = options.eventAttendance;
-                this.itemViewOptions.eventAttendance = options.eventAttendance;
-            }
             if (options.attendance) {
-                this.itemViewOptions.attendance = true;
+                this.attendance = options.attendance;
+                this.itemViewOptions.attendance = options.attendance;
             }
             if(this.model.get("children").length) {
                 this.collection = this.model.get("children");
@@ -30,11 +27,11 @@ define([
             this.$el.attr("data-id", this.model.get("id"));
         },
         serializeData: function() {
-            // If eventAttendance is set, add attended and excused values to each member
-            if (!_.isEmpty(this.eventAttendance)) {
-                eventAttendance = this.eventAttendance;
+            // If attendance is set, add attended and excused values to each member
+            if (!_.isEmpty(this.attendance)) {
+                var attendance = this.attendance;
                 _.each(this.model.get("members"), function (member) {
-                    var record = eventAttendance.find(function (model) {
+                    var record = attendance.find(function (model) {
                         return model.get("member").id === member.member.id;
                     });
                     if (record) {
@@ -49,11 +46,11 @@ define([
             }, this.model.toJSON());
         },
         /*onBeforeRender: function () {
-            // If eventAttendance is set, add attended and excused values to each member
-            if (!_.isEmpty(this.eventAttendance)) {
-                eventAttendance = this.eventAttendance;
+            // If attendance is set, add attended and excused values to each member
+            if (!_.isEmpty(this.attendance)) {
+                attendance = this.attendance;
                 _.each(this.model.get("members"), function (member) {
-                    var record = eventAttendance.find(function (model) {
+                    var record = attendance.find(function (model) {
                         return model.get("member").id === member.id;
                     });
                     if (record) {
@@ -74,8 +71,7 @@ define([
         initialize: function (options) {
             options = options || {};
             this.itemViewOptions = this.itemViewOptions || {};
-            if (options.attendance) this.itemViewOptions.attendance = true;
-            if (options.eventAttendance) this.itemViewOptions.eventAttendance = options.eventAttendance;
+            if (options.attendance) this.itemViewOptions.attendance = options.attendance;
             _.bindAll(this, "onClickControls");
         },
         onRender: function() {

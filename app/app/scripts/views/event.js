@@ -101,8 +101,9 @@ define([
                             short_name: this.user.get("short_name")
                         }
                     }, {
+                        url: config.apiHost + "/events/" + this.model.get("id") + "/excuse",
                         wait: true,
-                        success: function () {
+                        success: function (model) {
                             $(button).parent().removeClass("loa-post").addClass("loa-cancel");
                         }
                     });
@@ -111,7 +112,7 @@ define([
                 else {
                     model.id = this.user.get("id"); // Allows .destroy() to sync even though we don't need it
                     model.destroy({
-                        url: config.apiHost + "/events/" + this.collection.id + "/excuse",
+                        url: config.apiHost + "/events/" + this.model.get("id") + "/excuse",
                         wait: true,
                         success: function () {
                             $(button).parent().removeClass("loa-cancel").addClass("loa-post");

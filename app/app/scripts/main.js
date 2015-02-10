@@ -15,7 +15,7 @@ window.requirejs = window.requirejs || {};
                 "../vendor/underscore/underscore-min"
             ],
             "backbone": [
-                "//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min",
+                "//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min",
                 "../vendor/backbone/backbone"
             ],
             "handlebars": //[

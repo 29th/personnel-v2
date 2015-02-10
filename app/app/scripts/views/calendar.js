@@ -4,9 +4,10 @@ define([
     "backbone",
     "util",
     "hbs!templates/calendar",
+    "moment",
     "marionette",
     "fullcalendar"
-], function ($, _, Backbone, util, Template) {
+], function ($, _, Backbone, util, Template, moment) {
     
     return Backbone.Marionette.ItemView.extend({
         template: Template,
@@ -35,7 +36,7 @@ define([
                 eventDataTransform: function (event) {
                     return {
                         id: event.id,
-                        title: window.moment(event.datetime).format("HH:mm") + " " + (event.unit.key ? event.unit.key : event.type),
+                        title: moment(event.datetime).format("HH:mm") + " " + (event.unit.key ? event.unit.key : event.type),
                         start: event.datetime,
                         backgroundColor: event.user_expected ? "#5cb85c" : "#3a87ad"
                     };
@@ -66,8 +67,8 @@ define([
         },
         getEvents: function (start, end, callback) {
             var self = this;
-            this.collection.from = Math.round(start.getTime() / 1000);
-            this.collection.to = Math.round(end.getTime() / 1000);
+            this.collection.from = moment(start.getTime()).format("YYYY-MM-DD");
+            this.collection.to = moment(end.getTime()).format("YYYY-MM-DD");
             $.when(this.collection.fetch()).done(function () {
                 // Set whether the user is expected
                 var collection = self.collection.toJSON().map(function (event) {

@@ -84,6 +84,15 @@
                 </li>
             {{/each}}
         {{/if}}
+
+        {{#if this.attendance}}
+            {{#each this.attendance}}
+                <li>
+                    <a href="#units/{{ this.unit.key }}">{{ this.unit.abbr }}</a> {{ this.event.type }} attendance was <a href="#events/{{ this.event.id }}">{{ this.attended }}/{{add this.attended this.absent}}</a>
+                    {{#if this.absent}}({{subtract this.absent this.excused}} AWOLs){{/if}}
+                </li>
+            {{/each}}
+        {{/if}}
         
     	</ul>
     	{{/each}}

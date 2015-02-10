@@ -15,15 +15,16 @@ define([
     "models/user",
     // Collections
     "collections/assignments",
+    "collections/attendance",
     "collections/awardings",
     "collections/demerits",
     "collections/discharges",
     "collections/eloas",
     "collections/enlistments",
-    "collections/event_attendance", // Attendees of an event
+    //"collections/event_attendance", // Attendees of an event
     "collections/events",
     "collections/finances",
-    "collections/member_attendance", // Member attendance
+    //"collections/member_attendance", // Member attendance
     "collections/member_awols",
     "collections/member_enlistments",
     "collections/permissions",
@@ -80,7 +81,7 @@ $, _, Backbone, Marionette, Handlebars, util,
 // Models
 Assignment, Demerit, Discharge, Enlistment, Event, Member, User,
 // Collections
-Assignments, Awardings, Demerits, Discharges, ELOAs, Enlistments, EventAttendance, Events, Finances, MemberAttendance, MemberAwols, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, Servers, Standards, UnitAttendance, UnitAwols, Units,
+Assignments, Attendance, Awardings, Demerits, Discharges, ELOAs, Enlistments, Events, Finances, MemberAwols, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, Servers, Standards, UnitAttendance, UnitAwols, Units,
 // Views
 AARView, AssignmentEditView, AssociateView, CalendarView, DemeritView, DischargeView, ELOAsView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, EventEditView, FinancesView, FlashView, MemberAdminView, MemberAttendanceView, MemberDischargeView,
 MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView, RosterView, ServiceRecordView, UnitActivityView, UnitAttendanceView, UnitAwolsView, UnitView) {
@@ -165,7 +166,7 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                     active: true,
                     distinct: true
                 }),
-                eventAttendance = new EventAttendance(null, {
+                attendance = new Attendance(null, {
                     id: id
                 }),
                 aarView = new AARView({
@@ -173,8 +174,7 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 }),
                 rosterView = new RosterView({
                     collection: expectedUnits,
-                    eventAttendance: eventAttendance,
-                    attendance: true
+                    attendance: attendance
                 });
 
             // Watch fetch event to show loading indicator (AAR)
@@ -192,7 +192,7 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
             $.when.apply($, promises).done(function () {
                 // Need the event fetch to complete before we know the unit. Now get the expected attendees
                 expectedUnits.filter = event.get("unit").id;
-                if (event.get("attendance").length) eventAttendance.add(event.get("attendance"));
+                if (event.get("attendance").length) attendance.add(event.get("attendance"));
                 promises = [];
                 promises.push(expectedUnits.fetch());
                 $.when.apply($, promises).done(function () {
@@ -454,7 +454,7 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 event = new Event({
                     id: id
                 }),
-                eventAttendance = new EventAttendance(null, {
+                attendance = new Attendance(null, {
                     id: id
                 }),
                 unitPermissions = new Permissions(); // User permissions on member being viewed
@@ -467,7 +467,7 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
             // Views
             var eventView = new EventView({
                 model: event,
-                collection: eventAttendance,
+                collection: attendance,
                 user: this.user,
                 userAssignments: userAssignments,
                 permissions: this.permissions,
@@ -484,7 +484,7 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
 
             //util.loading(true);
             $.when.apply($, promises).done(function () {
-                if (event.get("attendance").length) eventAttendance.add(event.get("attendance"));
+                if (event.get("attendance").length) attendance.add(event.get("attendance"));
                 unitPermissions.unit_id = event.get("unit").id;
                 promises = [];
                 promises.push(unitPermissions.fetch());
@@ -635,13 +635,13 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
             else if (path == "attendance") {
                 memberLayout.setHighlight("attendance");
 
-                var memberAttendance = new MemberAttendance(null, {
+                var attendance = new Attendance(null, {
                     member_id: id
                 });
-                promises.push(memberAttendance.fetch());
+                promises.push(attendance.fetch());
 
                 pageView = new MemberAttendanceView({
-                    collection: memberAttendance
+                    collection: attendance
                 });
             }
             // Qualifications
@@ -830,6 +830,14 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 });
                 promises.push(discharges.fetch());
 
+                // Attendance
+                var attendance = new Attendance(null, {
+                    unit_id: filter || "Bn",
+                    from: "30 days ago",
+                    to: "today"
+                });
+                promises.push(attendance.fetch());
+
                 columnViews.push(new RosterView({
                     collection: units
                 }), new UnitActivityView({
@@ -838,7 +846,8 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                     finances: finances,
                     demerits: demerits,
                     eloas: eloas,
-                    discharges: discharges
+                    discharges: discharges,
+                    attendance: attendance
                 }));
             }
 

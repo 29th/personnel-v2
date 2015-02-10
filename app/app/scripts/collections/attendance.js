@@ -2,11 +2,15 @@ define([
     "jquery",
     "underscore",
     "backbone",
-    "config"
-], function ($, _, Backbone, config) {
-    "use strict";
+    "config",
+    "models/event_attendee"
+], function ($, _, Backbone, config, EventAttendee) {
 
     return Backbone.Collection.extend({
+        settings: {
+            limit: 15
+        },
+        model: EventAttendee,
         initialize: function (models, options) {
             options = options || {};
             this.member_id = options.member_id || null;
@@ -14,7 +18,6 @@ define([
             this.skip = 0;
             this.from = options.from || null;
             this.to = options.to || null;
-            this.reported = options.reported || null;
         },
         url: function () {
             var url = config.apiHost;
@@ -24,20 +27,23 @@ define([
             else if(this.unit_id) {
                 url += "/units/" + this.unit_id;
             }
-            url += "/events";
+            url += "/attendance";
 
             var params = [];
             if(this.skip) params.push("skip=" + this.skip);
             if(this.from) params.push("from=" + this.from);
             if(this.to) params.push("to=" + this.to);
-            if(this.reported !== null) params.push("reported=" + this.reported);
             if(params.length) url += "?" + params.join("&");
             
             return url;
         },
+        nextPage: function () {
+            this.skip += this.settings.limit;
+            return this;
+        },
         parse: function (response, options) {
-            this.more = parseInt(response.count, 10) > parseInt(response.skip, 10) + response.events.length;
-            return response.events || [];
+            this.more = parseInt(response.count, 10) > parseInt(response.skip, 10) + (response.attendance !== undefined ? response.attendance.length : 0);
+            return response.attendance || [];
         }
     });
 });
