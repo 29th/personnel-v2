@@ -753,7 +753,7 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
                 unitLayout.setHighlight("attendance");
 
                 var attendance = new Attendance(null, {
-                    filter: filter || "Bn"
+                    unit_id: filter || "Bn"
                 });
                 promises.push(attendance.fetch());
 
