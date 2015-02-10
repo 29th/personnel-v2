@@ -106,6 +106,14 @@ define([
         return value;
     });
 
+    // Beautifully simple, from https://gist.github.com/flesch/315070
+    Handlebars.registerHelper('sprintf', function() {
+        var args = Array.prototype.slice.call(arguments);
+        return args.shift().replace(/%s/g, function(){
+            return args.shift();
+        });
+    });
+
     Handlebars.registerHelper('substring', function () {
         var string = arguments[0],
             args = Array.prototype.slice.call(arguments, 1, -1);

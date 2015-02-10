@@ -30,7 +30,7 @@ define([
             return $.extend({
                 allowedTo: allowedTo,
                 
-                vanilla_forum_url: config.forumUrl,
+                vanilla_forum_url: config.forum.Vanilla.baseUrl,
                 vanilla_identifier: "enlistment-" + this.model.get('id'),
                 vanilla_url: config.baseUrl + "/%23" + Backbone.history.fragment,
                 vanilla_category_id: config.vanillaCategoryEnlistments,

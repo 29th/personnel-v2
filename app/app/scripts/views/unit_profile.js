@@ -14,7 +14,7 @@ define([
                 members = _.uniq(_.union.apply(_, _.pluck(unitsFlattened, "members")), false, function(item, key) { return item.member.id; });
             return {
                 members: members,
-                forumUrl: config.forumUrl
+                forum: config.forum
             };
         }
     });

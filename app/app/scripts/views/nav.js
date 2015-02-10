@@ -30,7 +30,7 @@ define([
         serializeData: function () {
             return _.extend({
                 highlight: this.highlight,
-                forumUrl: config.forumUrl,
+                forum: config.forum,
                 wikiUrl: config.wikiUrl,
                 permissions: this.permissions.length ? this.permissions.pluck("abbr") : [],
                 units: this.units.length ? this.units.toJSON() : []

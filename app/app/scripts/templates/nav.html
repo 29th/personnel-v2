@@ -1,5 +1,5 @@
 <ul class="nav navbar-nav">
-    <li><a href="{{ forumUrl }}">Forums</a></li>
+    <li><a href="{{ forum.Vanilla.baseUrl }}">Forums</a></li>
     <li class="active dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Personnel <span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
@@ -35,7 +35,7 @@
         <li{{#is highlight "===" "enlist"}} class="active"{{/is}} data-highlight="enlist"><a href="#enlist">{{#if short_name}}Re-{{/if}}Enlist</a></li>
         {{/unless}}
     {{else}}
-        <li><a href="{{ forumUrl }}/entry/signin">Sign In</a></li>
+        <li><a href="{{ forum.Vanilla.baseUrl }}{{ forum.Vanilla.signInPath }}">Sign In</a></li>
     {{/if}}
     
     {{#if short_name}}
@@ -43,7 +43,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ short_name }} <b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li><a href="#members/{{ id }}">Personnel File</a></li>
-            <li><a href="{{ forumUrl }}/profile/{{ forum_member_id }}/{{ short_name }}">Forum Profile</a></li>
+            <li><a href="{{ forum.Vanilla.baseUrl }}{{ sprintf forum.Vanilla.profilePath forum_member_id short_name }}">Forum Profile</a></li>
             {{#if unit.id}}
             <li><a href="#units/{{ unit.key }}">{{ unit.abbr }}</a>
             {{/if}}

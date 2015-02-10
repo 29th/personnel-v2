@@ -21,7 +21,7 @@ define([
         },
         serializeData: function () {
             return _.extend({
-                forumUrl: config.forumUrl,
+                forum: config.forum,
                 response: this.response
             }, this.model.toJSON());
         },

@@ -11,7 +11,8 @@ define([
         template: Template,
         serializeData: function () {
             return _.extend({
-                forumUrl: config.forumUrl
+                forum: config.forum,
+                short_name_url: this.model.get("short_name").replace("/", "")
             }, this.model.toJSON());
         }
     });

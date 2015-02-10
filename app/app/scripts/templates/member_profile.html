@@ -20,7 +20,7 @@
             {{#is forum_member_id "!==" "0"}}
             <tr>
                 <th>Forum Profile</th>
-                <td><a href="{{ forumUrl }}/profile/{{ forum_member_id }}/{{ str_replace short_name "/" ""}}">View Profile</a></td>
+                <td><a href="{{ forum.Vanilla.baseUrl }}{{ sprintf forum.Vanilla.profilePath forum_member_id short_name_url }}">View Profile</a></td>
             </tr>
             {{/is}}
         </table>
