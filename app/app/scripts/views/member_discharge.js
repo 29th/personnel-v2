@@ -28,6 +28,7 @@ define([
                 memberId = this.member.get("id"),
                 promises = [];
             data.member_id = memberId;
+            data.forum_id = "Vanilla";
             this.model.set(data);
             
             if(this.model.isValid(true)) {
