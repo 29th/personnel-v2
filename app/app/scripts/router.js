@@ -33,7 +33,7 @@ define([
     "collections/qualifications",
     "collections/servers",
     "collections/standards",
-    "collections/unit_attendance", // Unit attendance
+    //"collections/unit_attendance", // Unit attendance
     "collections/unit_awols",
     "collections/units",
     // Views
@@ -81,7 +81,7 @@ $, _, Backbone, Marionette, Handlebars, util,
 // Models
 Assignment, Demerit, Discharge, Enlistment, Event, Member, User,
 // Collections
-Assignments, Attendance, Awardings, Demerits, Discharges, ELOAs, Enlistments, Events, Finances, MemberAwols, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, Servers, Standards, UnitAttendance, UnitAwols, Units,
+Assignments, Attendance, Awardings, Demerits, Discharges, ELOAs, Enlistments, Events, Finances, MemberAwols, MemberEnlistments, Permissions, Positions, Promotions, Qualifications, Servers, Standards, UnitAwols, Units,
 // Views
 AARView, AssignmentEditView, AssociateView, CalendarView, DemeritView, DischargeView, ELOAsView, EnlistmentEditView, EnlistmentProcessView, EnlistmentsView, EnlistmentView, EventView, EventEditView, FinancesView, FlashView, MemberAdminView, MemberAttendanceView, MemberDischargeView,
 MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView, RosterView, ServiceRecordView, UnitActivityView, UnitAttendanceView, UnitAwolsView, UnitView) {
@@ -752,13 +752,13 @@ MemberEditView, MemberProfileView, MemberQualificationsView, MemberView, NavView
             if (path == "attendance") {
                 unitLayout.setHighlight("attendance");
 
-                var unitAttendance = new UnitAttendance(null, {
+                var attendance = new Attendance(null, {
                     filter: filter || "Bn"
                 });
-                promises.push(unitAttendance.fetch());
+                promises.push(attendance.fetch());
 
                 columnViews.push(new UnitAttendanceView({
-                    collection: unitAttendance
+                    collection: attendance
                 }));
             }
             // AWOLs
