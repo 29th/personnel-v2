@@ -82,6 +82,7 @@ define([
                     excused: excuse
                 }, {
                     method: excuse ? "POST" : "DELETE",
+                    url: config.apiHost + "/events/" + this.model.get("id") + "/excuse",
                     wait: true,
                     success: function () {
                         $(button).parent().removeClass(excuse ? "loa-post" : "loa-cancel").addClass(excuse ? "loa-cancel" : "loa-post");
@@ -110,7 +111,7 @@ define([
                 }
                 // If cancelling LOA
                 else {
-                    model.id = this.user.get("id"); // Allows .destroy() to sync even though we don't need it
+                    model.set("id", this.user.get("id")); // Allows .destroy() to sync even though we don't need it
                     model.destroy({
                         url: config.apiHost + "/events/" + this.model.get("id") + "/excuse",
                         wait: true,
