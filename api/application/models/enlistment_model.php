@@ -53,10 +53,6 @@ class Enlistment_model extends MY_Model {
                 ,'rules' => 'max_length[128]'
             )
             ,array(
-                'field' => 'forum_id'
-                ,'rules' => 'numeric_or_empty'
-            )
-            ,array(
                 'field' => 'topic_id'
                 ,'rules' => 'numeric_or_empty'
             )
@@ -109,10 +105,6 @@ class Enlistment_model extends MY_Model {
             ,array(
                 'field' => 'recruiter'
                 ,'rules' => 'max_length[128]'
-            )
-            ,array(
-                'field' => 'forum_id'
-                ,'rules' => 'numeric_or_empty'
             )
             ,array(
                 'field' => 'topic_id'

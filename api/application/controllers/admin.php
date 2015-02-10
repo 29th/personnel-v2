@@ -93,7 +93,7 @@ class Admin extends CI_Controller {
 	{
 	    $this->grocery_crud->set_table('awardings')
 	        ->required_fields('member_id', 'date', 'award_id')
-	        ->field_type('forum_id', 'dropdown', array('1' => 'PHPBB', '2' => 'SMF', '3' => 'Vanilla'))->display_as('forum_id', 'Forum')
+	        /*->field_type('forum_id', 'dropdown', array('1' => 'PHPBB', '2' => 'SMF', '3' => 'Vanilla'))*/->display_as('forum_id', 'Forum')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member')
 	        ->set_relation('award_id', 'awards', 'title')->display_as('award_id', 'Award')
 	        ->callback_after_insert(array($this, '_callback_awardings_after_update'))
@@ -191,7 +191,7 @@ class Admin extends CI_Controller {
 	{
 	    $this->grocery_crud->set_table('demerits')
 	        ->required_fields('member_id', 'author_member_id', 'date', 'reason')
-	        ->field_type('forum_id', 'dropdown', array('1' => 'PHPBB', '2' => 'SMF', '3' => 'Vanilla'))->display_as('forum_id', 'Forum')
+	        /*->field_type('forum_id', 'dropdown', array('1' => 'PHPBB', '2' => 'SMF', '3' => 'Vanilla'))*/->display_as('forum_id', 'Forum')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member')
 	        ->set_relation('author_member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('author_member_id', 'Author');
         $output = $this->grocery_crud->render();
@@ -204,7 +204,7 @@ class Admin extends CI_Controller {
 	    $this->grocery_crud->set_table('discharges')
 	    	->columns('member_id', 'date', 'type', 'reason')
 	        ->required_fields('member_id', 'date', 'type', 'reason')
-	        ->field_type('forum_id', 'dropdown', array('1' => 'PHPBB', '2' => 'SMF', '3' => 'Vanilla'))->display_as('forum_id', 'Forum')
+	        /*->field_type('forum_id', 'dropdown', array('1' => 'PHPBB', '2' => 'SMF', '3' => 'Vanilla'))*/->display_as('forum_id', 'Forum')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member');
         $output = $this->grocery_crud->render();
  
@@ -229,7 +229,7 @@ class Admin extends CI_Controller {
 	    $this->grocery_crud->set_table('enlistments')
 	    	->columns('member_id', 'date', 'unit_id', 'status')
 	        ->required_fields('member_id', 'date')
-	        ->field_type('forum_id', 'dropdown', array('1' => 'PHPBB', '2' => 'SMF', '3' => 'Vanilla'))->display_as('forum_id', 'Forum')
+	        /*->field_type('forum_id', 'dropdown', array('1' => 'PHPBB', '2' => 'SMF', '3' => 'Vanilla'))*/->display_as('forum_id', 'Forum')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member')
 	        ->set_relation('liaison_member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('liaison_member_id', 'Liaison')
 	        ->set_relation('unit_id', 'units', 'abbr')->display_as('unit_id', 'TP')
@@ -259,7 +259,7 @@ class Admin extends CI_Controller {
 	    $this->grocery_crud->set_table('finances')
 	        ->columns('date', 'member_id', 'vendor', 'amount_received', 'amount_paid', 'fee', 'notes')
 	        ->required_fields('date') // not sure how to do OR here
-	        ->field_type('forum_id', 'dropdown', array('1' => 'PHPBB', '2' => 'SMF', '3' => 'Vanilla'))->display_as('forum_id', 'Forum')
+	        /*->field_type('forum_id', 'dropdown', array('1' => 'PHPBB', '2' => 'SMF', '3' => 'Vanilla'))*/->display_as('forum_id', 'Forum')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member');
         $output = $this->grocery_crud->render();
  
@@ -335,7 +335,7 @@ class Admin extends CI_Controller {
 	    $this->grocery_crud->set_table('promotions')
 	        ->columns('member_id', 'date', 'old_rank_id', 'new_rank_id')
 	        ->required_fields('member_id', 'date', 'old_rank_id', 'new_rank_id')
-	        ->field_type('forum_id', 'dropdown', array('1' => 'PHPBB', '2' => 'SMF', '3' => 'Vanilla'))->display_as('forum_id', 'Forum')
+	        /*->field_type('forum_id', 'dropdown', array('1' => 'PHPBB', '2' => 'SMF', '3' => 'Vanilla'))*/->display_as('forum_id', 'Forum')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member')
 	        ->set_relation('old_rank_id', 'ranks', 'abbr')->display_as('old_rank_id', 'Old Rank')
 	        ->set_relation('new_rank_id', 'ranks', 'abbr')->display_as('new_rank_id', 'New Rank');

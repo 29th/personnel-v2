@@ -23,10 +23,6 @@ class Promotion_model extends MY_Model {
                 ,'rules' => 'required|numeric'
             )
             ,array(
-                'field' => 'forum_id'
-                ,'rules' => 'numeric'
-            )
-            ,array(
                 'field' => 'topic_id'
                 ,'rules' => 'numeric'
             )
@@ -45,10 +41,6 @@ class Promotion_model extends MY_Model {
             )
             ,array(
                 'field' => 'new_rank_id'
-                ,'rules' => 'numeric'
-            )
-            ,array(
-                'field' => 'forum_id'
                 ,'rules' => 'numeric'
             )
             ,array(

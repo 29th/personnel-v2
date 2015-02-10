@@ -23,10 +23,6 @@ class Discharge_model extends MY_Model {
                 ,'rules' => 'numeric|greater_than[-1]|less_than[2]'
             )
             ,array(
-                'field' => 'forum_id'
-                ,'rules' => 'numeric'
-            )
-            ,array(
                 'field' => 'topic_id'
                 ,'rules' => 'numeric'
             )
@@ -58,10 +54,6 @@ class Discharge_model extends MY_Model {
             ,array(
                 'field' => 'was_reversed'
                 ,'rules' => 'numeric|greater_than[-1]|less_than[2]'
-            )
-            ,array(
-                'field' => 'forum_id'
-                ,'rules' => 'numeric'
             )
             ,array(
                 'field' => 'topic_id'
