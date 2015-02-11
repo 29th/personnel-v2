@@ -48,7 +48,8 @@ class MY_Controller extends REST_Controller {
             }
             // Otherwise paginate
             else {
-                $model->paginate('', $skip);
+                //$model->paginate('', $skip);
+                $model->get();
             }
 
             $records = nest($model->result_array());
