@@ -4,8 +4,9 @@ define([
     "backbone",
     "hbs!templates/unit_activity",
     "config",
+    "util",
     "marionette"
-], function ($, _, Backbone, Template, config) {
+], function ($, _, Backbone, Template, config, util) {
 
     var groupActivity = function(dates, collection, type, dateKey) {
         _.each(collection, function(model) {
@@ -13,6 +14,11 @@ define([
             if(dates[date] === undefined) dates[date] = {date: date};
             if(dates[date][type] === undefined) dates[date][type] = [];
             dates[date][type].push(model);
+
+            // Add forum topic url to model
+            if(model.forum_id && model.topic_id && config.forum[model.forum_id] !== undefined) {
+                model.topic_url = config.forum[model.forum_id].baseUrl + util.sprintf(config.forum[model.forum_id].topicPath, model.topic_id);
+            }
         });
     }
     

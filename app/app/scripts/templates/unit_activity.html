@@ -11,11 +11,9 @@
             {{#each this.promotions}}
                 <li>
                     <a href="#members/{{this.member.id}}">{{this.member.short_name}}</a>'s rank was changed to {{this.new_rank.name}}
-                    {{#and this.forum_id this.topic_id}}
-                        {{#is this.forum_id "===" "3"}}
-                        <a href="{{ ../../../../../forum.Vanilla.baseUrl }}{{ sprintf ../../../../../forum.Vanilla.topicPath this.topic_id }}"><span class="fa fa-comment"></span></a>
-                        {{/is}}
-                    {{/and}}
+                    {{#if this.topic_url}}
+                        <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                    {{/if}}
                 </li>
             {{/each}}
         {{/if}}
@@ -24,11 +22,9 @@
             {{#each this.awardings}}
                 <li>
                     <a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> was awarded the {{this.award.name}}
-                    {{#and this.forum_id this.topic_id}}
-                        {{#is this.forum_id "===" "3"}}
-                        <a href="{{ ../../../../../forum.Vanilla.baseUrl }}{{ sprintf ../../../../../forum.Vanilla.topicPath this.topic_id }}"><span class="fa fa-comment"></span></a>
-                        {{/is}}
-                    {{/and}}
+                    {{#if this.topic_url}}
+                        <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                    {{/if}}
                 </li>
             {{/each}}
         {{/if}}
@@ -37,11 +33,9 @@
             {{#each this.finances}}
                 <li>
                     <a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> donated ${{this.amount_received}}
-                    {{#and this.forum_id this.topic_id}}
-                        {{#is this.forum_id "===" "3"}}
-                        <a href="{{ ../../../../../forum.Vanilla.baseUrl }}{{ sprintf ../../../../../forum.Vanilla.topicPath this.topic_id }}"><span class="fa fa-comment"></span></a>
-                        {{/is}}
-                    {{/and}}
+                    {{#if this.topic_url}}
+                        <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                    {{/if}}
                 </li>
             {{/each}}
         {{/if}}
@@ -50,11 +44,9 @@
             {{#each this.eloas}}
                 <li>
                     <a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> posted an <a href="#eloas">Extended LOA</a>
-                    {{#and this.forum_id this.topic_id}}
-                        {{#is this.forum_id "===" "3"}}
-                        <a href="{{ ../../../../../forum.Vanilla.baseUrl }}{{ sprintf ../../../../../forum.Vanilla.topicPath this.topic_id }}"><span class="fa fa-comment"></span></a>
-                        {{/is}}
-                    {{/and}}
+                    {{#if this.topic_url}}
+                        <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                    {{/if}}
                 </li>
             {{/each}}
         {{/if}}
@@ -63,11 +55,9 @@
             {{#each this.discharges}}
                 <li>
                     <a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> was <a href="#discharges/{{this.id}}">discharged</a>
-                    {{#and this.forum_id this.topic_id}}
-                        {{#is this.forum_id "===" "3"}}
-                        <a href="{{ ../../../../../forum.Vanilla.baseUrl }}{{ sprintf ../../../../../forum.Vanilla.topicPath this.topic_id }}"><span class="fa fa-comment"></span></a>
-                        {{/is}}
-                    {{/and}}
+                    {{#if this.topic_url}}
+                        <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                    {{/if}}
                 </li>
             {{/each}}
         {{/if}}
@@ -76,11 +66,9 @@
             {{#each this.demerits}}
                 <li>
                     <a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> received a <a href="#demerits/{{this.id}}">demerit</a>
-                    {{#and this.forum_id this.topic_id}}
-                        {{#is this.forum_id "===" "3"}}
-                        <a href="{{ ../../../../../forum.Vanilla.baseUrl }}{{ sprintf ../../../../../forum.Vanilla.topicPath this.topic_id }}"><span class="fa fa-comment"></span></a>
-                        {{/is}}
-                    {{/and}}
+                    {{#if this.topic_url}}
+                        <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                    {{/if}}
                 </li>
             {{/each}}
         {{/if}}

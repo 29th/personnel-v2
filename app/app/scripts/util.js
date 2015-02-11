@@ -47,5 +47,12 @@ define([
         return o;
     };
 
+    util.sprintf = function() {
+        var args = Array.prototype.slice.call(arguments);
+        return args.shift().replace(/%s/g, function(){
+            return args.shift();
+        });
+    }
+
     return util;
 });
