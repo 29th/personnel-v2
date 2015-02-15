@@ -1,16 +1,14 @@
-define([
-    "jquery",
-    "underscore",
-    "backbone",
-    "hbs!templates/event_attendee",
-    "marionette"
-], function ($, _, Backbone, Template) {
+var $ = require("jquery"),
+  _ = require("underscore"),
+  Backbone = require("backbone"),
+  Template = require("../templates/event_attendee.html");
+var Marionette = require("backbone.marionette");
 
-    return Backbone.Marionette.ItemView.extend({
-        template: Template,
-        modelEvents: {
-            "change": "render"
-        }
-    });
 
-});
+  module.exports = Marionette.ItemView.extend({
+      template: Template,
+      modelEvents: {
+          "change": "render"
+      }
+  });
+

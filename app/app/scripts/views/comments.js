@@ -1,12 +1,10 @@
-define([
-    "jquery",
-    "underscore",
-    "backbone",
-    "hbs!templates/comments",
-    "marionette"
-], function ($, _, Backbone, Template) {
+var $ = require("jquery"),
+  _ = require("underscore"),
+  Backbone = require("backbone"),
+  Template = require("../templates/comments.html");
+var Marionette = require("backbone.marionette");
 
-    return Backbone.Marionette.ItemView.extend({
-        template: Template
-    });
-});
+
+  module.exports = Marionette.ItemView.extend({
+      template: Template
+  });

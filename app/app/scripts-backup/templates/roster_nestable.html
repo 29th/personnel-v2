@@ -1,0 +1,28 @@
+<div class="dd-handle">
+    <a href="#units/{{ key }}">{{ name }}</a> {{#is class "===" "Training" }}{{#is key "!==" "TPs" }}<span class='tp-info'> <b>{{game}}</b> / <b>{{timezone}}</b> </span>{{/is}}{{/is}}
+    {{#if members.length}}
+    <span class="badge badge-info pull-right">{{ members.length }}</span>
+    {{/if}}
+</div>
+
+<ol class="dd-list">
+{{#if members.length}}
+    {{#each members}}
+    <li>
+        {{#if ../attendance}}
+            <label>
+                <input type="checkbox" name="attendance" value="{{ this.member.id }}"{{#if this.attended}} checked="checked"{{/if}}>
+                {{ this.member.short_name }}
+                {{#if this.excused}}<span class="label label-warning">Excused</span>{{/if}}
+            </label>
+
+        {{else}}
+
+            {{#if this.rank.filename}}<img src="images/ranks/16x16/{{ this.rank.filename }}.png" title="{{ this.rank.name }}">{{/if}}
+            <a href="#members/{{ this.member.id }}">{{ this.member.short_name }}</a>
+            <span class="roster-unit">{{ position.name }}</span>
+        {{/if}}
+    </li>
+    {{/each}}
+{{/if}}
+</ol>

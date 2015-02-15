@@ -1,0 +1,19 @@
+{{#if allowedTo.admin }}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        Admin <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        {{#if allowedTo.modifyProfile }}
+            <li><a href="#members/{{ member_id }}/edit">Modify Profile</a></li>
+        {{/if}}
+        {{#if allowedTo.assign }}
+            <li><a href="#members/{{ member_id }}/assign">Assign</a></li>
+        {{/if}}
+        {{#if allowedTo.discharge }}
+            <li class="divider"></li>
+            <li><a href="#members/{{ member_id }}/discharge">Discharge</a></li>
+        {{/if}}
+    </ul>
+</div>
+{{/if}}

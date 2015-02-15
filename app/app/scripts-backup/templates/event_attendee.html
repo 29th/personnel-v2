@@ -1,0 +1,10 @@
+<li>
+    <a href="#members/{{ member.id }}">{{ member.short_name }}</a>
+    {{#unless attended}}
+        {{#if excused}}
+            <span class="label label-warning">Excused</span>
+        {{else}}
+            <span class="label label-danger">AWOL</span>
+        {{/if}}
+    {{/unless}}
+</li>

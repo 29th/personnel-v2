@@ -1,16 +1,14 @@
-define([
-    "jquery",
-    "underscore",
-    "backbone",
-    "config"
-], function ($, _, Backbone, config) {
+var $ = require("jquery"),
+  _ = require("underscore"),
+  Backbone = require("backbone"),
+  config = require("../config.dev");
 
-    return Backbone.Collection.extend({
-        url: function () {
-            return config.apiHost + "/servers";
-        },
-        parse: function (response, options) {
-            return response.servers || [];
-        }
-    });
-});
+
+  module.exports = Backbone.Collection.extend({
+      url: function () {
+          return config.apiHost + "/servers";
+      },
+      parse: function (response, options) {
+          return response.servers || [];
+      }
+  });

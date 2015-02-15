@@ -1,0 +1,32 @@
+<form role="form">
+    
+    <div class="form-group">
+        <label for="type">Type</label>
+        <select class="form-control" name="type" id="type">
+            {{#select timezone}}
+            <option value="">Select...</option>
+            <option>Honorable</option>
+            <option>General</option>
+            <option>Dishonorable</option>
+            {{/select}}
+        </select>
+        <p class="help-block error-msg"></p>
+    </div>
+    
+    <div class="form-group">
+        <label for="reason">Reason</label>
+        <textarea class="form-control" rows="3" name="reason" id="reason">{{ reason }}</textarea>
+        <p class="help-block error-msg"></p>
+    </div>
+    
+    <div class="form-group">
+        <label for="topic_id">Topic ID</label>
+        <input type="text" class="form-control" name="topic_id" id="topic_id" value="{{ topic_id }}">
+        <p class="help-block">What is the ID of the forum topic about this?</p>
+        <p class="help-block error-msg"></p>
+    </div>
+
+    <button type="submit" class="btn btn-danger btn-lg">Discharge {{ member.short_name }}</button>
+    <p class="help-block">This action will end all active assignments and remove all personnel and forum permissions</p>
+    
+</form>
