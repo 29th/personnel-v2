@@ -26,7 +26,6 @@
     "handlebars": "~3.0.0",
     "moment": "~2.9.0",
     "bootstrap": "~3.3.2",
-    "fullcalendar-browser": "~1.5.4-1",
     "nprogress": "~0.1.6",
     "bbcode": "~0.1.5",
     "bootstrap-datepicker": "git://github.com/eternicode/bootstrap-datepicker",
@@ -53,7 +52,8 @@
     "browserify-shim": "~3.8.2"
   },
   "napa": {
-    "jquery-nestable": "dbushell/Nestable"
+    "jquery-nestable": "dbushell/Nestable",
+    "fullcalendar": "https://github.com/arshaw/fullcalendar/archive/v1.6.4.zip"
   },
   "browserify": {
     "transform": [
@@ -72,7 +72,7 @@
     "bootstrap-datepicker": "bootstrap-datepicker/dist/js/bootstrap-datepicker",
     "bootstrap-select": "bootstrap-select/dist/js/bootstrap-select",
     "jquery-nestable": "jquery-nestable/jquery.nestable",
-    "fullcalendar-browser": "fullcalendar-browser/fullcalendar/fullcalendar"
+    "fullcalendar": "fullcalendar/fullcalendar"
   },
   "browserify-shim": {
     "jquery": "global:jQuery"

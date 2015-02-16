@@ -5,7 +5,7 @@ var $ = require("jquery"),
   Template = require("../templates/calendar.html"),
   moment = require("moment");
 var Marionette = require("backbone.marionette");
-require("fullcalendar-browser");
+require("fullcalendar");
 
   
   module.exports = Marionette.ItemView.extend({
