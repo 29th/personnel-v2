@@ -59,7 +59,6 @@ var $ = require("jquery"),
   UnitAttendanceView = require("./views/unit_attendance"),
   UnitAwolsView = require("./views/unit_awols"),
   UnitView = require("./views/unit");
-require("HandlebarsHelpers");
 require("./helpers/custom");
 require("bootstrap");
 require("moment");

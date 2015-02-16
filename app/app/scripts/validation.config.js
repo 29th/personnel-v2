@@ -1,5 +1,6 @@
 var $ = require("jquery"),
-  _ = require("underscore");
+  _ = require("underscore"),
+  Backbone = require("backbone");
 require("backbone.validation");
 
       

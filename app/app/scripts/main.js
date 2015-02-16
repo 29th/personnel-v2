@@ -2,6 +2,8 @@
  * Initialize app
  */
 var $ = require("jquery"),
+  Backbone = require("backbone"),
+  Marionette = require("backbone.marionette"),
   util = require("./util"),
   Router = require("./router");
 
