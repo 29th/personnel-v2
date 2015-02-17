@@ -79,7 +79,7 @@ class Member_model extends MY_Model {
             //->join('assignments', 'assignments.id = members.primary_assignment_id', 'left')
             ->join('assignments', 'assignments.member_id = members.id AND (assignments.start_date <= CURDATE()) AND (assignments.end_date > CURDATE() OR assignments.end_date IS NULL)', 'left')
             ->join('positions', 'positions.id = assignments.position_id', 'left')
-            ->join('(SELECT * FROM units ORDER BY class ASC, path ) AS units', 'units.id = assignments.unit_id')
+            ->join('(SELECT * FROM units ORDER BY class ASC, path) AS units', 'units.id = assignments.unit_id')
             ->join('countries', 'countries.id = members.country_id', 'left');
     }
     
