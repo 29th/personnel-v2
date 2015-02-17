@@ -78,7 +78,7 @@ class Discharge_model extends MY_Model {
      * Should match MY_Model's method except filtering by active assignments
      */ 
     public function by_unit($unit_id) {
-        $this->filter_join('assignments', 'assignments.member_id = ' . $this->table . '.member_id', 'left');
+        $this->filter_join('assignments', 'assignments.member_id = ' . $this->table . '.member_id AND (assignments.end_date=discharges.date)', 'left');
         $this->filter_join('units', 'units.id = assignments.unit_id');
 
         if(is_numeric($unit_id)) {
