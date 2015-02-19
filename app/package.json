@@ -2,11 +2,9 @@
   "name": "personnel",
   "version": "0.0.0",
   "description": "Personnel System ================",
-  "main": "app/index.html",
+  "main": "src/scripts/main.js",
   "scripts": {
-    "install": "napa",
-    "build": "browserify app/scripts/shims/marionette.js app/scripts/main.js -o app/scripts/build.js -d",
-    "watch": "watchify app/scripts/shims/marionette.js app/scripts/main.js -o app/scripts/build.js -d"
+    "install": "napa"
   },
   "repository": {
     "type": "git",
@@ -37,7 +35,7 @@
   "devDependencies": {
     "bower": "^1.3.12",
     "event-stream": "~3.1.0",
-    "gulp": "~3.5.2",
+    "gulp": "~3.8.8",
     "gulp-beautify": "~1.0.3",
     "gulp-concat": "~2.1.7",
     "gulp-minify-css": "~0.3.0",
@@ -49,7 +47,13 @@
     "gulp-wrap-umd": "~0.1.0",
     "del": "~1.1.1",
     "napa": "~1.2.0",
-    "browserify-shim": "~3.8.2"
+    "browserify-shim": "~3.8.2",
+    "vinyl-source-stream": "~1.0.0",
+    "vinyl-buffer": "~1.0.0",
+    "gulp-sourcemaps": "~1.3.0",
+    "envify": "~3.2.0",
+    "dotenv": "~0.5.1",
+    "gulp-usemin": "~0.3.11"
   },
   "napa": {
     "jquery-nestable": "dbushell/Nestable",
@@ -65,7 +69,8 @@
           ]
         }
       ],
-      "browserify-shim"
+      "browserify-shim",
+      "envify"
     ]
   },
   "browser": {

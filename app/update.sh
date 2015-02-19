@@ -7,7 +7,6 @@ git status
 
 # Get dependencies
 npm install
-./node_modules/bower/bin/bower install --allow-root
 
 # Build
 ./node_modules/gulp/bin/gulp.js
