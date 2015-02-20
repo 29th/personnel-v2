@@ -2,8 +2,8 @@
 .c9
 auth.sh
 node_modules
-app/build
-app/scripts/templates/.mc.menu
+public
+src/scripts/templates/.mc.menu
 wrzuc_do_git.sh
 temp
 .env
