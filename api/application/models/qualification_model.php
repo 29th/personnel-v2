@@ -54,4 +54,25 @@ class Qualification_model extends MY_Model {
     public function order_by() {
         $this->db->order_by('qualifications.date DESC');
     }
+
+    public function by_unit($unit_id) {
+        $this->select('qualifications.member_id AS `member|id`');
+        $this->select('CONCAT(m_ranks.`abbr`, " ", IF(m_members.`name_prefix` != "", CONCAT(m_members.`name_prefix`, " "), ""), m_members.`last_name`) AS `member|short_name`', FALSE);
+        $this->filter_join('assignments', 'assignments.member_id = ' . $this->table . '.member_id', 'left');
+        $this->filter_join('units', 'units.id = assignments.unit_id');
+        $this->filter_join('members AS m_members', 'm_members.id = qualifications.member_id', 'left');
+        $this->filter_join('ranks AS m_ranks', 'm_ranks.id = m_members.rank_id', 'left');
+
+        if(is_numeric($unit_id)) {
+            $this->filter_where('(units.id = ' . $unit_id . ' OR units.path LIKE "%/' . $unit_id . '/%")');
+        } elseif($lookup = $this->getByUnitKey($unit_id)) {
+            $this->filter_where('(units.id = ' . $lookup['id'] . ' OR (units.path LIKE "%/' . $lookup['id'] . '/%"))');
+        }
+        $this->filter_where('`assignments`.`end_date` IS NULL AND date BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()');
+//        $this->filter_group_by($this->primary_key);
+        $this->filter_group_by("qualifications.member_id, qualifications.date");
+        $this->order_by();
+        return $this;
+    }
+
 }

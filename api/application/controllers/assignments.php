@@ -42,14 +42,20 @@ class Assignments extends MY_Controller {
         $this->discharge_model->order_by('date DESC');
         $gdDate = $this->discharge_model->get()->result_array();
         $gdDate = ( sizeof($gdDate) ? $gdDate[0]['date'] : null );
-        foreach($assignments as $assignment) {
+        foreach($assignments as $assignment) 
+        {
+          if ( !($assignment['unit']['class'] == 'Training') ) 
+          {  
             $start_date = strtotime($assignment['start_date']);
             $end_date = strtotime($assignment['end_date'] ?: format_date('now', 'mysqldate'));
-            if ( format_date($start_date, 'mysqldate') > $gdDate ) {  
-                for($i = $start_date; $i < $end_date; $i = $i + DAY) {
-                    $days[format_date($i, 'mysqldate')] = true;
-                }
+            if ( format_date($start_date, 'mysqldate') > $gdDate ) 
+            {  
+              for($i = $start_date; $i < $end_date; $i = $i + DAY) 
+              {
+                $days[format_date($i, 'mysqldate')] = true;
+              }
             }
+          }
         }
         return array( sizeof($days), $gdDate );
     }

@@ -25,6 +25,7 @@ $route['units/(:any)/awols'] = 'units/awols/$1';
 $route['units/(:any)/awardings'] = 'awardings/index/unit/$1'; // Filtered
 $route['units/(:any)/promotions'] = 'promotions/index/unit/$1'; // Filtered
 $route['units/(:any)/demerits'] = 'demerits/index/unit/$1'; // Filtered
+$route['units/(:any)/qualifications'] = 'qualifications/index/unit/$1'; // Filtered
 $route['units/(:any)/eloas'] = 'eloas/index/unit/$1'; // Filtered
 $route['units/(:any)/finances'] = 'finances/index/unit/$1'; // Filtered
 $route['units/(:any)/discharges'] = 'discharges/index/unit/$1'; // Filtered

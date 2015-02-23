@@ -214,6 +214,35 @@ class Units extends MY_Controller {
     }
     
     /**
+     * UNIT QUALIFICATIONS
+     */
+/* */   
+    public function qualifications_get($filter) {
+        $this->load->model('qualifications_model');
+        
+		// Get unit ID
+		if(is_numeric($filter)) {
+		    $unit_id = $filter;
+		}
+		else {
+		    $unit = $this->unit_model->by_filter($filter)->get()->row_array();
+		    $unit_id = isset($unit['id']) ? $unit['id'] : NULL;
+		}
+        
+		// Must have permission to view this type of record for this member or for any member
+		if( ! $this->user->permission('unit_stats', array('unit' => $unit_id)) && ! $this->user->permission('unit_stats_any')) {
+            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+        }
+		// View records
+        else {
+			$skip = $this->input->get('skip') ? $this->input->get('skip') : 0;
+			$qualifications = nest($this->qualification_model->by_unit($unit_id)->paginate('', $skip)->result_array());
+			$count = $this->qualifications->total_rows;
+			$this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'qualifications' => $qualifications));
+        }
+    }
+    
+    /**
      * AWOLs
      * TODO: Add day param
      */
@@ -236,7 +265,7 @@ class Units extends MY_Controller {
         }
 		// View records
 		else {
-		    $members = pluck('member|id', $this->assignment_model->by_date('now')->by_unit($unit_id, TRUE)->get()->result_array()); // Include children
+		  $members = pluck('member|id', $this->assignment_model->by_date('now')->by_unit($unit_id, TRUE)->get()->result_array()); // Include children
 			$awols = nest($this->attendance_model->awols($members, $days)->get()->result_array());
 			$grouped_and_sorted = $this->sort_awols($this->group_awols($awols));
 			$this->response(array('status' => true, 'awols' => $grouped_and_sorted));
