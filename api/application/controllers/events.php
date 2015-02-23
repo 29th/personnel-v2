@@ -160,7 +160,7 @@ class Events extends MY_Controller {
                     $this->attendance_model->set_attendance($event_id, $absent, false);
 
                     // Third, check if any absentees are on Extended LOA and mark them excused
-                    $eloas = pluck('member|id', $this->eloa_model->active($event['datetime'])->by_member($absent)->get()->result_array());
+                    $eloas = pluck('member|id', $this->eloa_model->active($event['datetime'])->select_member()->by_member($absent)->get()->result_array());
                     if(sizeof($eloas)) {
                         $this->attendance_model->set_excused($event_id, $eloas, true);
                     }
