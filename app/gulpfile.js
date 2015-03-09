@@ -13,6 +13,7 @@ var gulp = require("gulp"),
     source = require("vinyl-source-stream"),
     buffer = require("vinyl-buffer"),
     sourcemaps = require("gulp-sourcemaps"),
+    watchify = require("watchify"),
     dotenv = require("dotenv");
     
 var dir = {
@@ -32,8 +33,45 @@ gulp.task("default", ["clean"], function() {
  * Scripts
  * Compiles all Require.js modules into one script, then uglifies and minifies the compiled file
  */
+var initBundle = function(watch) {
+    var bundle = browserify({
+        entries: [
+            dir.dev + "scripts/shims/marionette.js",
+            dir.dev + "scripts/main.js"
+        ],
+        debug: true,
+        cache: {},
+        packageCache: {},
+        fullPaths: true
+    });
+    
+    if(watch) {
+        bundle = watchify(bundle);
+        bundle.on("update", function() {
+            execBundle(bundle);
+        });
+    }
+    execBundle(bundle);
+    return bundle;
+};
+
+var execBundle = function(bundle) {
+    bundle.bundle()
+        .pipe(source("main.min.js"))
+        //.pipe(buffer())
+        //.pipe(sourcemaps.init({loadMaps: true}))
+        //.pipe(uglify())
+        //.pipe(sourcemaps.write("./"))
+        .pipe(gulp.dest(dir.prod + "scripts/"));
+};
+
+gulp.task("watch", function() {
+    return initBundle(true);
+});
+
 gulp.task("scripts", function() {
-    return browserify({
+    return initBundle(false);
+    /*return browserify({
             entries: [
                 dir.dev + "scripts/shims/marionette.js",
                 dir.dev + "scripts/main.js"
@@ -46,7 +84,7 @@ gulp.task("scripts", function() {
         //.pipe(sourcemaps.init({loadMaps: true}))
         //.pipe(uglify())
         //.pipe(sourcemaps.write("./"))
-        .pipe(gulp.dest(dir.prod + "scripts/"));
+        .pipe(gulp.dest(dir.prod + "scripts/"));*/
 });
 
 /**
