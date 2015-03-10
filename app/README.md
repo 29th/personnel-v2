@@ -10,7 +10,7 @@ First, make sure you have [node.js](http://nodejs.org/) with npm installed.
 4. Install [gulp](http://gulpjs.com/) by using `sudo npm install -g gulp`
 
 ## Configuration
-Rename `.env.sample` to `.env` and, if necessary, edit its values to match your environment
+Copy `.env.sample` to `.env` and, if necessary, edit its values to match your environment
 
 ## Compile
 Run the command `gulp` inside the directory to compile the application into the `public/` directory, which you can then view in the browser.

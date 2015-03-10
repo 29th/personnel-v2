@@ -18,7 +18,7 @@ var gulp = require("gulp"),
     
 var dir = {
     dev: "./src/",
-    prod: "./public/"
+    prod: "./dist/"
 };
 dotenv.load(); // Load environment variables from .env
 

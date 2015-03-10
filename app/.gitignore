@@ -2,7 +2,7 @@
 .c9
 auth.sh
 node_modules
-public
+dist
 src/scripts/templates/.mc.menu
 wrzuc_do_git.sh
 temp
