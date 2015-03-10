@@ -3,7 +3,7 @@
 // Members
 $route['members/(:num)/promotions'] = 'promotions/index/member/$1'; // Filtered
 $route['members/(:num)/awardings'] = 'awardings/index/member/$1'; // Filtered
-$route['members/(:num)/qualifications'] = 'qualifications/index/$1';
+$route['members/(:num)/qualifications'] = 'qualifications/index/member/$1';
 $route['members/(:num)/assignments'] = 'assignments/index/$1';
 $route['members/(:num)/attendance'] = 'attendance/index/member/$1'; // Filtered
 $route['members/(:num)/enlistments'] = 'enlistments/index/$1';

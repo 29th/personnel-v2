@@ -1,6 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Qualifications extends MY_Controller {
+    public $model_name = 'qualification_model';
+    public $abilities = array(
+        'view_any' => 'profile_view_any',
+        'view' => 'profile_view'
+    );
+
     public function __construct() {
         parent::__construct();
         $this->load->model('qualification_model');
@@ -15,7 +21,7 @@ class Qualifications extends MY_Controller {
     /**
      * INDEX
      */
-    public function index_get($member_id, $unit_id='') {
+    /*public function index_get($member_id, $unit_id='') {
         // Must have permission to view this member's profile or any member's profile
         if( ! $this->user->permission('profile_view', array('member' => $member_id)) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
@@ -31,7 +37,7 @@ class Qualifications extends MY_Controller {
             $qualifications = nest($model->get()->result_array());
             $this->response(array('status' => true, 'qualifications' => $qualifications, 'mem' => $member_id, 'unit' => $unit_id ));
         }
-    }
+    }*/
     
     /**
      * VIEW

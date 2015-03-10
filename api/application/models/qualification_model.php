@@ -43,14 +43,6 @@ class Qualification_model extends MY_Model {
             ->join('ranks AS a_ranks', 'a_ranks.id = a_members.rank_id', 'left');
     }
     
-    public function select_member() {
-        $this->filter_select('qualifications.member_id AS `member|id`');
-        $this->filter_select($this->virtual_fields['short_name'] . ' AS `member|short_name`', FALSE);
-        $this->filter_join('members', 'members.id = qualifications.member_id');
-        $this->filter_join('ranks', 'ranks.id = members.rank_id');
-        return $this;
-    }
-    
     public function order_by() {
         $this->db->order_by('qualifications.date DESC');
     }
