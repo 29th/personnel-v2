@@ -1,5 +1,13 @@
 <div class="panel panel-default">
-    <div class="panel-heading"><h2>Attendance</h2></div>
+    <div class="panel-heading">
+        <h2>Attendance</h2>
+        <div class="pull-right">
+        30 days: {{ perc30 }}% -
+        60 days: {{ perc60 }}% -
+        90 days: {{ perc90 }}% -
+        Total: {{ percAll }}%
+        </div>
+    </div>
     <div class="panel-body panel-no-padding">
         <div class="table-responsive">
             <table class="table table-striped">

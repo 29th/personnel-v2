@@ -32,6 +32,7 @@ var Marionette = require("backbone.marionette");
           this.demerits = options.demerits || null;
           this.eloas = options.eloas || null;
           this.discharges = options.discharges || null;
+          this.qualifications = options.qualifications || null;
           this.attendance = options.attendance || null;
       },
       serializeData: function () {
@@ -44,6 +45,7 @@ var Marionette = require("backbone.marionette");
           groupActivity(dates, this.demerits.toJSON(), "demerits", "date");
           groupActivity(dates, this.eloas.toJSON(), "eloas", "posting_date");
           groupActivity(dates, this.discharges.toJSON(), "discharges", "date");
+          groupActivity(dates, this.qualifications.toJSON(), "qualifications", "date");
           groupActivity(dates, this.attendance.toJSON(), "attendance", function(model) { return model.event.datetime.split(" ")[0]});
 
           // Sort descending by date

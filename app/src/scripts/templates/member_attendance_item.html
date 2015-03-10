@@ -13,7 +13,7 @@
     {{#if this.excused}}
         Excused
     {{else}}
-        AWOL
+        {{#if this.event.mandatory}}<span class="awol"> AWOL </span> {{else}} AWOL {{/if}}
     {{/if}}
 {{/if}}
 </td>

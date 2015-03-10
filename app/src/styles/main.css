@@ -144,3 +144,7 @@ body {
     border-top: 1px #333 dashed;
     margin-top: 10px;
 }
+
+.awol {
+    color: red;
+}

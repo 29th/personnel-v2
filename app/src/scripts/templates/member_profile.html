@@ -23,6 +23,12 @@
                 <td><a href="{{ forum.Vanilla.baseUrl }}{{ sprintf forum.Vanilla.profilePath forum_member_id short_name_url }}">View Profile</a></td>
             </tr>
             {{/is}}
+            {{#is this.fin_sum "!==" 0}}
+            <tr>
+                <th>Amount Donated</th>
+                <td>${{ this.fin_sum }}</td>
+            </tr>
+            {{/is}}
         </table>
         
     </div>
