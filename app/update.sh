@@ -9,4 +9,4 @@ git status
 npm install
 
 # Build
-./node_modules/gulp/bin/gulp.js
+npm run build
