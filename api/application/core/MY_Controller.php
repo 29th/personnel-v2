@@ -42,14 +42,14 @@ class MY_Controller extends REST_Controller {
             }
 
             // If date range
-            if($this->input->get('from') && $this->input->get('to')
-                && (round((strtotime($this->input->get('to')) - strtotime($this->input->get('from')))/60/60/24, 1) <= 45)) {
+            if($this->input->get('from') && $this->input->get('to')) {
+                //&& (round((strtotime($this->input->get('to')) - strtotime($this->input->get('from')))/60/60/24, 1) <= 45)) {
                 $model->by_date($this->input->get('from'), $this->input->get('to'))->get();
             }
             // Otherwise paginate
             else {
-                //$model->paginate('', $skip);
-                $model->get();
+                $model->paginate('', $skip);
+                //$model->get();
             }
 
             $records = nest($model->result_array());
