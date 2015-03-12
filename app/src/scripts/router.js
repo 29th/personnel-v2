@@ -563,37 +563,49 @@ require("./validation.config");
 
               // Promotions
               var promotions = new Promotions(null, {
-                  member_id: id
+                  member_id: id,
+                  from: "2000",
+                  to: "today"
               });
               promises.push(promotions.fetch());
 
               // Awards
               var awardings = new Awardings(null, {
-                  member_id: id
+                  member_id: id,
+                  from: "2000",
+                  to: "today"
               });
               promises.push(awardings.fetch());
 
               // Discharges
               var discharges = new Discharges(null, {
-                  member_id: id
+                  member_id: id,
+                  from: "2000",
+                  to: "today"
               });
               promises.push(discharges.fetch());
 
               // Enlistments
               var enlistments = new MemberEnlistments(null, {
-                  member_id: id
+                  member_id: id,
+                  from: "2000",
+                  to: "today"
               });
               promises.push(enlistments.fetch());
 
               // Finances
               var finances = new Finances(null, {
-                  member_id: id
+                  member_id: id,
+                  from: "2000",
+                  to: "today"
               });
               promises.push(finances.fetch());
 
               // Demerits
               var demerits = new Demerits(null, {
-                  member_id: id
+                  member_id: id,
+                  from: "2000",
+                  to: "today"
               });
               promises.push(demerits.fetch());
 
