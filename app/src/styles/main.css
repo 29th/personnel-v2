@@ -109,6 +109,7 @@ body {
 /* Calendar */
 .fc-event {
     cursor: pointer;
+    font-size: 100%;
 }
 
 /* Flash / Error */

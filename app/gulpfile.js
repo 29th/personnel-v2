@@ -50,12 +50,11 @@ var initBundle = function(watch) {
             execBundle(bundle);
         });
     }
-    execBundle(bundle);
-    return bundle;
+    return execBundle(bundle);
 };
 
 var execBundle = function(bundle) {
-    bundle.bundle()
+    return bundle.bundle()
         .pipe(source("main.min.js"))
         //.pipe(buffer())
         //.pipe(sourcemaps.init({loadMaps: true}))

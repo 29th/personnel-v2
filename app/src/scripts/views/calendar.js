@@ -20,13 +20,6 @@ require("fullcalendar");
                   right: 'month,basicWeek,basicDay',
                   ignoreTimezone: false
               },
-              buttonText: {
-                  prev: "<i class=\"fa fa-caret-left\"></i>",
-                  next: "<i class=\"fa fa-caret-right\"></i>"
-              }
-              //,year: 2011
-              //,month: 5
-              ,
               eventClick: function (event, obj, view) {
                   Backbone.history.navigate("#events/" + event.id, {
                       trigger: true
@@ -61,13 +54,13 @@ require("fullcalendar");
               allowedTo: allowedTo
           }, this.collection.toJSON());
       },
-      onShow: function () {
+      onRender: function () {
           this.$("#calendar").fullCalendar(this.settings.calendar);
       },
-      getEvents: function (start, end, callback) {
+      getEvents: function (start, end, timezone, callback) {
           var self = this;
-          this.collection.from = moment(start.getTime()).format("YYYY-MM-DD");
-          this.collection.to = moment(end.getTime()).format("YYYY-MM-DD");
+          this.collection.from = start.format("YYYY-MM-DD");
+          this.collection.to = end.format("YYYY-MM-DD");
           $.when(this.collection.fetch()).done(function () {
               // Set whether the user is expected
               var collection = self.collection.toJSON().map(function (event) {
