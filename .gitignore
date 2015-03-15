@@ -1,5 +1,6 @@
 .vagrant
 repositories
 Vagrantfile.sample
+.htaccess
 
 .c9
