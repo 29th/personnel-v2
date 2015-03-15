@@ -8,7 +8,6 @@ var gulp = require("gulp"),
     minifyHTML = require("gulp-minify-html"),
     uglify = require("gulp-uglify"),
     es = require("event-stream"),
-    beautify = require("gulp-beautify"),
     browserify = require("browserify"),
     source = require("vinyl-source-stream"),
     buffer = require("vinyl-buffer"),
@@ -125,16 +124,4 @@ gulp.task("html", function() {
  */
 gulp.task("clean", function(cb) {
     return del(dir.prod, cb);
-});
-
-/**
- * Beautify
- * Non-build task for beautifying javascript code and enforcing linting standards
- */
-gulp.task("beautify", function() {
-    return gulp.src(dir.dev + "scripts/**/*")
-        .pipe(beautify({
-            keepArrayIndentation: true
-        }))
-        .pipe(gulp.dest(dir.dev + "scripts.beautified"));
 });

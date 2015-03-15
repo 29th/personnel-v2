@@ -1,2 +1,2 @@
-$ = require('jquery')
+$ = jQuery = require('jquery')
 require('backbone').$ = $ || jQuery
