@@ -4,6 +4,7 @@ require(APPPATH.'libraries/REST_Controller.php');
 class MY_Controller extends REST_Controller {
     public $abilities;
     public $model_name;
+    public $paginate = true;
 
     public function __construct() {
         parent::__construct();
@@ -47,9 +48,12 @@ class MY_Controller extends REST_Controller {
                 $model->by_date($this->input->get('from'), $this->input->get('to'))->get();
             }
             // Otherwise paginate
-            else {
+            elseif($this->paginate) {
                 $model->paginate('', $skip);
-                //$model->get();
+            }
+            // Or just get the records
+            else {
+                $model->get();
             }
 
             $records = nest($model->result_array());

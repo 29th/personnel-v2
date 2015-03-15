@@ -6,6 +6,7 @@ class Qualifications extends MY_Controller {
         'view_any' => 'profile_view_any',
         'view' => 'profile_view'
     );
+    public $paginate = false;
 
     public function __construct() {
         parent::__construct();
