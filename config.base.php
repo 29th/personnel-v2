@@ -18,7 +18,6 @@ $Configuration['EnabledApplications']['Vanilla'] = 'vanilla';
 $Configuration['EnabledPlugins']['HtmLawed'] = 'HtmLawed';
 $Configuration['EnabledPlugins']['steamprofile'] = TRUE;
 $Configuration['EnabledPlugins']['MentionsPlus'] = TRUE;
-$Configuration['EnabledPlugins']['EasyMembersList'] = TRUE;
 $Configuration['EnabledPlugins']['AddMenuitem'] = TRUE;
 $Configuration['EnabledPlugins']['AllViewed'] = TRUE;
 $Configuration['EnabledPlugins']['Participated'] = TRUE;

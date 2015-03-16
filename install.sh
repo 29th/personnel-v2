@@ -22,4 +22,4 @@ USERNAME=${2-root}
 cp config.base.php ${DIR_REPOS}forums/conf/config.php
 chmod 777 ${DIR_REPOS}forums/conf/config.php
 
-echo 'Installation complete!'
+echo "Installation complete! Browse to ${C9_HOSTNAME}/${DIR_REPOS}/forums"
