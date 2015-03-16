@@ -2,7 +2,7 @@
 
 1. Create an account on [Cloud 9](http://c9.io)
 2. Create a new workspace that is a clone of this repository
-3. Using the terminal, run `. install.sh $IP $C9_USER`
+3. Using the terminal, run `source install.sh $IP $C9_USER`
 4. After installation completes, turn on Cloud 9's web server by clicking **Run > Run With > Apache httpd**
 5. Navigate to the `/repositories/forums` path provided in the installation success message
 6. On the Vanilla installer, change the **Database Hos** from `localhost` to `0.0.0.0` and fill in an admin email, username, and password
