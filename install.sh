@@ -4,7 +4,7 @@ HOSTNAME=${1-localhost}
 USERNAME=${2-root}
 
 # Configure environment variables
-. ${DIR_SCRIPTS}configure-env-vars.sh $HOSTNAME $USERNAME $DIR_REPOS
+. ${DIR_SCRIPTS}configure-env-vars.sh $HOSTNAME $USERNAME /$DIR_REPOS
 
 # Create databases
 . ${DIR_SCRIPTS}create-databases.sh $HOSTNAME $USERNAME
