@@ -1,5 +1,10 @@
 <?php
-Dotenv::load(__DIR__);
+require('vendor/autoload.php');
+try {
+     Dotenv::load(__DIR__);
+} catch(Exception $e) {
+     echo $e->getMessage(), "\n";
+}
 
 /*
  *---------------------------------------------------------------
