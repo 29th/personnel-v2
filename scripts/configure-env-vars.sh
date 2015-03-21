@@ -30,4 +30,4 @@ sed -i ${REPOSITORIES}forums/conf/config.php \
     -e "s/\$Configuration\['Database'\]\['User'\] = '.*'/\$Configuration\['Database'\]\['User'\] = '${DB_USERNAME}'/" \
     -e "s/\$Configuration\['Debug'\] = FALSE/\$Configuration\['Debug'\] = TRUE/" \
     -e "s/\$Configuration\['Garden'\]\['Cookie'\]\['Salt'\] = '.*'/\$Configuration\['Garden'\]\['Cookie'\]\['Salt'\] = '${VANILLA_COOKIE_SALT}'/" \
-    -e "s/\$Configuration\['Database'\]\['User'\] = '.*'/\$Configuration\['Database'\]\['User'\] = '${DB_USERNAME}'/"
+    -e "s,\$Configuration\['Plugins'\]\['AddMenuitem'\]\['Link4'\] = '.*',\$Configuration\['Plugins'\]\['AddMenuitem'\]\['Link4'\] = '${REPOSITORIES}personnel-app/dist',"
