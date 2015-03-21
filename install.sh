@@ -10,9 +10,6 @@ sudo npm install -g npm
 mysql-ctl start # Starts mysql
 apachectl start # Starts apache
 
-# Configure environment variables
-. ${DIR_SCRIPTS}configure-env-vars.sh $DB_HOSTNAME $DB_USERNAME /$DIR_REPOS
-
 # Create databases
 . ${DIR_SCRIPTS}create-databases.sh $DB_HOSTNAME $DB_USERNAME
 
@@ -25,8 +22,7 @@ apachectl start # Starts apache
 # Install vanilla
 . ${DIR_SCRIPTS}install-vanilla.sh $DIR_REPOS $GITHUB_USER
 
-# Configure vanilla
-cp config.base.php ${DIR_REPOS}forums/conf/config.php
-chmod 777 ${DIR_REPOS}forums/conf/config.php
+# Configure environment variables
+. ${DIR_SCRIPTS}configure-env-vars.sh $DB_HOSTNAME $DB_USERNAME $DIR_REPOS
 
 echo "Installation complete! Browse to http://${SITE_HOSTNAME}/${DIR_REPOS}forums"
