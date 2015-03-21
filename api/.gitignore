@@ -10,6 +10,8 @@ application/logs/*
 
 coats/*
 
+.env
+
 vendor
 
 composer.phar
