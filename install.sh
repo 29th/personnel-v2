@@ -1,11 +1,12 @@
 DIR_SCRIPTS=scripts/
 DIR_REPOS=repositories/
-DB_HOSTNAME=${$IP-localhost}
-DB_USERNAME=${$C9_USER-root}
+DB_HOSTNAME=${IP-localhost}
+DB_USERNAME=${C9_USER-root}
 SITE_HOSTNAME=${C9_HOSTNAME-localhost}
 GITHUB_USER=${1-29th}
 
 # Configure Cloud9
+sudo npm install -g npm
 mysql-ctl start # Starts mysql
 apachectl start # Starts apache
 
