@@ -13,5 +13,5 @@ $ source install.sh YOUR_GITHUB_USERNAME
 ```
 6. When the installation finishes, you'll get an **Installation complete!** message with a URL to navigate to. Copy that into a new browser tab to navigate to it. (Note: If you get an SSL error, remove `:80` from the URL)
 7. On the Vanilla installer, change the **Database Host** from `localhost` to `0.0.0.0` and fill in an admin email, username, and password (Note: It may bring you back to the installer screen afterwards, but if there's no error, you're good to go.)
-8. Navigate to the **Installation complete!** URL again to verify you're logged in
-9. Navigate to `https://<your site url>/repositories/personnel-app/dist` to view the application
+8. Navigate to the **Installation complete!** URL again to verify you're logged in. You should see an empty, functioning forum with the 29th theme
+9. Navigate to `https://<your site url>/repositories/personnel-app/dist` to view the application. You should be logged in as **Pvt. Tester** in the top-right corner.
