@@ -9,7 +9,7 @@
 4. Use the clone URL found on the right-hand side of this repository and click **Create**
 5. Using the terminal at the bottom of the workspace, run the following command, replacing `YOUR_GITHUB_USERNAME` with your GitHub username:
 ```bash
-$ source install.sh YOUR_GITHUB_USERNAME
+source install.sh YOUR_GITHUB_USERNAME
 ```
 6. When the installation finishes, you'll get an **Installation complete!** message with a URL to navigate to. Copy that into a new browser tab to navigate to it. (Note: If you get an SSL error, remove `:80` from the URL)
 7. On the Vanilla installer, change the **Database Host** from `localhost` to `0.0.0.0` and fill in an admin email, username, and password (Note: It may bring you back to the installer screen afterwards, but if there's no error, you're good to go.)
