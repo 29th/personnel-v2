@@ -6,7 +6,7 @@ git clone https://github.com/${GITHUB_USER}/personnel-app.git ${DIR_CWD}personne
 
 if [ "$GITHUB_USER" != "29th" ]; then
     echo 'Adding upstream remote...'
-    (cd ${DIR_CWD} && git remote add upstream https://github.com/29th/personnel-app.git)
+    (cd ${DIR_CWD}personnel-app && git remote add upstream https://github.com/29th/personnel-app.git)
 fi
 
 echo 'Installing personnel front-end dependencies...'
