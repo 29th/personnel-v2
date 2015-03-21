@@ -12,5 +12,5 @@ fi
 echo 'Installing personnel front-end dependencies...'
 (cd ${DIR_CWD}personnel-app && npm install)
 
-echo 'Building personnel front-end...'
-(cd ${DIR_CWD}personnel-app && npm run build)
+#echo 'Building personnel front-end...'
+#(cd ${DIR_CWD}personnel-app && npm run build)

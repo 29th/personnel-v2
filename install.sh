@@ -25,4 +25,7 @@ apachectl start # Starts apache
 # Configure environment variables
 . ${DIR_SCRIPTS}configure-env-vars.sh $DB_HOSTNAME $DB_USERNAME $DIR_REPOS
 
+# Build personnel-app
+. ${DIR_SCRIPTS}build-personnel-app.sh $DIR_REPOS
+
 echo "Installation complete! Browse to http://${SITE_HOSTNAME}/${DIR_REPOS}forums"
