@@ -116,7 +116,7 @@ class Assignments extends MY_Controller {
         }
         // Must have permission to assign to the new unit and the old unit, or permission to assign to any unit
         else if( ! ($this->user->permission('assignment_add', array('unit' => $assignment['unit']['id']))
-                    && $this->user->permission('assignment_add', array('unit' => $this->post('unit_id')))
+                    || $this->user->permission('assignment_add', array('unit' => $this->post('unit_id')))
                 ) && ! $this->user->permission('assignment_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
