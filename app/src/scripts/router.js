@@ -687,7 +687,9 @@ require("./validation.config");
 
               // Finances
               var finances = new Finances(null, {
-                  member_id: id
+                  member_id: id,
+                  from: "2000",
+                  to: "today"
               });
               promises.push(finances.fetch());
 
