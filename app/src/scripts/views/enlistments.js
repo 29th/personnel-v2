@@ -2,7 +2,8 @@ var $ = require("jquery"),
   _ = require("underscore"),
   Backbone = require("backbone"),
   Template = require("../templates/enlistments.html"),
-  ItemTemplate = require("../templates/enlistments_item.html");
+  ItemTemplate = require("../templates/enlistments_item.html"),
+  config = require("../config");
 var Marionette = require("backbone.marionette");
 
   
@@ -18,6 +19,11 @@ var Marionette = require("backbone.marionette");
       itemViewContainer: "#rows",
       initialize: function () {
           _.bindAll(this, "onClickMore", "onClickBtnGroup");
+      },
+      serializeData: function () {
+          return $.extend({
+              vanilla_forum_url: config.forum.Vanilla.baseUrl,
+          });
       },
       events: {
           "click .more": "onClickMore",
