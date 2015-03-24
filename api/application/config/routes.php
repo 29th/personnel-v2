@@ -6,6 +6,7 @@ $route['members/(:num)/awardings'] = 'awardings/index/member/$1'; // Filtered
 $route['members/(:num)/qualifications'] = 'qualifications/index/member/$1';
 $route['members/(:num)/assignments'] = 'assignments/index/$1';
 $route['members/(:num)/attendance'] = 'attendance/index/member/$1'; // Filtered
+$route['members/(:num)/percentage'] = 'attendance/percentage/$1'; // Filtered
 $route['members/(:num)/enlistments'] = 'enlistments/index/$1';
 $route['members/(:num)/discharges'] = 'discharges/index/member/$1'; // Filtered
 $route['members/(:num)/awols'] = 'members/awols/$1';

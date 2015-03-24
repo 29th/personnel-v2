@@ -13,6 +13,17 @@ class Attendance extends MY_Controller {
     public function index_options() { $this->response(array('status' => true)); }
     public function view_options() { $this->response(array('status' => true)); }
     
+    public function percentage_get( $member_id = FALSE) 
+    {
+        $perc_arr = array( 
+            "30" => $this->attendance_model->percentage(30, $member_id),
+            "60" => $this->attendance_model->percentage(60, $member_id),
+            "90" => $this->attendance_model->percentage(90, $member_id),
+            "all" => $this->attendance_model->percentage( '', $member_id)
+        );
+        $this->response(  $perc_arr );
+    }
+    
     /**
      * INDEX
      * Handled by index_filter_get in MY_Controller

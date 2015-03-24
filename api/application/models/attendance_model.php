@@ -147,4 +147,16 @@ class Attendance_model extends MY_Model {
     public function total_rows() {
         return $this->db->count_all_results();
     }
+    
+    public function percentage( $days = FALSE, $member_id = FALSE ) 
+    {
+      /* returns percentage value of  */
+        $cSql = "SELECT COALESCE(cast((SUM(attended) / Count(*) ) * 100 AS UNSIGNED),0) as per FROM `attendance` AS a LEFT JOIN `events` AS e ON a.event_id = e.id WHERE a.`member_id` = $member_id AND e.mandatory = 1";
+        if ( $days ) 
+        {
+          $cSql .= " AND  (e.datetime BETWEEN CURDATE() - INTERVAL $days DAY AND CURDATE())";
+        }
+        $qr = $this->db->query( $cSql )->row_array()[per];
+      return $qr;
+    }
 }
