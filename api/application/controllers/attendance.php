@@ -31,8 +31,7 @@ class Attendance extends MY_Controller {
             }
             $attendance = nest($this->attendance_model->paginate('', $skip)->result_array());
             $count = $this->attendance_model->total_rows;
-            $percentages = $member_id;
-            $this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'attendance' => $attendance, 'percentages' => $id ));
+            $this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'attendance' => $attendance ));
         }
     }
 */
