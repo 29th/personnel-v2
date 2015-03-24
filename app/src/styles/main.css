@@ -149,3 +149,7 @@ body {
 .awol {
     color: red;
 }
+
+#forums-link {
+    margin-left: 20px;
+}

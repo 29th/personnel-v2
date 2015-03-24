@@ -628,7 +628,9 @@ require("./validation.config");
               memberLayout.setHighlight("attendance");
 
               var attendance = new Attendance(null, {
-                  member_id: id
+                  member_id: id,
+                  from: "2000",
+                  to: "today"
               });
               promises.push(attendance.fetch());
 
@@ -687,7 +689,9 @@ require("./validation.config");
 
               // Finances
               var finances = new Finances(null, {
-                  member_id: id
+                  member_id: id,
+                  from: "2000",
+                  to: "today"
               });
               promises.push(finances.fetch());
 
