@@ -17,7 +17,8 @@ class Attendance extends MY_Controller {
      * INDEX
      * Handled by index_filter_get in MY_Controller
      */
-    /*public function index_get($member_id = FALSE) {
+/* 
+    public function index_get($member_id = FALSE) {
         // Must have permission to view this member's profile or any member's profile
         if( ! $this->user->permission('profile_view', array('member' => $member_id)) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
@@ -30,7 +31,9 @@ class Attendance extends MY_Controller {
             }
             $attendance = nest($this->attendance_model->paginate('', $skip)->result_array());
             $count = $this->attendance_model->total_rows;
-            $this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'attendance' => $attendance));
+            $percentages = $member_id;
+            $this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'attendance' => $attendance, 'percentages' => $id ));
         }
-    }*/
+    }
+*/
 }
