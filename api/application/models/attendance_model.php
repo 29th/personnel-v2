@@ -148,15 +148,23 @@ class Attendance_model extends MY_Model {
         return $this->db->count_all_results();
     }
     
-    public function percentage( $days = FALSE, $member_id = FALSE ) 
+    public function percentage( $days = FALSE, $member_id = FALSE, $unit_id = FALSE ) 
     {
-      /* returns percentage value of  */
-        $cSql = "SELECT COALESCE(cast((SUM(attended) / Count(*) ) * 100 AS UNSIGNED),0) as per FROM `attendance` AS a LEFT JOIN `events` AS e ON a.event_id = e.id WHERE a.`member_id` = $member_id AND e.mandatory = 1";
-        if ( $days ) 
-        {
+      /* returns percentage value of attendance for $days days or all if $days is FALSE, for either member or whole unit+subunits */
+        $cSql = "SELECT COALESCE(cast((SUM(attended) / Count(*) ) * 100 AS UNSIGNED),0) as per FROM `attendance` AS a LEFT JOIN `events` AS e ON a.event_id = e.id WHERE e.mandatory = 1 AND ";
+        
+        if ( $unit_id == 'unit' ) {
+            //if you want to have percentage for unit only (without subunits) remove "path LIKE" part
+            $cSql .= "a.`member_id` IN ( SELECT member_id FROM assignments WHERE end_date IS NULL AND unit_ID IN ( SELECT id FROM units WHERE id = $member_id OR path LIKE '%/$member_id/%')  ) ";
+        }
+        else {
+          $cSql .= " a.`member_id` = $member_id";
+        }
+        if ( $days ) {
           $cSql .= " AND  (e.datetime BETWEEN CURDATE() - INTERVAL $days DAY AND CURDATE())";
         }
-        $qr = $this->db->query( $cSql )->row_array()[per];
-      return $qr;
+        $qr = $this->db->query( $cSql )->row_array();
+      return $qr ? $qr['per']: array();
     }
+
 }
