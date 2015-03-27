@@ -153,3 +153,16 @@ body {
 #forums-link {
     margin-left: 20px;
 }
+
+.att_perc span{
+    padding: 0px 5px 0px 5px;
+}
+
+.att_perc_days {
+    background-color: #3bbfb4;
+    color: white;
+}
+
+.att_perc_per{
+    font-weight: bold;
+}

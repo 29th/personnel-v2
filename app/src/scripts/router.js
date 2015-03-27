@@ -13,6 +13,7 @@ var $ = require("jquery"),
   User = require("./models/user"),
   Assignments = require("./collections/assignments"),
   Attendance = require("./collections/attendance"),
+  AttendancePercentages = require("./collections/attendance_percentages"),
   Awardings = require("./collections/awardings"),
   Demerits = require("./collections/demerits"),
   Discharges = require("./collections/discharges"),
@@ -628,14 +629,19 @@ require("./validation.config");
               memberLayout.setHighlight("attendance");
 
               var attendance = new Attendance(null, {
-                  member_id: id,
-                  from: "2000",
-                  to: "today"
+                  member_id: id
               });
               promises.push(attendance.fetch());
 
+              // Percentages
+              var percentages = new AttendancePercentages(null, {
+                  member_id: id,
+              });
+              promises.push(percentages.fetch());
+
               pageView = new MemberAttendanceView({
-                  collection: attendance
+                  collection: attendance,
+                  perc: percentages
               });
           }
           // Qualifications
