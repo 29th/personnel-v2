@@ -112,7 +112,8 @@ class Assignment_model extends MY_Model {
         $this->db->select('assignments.id, assignments.start_date, assignments.end_date, assignments.unit_id') // Leave `unit_id` for tree sorting
             ->select('assignments.member_id AS `member|id`')
             ->select('units.id AS `unit|id`, units.abbr AS `unit|abbr`, units.name AS `unit|name`, ' . $this->virtual_fields['unit_key'] . ' AS `unit|key`, units.class AS `unit|class`, units.path AS `unit|path`, ' . $this->virtual_fields['depth'] . ' AS `unit|depth`', FALSE)
-            ->select('positions.id AS `position|id`, positions.name AS `position|name`, positions.order AS `position|order`, positions.access_level AS `position|access_level`');
+            ->select('positions.id AS `position|id`, positions.name AS `position|name`, positions.order AS `position|order`, positions.access_level AS `position|access_level`')
+            ->select('(SELECT COUNT(1)>0 FROM `eloas` WHERE `eloas`.`member_id` = `members`.`id` AND NOW() BETWEEN eloas.start_date AND eloas.end_date  ) as eloa');
     }
     
     public function default_join() {

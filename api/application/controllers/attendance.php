@@ -16,13 +16,13 @@ class Attendance extends MY_Controller {
     public function percentage_get( $member_id = FALSE, $unit_id = FALSE ) 
     { /* */
         $perc_arr = array( 
-            "30" => $this->attendance_model->percentage( 30, $member_id, $unit_id ),
-            "60" => $this->attendance_model->percentage( 60, $member_id, $unit_id ),
-            "90" => $this->attendance_model->percentage( 90, $member_id, $unit_id ),
+            "d30" => $this->attendance_model->percentage( 30, $member_id, $unit_id ),
+            "d60" => $this->attendance_model->percentage( 60, $member_id, $unit_id ),
+            "d90" => $this->attendance_model->percentage( 90, $member_id, $unit_id ),
             "all" => $this->attendance_model->percentage( '', $member_id, $unit_id )
         );
         
-        $this->response(  $perc_arr );
+        $this->response(  array( 'percentages' => $perc_arr, 'status' => true ) );
     }
     
     /**
