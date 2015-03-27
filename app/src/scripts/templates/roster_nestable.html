@@ -19,7 +19,8 @@
         {{else}}
 
             {{#if this.rank.filename}}<img src="images/ranks/16x16/{{ this.rank.filename }}.png" title="{{ this.rank.name }}">{{/if}}
-            <a href="#members/{{ this.member.id }}">{{ this.member.short_name }}</a>
+            <a href="#members/{{ this.member.id }}">{{ this.member.short_name }}</a> 
+            {{#is eloa "!==" "0" }} (ELOA){{/is}}
             <span class="roster-unit">{{ position.name }}</span>
         {{/if}}
     </li>
