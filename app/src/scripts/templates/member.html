@@ -1,7 +1,7 @@
 <div class="row header">
     {{#if rank.filename}}<div class="col-sm-1"><img src="images/ranks/60x60/{{ rank.filename }}.png" title="{{ rank.name }}"> </div>{{/if}}
     <div class="col-sm-{{#if rank.filename}}9{{else}}10{{/if}}">
-        <div class="title">{{ rank.name }} {{ full_name }} {{#if eloa}}(ELOA){{/if}}</div>
+        <div class="title">{{ rank.name }} {{ full_name }} {{#is eloa "!==" "0"}}(ELOA){{/is}}</div>
         <ul class="assignments">
             {{#each assignments}}
                 <li>{{ this.position.name }}, <a href="#units/{{ this.unit.key }}">{{this.unit.name }}</a></li>
