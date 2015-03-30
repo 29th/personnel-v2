@@ -66,8 +66,7 @@ var Marionette = require("backbone.marionette");
               perc30: parseInt(this.percentages.d30),
               perc60: parseInt(this.percentages.d60),
               perc90: parseInt(this.percentages.d90),
-              percAll: parseInt(this.percentages.all), 
-              test: 'aaa'
+              percAll: parseInt(this.percentages.all)
           });
       }
   });

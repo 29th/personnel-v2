@@ -767,8 +767,15 @@ require("./validation.config");
               });
               promises.push(attendance.fetch());
 
+              // Percentages
+              var percentages = new AttendancePercentages(null, {
+                  member_id: filter || "Bn"
+              });
+              promises.push(percentages.fetch());
+
               columnViews.push(new UnitAttendanceView({
-                  collection: attendance
+                  collection: attendance,
+                  perc: percentages
               }));
           }
           // AWOLs

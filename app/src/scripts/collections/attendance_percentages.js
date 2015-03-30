@@ -11,13 +11,13 @@ var $ = require("jquery"),
       },
       url: function () {
           var url = config.apiHost;
-          if(this.member_id) {
-              url += "/members/" + this.member_id;
+          if( $.isNumeric( this.member_id ) ) {
+              url += "/members/";
           }
-          else if(this.unit_id) {
-              url += "/units/" + this.unit_id;
+          else  {
+              url += "/units/";
           }
-          url += "/percentage";
+          url += this.member_id + "/percentage";
 
           return url;
       },
