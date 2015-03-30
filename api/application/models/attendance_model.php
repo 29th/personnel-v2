@@ -155,7 +155,8 @@ class Attendance_model extends MY_Model {
         
         if ( $unit_id == 'unit' ) {
             //if you want to have percentage for unit only (without subunits) remove "path LIKE" part
-            $cSql .= "a.`member_id` IN ( SELECT member_id FROM assignments WHERE end_date IS NULL AND unit_ID IN ( SELECT id FROM units WHERE id = $member_id OR path LIKE '%/$member_id/%')  ) ";
+            $cSql .= "e.`unit_id` IN " . 
+              "( SELECT id FROM units WHERE abbr IN ( '$member_id', '$member_id HQ', '$member_id Co. HQ' ) OR path LIKE CONCAT('%/',(SELECT id FROM units WHERE abbr IN ( '$member_id', '$member_id HQ', '$member_id Co. HQ' ) ),'/%') ) ";
         }
         else {
           $cSql .= " a.`member_id` = $member_id";
