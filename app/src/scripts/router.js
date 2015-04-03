@@ -863,6 +863,15 @@ require("./validation.config");
               });
               promises.push(attendance.fetch());
 
+              var membs = new Units(null, {
+                  filter: filter,
+                  children: true,
+                  members: true,
+                  distinct: true,
+                  flat: true
+              });
+              promises.push(membs.fetch());
+
               columnViews.push(new RosterView({
                   collection: units
               }), new UnitActivityView({
@@ -873,7 +882,8 @@ require("./validation.config");
                   eloas: eloas,
                   discharges: discharges,
                   qualifications: qualifications,
-                  attendance: attendance
+                  attendance: attendance,
+                  members: membs
               }));
           }
 

@@ -34,6 +34,7 @@ var Marionette = require("backbone.marionette");
           this.discharges = options.discharges || null;
           this.qualifications = options.qualifications || null;
           this.attendance = options.attendance || null;
+          this.members = options.members || null;
       },
       serializeData: function () {
           var items = [],
@@ -54,7 +55,10 @@ var Marionette = require("backbone.marionette");
               if (b.date < a.date) return -1;
               return 0;
           });
-
-          return {items: items, forum: config.forum};
+          
+          var  membs = [];
+          _.each( this.members.toJSON()[0], function(f,k){membs[k] = f;});
+          
+          return {items: items, forum: config.forum, members: membs };
       }
   });
