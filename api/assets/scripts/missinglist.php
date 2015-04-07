@@ -1,11 +1,3 @@
-<style>
-<!--
-  td {
-    border:1px solid black;
-    padding:5px;
-  }
-//-->
-</style>
 
 <?php
   $time_start = microtime(true);
