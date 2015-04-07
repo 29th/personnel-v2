@@ -27,6 +27,7 @@ var $ = require("jquery"),
   Positions = require("./collections/positions"),
   Promotions = require("./collections/promotions"),
   Qualifications = require("./collections/qualifications"),
+  Recruits = require("./collections/recruits"),
   Servers = require("./collections/servers"),
   Standards = require("./collections/standards"),
   UnitAwols = require("./collections/unit_awols"),
@@ -52,6 +53,7 @@ var $ = require("jquery"),
   MemberEditView = require("./views/member_edit"),
   MemberProfileView = require("./views/member_profile"),
   MemberQualificationsView = require("./views/member_qualifications"),
+  MemberRecruitsView = require("./views/member_recruits"),
   MemberView = require("./views/member"),
   NavView = require("./views/nav"),
   RosterView = require("./views/roster"),
@@ -642,6 +644,21 @@ require("./validation.config");
               pageView = new MemberAttendanceView({
                   collection: attendance,
                   perc: percentages
+              });
+          }
+          // Recruits
+          else if (path == "recruits") {
+              memberLayout.setHighlight("recruits");
+
+              var recruits = new Recruits(null, {
+                  member_id: id,
+                  from: "2000",
+                  to: "today"
+              });
+              promises.push(recruits.fetch());
+
+              pageView = new MemberRecruitsView({
+                  collection: recruits
               });
           }
           // Qualifications
