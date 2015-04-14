@@ -1,12 +1,13 @@
 <div class="panel panel-default">
     <div class="panel-heading"><h2>Recruits</h2></div>
         <div class="panel-body">
+        <h3>Total Recruits: <b>{{this.rec_count}}</b></h3>
         {{#each recruits}}
           {{#if this.tp }}    
             <div class=""><b>{{ this.tp }}</b> ({{this.recruits.length}})</div>
             {{#each recruits}}
               <div class="row">
-                <li class=""><a href="#members/{{ this.member.id }}">{{this.member.rank}} {{ this.member.first_name }} {{ this.member.last_name }}</a></li>
+                <li class=""><a href="#members/{{ this.member.id }}">{{this.member.rank}} {{ this.member.first_name }} {{ this.member.last_name }}</a> ({{this.enlistment.status}})</li>
               </div>
             {{/each }}
             <br>

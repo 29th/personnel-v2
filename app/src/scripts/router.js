@@ -31,6 +31,7 @@ var $ = require("jquery"),
   Servers = require("./collections/servers"),
   Standards = require("./collections/standards"),
   UnitAwols = require("./collections/unit_awols"),
+  UnitAlerts = require("./collections/unit_alerts"),
   Units = require("./collections/units"),
   AARView = require("./views/aar"),
   AssignmentEditView = require("./views/assignment_edit"),
@@ -59,8 +60,10 @@ var $ = require("jquery"),
   RosterView = require("./views/roster"),
   ServiceRecordView = require("./views/service_record"),
   UnitActivityView = require("./views/unit_activity"),
+  UnitAlertsView = require("./views/unit_alerts"),
   UnitAttendanceView = require("./views/unit_attendance"),
   UnitAwolsView = require("./views/unit_awols"),
+  UnitRecruitsView = require("./views/unit_recruits"),
   UnitView = require("./views/unit");
 require("./helpers/custom");
 require("bootstrap");
@@ -92,6 +95,7 @@ require("./validation.config");
           "members/:id/assign": "assignment_add",
           "members/:id/*path": "member",
           "members/:id": "member",
+//          "recruits": "recruits",
           "units/:filter/*path": "unit",
           "units/:filter": "unit",
       },
@@ -807,6 +811,33 @@ require("./validation.config");
               columnViews.push(new UnitAwolsView({
                   collection: unitAwols
               }));
+          }
+          else if (path == "alerts") {
+              unitLayout.setHighlight("alerts");
+              
+              var unitAlerts = new UnitAlerts(null, {
+                  filter: filter || "Bn"
+              });
+              promises.push(unitAlerts.fetch());
+
+              columnViews.push(new UnitAlertsView({
+                  collection: unitAlerts
+              }));
+          }
+          // Recruits
+          else if (path == "recruits") {
+              unitLayout.setHighlight("recruits");
+              
+              var unitRecruits = new Recruits(null, {
+                  from:"2014-12-01",
+                  to: "today",
+                  unit_id: filter || "Bn"
+              });
+              promises.push(unitRecruits.fetch());
+
+              columnViews = new UnitRecruitsView({
+                  collection: unitRecruits
+              });
           }
           // Roster
           else {

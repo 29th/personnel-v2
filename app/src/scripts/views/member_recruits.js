@@ -14,6 +14,7 @@ var Marionette = require("backbone.marionette");
       },
       serializeData: function () {
           var items = [];
+          var rec_count = 0;
           _.each( this.recruits.toJSON(), function( recruit ) {
               if (!recruit.member.rank)
               {
@@ -25,6 +26,7 @@ var Marionette = require("backbone.marionette");
                 member: recruit.member,
                 enlistment: recruit.enl
               });
+              rec_count++
           });
           items.sort(function (a, b) {
               if (a.tp < b.tp) return 1;
@@ -32,7 +34,8 @@ var Marionette = require("backbone.marionette");
               return 0;
           }); 
           return _.extend({
-              recruits: items
+              recruits: items,
+              rec_count: rec_count
           });
       }
   });

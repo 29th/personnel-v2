@@ -14,7 +14,7 @@ var Marionette = require("backbone.marionette");
       },
       serializeData: function () {
           return _.extend({
-              aaa: 'bbb'
+              items: this.recruits.toJSON()
           });
       }
   });
