@@ -33,7 +33,8 @@ $route['units/(:any)/eloas'] = 'eloas/index/unit/$1'; // Filtered
 $route['units/(:any)/finances'] = 'finances/index/unit/$1'; // Filtered
 $route['units/(:any)/discharges'] = 'discharges/index/unit/$1'; // Filtered
 $route['units/(:any)/events'] = 'events/index/unit/$1'; // Filtered
-$route['units/(:num)/recruits'] = 'recruits/index/unit/$1'; // Filtered
+$route['units/(:any)/recruits'] = 'recruits/index/unit/$1'; // Filtered
+$route['units/(:any)/alerts'] = 'alerts/index/unit/$1'; // Filtered
 $route['units/(:any)'] = 'units/view/$1';
 $route['units'] = 'units/index';
 

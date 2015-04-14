@@ -39,6 +39,33 @@ class MY_Model extends CRUD_Model {
         return $this;
     }
     
+    public function by_unit2($unit_id) {
+        //better version of by_unit - giving list of member_ids for where clause
+        $_where_clause = $this->table . '.member_id IN (
+          SELECT member_id
+          FROM  `assignments` 
+          LEFT JOIN  `units` ON  `units`.`id` =  `assignments`.`unit_id` 
+          WHERE ( `assignments`.`end_date` IS NULL ';
+
+
+/*        
+        $this->filter_join('assignments', 'assignments.member_id = ' . $this->table . '.member_id');
+        $this->filter_join('units', 'units.id = assignments.unit_id');
+*/
+        if(is_numeric($unit_id)) {
+            $_where_clause .= ' AND (units.id = ' . $unit_id . ' OR units.path LIKE "%/' . $unit_id . '/%")';
+        } elseif($lookup = $this->getByUnitKey($unit_id)) {
+            $_where_clause .= ' AND (units.id = ' . $lookup['id'] . ' OR (units.path LIKE "%/' . $lookup['id'] . '/%"))';
+        }
+/*
+        $this->filter_where('assignments.end_date IS NULL'); // Only include current members
+*/
+        $_where_clause .= ' ) ) ';
+        $this->filter_where($_where_clause);
+        $this->filter_group_by($this->primary_key);
+        return $this;
+    }
+    
     protected function getByUnitKey($unit_key) {
         $query = $this->db->query("SELECT units.id FROM units WHERE " . $this->virtual_fields['unit_key'] . ' = ' . $this->db->escape($unit_key));
         return $query->row_array();
