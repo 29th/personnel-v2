@@ -1,0 +1,15 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>Alerts</h2>
+    </div>
+    <div class="panel-body">
+    {{#each items}}
+      <h3>Missing AOCCs ({{aoccs.length}})</h3>
+      <ul>
+      {{#each aoccs}}
+        <li><a href="#members/{{ this.member.id }}">{{ this.member.short_name }}</a> has <b>{{aocc_count}}</b> Army of Occupation Medal(s) and should have <b><big>{{member.duration}}</big></b> </li>
+      {{/each}}
+      </ul>
+    {{/each}}
+    </div>
+</div>

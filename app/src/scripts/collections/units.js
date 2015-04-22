@@ -58,6 +58,7 @@ var $ = require("jquery"),
           if (this.inactive) params.inactive = this.inactive;
           if (this.order) params.order = this.order;
           if (this.historic) params.historic = this.historic;
+          if (this.flat) params.flat = this.flat;
           if (this.distinct) params.distinct = this.distinct;
           if (!_.isEmpty(params)) url += "?" + $.param(params);
           return url;
