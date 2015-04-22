@@ -56,6 +56,7 @@ var Marionette = require("backbone.marionette");
               return 0;
           });
           
+          // Get unique list of members
           var  membs = [];
           _.each( this.members.toJSON()[0], function(f,k){membs[k] = f;});
           

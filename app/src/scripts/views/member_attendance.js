@@ -60,15 +60,12 @@ var Marionette = require("backbone.marionette");
           this.$(".more").toggle(this.collection.more);
       },
       serializeData: function () {
-          /* I know it is bad but it's working so isn't THAT bad  */
-//          var t1 = this.percentages.toJSON();
-          //this.percentages = this.percentages.models[0].attributes; 
-          this.percentages = this.percentages.toJSON()[0];
+          this.percentages = this.percentages.at(0);
           return _.extend({
-              perc30: parseInt(this.percentages.d30),
-              perc60: parseInt(this.percentages.d60),
-              perc90: parseInt(this.percentages.d90),
-              percAll: parseInt(this.percentages.all)
+              perc30: parseInt(this.percentages.get('d30')),
+              perc60: parseInt(this.percentages.get('d60')),
+              perc90: parseInt(this.percentages.get('d90')),
+              percAll: parseInt(this.percentages.get('all'))
           });
       }
   });
