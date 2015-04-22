@@ -148,21 +148,23 @@ class Attendance_model extends MY_Model {
         return $this->db->count_all_results();
     }
     
-    public function percentage( $days = FALSE, $member_id = FALSE, $unit_id = FALSE ) 
+    public function percentage( $days = FALSE, $filter_key = FALSE, $filter_value = FALSE ) 
     {
       /* returns percentage value of attendance for $days days or all if $days is FALSE, for either member or whole unit+subunits */
-        $cSql = "SELECT COALESCE(cast((SUM(attended) / Count(*) ) * 100 AS UNSIGNED),0) as per FROM `attendance` AS a LEFT JOIN `events` AS e ON a.event_id = e.id WHERE e.mandatory = 1 AND ";
+        $cSql = "SELECT COALESCE(cast((SUM(attended) / Count(*) ) * 100 AS UNSIGNED),0) as per FROM `attendance` AS a LEFT JOIN `events` AS e ON a.event_id = e.id LEFT JOIN `units` AS u ON e.unit_id = u.id WHERE e.mandatory = 1 ";
         
-        if ( $unit_id == 'unit' ) {
-            //if you want to have percentage for unit only (without subunits) remove "path LIKE" part
-            $cSql .= "e.`unit_id` IN " . 
-              "( SELECT id FROM units WHERE abbr IN ( '$member_id', '$member_id HQ', '$member_id Co. HQ' ) OR path LIKE CONCAT('%/',(SELECT id FROM units WHERE abbr IN ( '$member_id', '$member_id HQ', '$member_id Co. HQ' ) ),'/%') ) ";
+        if ( $filter_key == 'unit' ) {
+             if(is_numeric($filter_value)) {
+                 $cSql .= 'AND (e.unit_id = ' . (int) $filter_value . ' OR u.path LIKE "%/' . (int) $filter_value . '/%")';
+             } elseif($lookup = $this->getByUnitKey($filter_value)) {
+                 $cSql .= 'AND (e.unit_id = ' . $lookup['id'] . ' OR (u.path LIKE "%/' . $lookup['id'] . '/%"))';
+             }
         }
         else {
-          $cSql .= " a.`member_id` = $member_id";
+          $cSql .= "AND a.`member_id` = " . $this->db->escape($filter_value);
         }
         if ( $days ) {
-          $cSql .= " AND  (e.datetime BETWEEN CURDATE() - INTERVAL $days DAY AND CURDATE())";
+          $cSql .= "AND (e.datetime BETWEEN CURDATE() - INTERVAL $days DAY AND CURDATE())";
         }
         $qr = $this->db->query( $cSql )->row_array();
       return $qr ? $qr['per']: array();
