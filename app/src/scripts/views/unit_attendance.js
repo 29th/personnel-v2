@@ -29,8 +29,10 @@ var Marionette = require("backbone.marionette");
               }
           }, this);
       },
-      initialize: function () {
+      initialize: function (options) {
           _.bindAll(this, "onClickMore");
+          options = options || {};
+          this.percentages = options.perc;
       },
       events: {
           "click .more": "onClickMore"
@@ -56,5 +58,15 @@ var Marionette = require("backbone.marionette");
       },
       checkMoreButton: function () {
           this.$(".more").toggle(this.collection.more);
+      },
+      serializeData: function () {
+          /* I know it is bad but it's working so isn't THAT bad  */
+          this.percentages = this.percentages.models[0].attributes; 
+          return _.extend({
+              perc30: parseInt(this.percentages.d30),
+              perc60: parseInt(this.percentages.d60),
+              perc90: parseInt(this.percentages.d90),
+              percAll: parseInt(this.percentages.all)
+          });
       }
   });

@@ -13,6 +13,7 @@ var $ = require("jquery"),
   User = require("./models/user"),
   Assignments = require("./collections/assignments"),
   Attendance = require("./collections/attendance"),
+  AttendancePercentages = require("./collections/attendance_percentages"),
   Awardings = require("./collections/awardings"),
   Demerits = require("./collections/demerits"),
   Discharges = require("./collections/discharges"),
@@ -26,9 +27,11 @@ var $ = require("jquery"),
   Positions = require("./collections/positions"),
   Promotions = require("./collections/promotions"),
   Qualifications = require("./collections/qualifications"),
+  Recruits = require("./collections/recruits"),
   Servers = require("./collections/servers"),
   Standards = require("./collections/standards"),
   UnitAwols = require("./collections/unit_awols"),
+  UnitAlerts = require("./collections/unit_alerts"),
   Units = require("./collections/units"),
   AARView = require("./views/aar"),
   AssignmentEditView = require("./views/assignment_edit"),
@@ -51,13 +54,16 @@ var $ = require("jquery"),
   MemberEditView = require("./views/member_edit"),
   MemberProfileView = require("./views/member_profile"),
   MemberQualificationsView = require("./views/member_qualifications"),
+  MemberRecruitsView = require("./views/member_recruits"),
   MemberView = require("./views/member"),
   NavView = require("./views/nav"),
   RosterView = require("./views/roster"),
   ServiceRecordView = require("./views/service_record"),
   UnitActivityView = require("./views/unit_activity"),
+  UnitAlertsView = require("./views/unit_alerts"),
   UnitAttendanceView = require("./views/unit_attendance"),
   UnitAwolsView = require("./views/unit_awols"),
+  UnitRecruitsView = require("./views/unit_recruits"),
   UnitView = require("./views/unit");
 require("./helpers/custom");
 require("bootstrap");
@@ -89,6 +95,7 @@ require("./validation.config");
           "members/:id/assign": "assignment_add",
           "members/:id/*path": "member",
           "members/:id": "member",
+//          "recruits": "recruits",
           "units/:filter/*path": "unit",
           "units/:filter": "unit",
       },
@@ -628,14 +635,34 @@ require("./validation.config");
               memberLayout.setHighlight("attendance");
 
               var attendance = new Attendance(null, {
+                  member_id: id
+              });
+              promises.push(attendance.fetch());
+
+              // Percentages
+              var percentages = new AttendancePercentages(null, {
+                  member_id: id,
+              });
+              promises.push(percentages.fetch());
+
+              pageView = new MemberAttendanceView({
+                  collection: attendance,
+                  perc: percentages
+              });
+          }
+          // Recruits
+          else if (path == "recruits") {
+              memberLayout.setHighlight("recruits");
+
+              var recruits = new Recruits(null, {
                   member_id: id,
                   from: "2000",
                   to: "today"
               });
-              promises.push(attendance.fetch());
+              promises.push(recruits.fetch());
 
-              pageView = new MemberAttendanceView({
-                  collection: attendance
+              pageView = new MemberRecruitsView({
+                  collection: recruits
               });
           }
           // Qualifications
@@ -761,8 +788,15 @@ require("./validation.config");
               });
               promises.push(attendance.fetch());
 
+              // Percentages
+              var percentages = new AttendancePercentages(null, {
+                  member_id: filter || "Bn"
+              });
+              promises.push(percentages.fetch());
+
               columnViews.push(new UnitAttendanceView({
-                  collection: attendance
+                  collection: attendance,
+                  perc: percentages
               }));
           }
           // AWOLs
@@ -777,6 +811,33 @@ require("./validation.config");
               columnViews.push(new UnitAwolsView({
                   collection: unitAwols
               }));
+          }
+          else if (path == "alerts") {
+              unitLayout.setHighlight("alerts");
+              
+              var unitAlerts = new UnitAlerts(null, {
+                  filter: filter || "Bn"
+              });
+              promises.push(unitAlerts.fetch());
+
+              columnViews.push(new UnitAlertsView({
+                  collection: unitAlerts
+              }));
+          }
+          // Recruits
+          else if (path == "recruits") {
+              unitLayout.setHighlight("recruits");
+              
+              var unitRecruits = new Recruits(null, {
+                  from:"2014-12-01",
+                  to: "today",
+                  unit_id: filter || "Bn"
+              });
+              promises.push(unitRecruits.fetch());
+
+              columnViews = new UnitRecruitsView({
+                  collection: unitRecruits
+              });
           }
           // Roster
           else {
@@ -850,6 +911,15 @@ require("./validation.config");
               });
               promises.push(attendance.fetch());
 
+              var membs = new Units(null, {
+                  filter: filter,
+                  children: true,
+                  members: true,
+                  distinct: true,
+                  flat: true
+              });
+              promises.push(membs.fetch());
+
               columnViews.push(new RosterView({
                   collection: units
               }), new UnitActivityView({
@@ -860,7 +930,8 @@ require("./validation.config");
                   eloas: eloas,
                   discharges: discharges,
                   qualifications: qualifications,
-                  attendance: attendance
+                  attendance: attendance,
+                  members: membs
               }));
           }
 
