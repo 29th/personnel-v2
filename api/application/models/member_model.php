@@ -71,7 +71,8 @@ class Member_model extends MY_Model {
             ->select('members.rank_id AS `rank|id`, ranks.abbr AS `rank|abbr`, ranks.name AS `rank|name`, ranks.filename AS `rank|filename`')
             ->select('units.id AS `unit|id`, units.abbr AS `unit|abbr`, ' . $this->virtual_fields['unit_key'] . ' AS `unit|key`, units.name AS `unit|name`, ' . $this->virtual_fields['depth'] . ' AS `unit|depth`', FALSE)
             ->select('positions.name AS `position|name`')
-            ->select('countries.id AS `country|id`, countries.abbr AS `country|abbr`, countries.name AS `country|name`');
+            ->select('countries.id AS `country|id`, countries.abbr AS `country|abbr`, countries.name AS `country|name`')
+            ->select('(SELECT COUNT(1)>0 FROM `eloas` WHERE `eloas`.`member_id` = `members`.`id` AND NOW() BETWEEN eloas.start_date AND eloas.end_date  ) as eloa');
     }
     
     public function default_join() {

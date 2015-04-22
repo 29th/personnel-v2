@@ -51,7 +51,7 @@ class Units extends MY_Controller {
 					if($this->input->get('distinct')) $members = $members->distinct_members();
 					$members = $members->order_by($this->input->get('order') ? $this->input->get('order') : 'rank');
 					$members = nest($members->get()->result_array()); // Get members of this unit, including members of this unit's children, who are current
-					$units = $this->members_in_parents($members, $units, 'unit_id', 'id', 'members');
+					$units = $this->members_in_parents($members, $units, 'unit_id', 'id', 'members', $this->input->get("flat") ? TRUE : FALSE);
 					
 					// Calculate number of unique members
 					//$unique_members = (array_unique(pluck('id', pluck('member', $members))));
@@ -247,7 +247,7 @@ class Units extends MY_Controller {
      * Helper Function
      * Put each member into parent's members array according to a key
      */
-    private function members_in_parents($members, $parents, $member_key, $parent_key, $array_name) {
+    private function members_in_parents($members, $parents, $member_key, $parent_key, $array_name, $is_flat) {
         // Ensure each parent has a members array (for api happiness)
         foreach($parents as &$parent) $parent[$array_name] = array();
         
@@ -256,7 +256,10 @@ class Units extends MY_Controller {
             foreach($parents as &$parent) {
                 if($parent[$parent_key] == $member[$member_key]) {
                     unset($member[$member_key]); // Redundant
-                    array_push($parent[$array_name], $member);
+                    iF ( $is_flat )
+                      array_push($parents[0], $member);
+                    else
+                      array_push($parent[$array_name], $member);
                     break;
                 }
             }

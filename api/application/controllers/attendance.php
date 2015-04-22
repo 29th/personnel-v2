@@ -13,11 +13,24 @@ class Attendance extends MY_Controller {
     public function index_options() { $this->response(array('status' => true)); }
     public function view_options() { $this->response(array('status' => true)); }
     
+    public function percentage_get($filter_key = FALSE, $filter_value = FALSE) 
+    { /* */
+        $perc_arr = array( 
+            "d30" => $this->attendance_model->percentage( 30, $filter_key, $filter_value ),
+            "d60" => $this->attendance_model->percentage( 60, $filter_key, $filter_value ),
+            "d90" => $this->attendance_model->percentage( 90, $filter_key, $filter_value ),
+            "all" => $this->attendance_model->percentage( '', $filter_key, $filter_value )
+        );
+        
+        $this->response(  array( 'percentages' => $perc_arr, 'status' => true ) );
+    }
+    
     /**
      * INDEX
      * Handled by index_filter_get in MY_Controller
      */
-    /*public function index_get($member_id = FALSE) {
+/* 
+    public function index_get($member_id = FALSE) {
         // Must have permission to view this member's profile or any member's profile
         if( ! $this->user->permission('profile_view', array('member' => $member_id)) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
@@ -30,7 +43,8 @@ class Attendance extends MY_Controller {
             }
             $attendance = nest($this->attendance_model->paginate('', $skip)->result_array());
             $count = $this->attendance_model->total_rows;
-            $this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'attendance' => $attendance));
+            $this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'attendance' => $attendance ));
         }
-    }*/
+    }
+*/
 }
