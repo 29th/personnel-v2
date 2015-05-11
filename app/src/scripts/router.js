@@ -415,7 +415,8 @@ require("./validation.config");
               units = new Units(null, {
                   children: true,
                   members: true,
-                  flat: true
+                  flat: true,
+                  distinct: true
               }),
               enlistmentProcessView = new EnlistmentProcessView({
                   model: enlistment,
