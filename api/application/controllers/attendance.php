@@ -15,11 +15,20 @@ class Attendance extends MY_Controller {
     
     public function percentage_get($filter_key = FALSE, $filter_value = FALSE) 
     { /* */
+        if ( $filter_key <> 'unit' ) { 
+          $this->load->model('discharge_model');
+          $this->discharge_model->where('type !=','Honorable');
+          $this->discharge_model->where('discharges.member_id',$filter_value);
+          $this->discharge_model->order_by('date DESC');
+          $gdDate = $this->discharge_model->get()->result_array();
+          $from_date = ( sizeof($gdDate) ? $gdDate[0]['date'] : null );
+        }
+        
         $perc_arr = array( 
-            "d30" => $this->attendance_model->percentage( 30, $filter_key, $filter_value ),
-            "d60" => $this->attendance_model->percentage( 60, $filter_key, $filter_value ),
-            "d90" => $this->attendance_model->percentage( 90, $filter_key, $filter_value ),
-            "all" => $this->attendance_model->percentage( '', $filter_key, $filter_value )
+            "d30" => $this->attendance_model->percentage( 30, $filter_key, $filter_value, $from_date ),
+            "d60" => $this->attendance_model->percentage( 60, $filter_key, $filter_value, $from_date ),
+            "d90" => $this->attendance_model->percentage( 90, $filter_key, $filter_value, $from_date ),
+            "all" => $this->attendance_model->percentage( '', $filter_key, $filter_value, $from_date )
         );
         
         $this->response(  array( 'percentages' => $perc_arr, 'status' => true ) );
