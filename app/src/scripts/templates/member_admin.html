@@ -4,7 +4,9 @@
         Admin <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu">
+        {{#if allowedTo.addELOA }}
             <li><a href="#members/{{ member_id }}/eloa">ELOA</a></li>
+        {{/if}}
         {{#if allowedTo.modifyProfile }}
             <li><a href="#members/{{ member_id }}/edit">Modify Profile</a></li>
         {{/if}}
