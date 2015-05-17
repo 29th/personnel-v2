@@ -52,7 +52,7 @@ require("backbone.validation");
               }));
               
               $.when.apply($, promises).done(function () {
-                  Backbone.history.navigate("eloas/", {
+                  Backbone.history.navigate("eloas", {
                       trigger: true
                   });
               });
