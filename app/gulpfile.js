@@ -25,7 +25,7 @@ dotenv.load(); // Load environment variables from .env
  * Main execution
  */
 gulp.task("default", ["clean"], function() {
-    gulp.start("scripts", "styles", "images", "html");
+    gulp.start("scripts", "styles", "images");
 });
 
 /**
@@ -94,6 +94,7 @@ gulp.task("styles", function() {
         .pipe(usemin({
             css: [minifyCSS({keepSpecialComments: 0}), "concat"]
         }))
+        .pipe(minifyHTML())
         .pipe(gulp.dest(dir.prod));
 });
 
