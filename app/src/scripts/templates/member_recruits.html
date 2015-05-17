@@ -7,7 +7,7 @@
             <div class=""><b>{{ this.tp }}</b> ({{this.recruits.length}})</div>
             {{#each recruits}}
               <div class="row">
-                <li class=""><a href="#members/{{ this.member.id }}">{{this.member.rank}} {{ this.member.first_name }} {{ this.member.last_name }}</a> ({{this.enlistment.status}})</li>
+                <li class=""><a href="#members/{{ this.member.id }}">{{this.member.rank}} {{ this.member.first_name }} {{ this.member.last_name }}</a><!--({{this.enlistment.status}})--></li>
               </div>
             {{/each }}
             <br>

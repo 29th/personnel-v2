@@ -28,18 +28,19 @@
         </select>
     </div>
     
+    
     <div class="form-group">
+        {{#each members}}
+          [{{this}}]<br>
+        
+        {{/each}}
         <label for="recruiter_member_id">Recruiter</label>
         <!--<input type="text" class="form-control" name="recruiter_member_id" id="recruiter_member_id" value="{{ recruiter_member_id }}">-->
         <select class="form-control selectpicker" name="recruiter_member_id" id="recruiter_member_id" data-live-search="true">
             {{#select recruiter_member_id}}
             <option value="">Select...</option>
-            {{#each units}}
-            <optgroup label="{{ this.abbr }}">
-                {{#each this.members}}
+            {{#each units.[0]}}
                 <option value="{{ this.member.id }}">{{ this.member.short_name }}</option>
-                {{/each}}
-            </optgroup>
             {{/each}}
             {{/select}}
         </select>
@@ -52,13 +53,16 @@
         <select class="form-control selectpicker" name="liaison_member_id" id="liaison_member_id" data-live-search="true">
             {{#select liaison_member_id}}
             <option value="">Select...</option>
-            {{#each units}}
+            {{#each units.[0]}}
+                <option value="{{ this.member.id }}">{{ this.member.short_name }}</option>
+            {{/each}}
+<!---            {{#each units}}
             <optgroup label="{{ this.abbr }}">
                 {{#each this.members}}
                 <option value="{{ this.member.id }}">{{ this.member.short_name }}</option>
                 {{/each}}
             </optgroup>
-            {{/each}}
+            {{/each}} --->
             {{/select}}
         </select>
     </div>
