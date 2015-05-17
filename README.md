@@ -16,3 +16,5 @@ source install.sh YOUR_GITHUB_USERNAME
 8. For some reason you're taken back to the Vanilla installer after clicking Continue, as if it didn't work. **Don't** fill it out a second time. Unless there's a database connection error or something, continue on.
 9. Navigate to the **Installation complete!** URL again to verify you're logged in. You should see an empty, functioning forum with the 29th theme
 10. Navigate to `https://<your site url>/repositories/personnel-app/dist` to view the application. You should be logged in as **Pvt. Tester** in the top-right corner.
+
+If you'd like to use the latest data from the production 29th site (and you have access to that), you can follow [this tutorial](https://gist.github.com/wilson29thid/d07f3ca1ed0329910a27) afterwards.
