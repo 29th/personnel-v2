@@ -1,8 +1,7 @@
 var $ = require("jquery"),
   _ = require("underscore"),
   Backbone = require("backbone"),
-  config = require("../config"),
-  EventAttendee = require("../models/event_attendee");
+  config = require("../config");
 
 
   module.exports = Backbone.Collection.extend({

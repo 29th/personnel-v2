@@ -7,6 +7,7 @@ var $ = require("jquery"),
   Assignment = require("./models/assignment"),
   Demerit = require("./models/demerit"),
   Discharge = require("./models/discharge"),
+  ELOA = require("./models/eloa"),
   Enlistment = require("./models/enlistment"),
   Event = require("./models/event"),
   Member = require("./models/member"),
@@ -52,6 +53,7 @@ var $ = require("jquery"),
   MemberAttendanceView = require("./views/member_attendance"),
   MemberDischargeView = require("./views/member_discharge"),
   MemberEditView = require("./views/member_edit"),
+  MemberELOAView = require("./views/member_eloa"),
   MemberProfileView = require("./views/member_profile"),
   MemberQualificationsView = require("./views/member_qualifications"),
   MemberRecruitsView = require("./views/member_recruits"),
@@ -701,6 +703,14 @@ require("./validation.config");
               memberLayout.setHighlight("profile");
               pageView = new MemberEditView({
                   model: member
+              });
+          }
+          else if (path == "eloa") {
+              memberLayout.setHighlight("profile");
+              var eloa = new ELOA();
+              pageView = new MemberELOAView({
+                  model: eloa,
+                  member: member
               });
           }
           else if (path == "discharge") {
