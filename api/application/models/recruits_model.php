@@ -41,7 +41,7 @@ class Recruits_model extends MY_Model
 
     public function default_where() 
     {
-//        $this->db->where('enlistments.status','Accepted');
+        $this->db->where('enlistments.status','Accepted');
     }
     
     public function by_member($member_id) 
