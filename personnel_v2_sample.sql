@@ -467,13 +467,13 @@ LOCK TABLES `finances` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `loa`
+-- Table structure for table `eloas`
 --
 
-DROP TABLE IF EXISTS `loa`;
+DROP TABLE IF EXISTS `eloas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `loa` (
+CREATE TABLE `eloas` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'LOA''s ID',
   `member_id` mediumint(8) unsigned NOT NULL COMMENT 'Member''s ID',
   `posting_date` datetime NOT NULL COMMENT 'Date of posting',
@@ -489,12 +489,12 @@ CREATE TABLE `loa` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `loa`
+-- Dumping data for table `eloas`
 --
 
-LOCK TABLES `loa` WRITE;
-/*!40000 ALTER TABLE `loa` DISABLE KEYS */;
-/*!40000 ALTER TABLE `loa` ENABLE KEYS */;
+LOCK TABLES `eloas` WRITE;
+/*!40000 ALTER TABLE `eloas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `eloas` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
