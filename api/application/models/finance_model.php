@@ -14,7 +14,4 @@ class Finance_model extends MY_Model {
     public function default_order_by() {
         $this->db->order_by('finances.date DESC');
     }
-    public function balance() {
-       $this->response(array( 'test1' => 'test2'));
-    }
 }
