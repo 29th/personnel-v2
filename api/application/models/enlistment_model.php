@@ -157,6 +157,6 @@ class Enlistment_model extends MY_Model {
     }
     
     public function default_order_by() {
-        $this->db->order_by('enlistments.date DESC');
+        $this->db->order_by('enlistments.date DESC, enlistments.id DESC');
     }
 }
