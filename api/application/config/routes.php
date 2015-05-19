@@ -90,6 +90,9 @@ $route['enlistments'] = 'enlistments/index';
 // Finances
 $route['finances'] = 'finances/index'; // Filtered
 
+// Finances
+$route['finances/balance'] = 'finances/balance'; // Filtered
+
 // Extended LOAs
 $route['eloas'] = 'eloas/index'; // Filtered
 $route['eloas/(:num)'] = 'eloas/view/$1';

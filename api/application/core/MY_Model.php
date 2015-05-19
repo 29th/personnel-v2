@@ -15,8 +15,8 @@ class MY_Model extends CRUD_Model {
     public function select_member() {
         $this->filter_select($this->table . '.member_id AS `member|id`');
         $this->filter_select($this->virtual_fields['short_name'] . ' AS `member|short_name`', FALSE);
-        $this->filter_join('members', 'members.id = ' . $this->table . '.member_id');
-        $this->filter_join('ranks', 'ranks.id = members.rank_id');
+        $this->filter_join('members', 'members.id = ' . $this->table . '.member_id', 'left');
+        $this->filter_join('ranks', 'ranks.id = members.rank_id', 'left');
         return $this;
     }
 

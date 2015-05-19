@@ -11,7 +11,6 @@ class Finances extends MY_Controller {
      * INDEX
      * Handled by index_filter_get in MY_Controller
      */
-    
     /**
      * VIEW
      */
@@ -23,7 +22,13 @@ class Finances extends MY_Controller {
 		// View records
 		else {
             $finance = $this->finance_model->get_by_id($finance_id);
-            $this->response(array('status' => true, 'finance' => $finance));
+            //$balance  = $this->finance_model->query("SELECT SUM(amount_received-fee-amount_paid) FROM finance");
+            $this->response(array('status' => true, 'finance' => $finance, 'balance' => $balance ));
 		}
+    }
+    
+    public function balance_get() {
+       $balance  = array( 'balance' => round( $this->db->query("SELECT SUM(amount_received) - SUM(fee) - SUM(amount_paid) AS balance FROM finances")->row_array()['balance'], 2 ) );
+       $this->response(array( 'status' => true, 'balance' => $balance));
     }
 }
