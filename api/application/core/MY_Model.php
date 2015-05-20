@@ -12,11 +12,11 @@ class MY_Model extends CRUD_Model {
         'full_name' => 'CONCAT(members.`first_name`, " ", IF(members.`middle_name` != "", CONCAT(LEFT(members.`middle_name`, 1), ". "), ""), members.`last_name`)',
     );
     
-    public function select_member() {
+    public function select_member($join_type = 'left') {
         $this->filter_select($this->table . '.member_id AS `member|id`');
         $this->filter_select($this->virtual_fields['short_name'] . ' AS `member|short_name`', FALSE);
-        $this->filter_join('members', 'members.id = ' . $this->table . '.member_id', 'left');
-        $this->filter_join('ranks', 'ranks.id = members.rank_id', 'left');
+        $this->filter_join('members', 'members.id = ' . $this->table . '.member_id', $join_type);
+        $this->filter_join('ranks', 'ranks.id = members.rank_id', $join_type);
         return $this;
     }
 
@@ -41,7 +41,7 @@ class MY_Model extends CRUD_Model {
     
     public function by_unit2($unit_id) {
         //better version of by_unit - giving list of member_ids for where clause
-        $_where_clause = $this->table . '.member_id IN (
+        $_where_clause = $this->primary_key . ' IN (
           SELECT member_id
           FROM  `assignments` 
           LEFT JOIN  `units` ON  `units`.`id` =  `assignments`.`unit_id` 

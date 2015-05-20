@@ -20,6 +20,7 @@ class Alerts extends MY_Controller {
     public function index_options() { $this->response(array('status' => true)); }
     public function view_options() { $this->response(array('status' => true)); }
     
+/*
     public function index_get($filter_key = FALSE, $filter_value = FALSE) {
         if( ! $this->user->permission($this->abilities['view_any'])
             && ($filter_key && ! $this->user->permission($this->abilities['view'], array($filter_key => $filter_value))) ) {
@@ -33,7 +34,7 @@ class Alerts extends MY_Controller {
             if($filter_key == 'unit') {$model->by_unit2($filter_value);}
             
             
-            $model->select_member(); // include members
+            $model->select_member('right'); // include members
             $model->get();
 
             $records = nest($model->result_array());
@@ -63,7 +64,50 @@ class Alerts extends MY_Controller {
             ));
         }
     }
-    
+*/
+
+    public function index_get($filter_key = FALSE, $filter_value = FALSE) {
+        if( ! $this->user->permission($this->abilities['view_any'])
+            && ($filter_key && ! $this->user->permission($this->abilities['view'], array($filter_key => $filter_value))) ) {
+            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+        } else {
+//            $skip = $this->input->get('skip') ? $this->input->get('skip') : 0;
+            $model = $this->alerts_model;
+            $ass_model = $this->assignment_model;
+
+            // Filter by unit
+            if($filter_key == 'unit') {$model->by_unit2($filter_value);}
+
+            $model->get();
+            
+            $records = nest($model->result_array());
+            $aoccs = array();
+
+            //Getting duration counted by units of 6 months to compare to number of AOCCs already awarded
+            foreach ( $records as $klucz => $rec_obj)
+            {
+                $ass_model->where('assignments.member_id', $rec_obj['member']['id'] );
+                $assignments = nest($ass_model->order_by('priority')->get()->result_array());
+                list($duration, $discharge_date) = $this->calculate_duration($assignments, $rec_obj['member']['id']);
+                $records[$klucz]['aoocs_due'] = floor( $duration/182.625 );
+                $records[$klucz]['ww1vs_due'] = floor( $duration/730.5 );
+                if ( $records[$klucz]['aoocs_due'] > (int)$rec_obj['aocc_count'] || $records[$klucz]['ww1vs_due'] > (int)$rec_obj['ww1v_count'] )
+                {
+                  $aoccs[] = $records[$klucz];
+                }
+            }
+
+            $count = sizeof( $aoccs );//$this->alerts_model->total_rows;
+            $this->response(array(
+                'status' => true, 
+                'count' => $count, 
+                'alerts' => array( 'aoccs' => $aoccs )/*,
+                'all_recs' => $records, 
+                'all_cnt' => sizeof( $records ) */
+            ));
+        }
+    }
+
     private function calculate_duration($assignments, $member_id) {
         $days = array();
         $this->discharge_model->where('type !=','Honorable');
