@@ -5,10 +5,10 @@
 </div>
 
 {{#each items}}
-    <h3><a href="#members/{{ this.member.id }}">{{ this.member.short_name }}</a> <small>({{ this.events.length }})</small></h3>
+    <h3><a href="#members/{{ this.member.id }}" {{#is this.events.length ">=" 3 }} style="color:red;" {{/is}}>{{ this.member.short_name }}</a> <small>({{ this.events.length }})</small></h3>
     <ul>
     {{#each this.events}}
-        <li><a href="#events/{{ this.id }}">{{dateFormat this.datetime format="ll HH:mm"}} {{ this.type }}</a></li>
+        <li><a href="#events/{{ this.id }}" >{{dateFormat this.datetime format="ll HH:mm"}} {{ this.type }}</a></li>
     {{/each}}
     </ul>
 {{/each}}
