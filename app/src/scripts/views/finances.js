@@ -65,8 +65,7 @@ var Marionette = require("backbone.marionette");
 //          this.finances = this.collection.models;
           var bal = this.balance.toJSON()[0].balance;
           return _.extend({
-              balance: bal,
-              duoa: 'dupa'
+              balance: bal
           });
       }
   });
