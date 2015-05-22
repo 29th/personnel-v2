@@ -96,12 +96,12 @@ class Alerts extends MY_Controller {
                   $aoccs[] = $records[$klucz];
                 }
             }
-
+            
             $count = sizeof( $aoccs );//$this->alerts_model->total_rows;
             $this->response(array(
                 'status' => true, 
                 'count' => $count, 
-                'alerts' => array( 'aoccs' => $aoccs )/*,
+                'alerts' => array( 'aoccs' => $aoccs, 'aqbs' => $aqbs )/*,
                 'all_recs' => $records, 
                 'all_cnt' => sizeof( $records ) */
             ));

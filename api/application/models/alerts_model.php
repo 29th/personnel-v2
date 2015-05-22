@@ -11,16 +11,15 @@ class Alerts_model extends MY_Model {
           "COALESCE(`aocc_awardings`.`aocc_count`, 0) AS `aocc_count`, ".
           "COALESCE(`ww1v_awardings`.`ww1v_count`, 0) AS `ww1v_count`"
         , FALSE); // SQL_CALC_FOUND_ROWS allows a COUNT after the query
+    }
+
+    public function default_join($member_id = FALSE) {
         $this->filter_join('ranks', 'ranks.id = members.rank_id', 'left');
         $this->filter_join('(SELECT member_id, count(1) AS aocc_count FROM awardings WHERE awardings.award_id = 10 GROUP BY awardings.member_id) AS aocc_awardings', 'aocc_awardings.member_id = members.id', 'left');
         $this->filter_join('(SELECT member_id, count(1) AS ww1v_count FROM awardings WHERE awardings.award_id = 61 GROUP BY awardings.member_id) AS ww1v_awardings', 'ww1v_awardings.member_id = members.id', 'left');
-        $this->order_by('ranks.id DESC, members.id DESC');
     }
 
-/*    
-    public function default_where() 
-    {
-        $this->db->where('awardings.award_id',10); //AOCC
+    public function default_order_by($member_id = FALSE) {
+        $this->order_by('ranks.id DESC, members.id DESC');
     }
-*/    
 }
