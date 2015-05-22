@@ -22,8 +22,7 @@ class Finances extends MY_Controller {
 		// View records
 		else {
             $finance = $this->finance_model->get_by_id($finance_id);
-            //$balance  = $this->finance_model->query("SELECT SUM(amount_received-fee-amount_paid) FROM finance");
-            $this->response(array('status' => true, 'finance' => $finance, 'balance' => $balance ));
+            $this->response(array('status' => true, 'finance' => $finance ));
 		}
     }
     
