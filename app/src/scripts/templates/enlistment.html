@@ -89,7 +89,7 @@
             </tr>
             <tr>
                 <th>Recruiter</th>
-                <td>{{ recruiter }}</td>
+                <td>{{#if this.recruiter_member_id }}<a href="#members/{{ this.recruiter_member_id }}">{{/if}}{{ recruiter }}{{#if this.recruiter_member_id }}</a>{{/if}}</td>
             </tr>
             </tr>
             <tr>
