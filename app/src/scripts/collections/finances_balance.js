@@ -4,16 +4,10 @@ var $ = require("jquery"),
   config = require("../config");
 
 
-  module.exports = Backbone.Collection.extend({
-      initialize: function (models, options) {
-          options = options || {};
-      },
+  module.exports = Backbone.Model.extend({
       url: function () {
           var url = config.apiHost;
           url += "/finances/balance";
           return url;
-      },
-      parse: function (response, options) {
-          return response.balance || [];
       }
   });
