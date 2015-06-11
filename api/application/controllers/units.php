@@ -237,7 +237,7 @@ class Units extends MY_Controller {
 		// View records
 		else {
 		  $members = pluck('member|id', $this->assignment_model->by_date('now')->by_unit($unit_id, TRUE)->get()->result_array()); // Include children
-			$awols = nest($this->attendance_model->awols($members, $days)->get()->result_array());
+			$awols = nest($this->attendance_model->awols($members, $days, true)->get()->result_array());
 			$grouped_and_sorted = $this->sort_awols($this->group_awols($awols));
 			$this->response(array('status' => true, 'awols' => $grouped_and_sorted));
 		}

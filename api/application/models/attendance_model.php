@@ -71,7 +71,7 @@ class Attendance_model extends MY_Model {
         return $this;
     }*/
     
-    public function awols($member_id, $days = 30) {
+    public function awols($member_id, $days = 30, $dont_take_bct = false) {
         $this->filter_select('attendance.member_id AS `member|id`, ' . $this->virtual_fields['short_name'] . ' AS `member|short_name`', FALSE);
         $this->filter_select('events.id AS `event|id`, events.datetime AS `event|datetime`, DATE(events.datetime) AS `event|date`, events.type AS `event|type`');
         $this->filter_join('events', 'events.id = attendance.event_id');
@@ -87,6 +87,8 @@ class Attendance_model extends MY_Model {
         $this->filter_where('events.datetime >= DATE_SUB(NOW(), INTERVAL ' . (int) $days . ' DAY)');
         $this->filter_where('events.datetime < DATE_SUB(NOW(), INTERVAL 24 HOUR)'); // Not considered AWOL until 24 hours after the event
         $this->filter_where('events.mandatory', 1);
+        if ($dont_take_bct) //To exclude AWOLs from BCT
+            $this->filter_where("events.unit_id IN (SELECT id FROM units WHERE class = 'Combat')");
         $this->filter_order_by('events.datetime');
         //$this->filter_group_by('`member|id`, `event|date`'); // Add this to limit AWOLs to one per day
         return $this;
