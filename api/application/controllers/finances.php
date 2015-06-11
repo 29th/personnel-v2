@@ -27,7 +27,7 @@ class Finances extends MY_Controller {
     }
     
     public function balance_get() {
-       $balance  = array( 'balance' => round( $this->db->query("SELECT SUM(amount_received) - SUM(fee) - SUM(amount_paid) AS balance FROM finances")->row_array()['balance'], 2 ) );
+       $balance  = 'balance' => round( $this->db->query("SELECT SUM(amount_received) - SUM(fee) - SUM(amount_paid) AS balance FROM finances")->row_array()['balance'], 2 );
        $this->response(array( 'status' => true, 'balance' => $balance));
     }
 }
