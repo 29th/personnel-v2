@@ -62,10 +62,8 @@ var Marionette = require("backbone.marionette");
           this.$(".more").toggle(this.collection.more);
       },
       serializeData: function () {
-//          this.finances = this.collection.models;
-          var bal = this.balance.toJSON()[0].balance;
           return _.extend({
-              balance: bal
+              balance: this.balance.toJSON().balance
           });
       }
   });
