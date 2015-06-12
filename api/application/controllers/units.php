@@ -288,16 +288,22 @@ class Units extends MY_Controller {
     private function group_awols($awols) {
         $grouped = array();
         foreach($awols as $awol) {
-            if( ! isset($grouped[$awol['member']['id']])) $grouped[$awol['member']['id']] = array('member' => $awol['member'], 'events' => array());
-            array_push($grouped[$awol['member']['id']]['events'], $awol['event']);
+            if( ! isset($grouped[$awol['member']['id']]))
+            	$grouped[$awol['member']['id']] = array('member' => $awol['member'], 'dates' => array());
+            if( ! isset($grouped[$awol['member']['id']]['dates'][$awol['event']['date']]))
+            	$grouped[$awol['member']['id']]['dates'][$awol['event']['date']] = array('date' => $awol['event']['date'], 'events' => array());
+            array_push($grouped[$awol['member']['id']]['dates'][$awol['event']['date']]['events'], $awol['event']);
         }
+        foreach ( $grouped as $gKey => $gArr )
+           $grouped[$gKey]['dates'] = array_values($gArr['dates']) ;
+         
         return array_values($grouped);
     }
     
     private function sort_awols($awols) {
         usort($awols, function($a, $b) {
-            $countA = count($a['events']);
-            $countB = count($b['events']);
+            $countA = count($a['dates']);
+            $countB = count($b['dates']);
             return ($countA === $countB ? 0 : ($countA < $countB ? 1 : -1));
         });
         return $awols;

@@ -15,6 +15,7 @@ class Attendance extends MY_Controller {
     
     public function percentage_get($filter_key = FALSE, $filter_value = FALSE) 
     { /* */
+        $from_date = null;
         if ( $filter_key <> 'unit' ) { 
           $this->load->model('discharge_model');
           $this->discharge_model->where('type !=','Honorable');

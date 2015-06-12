@@ -101,7 +101,7 @@ class Alerts extends MY_Controller {
             $this->response(array(
                 'status' => true, 
                 'count' => $count, 
-                'alerts' => array( 'aoccs' => $aoccs, 'aqbs' => $aqbs )/*,
+                'alerts' => array( 'aoccs' => $aoccs, 'aqbs' => ''/*$aqbs*/ )/*,
                 'all_recs' => $records, 
                 'all_cnt' => sizeof( $records ) */
             ));
