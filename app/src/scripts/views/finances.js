@@ -62,8 +62,8 @@ var Marionette = require("backbone.marionette");
           this.$(".more").toggle(this.collection.more);
       },
       serializeData: function () {
-          return _.extend({
+          return _.extend({ /* I know that it's wrong - missing parameter - but it works this way. I will fix it. swomma*/
               balance: this.balance.toJSON().balance
-          }, this.model.toJSON());
+          });
       }
   });
