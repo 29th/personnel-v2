@@ -5,6 +5,9 @@
             <a href="http://29th.org/donate">Donate</a>
         </div>
     </div>
+    <div class="panel-heading">
+        <span>Ledger balance: $<b>{{decimals balance}}</b></span>
+    </div>
     <div class="panel-body panel-no-padding">
     
         <div class="table-responsive">
@@ -13,8 +16,10 @@
                     <tr>
                         <th>Date</th>
                         <th>Entity</th>
-                        <th>Amount</th>
+                        <th>Amount Donated</th>
+                        <th>Amount Paid</th>
                         <th>Fee</th>
+                        <th>Notes</th>
                     </tr>
                 </thead>
                 <tbody id="rows"></tbody>

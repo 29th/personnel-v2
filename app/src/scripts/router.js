@@ -22,6 +22,7 @@ var $ = require("jquery"),
   Enlistments = require("./collections/enlistments"),
   Events = require("./collections/events"),
   Finances = require("./collections/finances"),
+  FinancesBalance = require("./collections/finances_balance"),
   MemberAwols = require("./collections/member_awols"),
   MemberEnlistments = require("./collections/member_enlistments"),
   Permissions = require("./collections/permissions"),
@@ -508,12 +509,15 @@ require("./validation.config");
       finances: function() {
           var self = this,
               promises = [],
-              finances = new Finances();
+              finances = new Finances(),
+              balance  = new FinancesBalance();
 
           var financesView = new FinancesView({
-              collection: finances
+              collection: finances,
+              balance:    balance
           });
 
+          promises.push(balance.fetch());
           //this.app.navRegion.currentView.setHighlight("finances");
           promises.push(finances.fetch());
 

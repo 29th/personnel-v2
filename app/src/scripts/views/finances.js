@@ -30,8 +30,11 @@ var Marionette = require("backbone.marionette");
               }
           }, this);
       },
-      initialize: function () {
+      initialize: function (options) {
+          
           _.bindAll(this, "onClickMore");
+          options = options || {};
+          this.balance = options.balance;
       },
       events: {
           "click .more": "onClickMore"
@@ -57,5 +60,10 @@ var Marionette = require("backbone.marionette");
       },
       checkMoreButton: function () {
           this.$(".more").toggle(this.collection.more);
+      },
+      serializeData: function () {
+          return {
+              balance: this.balance.toJSON().balance
+          };
       }
   });

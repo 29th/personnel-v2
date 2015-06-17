@@ -43,16 +43,16 @@
                 <td>{{#if this.liaison.id }}<a href="#members/{{ this.liaison.id }}">{{ this.liaison.short_name }}</a>{{/if}}</td>
             </tr>
             <tr>
-                <th>Last Name</th>
-                <td>{{ last_name }}</td>
-            </tr>
-            <tr>
                 <th>First Name</th>
                 <td>{{ first_name }}</td>
             </tr>
             <tr>
                 <th>Middle Name</th>
                 <td>{{ middle_name }}</td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td>{{ last_name }}</td>
             </tr>
             <tr>
                 <th>Age</th>
@@ -89,7 +89,7 @@
             </tr>
             <tr>
                 <th>Recruiter</th>
-                <td>{{ recruiter }}</td>
+                <td>{{#if this.recruiter_member_id }}<a href="#members/{{ this.recruiter_member_id }}">{{/if}}{{ recruiter }}{{#if this.recruiter_member_id }}</a>{{/if}}</td>
             </tr>
             </tr>
             <tr>
