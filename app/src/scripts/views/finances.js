@@ -64,6 +64,6 @@ var Marionette = require("backbone.marionette");
       serializeData: function () {
           return _.extend({
               balance: this.balance.toJSON().balance
-          });
+          }, this.model.toJSON());
       }
   });
