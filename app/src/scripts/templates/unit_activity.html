@@ -52,7 +52,7 @@
         {{#if this.eloas}}
             {{#each this.eloas}}
                 <li>
-                    <a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> posted an <a href="#eloas">Extended LOA</a>
+                    <a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> posted an <a href="#eloas">Extended LOA</a> from {{dateFormat this.start_date}} to {{dateFormat this.end_date}}
                     {{#if this.topic_url}}
                         <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
                     {{/if}}
