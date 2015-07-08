@@ -88,6 +88,27 @@ class Events extends MY_Controller {
     /**
      * UPDATE
      */
+    public function attendance_get($unit_id ) {
+        $skip = $this->input->get('skip') ? $this->input->get('skip') : 0;
+        $this->event_model->filter_where('(events.datetime < DATE_ADD( NOW(), INTERVAL 4 DAY ) OR units.class="Training")');
+        $this->event_model->filter_join('(SELECT 
+		SUM(COALESCE(attended,0)) AS attended, 
+    	COUNT(COALESCE(attended,0)) - SUM(COALESCE(attended,0)) AS absent, 
+		SUM(IF(attended = 0, IF(excused = 1, 1, 0), 0)) AS excused, 
+    	event_id
+        FROM attendance 
+        GROUP BY event_id ) AS `a` ','events.id = a.event_id','left');
+        $this->event_model->filter_select('a.attended, a.absent, a.excused');
+
+        $attendance = nest($this->event_model->by_unit($unit_id)->paginate('', $skip)->result_array());
+
+
+        $count = $this->event_model->total_rows;
+        $this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'attendance' => $attendance ));
+    }
+    
+    
+    
     public function view_post($event_id) {
         // Fetch record
         if( ! ($event = nest($this->event_model->get_by_id($event_id)))) {
