@@ -166,3 +166,13 @@ body {
 .att_perc_perc{
     font-weight: bold;
 }
+
+.event_aar_missing {
+  text-align: center;
+  font-weight: bold;
+  color: red;
+}
+
+.event_not_yet {
+  text-align: center;
+}
