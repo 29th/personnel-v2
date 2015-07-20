@@ -54,7 +54,7 @@ require("fullcalendar");
               allowedTo: allowedTo
           }, this.collection.toJSON());
       },
-      onRender: function () {
+      onShow: function () {
           this.$("#calendar").fullCalendar(this.settings.calendar);
       },
       getEvents: function (start, end, timezone, callback) {
