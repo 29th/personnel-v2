@@ -98,7 +98,7 @@ require("./validation.config");
           "members/:id/assign": "assignment_add",
           "members/:id/*path": "member",
           "members/:id": "member",
-//          "recruits": "recruits",
+          "recruits": "recruits",
           "units/:filter/*path": "unit",
           "units/:filter": "unit",
       },
