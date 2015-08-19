@@ -42,7 +42,7 @@ require("fullcalendar");
           _.bindAll(this, "getEvents");
           this.settings.calendar.events = this.getEvents;
           this.permissions = options.permissions || {};
-          this.permissions.on("reset", this.render, this);
+          //this.permissions.on("reset", this.render, this);
       },
       serializeData: function () {
           var permissions = this.permissions.length ? this.permissions.pluck("abbr") : [],
@@ -54,7 +54,7 @@ require("fullcalendar");
               allowedTo: allowedTo
           }, this.collection.toJSON());
       },
-      onRender: function () {
+      onShow: function () {
           this.$("#calendar").fullCalendar(this.settings.calendar);
       },
       getEvents: function (start, end, timezone, callback) {
