@@ -90,7 +90,10 @@ class Events extends MY_Controller {
      */
     public function attendance_get($unit_id ) {
         $skip = $this->input->get('skip') ? $this->input->get('skip') : 0;
-        $this->event_model->filter_where('(events.datetime < DATE_ADD( NOW(), INTERVAL 4 DAY ) OR units.class="Training")');
+        if ( $this->input->get('to') || $this->input->get('from')  )
+          $this->event_model->by_date( $this->input->get('from'), $this->input->get('to') );
+        else
+          $this->event_model->filter_where('(events.datetime < DATE_ADD( NOW(), INTERVAL 4 DAY ) OR units.class="Training")');
         $this->event_model->filter_join('(SELECT 
 		SUM(COALESCE(attended,0)) AS attended, 
     	COUNT(COALESCE(attended,0)) - SUM(COALESCE(attended,0)) AS absent, 
