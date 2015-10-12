@@ -143,7 +143,7 @@ Handlebars.registerHelper('duration', function(days) {
 });
 
 Handlebars.registerHelper('award_img_name', function (award) {
-    beg = award.substr(0, 2);
+    var beg = award.substr(0, 2);
     switch (beg) {
     case "m:":
       return "marks";
