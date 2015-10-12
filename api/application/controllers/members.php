@@ -26,7 +26,7 @@ class Members extends MY_Controller {
         }
         // View records
         else {
-            $members = nest($this->member_model->active()->distinct_members()->get()->result_array());
+            $members = nest($this->member_model->active()->get()->result_array());
             $this->response(array('status' => true, 'members' => $members));
         }
     }

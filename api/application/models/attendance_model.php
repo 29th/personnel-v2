@@ -42,7 +42,7 @@ class Attendance_model extends MY_Model {
     // I could do select * from assignments where member_id IN (list of member IDs) group by event_id....but what if they've since been transferred...nevermind
     public function by_unit($unit_id) {
         $this->select_event()->select_unit();
-        $this->filter_select('SUM(attendance.attended) AS attended, COUNT(attendance.attended) - SUM(attendance.attended) AS absent, SUM(IF(attendance.attended = 0, IF(attendance.excused = 1, 1, 0), 0)) AS excused', FALSE);
+        $this->filter_select('SUM(attendance.attended) AS attended, COUNT(attendance.attended) - SUM(attendance.attended) AS absent, SUM(IF(attendance.attended = 0, IF(attendance.excused = 1, 1, 0), 0)) AS excused, IF(events.reporter_member_id IS NULL, 0, 1) as is_aar ', FALSE);
 
         if(is_numeric($unit_id)) {
             $this->filter_where('(units.id = ' . $unit_id . ' OR units.path LIKE "%/' . $unit_id . '/%")');
@@ -50,7 +50,7 @@ class Attendance_model extends MY_Model {
             $this->filter_where('(units.id = ' . $lookup['id'] . ' OR (units.path LIKE "%/' . $lookup['id'] . '/%"))');
         }
 
-        $this->filter_where('events.reporter_member_id IS NOT NULL');
+        $this->filter_where('(events.reporter_member_id IS NOT NULL OR units.class="Training")');
         $this->filter_group_by('attendance.event_id');
         $this->filter_order_by('events.datetime DESC');
         return $this;
@@ -90,7 +90,6 @@ class Attendance_model extends MY_Model {
         if ($dont_take_bct) //To exclude AWOLs from BCT
             $this->filter_where("events.unit_id IN (SELECT id FROM units WHERE class = 'Combat')");
         $this->filter_order_by('events.datetime');
-        //$this->filter_group_by('`member|id`, `event|date`'); // Add this to limit AWOLs to one per day
         return $this;
     }
     
@@ -126,7 +125,6 @@ class Attendance_model extends MY_Model {
         $this->filter_where('events.datetime < DATE_SUB(NOW(), INTERVAL 24 HOUR)'); // Not considered AWOL until 24 hours after the event
         $this->filter_where('events.mandatory', 1);
         $this->filter_order_by('events.datetime');
-        //$this->filter_group_by('date'); // Add this to limit AWOLs to one per day
         return $this;
     }
     
