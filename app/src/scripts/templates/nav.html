@@ -1,5 +1,14 @@
 <ul class="nav navbar-nav">
-    <li><a href="{{ forum.Vanilla.baseUrl }}">Forums</a></li>
+    <li class="active dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Forums <span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="{{ forum.Vanilla.baseUrl }}/categories" class="">Boards</a></li>
+            <li><a href="{{ forum.Vanilla.baseUrl }}/discussions" class="">Discussions</a></li>
+            <li><a href="{{ forum.Vanilla.baseUrl }}/activity" class="">Activity</a></li>
+            <li><a href="{{ forum.Vanilla.baseUrl }}/discussions/markallviewed" class="">Mark All Viewed</a></li>
+            <li><a href="{{ forum.Vanilla.baseUrl }}/members" class="">Members list</a></li>
+        </ul>
+    </li>   
     <li class="active dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Personnel <span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
