@@ -26,6 +26,7 @@ class Assignments extends MY_Controller {
         elseif ($member_id == 'unit') {
             $model = $this->assignment_model;
             $model->select_member();
+
             $model->by_unit2($unit_id,'member_id');
 
             if ( $this->input->get('to') )
@@ -33,8 +34,8 @@ class Assignments extends MY_Controller {
             if ( $this->input->get('from') )
               $model->where('start_date >=', format_date($this->input->get('from'), 'mysqldate' ) );
             
-            $assignments = $model->order_by('priority')->get()->result_array();
-            $this->response(array('status' => true, 'ass' => $assignments, 'unit' => $unit_id ));
+            $assignments = nest($model->order_by('priority')->get()->result_array());
+            $this->response(array('status' => true, 'assignments' => $assignments, 'unit' => $unit_id ));
         }
         else {
             $model = $this->assignment_model;
