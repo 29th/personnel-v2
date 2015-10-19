@@ -26,6 +26,7 @@ var Marionette = require("backbone.marionette");
       initialize: function(options) {
           options = options || {};
 
+          this.assignments = options.assignments || null;
           this.promotions = options.promotions || null;
           this.awardings = options.awardings || null;
           this.finances = options.finances || null;
@@ -40,6 +41,7 @@ var Marionette = require("backbone.marionette");
           var items = [],
               dates = {};
 
+          groupActivity(dates, this.assignments.toJSON(), "assignments", "start_date");
           groupActivity(dates, this.promotions.toJSON(), "promotions", "date");
           groupActivity(dates, this.awardings.toJSON(), "awardings", "date");
           groupActivity(dates, this.finances.toJSON(), "finances", "date");
