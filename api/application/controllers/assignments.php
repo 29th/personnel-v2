@@ -18,17 +18,31 @@ class Assignments extends MY_Controller {
     /**
      * INDEX
      */
-    public function index_get($member_id = FALSE) {
+    public function index_get($member_id = FALSE, $unit_id = FALSE ) {
         // Must have permission to view this member's profile or any member's profile
         if( ! $this->user->permission('profile_view', array('member' => $member_id)) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
+        elseif ($member_id == 'unit') {
+            $model = $this->assignment_model;
+            $model->select_member();
+            $model->by_unit2($unit_id,'member_id');
+
+            if ( $this->input->get('to') )
+              $model->where('start_date <', format_date($this->input->get('to'), 'mysqldate' ) );
+            if ( $this->input->get('from') )
+              $model->where('start_date >=', format_date($this->input->get('from'), 'mysqldate' ) );
+            
+            $assignments = $model->order_by('priority')->get()->result_array();
+            $this->response(array('status' => true, 'ass' => $assignments, 'unit' => $unit_id ));
+        }
         else {
             $model = $this->assignment_model;
-            if($member_id) {
+            if( is_numeric($member_id)) {
                 $model->where('assignments.member_id', $member_id);
             }
-            if($this->input->get('current')) $model->by_date();
+            if($this->input->get('current')) 
+                $model->by_date();
             $assignments = nest($model->order_by('priority')->get()->result_array());
             list($duration, $discharge_date) = $this->calculate_duration($assignments, $member_id);
             $this->response(array('status' => true, 'duration' => $duration, 'discharge_date' => $discharge_date, 'assignments' => $assignments ));

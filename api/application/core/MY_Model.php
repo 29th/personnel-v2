@@ -39,9 +39,11 @@ class MY_Model extends CRUD_Model {
         return $this;
     }
     
-    public function by_unit2($unit_id) {
+    public function by_unit2($unit_id, $key = '' ) {
         //better version of by_unit - giving list of member_ids for where clause
-        $_where_clause = $this->primary_key . ' IN (
+        if (!$key)
+          $key = $this->primary_key;
+        $_where_clause = $key . ' IN (
           SELECT member_id
           FROM  `assignments` 
           LEFT JOIN  `units` ON  `units`.`id` =  `assignments`.`unit_id` 
