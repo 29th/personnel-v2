@@ -37,6 +37,14 @@
                 </li>
             {{/each}}
         {{/if}}
+        
+        {{#if this.assignments}}
+            {{#each this.assignments}}
+                <li>
+                    <a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> was assigned to <a href="#units/{{this.unit.id}}">{{this.unit.abbr}}</a> as {{this.position.name}}
+                </li>
+            {{/each}}
+        {{/if}}
 
         {{#if this.finances}}
             {{#each this.finances}}
@@ -89,8 +97,13 @@
         {{#if this.attendance}}
             {{#each this.attendance}}
                 <li>
-                    <a href="#units/{{ this.unit.key }}">{{str_replace this.unit.abbr " HQ" "" }}</a> {{ this.event.type }} attendance was <a href="#events/{{ this.event.id }}">{{ this.attended }}/{{add this.attended this.absent}}</a>
-                    ({{subtract this.absent this.excused}} AWOLs)
+                    <a href="#units/{{ this.unit.key }}">{{str_replace this.unit.abbr " HQ" "" }}</a> {{ this.type }} 
+                    {{#if this.report_posting_date}}
+                      attendance was <a href="#events/{{ this.id }}">{{ this.attended }}/{{add this.attended this.absent}}</a>
+                      ({{subtract this.absent this.excused}} AWOLs)
+                    {{else}}
+                      (AAR not posted yet)
+                    {{/if}}
                 </li>
             {{/each}}
         {{/if}}

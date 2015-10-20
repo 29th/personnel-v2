@@ -19,17 +19,28 @@
             <div class="tiles-body">
                 <div class="pull-left"><i class="fa fa-exchange"></i></div>
                 <div class="pull-right">
-                    Assigned to <a href="#/units/{{ this.unit.key }}" title="{{this.unit.name}}">{{#is this.unit.class "===" "Staff" }}{{ this.unit.name}}{{else}}{{ this.unit.abbr }}{{/is}}</a> as a {{ this.position.name }}
-                    {{#is this.unit.class "===" "Staff" }}{{#if this.end_date}} (until {{dateFormat this.end_date}}){{/if}}{{/is}}
+                    Assigned to <a href="#/units/{{ this.unit.key }}" title="{{this.unit.name}}">
+                    {{#is this.unit.class "===" "Staff" }}
+                        {{ this.unit.name}}
+                    {{else}}
+                        {{ this.unit.abbr }}
+                    {{/is}}</a> as a {{ this.position.name }}
+                    {{#is this.unit.class "===" "Staff" }}
+                        {{#if this.end_date}} 
+                            (until {{dateFormat this.end_date}})
+                        {{/if}}
+                    {{/is}}
                   
                     {{#if ../../../allowedTo.editAssignment}}
-                    <a href="#/assignments/{{ this.id }}/edit"><i class="fa fa-edit"></i></a>
+                        <a href="#/assignments/{{ this.id }}/edit"><i class="fa fa-edit"></i></a>
                     {{/if}}
                 </div>
             </div>
         </div>
-        {{else}}{{#if this.new_rank}}
-        <div class="info-tiles tiles-orange service-record-promotion{{#if ../../../beforeDischarge}} before-discharge{{/if}}">
+        {{/if}}
+        
+        {{#if this.new_rank}}
+        <div class="info-tiles tiles-orange service-record-promotion{{#if ../../beforeDischarge}} before-discharge{{/if}}">
             <div class="tiles-body">
                 <div class="pull-left">
                   {{#is new_rank.name "!==" "Cadet" }} 
@@ -41,8 +52,10 @@
                 </div>
             </div>
         </div>
-        {{else}}{{#if this.award}}
-        <div class="info-tiles tiles-sky service-record-awarding{{#if ../../../../beforeDischarge}} before-discharge{{/if}}">
+        {{/if}}
+        
+        {{#if this.award}}
+        <div class="info-tiles tiles-sky service-record-awarding{{#if ../../beforeDischarge}} before-discharge{{/if}}">
             <div class="tiles-body">
                 <div class="pull-left">
                     <img src="images/awards/{{#award_img_name this.award.abbr}}{{/award_img_name}}.gif" title="{{ this.award.name }}">
@@ -52,8 +65,10 @@
                 </div>
             </div>
         </div>
-        {{else}}{{#if this.status}}
-        <a href="#enlistments/{{ this.id }}" class="info-tiles tiles-indigo service-record-enlistment{{#if ../../../../../beforeDischarge}} before-discharge{{/if}}">
+        {{/if}}
+        
+        {{#if this.status}}
+        <a href="#enlistments/{{ this.id }}" class="info-tiles tiles-indigo service-record-enlistment{{#if ../../beforeDischarge}} before-discharge{{/if}}">
             <div class="tiles-body">
                 <div class="pull-left"><i class="fa fa-file-text"></i></div>
                 <div class="pull-right">
@@ -61,8 +76,10 @@
                 </div>
             </div>
         </a>
-        {{else}}{{#if this.type}}
-        <a href="#discharges/{{ this.id }}" class="info-tiles tiles-success service-record-discharge{{#if ../../../../../../beforeDischarge}} before-discharge{{/if}}">
+        {{/if}}
+        
+        {{#if this.type}}
+        <a href="#discharges/{{ this.id }}" class="info-tiles tiles-success service-record-discharge{{#if ../../beforeDischarge}} before-discharge{{/if}}">
             <div class="tiles-body">
                 <div class="pull-left"><i class="fa fa-minus-square"></i></div>
                 <div class="pull-right">
@@ -73,7 +90,9 @@
                 </div>
             </div>
         </a>
-        {{else}}{{#if this.amount_received}}
+        {{/if}}
+        
+        {{#if this.amount_received}}
         <div class="info-tiles tiles-primary service-record-donation">
             <div class="tiles-body">
                 <div class="pull-left"><i class="fa fa-money"></i></div>
@@ -82,8 +101,10 @@
                 </div>
             </div>
         </div>
-        {{else}}{{#if this.reason}}
-        <a href="#demerits/{{ this.id }}" class="info-tiles tiles-inverse service-record-demerit{{#if ../../../../../../../../beforeDischarge}} before-discharge{{/if}}">
+        {{/if}}
+        
+        {{#if this.demerit_type}}
+        <a href="#demerits/{{ this.id }}" class="info-tiles tiles-inverse service-record-demerit{{#if ../../beforeDischarge}} before-discharge{{/if}}">
             <div class="tiles-body">
                 <div class="pull-left"><i class="fa fa-file-text-o"></i></div>
                 <div class="pull-right">
@@ -91,7 +112,7 @@
                 </div>
             </div>
         </a>
-        {{/if}}{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}{{/if}}
+        {{/if}}
     {{/each}}
 {{/each}}
             </div>

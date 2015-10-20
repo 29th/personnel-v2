@@ -863,6 +863,14 @@ require("./validation.config");
 
 
               // Promotions
+              var assignments = new Assignments(null, {
+                  unit_id: filter || "Bn",
+                  from: "30 days ago",
+                  to: "today"
+              });
+              promises.push(assignments.fetch());
+
+              // Promotions
               var promotions = new Promotions(null, {
                   unit_id: filter || "Bn",
                   from: "30 days ago",
@@ -938,6 +946,7 @@ require("./validation.config");
               columnViews.push(new RosterView({
                   collection: units
               }), new UnitActivityView({
+                  assignments: assignments,
                   promotions: promotions,
                   awardings: awardings,
                   finances: finances,
