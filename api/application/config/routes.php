@@ -23,6 +23,7 @@ $route['members'] = 'members/index';
 
 // Units
 //$route['units/(:any)/attendance'] = 'attendance/index/unit/$1'; // Filtered
+$route['units/(:any)/assignments'] = 'assignments/index/unit/$1'; // Filtered -test
 $route['units/(:any)/attendance'] = 'events/attendance/$1'; // Filtered -test
 $route['units/(:any)/awols'] = 'units/awols/$1';
 $route['units/(:any)/awardings'] = 'awardings/index/unit/$1'; // Filtered
