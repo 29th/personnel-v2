@@ -53,7 +53,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ short_name }} <b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li><a href="#members/{{ id }}">Personnel File</a></li>
-            <li><a href="{{ forum.Vanilla.baseUrl }}{{ sprintf forum.Vanilla.profilePath forum_member_id short_name }}">Forum Profile</a></li>
+            <li><a href='{{ forum.Vanilla.baseUrl }}{{ sprintf forum.Vanilla.profilePath forum_member_id (str_replace short_name "/" "") }}'>Forum Profile</a></li>
             {{#if unit.id}}
             <li><a href="#units/{{ unit.key }}">{{ unit.abbr }}</a>
             {{/if}}
