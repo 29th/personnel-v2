@@ -16,7 +16,7 @@ var $ = require("jquery"),
           this.current = options.current || false;
       },
       url: function () {
-          var url = config.apiHost 
+          var url = config.apiHost; 
           //+ (this.member_id ? "/members/" + this.member_id : "/user/") + 
           if(this.member_id) {
               url += "/members/" + this.member_id;
@@ -24,6 +24,8 @@ var $ = require("jquery"),
           else if(this.unit_id) {
               url += "/units/" + this.unit_id;
           }
+          else
+              url += "/user";
           url += "/assignments";
           var params = [];
           if (this.current) params.push("current=true");
