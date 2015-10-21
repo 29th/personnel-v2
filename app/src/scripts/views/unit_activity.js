@@ -19,6 +19,7 @@ var Marionette = require("backbone.marionette");
               model.topic_url = config.forum[model.forum_id].baseUrl + util.sprintf(config.forum[model.forum_id].topicPath, model.topic_id);
           }
       });
+      return collection;
   }
   
   module.exports = Marionette.ItemView.extend({

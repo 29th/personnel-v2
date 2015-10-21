@@ -239,7 +239,7 @@ require("./validation.config");
           var associateView = new AssociateView({model: this.user});
           this.showView(associateView);
       },
-      calendar: function () {
+      calendar: function (id, member_id) {
           var self = this,
               promises = [],
               events = new Events(),
@@ -862,7 +862,7 @@ require("./validation.config");
               units.members = true;
 
 
-              // Promotions
+              // Assignments
               var assignments = new Assignments(null, {
                   unit_id: filter || "Bn",
                   from: "30 days ago",

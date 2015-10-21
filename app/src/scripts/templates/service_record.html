@@ -34,6 +34,9 @@
                     {{#if ../../../allowedTo.editAssignment}}
                         <a href="#/assignments/{{ this.id }}/edit"><i class="fa fa-edit"></i></a>
                     {{/if}}
+                    {{#if this.topic_url}}
+                        <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                    {{/if}}
                 </div>
             </div>
         </div>
@@ -50,6 +53,9 @@
                 <div class="pull-right">    
                     Rank changed to {{ this.new_rank.name }}
                 </div>
+                {{#if this.topic_url}}
+                    <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                {{/if}}
             </div>
         </div>
         {{/if}}
@@ -62,6 +68,9 @@
                 </div>
                 <div class="pull-right">
                 Awarded {{ this.award.name }}
+                {{#if this.topic_url}}
+                    <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                {{/if}}
                 </div>
             </div>
         </div>
@@ -93,11 +102,14 @@
         {{/if}}
         
         {{#if this.amount_received}}
-        <div class="info-tiles tiles-primary service-record-donation">
+        <div class="info-tiles tiles-primary service-record-donation{{#if ../../beforeDischarge}} before-discharge{{/if}}">
             <div class="tiles-body">
                 <div class="pull-left"><i class="fa fa-money"></i></div>
                 <div class="pull-right">
                     Donated ${{ decimals this.amount_received }}
+                    {{#if this.topic_url}}
+                        <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                    {{/if}}
                 </div>
             </div>
         </div>
@@ -109,6 +121,9 @@
                 <div class="pull-left"><i class="fa fa-file-text-o"></i></div>
                 <div class="pull-right">
                     Received a demerit
+                    {{#if this.topic_url}}
+                        <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                    {{/if}}
                 </div>
             </div>
         </a>
