@@ -35,7 +35,7 @@
                         <a href="#/assignments/{{ this.id }}/edit"><i class="fa fa-edit"></i></a>
                     {{/if}}
                     {{#if this.topic_url}}
-                        <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
                     {{/if}}
                 </div>
             </div>
@@ -52,10 +52,10 @@
                 </div>
                 <div class="pull-right">    
                     Rank changed to {{ this.new_rank.name }}
+                    {{#if this.topic_url}}
+                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                    {{/if}}
                 </div>
-                {{#if this.topic_url}}
-                    <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
-                {{/if}}
             </div>
         </div>
         {{/if}}
@@ -68,37 +68,43 @@
                 </div>
                 <div class="pull-right">
                 Awarded {{ this.award.name }}
-                {{#if this.topic_url}}
-                    <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
-                {{/if}}
+                    {{#if this.topic_url}}
+                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                    {{/if}}
                 </div>
             </div>
         </div>
         {{/if}}
         
         {{#if this.status}}
-        <a href="#enlistments/{{ this.id }}" class="info-tiles tiles-indigo service-record-enlistment{{#if ../../beforeDischarge}} before-discharge{{/if}}">
+        <div  class="info-tiles tiles-indigo service-record-enlistment{{#if ../../beforeDischarge}} before-discharge{{/if}}">
             <div class="tiles-body">
-                <div class="pull-left"><i class="fa fa-file-text"></i></div>
+                <a href="#enlistments/{{ this.id }}" class="pull-left"><i class="fa fa-file-text"></i></a>
                 <div class="pull-right">
                     Enlisted{{#if this.unit_id}} in the {{ this.unit.abbr }}{{/if}}
+                    {{#if this.topic_url}}
+                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                    {{/if}}
                 </div>
             </div>
-        </a>
+        </div>
         {{/if}}
         
         {{#if this.type}}
-        <a href="#discharges/{{ this.id }}" class="info-tiles tiles-success service-record-discharge{{#if ../../beforeDischarge}} before-discharge{{/if}}">
+        <div class="info-tiles tiles-success service-record-discharge{{#if ../../beforeDischarge}} before-discharge{{/if}}">
             <div class="tiles-body">
-                <div class="pull-left"><i class="fa fa-minus-square"></i></div>
+                <a href="#discharges/{{ this.id }}" class="pull-left"><i class="fa fa-minus-square"></i></a>
                 <div class="pull-right">
                     {{#is this.type "===" 'Honorable'}}Honorably{{/is}}
                     {{#is this.type "===" 'Dishonorable'}}Dishonorably{{/is}}
                     {{#is this.type "===" 'General'}}Generally{{/is}}
                     Discharged
+                    {{#if this.topic_url}}
+                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                    {{/if}}
                 </div>
             </div>
-        </a>
+        </div>
         {{/if}}
         
         {{#if this.amount_received}}
@@ -122,7 +128,7 @@
                 <div class="pull-right">
                     Received a demerit
                     {{#if this.topic_url}}
-                        <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
                     {{/if}}
                 </div>
             </div>

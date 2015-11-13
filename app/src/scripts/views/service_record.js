@@ -4,6 +4,7 @@ var $ = require("jquery"),
   config = require("../config"),
   Template = require("../templates/service_record.html"),
   moment = require("moment");
+  util = require("../util");
 var Marionette = require("backbone.marionette");
 
   
@@ -44,7 +45,13 @@ var Marionette = require("backbone.marionette");
               if (b.date < a.date) return -1;
               return 0;
           });
-          
+          _.each( items, function( item ) {
+              _.each( item.items, function( record ) {
+                  if(record.forum_id && record.topic_id && record.topic_id > 0 && config.forum[record.forum_id] !== undefined) {
+                      record.topic_url = config.forum[record.forum_id].baseUrl + util.sprintf(config.forum[record.forum_id].topicPath, record.topic_id);
+                  }
+              });
+          });
           var permissions = this.permissions.length ? this.permissions.pluck("abbr") : [],
               memberPermissions = this.memberPermissions.length ? this.memberPermissions.pluck("abbr") : [],
               allowedTo = {
