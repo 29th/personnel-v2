@@ -23,7 +23,8 @@ class Assignments extends MY_Controller {
         if( ! $this->user->permission('profile_view', array('member' => $member_id)) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
-        elseif ($member_id == 'unit') {
+        elseif ($member_id == 'unit') 
+        {
             $model = $this->assignment_model;
             $model->select_member();
 
@@ -37,15 +38,25 @@ class Assignments extends MY_Controller {
             $assignments = nest($model->order_by('priority')->get()->result_array());
             $this->response(array('status' => true, 'assignments' => $assignments, 'unit' => $unit_id ));
         }
-        else {
-            $model = $this->assignment_model;
+/*
+        elseif ($this->input->get('current')) {
+            $model = $this->assignment_model; 
+            $assignments = nest($model->result_array());
+            $this->response(array('status' => true, 'assignments' => $assignments ));
+        }
+*/
+        else 
+        {
+            $duration = $discharge_date = '';
+            $model = $this->assignment_model; 
             if( is_numeric($member_id)) {
                 $model->where('assignments.member_id', $member_id);
             }
             if($this->input->get('current')) 
                 $model->by_date();
             $assignments = nest($model->order_by('priority')->get()->result_array());
-            list($duration, $discharge_date) = $this->calculate_duration($assignments, $member_id);
+            if ( $member_id )
+                list($duration, $discharge_date) = $this->calculate_duration($assignments, $member_id);
             $this->response(array('status' => true, 'duration' => $duration, 'discharge_date' => $discharge_date, 'assignments' => $assignments ));
         }
     }
