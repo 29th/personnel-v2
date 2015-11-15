@@ -122,9 +122,9 @@
         {{/if}}
         
         {{#if this.demerit_type}}
-        <a href="#demerits/{{ this.id }}" class="info-tiles tiles-inverse service-record-demerit{{#if ../../beforeDischarge}} before-discharge{{/if}}">
+        <div class="info-tiles tiles-inverse service-record-demerit{{#if ../../beforeDischarge}} before-discharge{{/if}}">
             <div class="tiles-body">
-                <div class="pull-left"><i class="fa fa-file-text-o"></i></div>
+                <a href="#demerits/{{ this.id }}" class="pull-left"><i class="fa fa-file-text-o"></i></a>
                 <div class="pull-right">
                     Received a demerit
                     {{#if this.topic_url}}
@@ -132,7 +132,7 @@
                     {{/if}}
                 </div>
             </div>
-        </a>
+        </div>
         {{/if}}
     {{/each}}
 {{/each}}
