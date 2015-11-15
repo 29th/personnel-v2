@@ -144,15 +144,21 @@ Handlebars.registerHelper('duration', function(days) {
 
 Handlebars.registerHelper('award_img_name', function (award) {
     var beg = award.substr(0, 2);
+    var ret = award;
     switch (beg) {
     case "m:":
-      return "marks";
+      ret = "marks";
+      break;
     case "s:":
-      return "sharps";
+      ret = "sharps";
+      break;
     case "e:":
-      return "expert";
+      ret = "expert";
+      break;
     }
-    return award;
+    if ( award.substr(2,5) == 'pilot' )
+      ret += 'Pilot';
+    return ret;
 });
 
 Handlebars.registerHelper('str_replace', function (str, from, to) {
