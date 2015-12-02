@@ -222,8 +222,9 @@ class Units extends MY_Controller {
 			$stats1 = nest( $this->db->get($cSql)->result_array() );
 			$stats = array();
 			foreach ( $stats1 as $val  ) {
-				$stats[$val['unit']['id']][] = $val; 
+				$stats[$val['unit']['abbr']][] = $val; 
 			}
+			ksort($stats);
 			$this->response(array('status' => true, 'stats' => $stats ));
 		}
     }
