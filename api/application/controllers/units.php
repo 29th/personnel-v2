@@ -206,7 +206,7 @@ class Units extends MY_Controller {
 		else {
 			$cSql = 
 			"(SELECT m.id AS `member|id`, r.abbr AS `member|rank`, m.last_name AS `member|last_name`, " .
-			"u.id AS `unit|id`, u.abbr AS `unit|abbr`, u.name AS `unit|name`, " .
+			"u.id AS `unit|id`, u.abbr AS `unit|abbr`, u.name AS `unit|name`, u.path AS `unit|path`, u.order AS `unit|order`, u.class AS `unit|class`, " .
 			"(SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id AND e.mandatory = 1 AND DATEDIFF( NOW( ) , e.datetime ) <30 ) as `percentage|d30`, " .
 			"(SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id AND e.mandatory = 1 AND DATEDIFF( NOW( ) , e.datetime ) <60 ) as `percentage|d60`, " .
 			"(SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id AND e.mandatory = 1 AND DATEDIFF( NOW( ) , e.datetime ) <90 ) as `percentage|d90`, " .
@@ -216,15 +216,15 @@ class Units extends MY_Controller {
 			"LEFT JOIN positions AS p ON a.position_id = p.id " .
 			"LEFT JOIN ranks AS r ON m.rank_id = r.id " .
 			"LEFT JOIN units AS u ON a.unit_id = u.id " .
-			"WHERE a.end_date IS NULL AND a.unit_id IN (SELECT id FROM units AS u WHERE u.id = $unit_id OR u.path LIKE '%/$unit_id/%' ) ".
-			"ORDER BY a.unit_id, p.order DESC, m.rank_id DESC, m.last_name ) as aaa ";
+			"WHERE a.end_date IS NULL AND a.unit_id IN (SELECT id FROM units AS u WHERE u.active=1 AND (u.id = $unit_id OR u.path LIKE '%/$unit_id/%') ) ".
+			"ORDER BY u.class, u.name, p.order DESC, m.rank_id DESC, m.last_name ) as aaa ";
 			
 			$stats1 = nest( $this->db->get($cSql)->result_array() );
 			$stats = array();
 			foreach ( $stats1 as $val  ) {
 				$stats[$val['unit']['abbr']][] = $val; 
 			}
-			ksort($stats);
+//			ksort($stats);
 			$this->response(array('status' => true, 'stats' => $stats ));
 		}
     }
