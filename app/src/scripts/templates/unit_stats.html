@@ -1,0 +1,23 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>Stats (WiP)</h2><br>
+        <span>Percentages from all mandatory drills combined</span>
+    </div>
+    <div class="panel-body">
+      <table class="unit_stats">
+        {{#each items.[0]}}
+          <tr><td colspan="5" class="stat_unit_head">{{this.[0].unit.abbr}}</td></tr>
+          <tr><th>Name</th><th>30</th><th>60</th><th>90</th><th>All</th></tr>
+          {{#each this}}
+            <tr>
+              <td><a href='/#members/{{this.member.id}}/'>{{this.member.rank}}&nbsp;{{ this.member.last_name }}</a></td>
+              <td class="{{stat_color this.percentage.d30}}">{{#is this.percentage.d30 "===" null}}100{{else}}{{this.percentage.d30}}{{/is}}</td>
+              <td class="{{stat_color this.percentage.d60}}">{{#is this.percentage.d60 "===" null}}100{{else}}{{this.percentage.d60}}{{/is}}</td>
+              <td class="{{stat_color this.percentage.d90}}">{{#is this.percentage.d90 "===" null}}100{{else}}{{this.percentage.d90}}{{/is}}</td>
+              <td class="{{stat_color this.percentage.dall}}">{{#is this.percentage.dall "===" null}}100{{else}}{{this.percentage.dall}}{{/is}}</td>
+            </tr>
+          {{/each}}
+        {{/each}}
+      </table>
+    </div>
+</div>
