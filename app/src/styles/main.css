@@ -177,3 +177,56 @@ body {
 .event_not_yet {
   text-align: center;
 }
+
+/*  UNIT STATS */
+
+.unit_stats {
+  /* border: 1px solid blue;    */
+}
+
+.unit_stats td{
+  padding: 4px;
+  text-align: center;
+  margin:4px;
+}
+
+.unit_stats th{
+  padding: 4px;
+  text-align: center;
+  background-color: #647359;
+  color:white;
+}
+
+.unit_stats td:first-child {
+  text-align: left;
+  font-weight: bold;
+}
+
+.stat_unit_head{
+    text-align: center;
+    text-decoration: underline;
+    padding-top: 10px;
+}
+
+.stat_great {
+  background-color: darkgreen;
+  color:white;
+}
+
+.stat_good {
+  background-color: lightgreen;
+}
+
+.stat_soso {
+  background-color: yellow;
+}
+
+.stat_bad {
+  background-color: orangered;
+  color:white;
+}
+
+.stat_aweful {
+  background-color: darkred;
+  color:white;
+}

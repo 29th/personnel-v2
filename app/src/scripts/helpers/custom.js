@@ -172,6 +172,27 @@ Handlebars.registerHelper('times', function(n, block) {
     return accum;
 });
 
+Handlebars.registerHelper('stat_color', function (perc) {
+    if (perc == null) {
+        return "stat_great";
+    }
+    else if (perc == 100) {
+        return "stat_great";
+    }
+    else if (perc > 75) {
+        return "stat_good";
+    }
+    else if (perc > 50) {
+        return"stat_soso";
+    }
+    else if (perc > 25) {
+        return "stat_bad";
+    }
+    else {
+        return "stat_aweful";
+    }
+});
+
 var isArray = function(value) {
     return Object.prototype.toString.call(value) === '[object Array]';
 }

@@ -34,6 +34,7 @@ var $ = require("jquery"),
   Standards = require("./collections/standards"),
   UnitAwols = require("./collections/unit_awols"),
   UnitAlerts = require("./collections/unit_alerts"),
+  UnitStats = require("./collections/unit_stats"),
   Units = require("./collections/units"),
   AARView = require("./views/aar"),
   AssignmentEditView = require("./views/assignment_edit"),
@@ -64,6 +65,7 @@ var $ = require("jquery"),
   ServiceRecordView = require("./views/service_record"),
   UnitActivityView = require("./views/unit_activity"),
   UnitAlertsView = require("./views/unit_alerts"),
+  UnitStatsView = require("./views/unit_stats"),
   UnitAttendanceView = require("./views/unit_attendance"),
   UnitAwolsView = require("./views/unit_awols"),
   UnitRecruitsView = require("./views/unit_recruits"),
@@ -827,6 +829,7 @@ require("./validation.config");
                   collection: unitAwols
               }));
           }
+          // AOCCs
           else if (path == "alerts") {
               unitLayout.setHighlight("alerts");
               
@@ -837,6 +840,19 @@ require("./validation.config");
 
               columnViews.push(new UnitAlertsView({
                   collection: unitAlerts
+              }));
+          }
+          // Statistics
+          else if (path == "stats") {
+              unitLayout.setHighlight("stats");
+              
+              var unitStats = new UnitStats(null, {
+                  filter: filter || "Bn"
+              });
+              promises.push(unitStats.fetch());
+
+              columnViews.push(new UnitStatsView({
+                  collection: unitStats
               }));
           }
           // Recruits
