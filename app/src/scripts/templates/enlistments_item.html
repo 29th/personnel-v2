@@ -3,5 +3,6 @@
 <td nowrap><a href="#units/{{ this.unit.key }}">{{ this.unit.abbr }}</a></td>
 <td nowrap>{{ this.last_name }}{{#if this.first_name}}, {{ this.first_name }}{{/if}}{{#if middle_name}} {{ substring middle_name 0 1 }}.{{/if}}</td>
 <td>{{#if this.ingame_name }}{{ this.ingame_name }}{{/if}}</td>
+<td>{{#if this.steam_id}}<a href='http://steamcommunity.com/profiles/{{this.steam_id}}' target='_blank'><img src='images/other/steam.gif' /></a>{{/if}}</td>
 <td nowrap>{{#if this.liaison.id }}<a href="#members/{{ this.liaison.id }}">{{ this.liaison.short_name }}</a>{{/if}}</td>
 <td>{{#if this.recruiter_member_id }}<a href="#members/{{ this.recruiter_member_id }}">{{ this.recruiter }}</a>{{else}}{{ this.recruiter }}{{/if}}</td>
