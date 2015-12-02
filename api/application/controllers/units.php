@@ -217,7 +217,7 @@ class Units extends MY_Controller {
 			"LEFT JOIN ranks AS r ON m.rank_id = r.id " .
 			"LEFT JOIN units AS u ON a.unit_id = u.id " .
 			"WHERE a.end_date IS NULL AND a.unit_id IN (SELECT id FROM units AS u WHERE u.id = $unit_id OR u.path LIKE '%/$unit_id/%' ) ".
-			"ORDER BY a.unit_id, p.order DESC, m.last_name ) as aaa ";
+			"ORDER BY a.unit_id, p.order DESC, m.rank_id DESC, m.last_name ) as aaa ";
 			
 			$stats1 = nest( $this->db->get($cSql)->result_array() );
 			$stats = array();
