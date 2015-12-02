@@ -35,7 +35,7 @@ class Attendance extends MY_Controller {
         $this->response(  array( 'percentages' => $perc_arr, 'status' => true ) );
     }
     
-    /**
+    /*
      * INDEX
      * Handled by index_filter_get in MY_Controller
      */

@@ -8,21 +8,21 @@ class Units extends MY_Controller {
         //$this->load->model('permission_model');
     }
     
-    /**
+    /*
      * PRE-FLIGHT
      */
     public function index_options() { $this->response(array('status' => true)); }
     public function view_options() { $this->response(array('status' => true)); }
 	
-	/**
-	 * INDEX
-	 * Just passes to view_get() to consolidate similar functionality
+	/*
+	  INDEX
+	  Just passes to view_get() to consolidate similar functionality
 	 */
 	public function index_get($filter = FALSE) {
 		$this->view_get($filter);
 	}
     
-    /**
+    /*
 	 * VIEW
      * Get a particular unit or list of units
      * &children=(true|false)   Include child units
@@ -75,7 +75,7 @@ class Units extends MY_Controller {
 		}
     }
 	
-	/**
+	/*
 	 * CREATE
 	 */
 	public function index_post() {
@@ -181,6 +181,50 @@ class Units extends MY_Controller {
 			$attendance = nest($this->attendance_model->by_unit($unit_id)->paginate('', $skip)->result_array());
 			$count = $this->attendance_model->total_rows;
 			$this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'attendance' => $attendance));
+		}
+    }
+    
+	/**
+	 * UNIT STATS
+	 */
+    public function stats_get($filter) {
+        $this->load->model('attendance_model');
+		// Get unit ID
+		if(is_numeric($filter)) {
+		    $unit_id = $filter;
+		}
+		else {
+		    $unit = $this->unit_model->by_filter($filter)->get()->row_array();
+		    $unit_id = isset($unit['id']) ? $unit['id'] : NULL;
+		}
+        
+		// Must have permission to view this type of record for this member or for any member
+		if( false && !$this->user->permission('unit_stats', array('unit' => $unit_id)) && ! $this->user->permission('unit_stats_any')) {
+            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+        }
+		// View records
+		else {
+			$cSql = 
+			"(SELECT m.id AS `member|id`, r.abbr AS `member|rank`, m.last_name AS `member|last_name`, " .
+			"u.id AS `unit|id`, u.abbr AS `unit|abbr`, u.name AS `unit|name`, " .
+			"(SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id AND e.mandatory = 1 AND DATEDIFF( NOW( ) , e.datetime ) <30 ) as `percentage|d30`, " .
+			"(SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id AND e.mandatory = 1 AND DATEDIFF( NOW( ) , e.datetime ) <60 ) as `percentage|d60`, " .
+			"(SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id AND e.mandatory = 1 AND DATEDIFF( NOW( ) , e.datetime ) <90 ) as `percentage|d90`, " .
+			"(SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id ) as `percentage|dall` " .
+			"FROM members AS m " .
+			"LEFT JOIN assignments AS a ON m.id = a.member_id " .
+			"LEFT JOIN positions AS p ON a.position_id = p.id " .
+			"LEFT JOIN ranks AS r ON m.rank_id = r.id " .
+			"LEFT JOIN units AS u ON a.unit_id = u.id " .
+			"WHERE a.end_date IS NULL AND a.unit_id IN (SELECT id FROM units AS u WHERE u.id = $unit_id OR u.path LIKE '%/$unit_id/%' ) ".
+			"ORDER BY a.unit_id, p.order DESC, m.last_name ) as aaa ";
+			
+			$stats1 = nest( $this->db->get($cSql)->result_array() );
+			$stats = array();
+			foreach ( $stats1 as $val  ) {
+				$stats[$val['unit']['id']][] = $val; 
+			}
+			$this->response(array('status' => true, 'stats' => $stats ));
 		}
     }
     
