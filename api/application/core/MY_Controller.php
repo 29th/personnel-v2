@@ -19,9 +19,9 @@ class MY_Controller extends REST_Controller {
 
     // Standard GET index allowing filtering by member and unit. Common across many controllers.
     public function index_get($filter_key = FALSE, $filter_value = FALSE) {
-        if( !$this->user->permission($this->abilities['view_any'])
-            && ($filter_key && !$this->user->permission($this->abilities['view'], array($filter_key => $filter_value))) ) {
-            $this->response(array('status' => true, 'error' => 'Permission denied', $this->{$this->model_name}->table => array() ));
+        if( ! $this->user->permission($this->abilities['view_any'])
+            && ($filter_key && ! $this->user->permission($this->abilities['view'], array($filter_key => $filter_value))) ) {
+            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         } else {
             $skip = $this->input->get('skip') ? $this->input->get('skip') : 0;
             $model = $this->{$this->model_name};
@@ -58,7 +58,7 @@ class MY_Controller extends REST_Controller {
 
             $records = nest($model->result_array());
             $count = $this->{$this->model_name}->total_rows;
-            $this->response(array('status' => true, 'count' => $count, 'skip' => $skip, $model->table => $records, 'a'=>$this->user->permission($this->abilities['view']) ));
+            $this->response(array('status' => true, 'count' => $count, 'skip' => $skip, $model->table => $records));
         }
     }
 }
