@@ -3,6 +3,7 @@ var $ = require("jquery"),
   Backbone = require("backbone"),
   Marionette = require("backbone.marionette"),
   Handlebars = require("hbsfy/runtime"),
+  Q = require("q"),
   util = require("./util"),
   Assignment = require("./models/assignment"),
   Demerit = require("./models/demerit"),
@@ -745,7 +746,7 @@ require("./validation.config");
 
           // Rendering
           //util.loading(true);
-          $.when.apply($, promises).done(function () {
+          Q.allSettled(promises).then(function() {
               //util.loading(false);
               self.showView(memberLayout);
               memberLayout.adminRegion.show(memberAdminView);
