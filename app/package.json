@@ -4,7 +4,6 @@
   "description": "Personnel System ================",
   "main": "src/scripts/main.js",
   "scripts": {
-    "install": "napa",
     "build": "./node_modules/gulp/bin/gulp.js",
     "watch": "./node_modules/gulp/bin/gulp.js watch"
   },
@@ -34,7 +33,8 @@
     "moment-timezone": "~0.3.0",
     "fullcalendar": "~2.3.1",
     "jquery": "~2.1.3",
-    "q": "~1.4.1"
+    "q": "~1.4.1",
+    "Nestable": "git://github.com/29th/Nestable"
   },
   "devDependencies": {
     "bower": "^1.3.12",
@@ -50,7 +50,6 @@
     "gulp-util": "~2.2.14",
     "gulp-wrap-umd": "~0.1.0",
     "del": "~1.1.1",
-    "napa": "~1.2.0",
     "vinyl-source-stream": "~1.0.0",
     "vinyl-buffer": "~1.0.0",
     "gulp-sourcemaps": "~1.3.0",
@@ -59,9 +58,6 @@
     "gulp-usemin": "~0.3.11",
     "watchify": "~2.4.0",
     "browserify": "~9.0.3"
-  },
-  "napa": {
-    "jquery-nestable": "dbushell/Nestable"
   },
   "browserify": {
     "transform": [
