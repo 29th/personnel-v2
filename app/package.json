@@ -75,6 +75,6 @@
   "browser": {
     "bootstrap-datepicker": "bootstrap-datepicker/dist/js/bootstrap-datepicker",
     "bootstrap-select": "bootstrap-select/dist/js/bootstrap-select",
-    "jquery-nestable": "jquery-nestable/jquery.nestable"
+    "jquery-nestable": "Nestable/jquery.nestable"
   }
 }
