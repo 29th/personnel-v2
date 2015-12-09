@@ -5,7 +5,7 @@ class Demerit_model extends MY_Model {
     public $primary_key = 'demerits.id';
     
     public function default_select() {
-        $this->db->select('SQL_CALC_FOUND_ROWS demerits.id, demerits.date, demerits.reason, demerits.forum_id, demerits.topic_id, \'Discinplinary\' as demerit_type', FALSE)
+        $this->db->select('SQL_CALC_FOUND_ROWS demerits.id, demerits.date, demerits.reason, demerits.forum_id, demerits.topic_id, \'Disciplinary\' as demerit_type', FALSE)
             
             // Author
             ->select('demerits.author_member_id AS `author|id`')
