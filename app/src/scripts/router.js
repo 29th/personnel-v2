@@ -60,6 +60,7 @@ var $ = require("jquery"),
   MemberProfileView = require("./views/member_profile"),
   MemberQualificationsView = require("./views/member_qualifications"),
   MemberRecruitsView = require("./views/member_recruits"),
+  MemberReprimandsView = require("./views/member_reprimands"),
   MemberView = require("./views/member"),
   NavView = require("./views/nav"),
   RosterView = require("./views/roster"),
@@ -675,6 +676,32 @@ require("./validation.config");
                   collection: recruits
               });
           }
+
+          // Reprimands
+          else if (path == "reprimands") {
+              memberLayout.setHighlight("reprimands");
+
+              // Demerits
+              var demerits = new Demerits(null, {
+                  member_id: id,
+                  from: "2000",
+                  to: "today"
+              });
+              promises.push(demerits.fetch());
+
+              var awols = new MemberAwols(null, {
+                  member_id: id,
+                  days: 9999
+              });
+              promises.push(awols.fetch());
+
+              pageView = new MemberReprimandsView({
+                  model: member,
+                  demerits: demerits,
+                  awols: awols
+              });
+          }
+
           // Qualifications
           else if (path == "qualifications") {
               memberLayout.setHighlight("qualifications");

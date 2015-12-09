@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+    <div class="panel-heading"><h2>Reprimands</h2></div>
+        <div class="panel-body">
+        <h3>Total Reprimands: <b>{{this.rec_count}}</b></h3>
+        {{#each this.reprimands}}
+          <br><b>{{dateFormat this.date format="ll"}} {{#if this.active}}{{else}}<small>(expired)</small>{{/if}}</b><br>
+          {{#each this.reprimands}}
+            {{#is this.type "===" "Attendance"}}
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Did not attend <b><a href="#events/{{ this.event_id }}">{{this.label}}</a></b> and failed to post absence within 24 hours<br>
+            {{else}}
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#demerits/{{ this.event_id }}"><span class="awol">{{this.reason}}</span></a></b> by <a href="#members/{{this.author.id}}">{{this.author.short_name}}</a><br>
+            {{/is}}  
+            
+            
+          {{/each}}
+        {{/each}}
+        
+        </div>
+</div>
