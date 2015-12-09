@@ -9,7 +9,7 @@
           <tr><th>Name</th><th>30</th><th>60</th><th>90</th><th>All</th></tr>
           {{#each this}}
             <tr>
-              <td><a href='/#members/{{this.member.id}}/'>{{this.member.rank}}&nbsp;{{ this.member.last_name }}</a></td>
+              <td><a href='#members/{{this.member.id}}/'>{{this.member.rank}}&nbsp;{{ this.member.last_name }}</a></td>
               <td class="{{stat_color this.percentage.d30}}">{{#is this.percentage.d30 "===" null}}100{{else}}{{this.percentage.d30}}{{/is}}</td>
               <td class="{{stat_color this.percentage.d60}}">{{#is this.percentage.d60 "===" null}}100{{else}}{{this.percentage.d60}}{{/is}}</td>
               <td class="{{stat_color this.percentage.d90}}">{{#is this.percentage.d90 "===" null}}100{{else}}{{this.percentage.d90}}{{/is}}</td>
