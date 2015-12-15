@@ -1183,7 +1183,7 @@ h6,
   font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif;
   font-weight: 400;
   line-height: 1.42;
-  color: #5f7676;
+  color: white; /* #5f7676; */
 }
 h1 small,
 h2 small,
@@ -1596,6 +1596,7 @@ pre code {
 .row {
   margin-left: -10px;
   margin-right: -10px;
+  color:white;
 }
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
   position: relative;
@@ -19000,7 +19001,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   line-height: 48px;
 }
 .panel .panel-heading h2 {
-  color: #93a8a8;
+  color: white;  /* #93a8a8; */
   height: 100%;
   width: auto;
   float: left;
@@ -19055,7 +19056,7 @@ ul .panel .panel-heading h2 {
   border-radius: 3px;
 }
 .panel .panel-heading .panel-ctrls.button-icon-bg .has-bg:hover {
-  background-color: #000000;
+  background-color: #788B6C;
   background-color: rgba(0, 0, 0, 0.16);
   zoom: 1;
   background-color: transparent\9;
@@ -19093,6 +19094,7 @@ ul .panel .panel-heading h2 {
   font-size: 14px;
   margin: 1px 0 1px 0;
   padding: 20px;
+  color: #999999;
 }
 .panel .panel-body.panel-no-padding {
   padding: 0px;
@@ -19342,7 +19344,7 @@ body.nooverflow {
 }
 .panel .panel-heading {
   color: #93a8a8;
-  background-color: #fafbfc;
+  background-color: #647359; /* fafbfc; */
   margin: 0px -1px 0 -1px;
   border: 1px solid #dadfe3;
 }
@@ -25149,7 +25151,7 @@ label.icheck.checkbox {
   padding-bottom: 6px !important;
   color: #5f7676 !important;
   border: 1px solid #dadfe3 !important;
-  background: #fafbfc !important;
+  background: #788B6C !important; /* #fafbfc */
 }
 .dd3-handle.success-bg .dd3-content,
 .dd-handle.success-bg {
@@ -25171,6 +25173,10 @@ label.icheck.checkbox {
 }
 .dd3-content {
   padding-left: 32px !important;
+}
+
+.dd-handle a,.dd3-content a {
+   color: white;
 }
 .dd-item {
   font-size: 14px !important;
