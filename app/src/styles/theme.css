@@ -2321,6 +2321,7 @@ th {
 }
 .table-striped > thead{
   background-color: #647359; /* #fafbfc; */
+  color: white;
 }
 .table-hover > tbody > tr:hover {
   background-color: #fafafa;
@@ -3036,7 +3037,7 @@ fieldset[disabled] .btn {
 .open > .dropdown-toggle.btn-default {
   color: #B9111F; /* #5f7676; */
   background-color: #cfd9db;
-  border-color: #9ca5ab;
+  border-color: #B9111F; /* #9ca5ab; */
 }
 .btn-default:active,
 .btn-default.active,
@@ -3071,6 +3072,7 @@ fieldset[disabled] .btn-default.active {
 .btn-default:hover {
   background-color: #dde4e6;
   border-color: #a7afb4;
+  color: red;
 }
 .btn-default:focus,
 .btn-default:active,
@@ -19370,7 +19372,7 @@ body.nooverflow {
   box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.02);
 }
 .panel .panel-heading {
-  color: #93a8a8;
+  color: white; /* #93a8a8; */
   background-color: #647359; /* fafbfc; */
   margin: 0px -1px 0 -1px;
   border: 1px solid #dadfe3;
@@ -23996,7 +23998,7 @@ textarea.autosize {
 @media (max-width: 480px) {
   .panel .fc-header h2 {
     line-height: 1.42;
-    color: #5f7676;
+    color: black; /* #5f7676; */
     font-size: 14px;
     margin-top: 10px;
     margin-bottom: 10px;

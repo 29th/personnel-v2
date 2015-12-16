@@ -31,6 +31,14 @@ body {
     cursor: pointer;
 }
 
+.duration {
+    font-weight: bold;
+}
+
+#forums-link button a:hover {
+    color: red;
+}
+
 /* Collapsible qualifications */
 /*.roster .depth-2 > div:not(.header-row) {
     display: none;
