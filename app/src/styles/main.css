@@ -58,6 +58,10 @@ body {
     padding: 0;
 }
 
+.member .assignments a {
+    color: #16027B;
+}
+
 /* Service Record */
 .member .info-tiles .tiles-body, .member .info-tiles .tiles-body i {
     font-size: 16px;
@@ -158,6 +162,7 @@ body {
 
 .att_perc span{
     padding: 0px 5px 0px 5px;
+    color: white;
 }
 
 .att_perc_days {
@@ -203,6 +208,11 @@ body {
   font-weight: bold;
 }
 
+.unit_stats a,
+.unit_stats a:hover {
+    color: #251673;
+}
+
 .stat_unit_head{
     text-align: center;
     text-decoration: underline;
@@ -244,6 +254,3 @@ body {
   font-weight: bold;
 }
 
-.panel-heading {
-  
-}
