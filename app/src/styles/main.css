@@ -1,6 +1,7 @@
 body {
     padding-top: 60px;
     padding-bottom: 40px;
+    background-color: #4C5844;
 }
 
 /* Navbar */
@@ -30,6 +31,14 @@ body {
     cursor: pointer;
 }
 
+.duration {
+    font-weight: bold;
+}
+
+#forums-link button a:hover {
+    color: red;
+}
+
 /* Collapsible qualifications */
 /*.roster .depth-2 > div:not(.header-row) {
     display: none;
@@ -55,6 +64,10 @@ body {
 .member .assignments {
     list-style-type: none;
     padding: 0;
+}
+
+.member .assignments a {
+    color: #16027B;
 }
 
 /* Service Record */
@@ -157,6 +170,7 @@ body {
 
 .att_perc span{
     padding: 0px 5px 0px 5px;
+    color: white;
 }
 
 .att_perc_days {
@@ -202,6 +216,11 @@ body {
   font-weight: bold;
 }
 
+.unit_stats a,
+.unit_stats a:hover {
+    color: #251673;
+}
+
 .stat_unit_head{
     text-align: center;
     text-decoration: underline;
@@ -230,3 +249,16 @@ body {
   background-color: darkred;
   color:white;
 }
+
+/* CALENDAR overwrites */
+
+.fc-day-number {
+  color:white;   
+}
+
+.fc-today {
+  background-color: #C0DFB3;
+  color: black;
+  font-weight: bold;
+}
+

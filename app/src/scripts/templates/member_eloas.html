@@ -1,0 +1,15 @@
+<div class="panel panel-default">
+    <div class="panel-heading"><h2>ELOAs</h2></div>
+        <div class="panel-body">
+        <h3>Total number of Extended Leaves of Absence: <b>{{this.rec_count}}</b></h3>
+        {{#each eloas}}
+          <hr>
+          From <b>{{dateFormat this.start_date format="ll"}}</b> to <b>{{dateFormat this.end_date format="ll"}}</b> <br /> 
+          Posted: <b>{{dateFormat this.posting_date format="ll"}}</b> <br>
+          Reason: <i>{{this.reason}}</i> <br>
+          Availability: <i>{{this.availability}}</i> <br>
+          
+        
+        {{/each}}
+        </div>
+</div>

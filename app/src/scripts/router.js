@@ -56,6 +56,7 @@ var $ = require("jquery"),
   MemberAttendanceView = require("./views/member_attendance"),
   MemberDischargeView = require("./views/member_discharge"),
   MemberEditView = require("./views/member_edit"),
+  MemberELOAsView = require("./views/member_eloas"),
   MemberELOAView = require("./views/member_eloa"),
   MemberProfileView = require("./views/member_profile"),
   MemberQualificationsView = require("./views/member_qualifications"),
@@ -674,6 +675,23 @@ require("./validation.config");
 
               pageView = new MemberRecruitsView({
                   collection: recruits
+              });
+          }
+
+          // ELOAs
+          else if (path == "eloas") {
+              memberLayout.setHighlight("eloas");
+
+              var eloas = new ELOAs(null, {
+                  member_id: id,
+                  from: "2000",
+                  to: "today"
+              });
+              promises.push(eloas.fetch());
+
+              pageView = new MemberELOAsView({
+                  model: member,
+                  collection: eloas
               });
           }
 
