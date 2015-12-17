@@ -113,6 +113,13 @@ body {
     display: none;
 }
 
+.active_eloa {
+    color: #ecf0f1;
+    background-color: #B9111F;
+    border-color: #bdc3c7;
+    padding: 1px 3px;
+}
+
 /* NProgress */
 #nprogress .bar,
 #nprogress .spinner {
