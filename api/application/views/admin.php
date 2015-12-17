@@ -51,20 +51,18 @@ $pages = array(
 <?php endif; ?>
 
 <style type='text/css'>
-body
-{
-	font-family: Arial;
-	font-size: 14px;
-}
-a {
-    color: blue;
-    text-decoration: none;
-}
-a:hover
-{
-	text-decoration: underline;
-}
+body { 	font-family: Arial; font-size: 14px; background-color: #4C5844; color: white; }
+a { color: blue; text-decoration: none; }
+a:hover { text-decoration: underline; }
 .nav { margin-bottom: 20px; }
+.bDiv thead th { color:white; background-color:#788B6C; }
+.flexigrid tr.erow td { background-color: #FFFFE6; } 
+.flexigrid tr.erow td:hover { background-color: #96A68C; } 
+a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.active:focus { background-color:#647359; }
+a.list-group-item:hover, a.list-group-item:focus { background-color:#96A68C; }
+.chzn-container .chzn-results .highlighted {background-color:#96A68C;background-image: -webkit-linear-gradient(top, #647359 20%, #96A68C 90%);}
+.form-field-box.even { background-color: #FFFFE6; }
+
 </style>
 </head>
 <body>
