@@ -1,4 +1,9 @@
-<div class="row header">
+<div class="panel panel-default">
+  <div class="panel-heading">
+     <h2>After Action Report</h2>
+  </div>
+  <div class="panel-body">
+   <div class="row header">
     <div class="col-md-8">
         <h1>{{ type }} <small><a href="#units/{{ unit.key }}">{{ unit.name }}</a></small></h1>
         <h2>{{dateFormat datetime format="YYYY-MM-DD HH:mm"}} <small>{{#if mandatory}} Mandatory {{else}} Non-Mandatory {{/if}}</small></h2>
@@ -15,10 +20,10 @@
             <a href="#events/{{ id }}/aar" class="btn btn-default pull-right"><span class="glyphicon glyphicon-list"></span> Post AAR</a>
         {{/if}}
     </div>
-</div>
+  </div>
 {{#if user_expected}}You {{#if (past datetime)}}were{{else}}are{{/if}} expected to attend{{/if}}
 
-<div class="row">
+  <div class="row">
     <div class="col-md-4">
         <ul id="attendance"></ul>
     </div>
@@ -39,5 +44,7 @@
             {{/if}}
         </div>
         {{/if}}
+      </div>
     </div>
-</div>
+  </div>
+</div

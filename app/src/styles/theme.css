@@ -2874,7 +2874,7 @@ select[multiple].form-group-lg .form-control {
   display: block;
   margin-top: 5px;
   margin-bottom: 10px;
-  color: #a1b4b4;
+  color: white; /* #a1b4b4; */
 }
 @media (min-width: 768px) {
   .form-inline .form-group {
@@ -3692,8 +3692,8 @@ tbody.collapse.in {
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
   text-decoration: none;
-  color: #313e3e;
-  background-color: #e6eaed;
+  color: white; /* #313e3e; */
+  background-color: #96A68C; /* #e6eaed; */
 }
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,
@@ -3701,10 +3701,10 @@ tbody.collapse.in {
 .tt-suggestion > p:hover,
 .tt-suggestion > p:focus,
 .tt-suggestion.tt-cursor > p {
-  color: #ffffff;
+  color: white; /* #ffffff; */
   text-decoration: none;
   outline: 0;
-  background-color: #e6eaed;
+  background-color: #4C5844; /*  #e6eaed; */
 }
 .dropdown-menu > .disabled > a,
 .dropdown-menu > .disabled > a:hover,
@@ -9294,7 +9294,7 @@ i.visible-print {
 #topnav.navbar-inverse .navbar-nav > .open > a,
 #topnav.navbar-inverse .navbar-nav > .open > a:hover,
 #topnav.navbar-inverse .navbar-nav > .open > a:focus {
-  background-color: #485a5a;
+  background-color: #30382C; /* #485a5a; */
   color: #cbd6d6;
 }
 #topnav.navbar-inverse .dropdown-menu,
@@ -18917,7 +18917,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   color: #cbd6d6;
 }
 .navbar-inverse {
-  background-color: #313e3e;
+  background-color: #30382C; /* #313e3e; */
   border-color: #485a5a;
 }
 .navbar-inverse .navbar-brand {
@@ -18937,13 +18937,13 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
   color: #cbd6d6;
-  background-color: #3d4c4c;
+  background-color: #30382C; /* #3d4c4c; */
 }
 .navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover,
 .navbar-inverse .navbar-nav > .active > a:focus {
   color: #cbd6d6;
-  background-color: #485a5a;
+  background-color: #30382C; /* #485a5a; */
 }
 .navbar-inverse .navbar-nav > .disabled > a,
 .navbar-inverse .navbar-nav > .disabled > a:hover,
@@ -18968,7 +18968,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus {
-  background-color: #485a5a;
+  background-color: #444E3E; /* #485a5a; */
   color: #cbd6d6;
 }
 @media (max-width: 767px) {
@@ -20276,13 +20276,14 @@ body.nooverflow {
 }
 .panel .panel-heading .nav-tabs li a {
   border: 1px solid transparent;
-  color: #93a8a8;
+  border-right: 1px solid black;
+  color: black; /* #93a8a8; */
   padding: 0 10px;
   line-height: 48px;
   border-radius: 0;
 }
 .panel .panel-heading .nav-tabs li:hover a {
-  color: #313e3e;
+  color: white; /* #313e3e; */
   background: none;
 }
 .panel .panel-heading .nav-tabs li.active a {
@@ -27939,7 +27940,7 @@ ul#heatmap .gradient {
 }
 .datepicker table tr td.day:hover,
 .datepicker table tr td.day.focused {
-  background: #e8ecec;
+  background: #96A68C; /* #e8ecec; */
   cursor: pointer;
 }
 .datepicker table tr td.old,
@@ -28730,7 +28731,7 @@ fieldset[disabled] .datepicker table tr td.selected.disabled:hover.active {
 .open > .dropdown-toggle.datepicker table tr td.active.disabled,
 .open > .dropdown-toggle.datepicker table tr td.active.disabled:hover {
   color: #ffffff;
-  background-color: #217dbb;
+  background-color:  #4C5844; /* #217dbb; */
   border-color: #1e5d87;
 }
 .datepicker table tr td.active:active,
@@ -28820,7 +28821,7 @@ fieldset[disabled] .datepicker table tr td.active:hover.active,
 fieldset[disabled] .datepicker table tr td.active.disabled.active,
 fieldset[disabled] .datepicker table tr td.active.disabled:hover.active {
   background-color: #3498db;
-  border-color: #2980b9;
+  border-color: red;/*#2980b9;*/
 }
 .datepicker table tr td.active .badge,
 .datepicker table tr td.active:hover .badge,
@@ -28853,7 +28854,7 @@ fieldset[disabled] .datepicker table tr td.active.disabled:hover.active {
 .open > .dropdown-toggle.datepicker table tr td.active.disabled,
 .open > .dropdown-toggle.datepicker table tr td.active.disabled:hover {
   color: #ffffff;
-  background-color: #2383c4;
+  background-color: #4C5844; /* #2383c4; */
   border-color: #20638f;
 }
 .datepicker table tr td.active:active,
@@ -29116,7 +29117,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .open > .dropdown-toggle.datepicker table tr td span.active.disabled,
 .open > .dropdown-toggle.datepicker table tr td span.active.disabled:hover {
   color: #ffffff;
-  background-color: #2383c4;
+  background-color: #4C5844; /*#2383c4; */
   border-color: #20638f;
 }
 .datepicker table tr td span.active:active,

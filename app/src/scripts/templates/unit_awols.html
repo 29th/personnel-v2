@@ -1,23 +1,30 @@
-<div class="btn-group" id="filter-days">
-    <button type="button" class="btn btn-default{{#is days ">" 30}} active{{/is}}" data-days="30">30 Days</button>
-    <button type="button" class="btn btn-default{{#is days "===" 60}} active{{/is}}" data-days="60">60 Days</button>
-    <button type="button" class="btn btn-default{{#is days "===" 90}} active{{/is}}" data-days="90">90 Days</button>
-</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2>AWOLs</h2>
+  </div>
+  <div class="panel-body">
+    <div class="btn-group" id="filter-days">
+      <button type="button" class="btn btn-default{{#is days ">" 30}} active{{/is}}" data-days="30">30 Days</button>
+      <button type="button" class="btn btn-default{{#is days "===" 60}} active{{/is}}" data-days="60">60 Days</button>
+      <button type="button" class="btn btn-default{{#is days "===" 90}} active{{/is}}" data-days="90">90 Days</button>
+    </div>
 
-{{#each items}}
-  <h3><a href="#members/{{ this.member.id }}" {{#is this.dates.length ">=" 3 }} class="awol" {{/is}}>{{ this.member.short_name }}</a> <small>({{ this.dates.length }})</small></h3>
-   {{#each this.dates}}
-   <ul>
-     <li>
-       <b>{{dateFormat this.date format="ll"}}</b>
-       <ul>
-      {{#each this.events}}
-         <li><a href="#events/{{ this.id }}" >{{dateFormat this.datetime format="HH:mm"}} {{ this.type }}</a></li>
-      {{/each}}
+  {{#each items}}
+    <h3><a href="#members/{{ this.member.id }}" {{#is this.dates.length ">=" 3 }} class="awol" {{/is}}>{{ this.member.short_name }}</a> <small>({{ this.dates.length }})</small></h3>
+    {{#each this.dates}}
+      <ul>
+        <li>
+          <b>{{dateFormat this.date format="ll"}}</b>
+          <ul>
+          {{#each this.events}}
+            <li><a href="#events/{{ this.id }}" >{{dateFormat this.datetime format="HH:mm"}} {{ this.type }}</a></li>
+          {{/each}}
+          </ul>
+        </li>
       </ul>
-     </li>
-   </ul>
-   {{/each}}
+    {{/each}}
 <!--
 -->
-{{/each}}
+  {{/each}}
+  </div>
+</div>

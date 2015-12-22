@@ -25,7 +25,7 @@ body {
     font-size: 80%;
 }
 .qualification small {
-    color: #999999;
+    color: #4C5844;
 }
 .cursor {
     cursor: pointer;
@@ -111,6 +111,22 @@ body {
 }
 #loa-buttons.loa-cancel #loa-post {
     display: none;
+}
+
+.eloa_label {
+    color: #ecf0f1;
+    border-color: #bdc3c7;
+    padding: 1px 3px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.active_eloa {
+    background-color: #B9111F;
+}
+
+.future_eloa {
+    background-color: #2D2CE0;
 }
 
 /* NProgress */

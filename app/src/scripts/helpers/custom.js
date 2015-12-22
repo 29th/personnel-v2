@@ -138,6 +138,14 @@ Handlebars.registerHelper('past', function (date) {
     return moment(date).isBefore(moment());
 });
 
+Handlebars.registerHelper('eloa_active', function (s_date, e_date) {
+    return moment(e_date).add(1, 'days').isAfter(moment()) && moment(s_date).isBefore(moment());
+});
+
+Handlebars.registerHelper('eloa_future', function (s_date) {
+    return moment(s_date).isAfter(moment());
+});
+
 Handlebars.registerHelper('duration', function(days) {
     return moment.duration(days, 'days').format('Y [years], M [months], [and] D [days]');
 });
