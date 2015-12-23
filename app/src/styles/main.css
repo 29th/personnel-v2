@@ -278,3 +278,55 @@ body {
   font-weight: bold;
 }
 
+/* TPs */
+.tp-info {
+  color:black;    
+}
+
+/* X-MAS */
+.panel .panel-heading {
+    background-image: url('../images/other/Ornament.png');
+    background-repeat: no-repeat;
+    background-position: 10px, center;
+    background-size: 30px;
+    padding-left: 50px;
+}
+
+.panel .panel-body {
+    background-image: url('../images/other/HollyLeftTop.png');
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-size: 60px;
+}
+
+body {
+    background-image: url('../images/other/sf_bg.png');
+    color: white;
+}
+
+nav.navbar {
+    background-image: url('../images/other/x-mas.jpg');
+    background-repeat: repeat-x;
+}
+
+.member .assignments {
+    color:white;
+}
+
+.member .assignments a{
+    color: #C4E88C;
+}
+
+.navbar-inverse .navbar-nav>.active>a, 
+.navbar-inverse .navbar-nav>.active>a:focus, 
+.navbar-inverse .navbar-nav>li>a:focus {
+    background: transparent;
+    color: black;
+    font-weight: bold;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: black;
+    font-weight: bold;
+    background: transparent;
+}
