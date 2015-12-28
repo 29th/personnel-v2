@@ -27928,6 +27928,8 @@ ul#heatmap .gradient {
   width: 30px;
   height: 30px;
   border: none;
+  background-color: #4C5844;
+  color:white;
 }
 .datepicker table tr:first-child th:first-child {
   border-top-left-radius: 3px;
@@ -27946,7 +27948,8 @@ ul#heatmap .gradient {
 }
 .datepicker table tr td.old,
 .datepicker table tr td.new {
-  color: #cbd6d6;
+  color: black;
+  background-color:#cbd6d6;
 }
 .datepicker table tr td.disabled,
 .datepicker table tr td.disabled:hover {
