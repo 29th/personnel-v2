@@ -278,12 +278,21 @@ body {
   font-weight: bold;
 }
 
+
+.datepicker table tr td.active.active
+{  
+  background-color: #B9111F;
+  color: white;
+}
+
+
 /* TPs */
 .tp-info {
   color:black;    
 }
 
 /* X-MAS */
+/*
 .panel .panel-heading {
     background-image: url('../images/other/Ornament.png');
     background-repeat: no-repeat;
@@ -330,3 +339,4 @@ nav.navbar {
     font-weight: bold;
     background: transparent;
 }
+*/
