@@ -107,7 +107,7 @@ class Alerts extends MY_Controller {
                 }
                 
                 //check for CABs
-                //$cabs[] = array($klucz,$rec_obj);
+                //lvl5 is recruiter's badge, in that case no other CABs are awarded
                 if ($rec_obj['last_enl_date'] > '2014-02-09' && $rec_obj['cab_lvl']<5) 
                 {
                   if ( $rec_obj['rec_cnt'] >= $cabs_levels["4"] && $rec_obj['cab_lvl'] < 4 )  {
