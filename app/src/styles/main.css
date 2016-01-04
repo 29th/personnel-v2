@@ -273,10 +273,23 @@ body {
 }
 
 .fc-today {
-  background-color: #C0DFB3;
+  background-color: #B9111F;
   color: black;
   font-weight: bold;
 }
+
+.fc-other-month {
+  background-color: #96A68C;   
+  color: white;
+}
+
+
+.datepicker table tr td.active.active
+{  
+  background-color: #B9111F;
+  color: white;
+}
+
 
 /* TPs */
 .tp-info {
@@ -284,6 +297,7 @@ body {
 }
 
 /* X-MAS */
+/*
 .panel .panel-heading {
     background-image: url('../images/other/Ornament.png');
     background-repeat: no-repeat;
@@ -330,3 +344,4 @@ nav.navbar {
     font-weight: bold;
     background: transparent;
 }
+*/

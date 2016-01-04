@@ -1,20 +1,38 @@
-<div class="panel panel-default">
+{{#each items}}
+<div class="col-md-6" id="col0">
+  <div class="panel panel-default">
     <div class="panel-heading">
-        <h2>Alerts</h2>
+      <h2>AOCCs</h2>
     </div>
     <div class="panel-body">
-    {{#each items}}
-      <h3>Missing AOCCs and WW1Vs ({{aoccs.length}})</h3>
+     {{#each aoccs}}
       <ul>
-      {{#each aoccs}}
         {{#is aocc_count "<" aoocs_due}}
         <li><a href="#members/{{ this.member.id }}">{{ this.member.short_name }}</a> has <b>{{aocc_count}}</b> Army of Occupation Medal(s) and should have <b><big>{{aoocs_due}}</big></b> </li>
         {{/is}}
         {{#is ww1v_count "<" ww1vs_due}}
         <li><a href="#members/{{ this.member.id }}">{{ this.member.short_name }}</a> has <b>{{ww1v_count}}</b> World War I Victory Medal(s) and should have <b><big>{{ww1vs_due}}</big></b> </li>
         {{/is}}
-      {{/each}}
       </ul>
-    {{/each}}
+     {{/each}}
     </div>
+  </div>
 </div>
+<div class="col-md-6" id="col1">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2>CABs</h2>
+    </div>
+    <div class="panel-body">
+      <small>Note: no CAB awards are to be awarded without prior notification from Lighthouse Secretary</small><hr>
+     {{#each cabs}}
+      <ul>
+        <li>For recruiting <b>{{rec_cnt}}</b> people <a href="#members/{{ this.member.id }}/recruits">{{ this.member.short_name }}</a> 
+          should have <b>CAB {{due_cab_level}}</b><br>
+          &nbsp;&nbsp;&nbsp;(Current: {{#is current_cab_lvl "===" "0"}} none{{else}} CAB {{current_cab_lvl}}{{/is}}, last enlistment on <b>{{last_enl_date}}</b>).
+      </ul>
+     {{/each}}
+    </div>
+  </div>
+</div>
+{{/each}}
