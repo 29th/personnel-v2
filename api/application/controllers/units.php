@@ -262,6 +262,7 @@ class Units extends MY_Controller {
      * AWOLs
      * TODO: Add day param
      */
+/* MOVED TO alerts collection
     public function awols_get($filter) {
         $this->load->model('attendance_model');
         $days = $this->input->get('days') ? (int) $this->input->get('days') : 30;
@@ -280,14 +281,15 @@ class Units extends MY_Controller {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// View records
-		else {
-		  $members = pluck('member|id', $this->assignment_model->by_date('now')->by_unit($unit_id, TRUE)->get()->result_array()); // Include children
+		else 
+		{
+			$members = pluck('member|id', $this->assignment_model->by_date('now')->by_unit($unit_id, TRUE)->get()->result_array()); // Include children
 			$awols = nest($this->attendance_model->awols($members, $days, true)->get()->result_array());
 			$grouped_and_sorted = $this->sort_awols($this->group_awols($awols));
 			$this->response(array('status' => true, 'awols' => $grouped_and_sorted));
 		}
     }
-    
+*/    
     /**
      * Helper Function
      * Put each member into parent's members array according to a key

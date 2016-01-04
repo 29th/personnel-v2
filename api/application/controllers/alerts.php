@@ -74,6 +74,14 @@ class Alerts extends MY_Controller {
 //            $skip = $this->input->get('skip') ? $this->input->get('skip') : 0;
             $model = $this->alerts_model;
             $ass_model = $this->assignment_model;
+            
+            //
+            $cabs_levels = array(
+                  1 => 2,
+                  2 => 5,
+                  3 => 10,
+                  4 => 20
+                );
 
             // Filter by unit
             if($filter_key == 'unit') {$model->by_unit2($filter_value);}
@@ -81,7 +89,7 @@ class Alerts extends MY_Controller {
             $model->get();
             
             $records = nest($model->result_array());
-            $aoccs = array();
+            $aoccs = $aqbs = $cabs = array();
 
             //Getting duration counted by units of 6 months to compare to number of AOCCs already awarded
             foreach ( $records as $klucz => $rec_obj)
@@ -91,9 +99,29 @@ class Alerts extends MY_Controller {
                 list($duration, $discharge_date) = $this->calculate_duration($assignments, $rec_obj['member']['id']);
                 $records[$klucz]['aoocs_due'] = floor( $duration/182.625 );
                 $records[$klucz]['ww1vs_due'] = floor( $duration/730.5 );
+                
+                //check for AOCC/WWIVM
                 if ( $records[$klucz]['aoocs_due'] > (int)$rec_obj['aocc_count'] || $records[$klucz]['ww1vs_due'] > (int)$rec_obj['ww1v_count'] )
                 {
                   $aoccs[] = $records[$klucz];
+                }
+                
+                //check for CABs
+                //lvl5 is recruiter's badge, in that case no other CABs are awarded
+                if ($rec_obj['last_enl_date'] > '2014-02-09' && $rec_obj['cab_lvl']<5) 
+                {
+                  if ( $rec_obj['rec_cnt'] >= $cabs_levels["4"] && $rec_obj['cab_lvl'] < 4 )  {
+                    $cabs[] = array( 'current_cab_lvl' => $rec_obj['cab_lvl'], 'due_cab_level' => 4, 'rec_cnt' => $rec_obj['rec_cnt'], 'member' => $rec_obj['member'], 'last_enl_date' => $rec_obj['last_enl_date'] );
+                  }
+                  elseif (  $rec_obj['rec_cnt'] >= $cabs_levels["3"] && $rec_obj['cab_lvl'] < 3 ) {
+                    $cabs[] = array( 'current_cab_lvl' => $rec_obj['cab_lvl'], 'due_cab_level' => 3, 'rec_cnt' => $rec_obj['rec_cnt'], 'member' => $rec_obj['member'], 'last_enl_date' => $rec_obj['last_enl_date'] );
+                  }
+                  elseif (  $rec_obj['rec_cnt'] >= $cabs_levels["2"] && $rec_obj['cab_lvl'] < 2 ) {
+                    $cabs[] = array( 'current_cab_lvl' => $rec_obj['cab_lvl'], 'due_cab_level' => 2, 'rec_cnt' => $rec_obj['rec_cnt'], 'member' => $rec_obj['member'], 'last_enl_date' => $rec_obj['last_enl_date'] );
+                  }
+                  elseif (  $rec_obj['rec_cnt'] >= $cabs_levels["1"] && $rec_obj['cab_lvl'] < 1 ) {
+                    $cabs[] = array( 'current_cab_lvl' => $rec_obj['cab_lvl'], 'due_cab_level' => 1, 'rec_cnt' => $rec_obj['rec_cnt'], 'member' => $rec_obj['member'], 'last_enl_date' => $rec_obj['last_enl_date'] );
+                  }
                 }
             }
             
@@ -101,7 +129,7 @@ class Alerts extends MY_Controller {
             $this->response(array(
                 'status' => true, 
                 'count' => $count, 
-                'alerts' => array( 'aoccs' => $aoccs, 'aqbs' => ''/*$aqbs*/ )/*,
+                'alerts' => array( 'aoccs' => $aoccs, 'aqbs' => '', 'cabs' => $cabs )/*,
                 'all_recs' => $records, 
                 'all_cnt' => sizeof( $records ) */
             ));
