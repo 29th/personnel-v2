@@ -278,6 +278,11 @@ body {
   font-weight: bold;
 }
 
+.fc-other-month {
+  background-color: #96A68C;   
+  color: white;
+}
+
 
 .datepicker table tr td.active.active
 {  
