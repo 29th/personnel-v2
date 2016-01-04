@@ -74,7 +74,8 @@ class Unit_model extends MY_Model {
         $this->db->select('units.*')
             ->select($this->virtual_fields['depth'] . ' AS depth', FALSE)
             ->select($this->virtual_fields['unit_key'] . ' AS `key`', FALSE)
-            ->select($this->virtual_fields['parent_id'] . ' AS parent_id', FALSE);
+            ->select($this->virtual_fields['parent_id'] . ' AS parent_id', FALSE)
+            ->select("(SELECT CONCAT( DATE_FORMAT(MIN(datetime),'%d %b %Y'),' - ', DATE_FORMAT(MAX(datetime),'%d %b %Y')) FROM events WHERE events.unit_id = `units`.id )  AS days", FALSE);
     }
     
     /*public function default_where() {
