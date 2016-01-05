@@ -262,7 +262,6 @@ class Units extends MY_Controller {
      * AWOLs
      * TODO: Add day param
      */
-/* MOVED TO alerts collection
     public function awols_get($filter) {
         $this->load->model('attendance_model');
         $days = $this->input->get('days') ? (int) $this->input->get('days') : 30;
@@ -289,7 +288,6 @@ class Units extends MY_Controller {
 			$this->response(array('status' => true, 'awols' => $grouped_and_sorted));
 		}
     }
-*/    
     /**
      * Helper Function
      * Put each member into parent's members array according to a key
