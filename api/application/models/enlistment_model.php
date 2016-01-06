@@ -138,6 +138,7 @@ class Enlistment_model extends MY_Model {
             ->select('enlistments.member_id AS `member|id`')
             ->select($this->virtual_fields['short_name'] . ' AS `member|short_name`', FALSE)
             ->select('members.steam_id AS `member|roid`')
+            ->select('members.rank_id AS `member|rank_id`')
             ->select('enlistments.liaison_member_id AS `liaison|id`')
             ->select('CONCAT(l_ranks.`abbr`, " ", IF(l_members.`name_prefix` != "", CONCAT(l_members.`name_prefix`, " "), ""), l_members.`last_name`) AS `liaison|short_name`', FALSE)
             ->select('enlistments.country_id AS `country|id`, countries.name AS `country|name`');
