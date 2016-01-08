@@ -1,6 +1,12 @@
 <div class="row header">
     <div class="col-sm-10">
-        <div class="title">{{ name }} <abbr>({{ abbr }})</abbr>{{#if this.active }}{{else}}<h5><span style='color:red;'>Unit is not active</span></h5> {{/if}}</div>
+        <div class="title">
+          <span class="unit_breadcrums"></span>
+          {{#if logo}}<img src='images/units/{{ logo }}' class="unit_logo" />{{/if}}
+          {{ name }} <abbr>({{ abbr }})</abbr>
+          {{#if this.active }}{{else}}<h5><span class="unit_not_active">Unit is not active</span></h5> {{/if}}<br>
+          {{#if slogan}}<center><span class="unit_slogan">"{{ slogan }}"</span></center>{{/if}}
+        </div>
     </div>
     <div class="col-sm-2" id="admin"></div>
 </div>
