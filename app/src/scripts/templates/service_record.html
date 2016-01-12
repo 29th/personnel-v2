@@ -82,6 +82,9 @@
                 <a href="#enlistments/{{ this.id }}" class="pull-left"><i class="fa fa-file-text"></i></a>
                 <div class="pull-right">
                     Enlisted{{#if this.unit_id}} in the {{ this.unit.abbr }}{{/if}}
+                    {{#is this.status "!==" 'Accepted'}}
+                      ({{this.status}})
+                    {{/is}}
                     {{#if this.topic_url}}
                         &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
                     {{/if}}
