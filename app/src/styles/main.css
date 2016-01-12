@@ -317,6 +317,54 @@ body {
   color:black;    
 }
 
+/* Notes */
+
+table.notes_table {
+    width: 100%;
+    border: 1px dotted black;
+    margin-bottom: 25px;
+}
+
+.notes_table th {
+    padding: 3px;    
+}
+
+.notes_table>tbody>tr:first-child>th {
+    border-top: 1px dotted black;   
+}
+
+.notes_table>tbody>tr>th {
+    background-color:#647359;
+    color: white;
+}
+
+.notes_table blockquote {
+    background-color: #FFFFE6;
+    border:1px dashed #4C5844;
+    border-left: 5px solid #4C5844;
+}
+
+.notes_table .note_title {
+    font-size: 1.4em;
+    font-weight:bold;
+}
+
+.note_level {
+    font-size: 0.8em;
+    text-align:right;
+    font-weight:normal;
+}
+
+.notes_table .notes_content {
+    background-color:#BBCEAF;
+    padding: 5px;
+}
+
+.quote_author {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 /* X-MAS */
 /*
 .panel .panel-heading {
@@ -366,3 +414,4 @@ nav.navbar {
     background: transparent;
 }
 */
+

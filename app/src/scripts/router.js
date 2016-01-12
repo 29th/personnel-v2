@@ -26,6 +26,7 @@ var $ = require("jquery"),
   FinancesBalance = require("./collections/finances_balance"),
   MemberAwols = require("./collections/member_awols"),
   MemberEnlistments = require("./collections/member_enlistments"),
+  Notes = require("./collections/notes"),
   Permissions = require("./collections/permissions"),
   Positions = require("./collections/positions"),
   Promotions = require("./collections/promotions"),
@@ -58,6 +59,7 @@ var $ = require("jquery"),
   MemberEditView = require("./views/member_edit"),
   MemberELOAsView = require("./views/member_eloas"),
   MemberELOAView = require("./views/member_eloa"),
+  MemberNotesView = require("./views/member_notes"),
   MemberProfileView = require("./views/member_profile"),
   MemberQualificationsView = require("./views/member_qualifications"),
   MemberRecruitsView = require("./views/member_recruits"),
@@ -675,6 +677,22 @@ require("./validation.config");
 
               pageView = new MemberRecruitsView({
                   collection: recruits
+              });
+          }
+
+          // Notes
+          else if (path == "notes") {
+              memberLayout.setHighlight("notes");
+
+              var notes = new Notes(null, {
+                  member_id: id,
+                  from: "2000",
+                  to: "today"
+              });
+              promises.push(notes.fetch());
+
+              pageView = new MemberNotesView({
+                  collection: notes
               });
           }
 
