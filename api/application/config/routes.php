@@ -13,6 +13,7 @@ $route['members/(:num)/awols'] = 'members/awols/$1';
 $route['members/(:num)/discharge'] = 'members/discharge/$1';
 $route['members/(:num)/coat'] = 'members/coat/$1';
 $route['members/(:num)/roles'] = 'members/roles/$1';
+$route['members/(:num)/notes'] = 'notes/index/member/$1';
 $route['members/(:num)/finances'] = 'finances/index/member/$1'; // Filtered
 $route['members/(:num)/eloas'] = 'eloas/index/member/$1'; // Filtered
 $route['members/(:num)/demerits'] = 'demerits/index/member/$1'; // Filtered
