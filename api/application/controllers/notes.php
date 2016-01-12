@@ -30,7 +30,7 @@ class Notes extends MY_Controller {
                 $permissions[] = 'Platoon Level';
             if ( $this->user->permission('note_view_mp') || $this->user->permission('note_view_co') || $this->user->permission('note_view_pl') || $this->user->permission('note_view_sq') )
                 $permissions[] = 'Squad Level';
-            if ( $this->user->permission('note_view_mp') || $this->user->permission('note_view_lh') )
+            if ( $this->user->permission('note_view_mp') || $this->user->permission('notes_view_lh') )
                 $permissions[] = 'Lighthouse';
             
             if($filter_key == 'member' && $member_id && is_numeric( $member_id ) ) {
@@ -58,7 +58,7 @@ class Notes extends MY_Controller {
                 $notes[$key] = $note;
             }
             
-            $this->response(array('status' => true, 'a' => $optxt, 'notes' => $notes, 'count' => sizeof($notes)  ));
+            $this->response(array('status' => true, 'notes' => $notes, 'count' => sizeof($notes)  ));
         }
     }
     

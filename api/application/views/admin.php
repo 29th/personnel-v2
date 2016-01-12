@@ -18,6 +18,7 @@ $pages = array(
     'events' => 'Events',
     'finances' => 'Finances',
     'members' => 'Members',
+    'notes' => 'Notes',
     'positions' => 'Positions',
     'promotions' => 'Promotions',
     'qualifications' => 'Qualifications',
