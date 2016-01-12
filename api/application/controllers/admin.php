@@ -319,6 +319,19 @@ class Admin extends CI_Controller {
         $this->output($output, 'notes');
 	}*/
 	
+	public function notes()
+	{
+	    $this->grocery_crud->set_table('notes')
+	        ->columns('date_add', 'member_id', 'subject', 'access','content')
+	        ->required_fields('member_id', 'author_member_id','subject', 'date_add','access')
+	        ->display_as('forum_id', 'Forum')
+	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member')
+	        ->set_relation('author_member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('author_member_id', 'Author');
+        $output = $this->grocery_crud->render();
+ 
+        $this->output($output, 'notes');
+	}
+    
 	public function positions()
 	{
 	    $this->grocery_crud->set_table('positions')

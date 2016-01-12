@@ -58,7 +58,7 @@ class Notes extends MY_Controller {
                 $notes[$key] = $note;
             }
             
-            $this->response(array('status' => true, 'a' => $optxt, 'notes' => $notes, 'count' => sizeof($notes)  ));
+            $this->response(array('status' => true, 'notes' => $notes, 'count' => sizeof($notes)  ));
         }
     }
     
