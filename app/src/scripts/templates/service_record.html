@@ -35,7 +35,7 @@
                         <a href="#/assignments/{{ this.id }}/edit"><i class="fa fa-edit"></i></a>
                     {{/if}}
                     {{#if this.topic_url}}
-                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-list-alt"></span></a>
                     {{/if}}
                 </div>
             </div>
@@ -53,7 +53,7 @@
                 <div class="pull-right">    
                     Rank changed to {{ this.new_rank.name }}
                     {{#if this.topic_url}}
-                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-list-alt"></span></a>
                     {{/if}}
                 </div>
             </div>
@@ -69,7 +69,7 @@
                 <div class="pull-right">
                 Awarded {{ this.award.name }}
                     {{#if this.topic_url}}
-                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-list-alt"></span></a>
                     {{/if}}
                 </div>
             </div>
@@ -86,7 +86,7 @@
                       ({{this.status}})
                     {{/is}}
                     {{#if this.topic_url}}
-                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-list-alt"></span></a>
                     {{/if}}
                 </div>
             </div>
@@ -103,7 +103,7 @@
                     {{#is this.type "===" 'General'}}Generally{{/is}}
                     Discharged
                     {{#if this.topic_url}}
-                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-list-alt"></span></a>
                     {{/if}}
                 </div>
             </div>
@@ -117,7 +117,7 @@
                 <div class="pull-right">
                     Donated ${{ decimals this.amount_received }}
                     {{#if this.topic_url}}
-                        <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                        <a href="{{ this.topic_url  }}"><span class="fa fa-list-alt"></span></a>
                     {{/if}}
                 </div>
             </div>
@@ -131,7 +131,7 @@
                 <div class="pull-right">
                     Received a demerit
                     {{#if this.topic_url}}
-                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-list-alt"></span></a>
                     {{/if}}
                 </div>
             </div>
