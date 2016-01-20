@@ -21,18 +21,7 @@ class Notes extends MY_Controller {
         // Index records
         else {
             
-            $permissions = Array('Public','Members Only');
-            if ( $this->user->permission('note_view_mp') )
-                $permissions[] = 'Military Police';
-            if ( $this->user->permission('note_view_mp') || $this->user->permission('note_view_co') )
-                $permissions[] = 'Company Level';
-            if ( $this->user->permission('note_view_mp') || $this->user->permission('note_view_co') || $this->user->permission('note_view_pl') )
-                $permissions[] = 'Platoon Level';
-            if ( $this->user->permission('note_view_mp') || $this->user->permission('note_view_co') || $this->user->permission('note_view_pl') || $this->user->permission('note_view_sq') )
-                $permissions[] = 'Squad Level';
-            if ( $this->user->permission('note_view_mp') || $this->user->permission('note_view_lh') )
-                $permissions[] = 'Lighthouse';
-            
+            $permissions = $this->get_notes_permissions();
             if($filter_key == 'member' && $member_id && is_numeric( $member_id ) ) {
                 $this->note_model->where('notes.member_id', $member_id);
             }
@@ -44,28 +33,91 @@ class Notes extends MY_Controller {
             $optxt = "";
             foreach( $notes as $key => $note ) 
             {
-                $safety = 0;
-                while ( ($qp = strpos( $note['content'], '[quote' ) ) !== false  && $safety++ < 20 ) 
-                {
-                    if ($qp)
-                        $qe = strpos( $note['content'], ']', $qp )+1;
-                    else
-                        $qe = strpos( $note['content'], ']' )+1;
-                    $optxt = substr( $note['content'], $qp, $qe-$qp );
-                    $note['content'] = substr( $note['content'], 0, $qp) . $this->quote_replace( $optxt ) . substr( $note['content'], $qe );
-                }
-                $note = str_replace( '[/quote]', '</blockquote>', $note );
-                $notes[$key] = $note;
+                $notes[$key]['content'] = $this->format_note( $note['content'] );
             }
             
             $this->response(array('status' => true, 'notes' => $notes, 'count' => sizeof($notes)  ));
         }
     }
     
+     public function view_get($note_id) {
+          // Must have permission to view this type of record for this member or for any member
+          if( ! $this->user->permission('note_view_any')) {
+               $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+          }
+          // View records
+          else {
+            $permissions = $this->get_notes_permissions();
+            if ( $this->user->permission('note_view_all') )
+               $note = nest($this->note_model->select_member()->get_by_id($note_id));
+            else
+               $note = nest($this->note_model->by_access($permissions)->select_member()->get_by_id($note_id));
+            $note['content'] = $this->format_note( $note['content'] );
+            $this->response(array('status' => true, 'note' => $note));
+          }
+     }
+
+    public function get_notes_permissions() {
+        $permissions = Array('Public','Members Only');
+        if ( $this->user->permission('note_view_mp') )
+            $permissions[] = 'Military Police';
+        if ( $this->user->permission('note_view_mp') || $this->user->permission('note_view_co') )
+            $permissions[] = 'Company Level';
+        if ( $this->user->permission('note_view_mp') || $this->user->permission('note_view_co') || $this->user->permission('note_view_pl') )
+            $permissions[] = 'Platoon Level';
+        if ( $this->user->permission('note_view_mp') || $this->user->permission('note_view_co') || $this->user->permission('note_view_pl') || $this->user->permission('note_view_sq') )
+            $permissions[] = 'Squad Level';
+        if ( $this->user->permission('note_view_mp') || $this->user->permission('note_view_lh') )
+            $permissions[] = 'Lighthouse';
+            
+        return $permissions;    
+    }
+    
+    public function format_note( $inStr = '' ) {
+        $safety = 0;
+        //Fixing quotes into blockquotes
+        while ( ($qp = strpos( $inStr, '[quote' ) ) !== false  && $safety++ < 20 ) 
+        {
+            if ($qp)
+                $qe = strpos($inStr, ']', $qp )+1;
+            else
+                $qe = strpos( $inStr, ']' )+1;
+            $optxt = substr( $inStr, $qp, $qe-$qp );
+            $inStr = substr( $inStr, 0, $qp) . $this->quote_replace( $optxt ) . substr( $inStr, $qe );
+        }
+        $inStr = str_replace( '[/quote]', '</blockquote>', $inStr );
+
+        //Fixing collapsibles
+        while ( ($qp = strpos( $inStr, '[collapsible' ) ) !== false  && $safety++ < 20 ) 
+        {
+            if ($qp)
+                $qe = strpos($inStr, ']', $qp )+1;
+            else
+                $qe = strpos( $inStr, ']' )+1;
+            $optxt = substr( $inStr, $qp, $qe-$qp );
+            $inStr = substr( $inStr, 0, $qp) . $this->collapsible_replace( $optxt ) . substr( $inStr, $qe );
+        }
+        $inStr = str_replace( '[/collapsible]', '</details>', $inStr );
+
+        $inStr = str_replace( '[hr]', '<hr>', $inStr );
+
+        return $inStr;
+    }
+
+    public function collapsible_replace( $inStr = '' ) {
+        $outStr = "<details><summary>";
+        if ( ($poz1 = strpos( $inStr, '=')) !== false ) /* we got author format from SMF forums */
+            $outStr .= substr( $inStr, $poz1 + 1, -1 );
+        else
+            $outStr .= "<b><i>Details:</i></b>";
+        $outStr .= "</summary>";
+        return $outStr;
+    }
+    
     public function quote_replace( $inStr = '' ) {
         $outStr = "<blockquote>";
-        $poz1 = strpos( $inStr, 'author=');
-        if ( $poz1 !== false ) 
+        
+        if ( ($poz1 = strpos( $inStr, 'author=')) !== false ) /* we got author format from SMF forums */
         {
             $poz2 = strpos( $inStr, 'link=' );
             $author = substr( $inStr, $poz1 + 7, $poz2-$poz1-8 );
@@ -84,6 +136,10 @@ class Notes extends MY_Controller {
                $outStr .= " on " . $date;
              
             $outStr .=':</span><br>';
+        }
+        elseif ( ($poz1 = strpos( $inStr, '=')) !== false )
+        {
+            $outStr .= '<span class="quote_author">' . substr( $inStr, $poz1 + 1, -1 ) . '</span>';
         }
         
         
