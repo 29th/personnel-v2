@@ -93,7 +93,7 @@ class Admin extends CI_Controller {
 	{
 	    $this->grocery_crud->set_table('awardings')
 	        ->required_fields('member_id', 'date', 'award_id')
-	        /*->field_type('forum_id', 'dropdown', array('1' => 'PHPBB', '2' => 'SMF', '3' => 'Vanilla'))*/->display_as('forum_id', 'Forum')
+	        ->display_as('forum_id', 'Forum')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member')
 	        ->set_relation('award_id', 'awards', 'title')->display_as('award_id', 'Award')
 	        ->callback_after_insert(array($this, '_callback_awardings_after_update'))
