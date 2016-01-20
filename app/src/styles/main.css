@@ -365,6 +365,11 @@ table.notes_table {
     text-decoration: underline;
 }
 
+.notes_content summary {
+    text-decoration: underline;
+    font-weight: bolder;
+}
+
 /* X-MAS */
 /*
 .panel .panel-heading {
