@@ -35,7 +35,7 @@
                         <a href="#/assignments/{{ this.id }}/edit"><i class="fa fa-edit"></i></a>
                     {{/if}}
                     {{#if this.topic_url}}
-                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-list-alt"></span></a>
                     {{/if}}
                 </div>
             </div>
@@ -53,7 +53,7 @@
                 <div class="pull-right">    
                     Rank changed to {{ this.new_rank.name }}
                     {{#if this.topic_url}}
-                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-list-alt"></span></a>
                     {{/if}}
                 </div>
             </div>
@@ -69,7 +69,7 @@
                 <div class="pull-right">
                 Awarded {{ this.award.name }}
                     {{#if this.topic_url}}
-                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-list-alt"></span></a>
                     {{/if}}
                 </div>
             </div>
@@ -82,8 +82,11 @@
                 <a href="#enlistments/{{ this.id }}" class="pull-left"><i class="fa fa-file-text"></i></a>
                 <div class="pull-right">
                     Enlisted{{#if this.unit_id}} in the {{ this.unit.abbr }}{{/if}}
+                    {{#is this.status "!==" 'Accepted'}}
+                      ({{this.status}})
+                    {{/is}}
                     {{#if this.topic_url}}
-                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-list-alt"></span></a>
                     {{/if}}
                 </div>
             </div>
@@ -100,7 +103,7 @@
                     {{#is this.type "===" 'General'}}Generally{{/is}}
                     Discharged
                     {{#if this.topic_url}}
-                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-list-alt"></span></a>
                     {{/if}}
                 </div>
             </div>
@@ -114,7 +117,7 @@
                 <div class="pull-right">
                     Donated ${{ decimals this.amount_received }}
                     {{#if this.topic_url}}
-                        <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                        <a href="{{ this.topic_url  }}"><span class="fa fa-list-alt"></span></a>
                     {{/if}}
                 </div>
             </div>
@@ -128,7 +131,7 @@
                 <div class="pull-right">
                     Received a demerit
                     {{#if this.topic_url}}
-                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                        &nbsp;&nbsp;<a href="{{ this.topic_url  }}"><span class="fa fa-list-alt"></span></a>
                     {{/if}}
                 </div>
             </div>
