@@ -9,8 +9,7 @@ var $ = require("jquery"),
           options = options || {};
           this.member_id = options.member_id || null;
           this.unit_id = options.unit_id || null;
-          this.from = options.from || null;
-          this.to = options.to || null;
+          this.no_content = options.no_content || null;
       },
       url: function () {
           var url = config.apiHost;
@@ -26,6 +25,7 @@ var $ = require("jquery"),
           if(this.skip) params.push("skip=" + this.skip);
           if(this.from) params.push("from=" + this.from);
           if(this.to) params.push("to=" + this.to);
+          if(this.no_content) params.push("no_content=" + this.no_content);
           if(params.length) url += "?" + params.join("&");
           
           return url;

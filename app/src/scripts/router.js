@@ -12,6 +12,7 @@ var $ = require("jquery"),
   Enlistment = require("./models/enlistment"),
   Event = require("./models/event"),
   Member = require("./models/member"),
+  Note = require("./models/note"),
   User = require("./models/user"),
   Assignments = require("./collections/assignments"),
   Attendance = require("./collections/attendance"),
@@ -66,6 +67,7 @@ var $ = require("jquery"),
   MemberReprimandsView = require("./views/member_reprimands"),
   MemberView = require("./views/member"),
   NavView = require("./views/nav"),
+  NoteView = require("./views/note"),
   RosterView = require("./views/roster"),
   ServiceRecordView = require("./views/service_record"),
   UnitActivityView = require("./views/unit_activity"),
@@ -105,6 +107,7 @@ require("./validation.config");
           "members/:id/assign": "assignment_add",
           "members/:id/*path": "member",
           "members/:id": "member",
+          "notes/:id": "note",
           "recruits": "recruits",
           "units/:filter/*path": "unit",
           "units/:filter": "unit",
@@ -283,6 +286,22 @@ require("./validation.config");
               
               $.when.apply($, promises).done(function() {
                   self.showView(demeritView);
+              });
+      },
+      note: function(id) {
+          var self = this,
+              promises = [],
+              note = new Note({
+                  id: id
+              }),
+              noteView = new NoteView({
+                  model: note
+              });
+              this.app.navRegion.currentView.setHighlight("roster");
+              promises.push(note.fetch());
+              
+              $.when.apply($, promises).done(function() {
+                  self.showView(noteView);
               });
       },
       discharge: function(id) {
@@ -686,8 +705,7 @@ require("./validation.config");
 
               var notes = new Notes(null, {
                   member_id: id,
-                  from: "2000",
-                  to: "today"
+                  no_content: "true"
               });
               promises.push(notes.fetch());
 
