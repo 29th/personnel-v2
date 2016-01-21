@@ -325,12 +325,17 @@ table.notes_table {
     margin-bottom: 25px;
 }
 
-.notes_table th {
+.notes_table th,td {
     padding: 3px;    
 }
 
 .notes_table>tbody>tr:first-child>th {
     border-top: 1px dotted black;   
+}
+
+.notes_table td:first-child a {
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 .notes_table>tbody>tr>th {
@@ -368,6 +373,17 @@ table.notes_table {
 .notes_content summary {
     text-decoration: underline;
     font-weight: bolder;
+}
+
+.notes_table blockquote.quote_letter {
+    background-color:#DFE4DC;
+}
+
+.notes_table blockquote.quote_letter span {
+    font-family: "Courier New";
+    font-size: 13pt;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 /* X-MAS */

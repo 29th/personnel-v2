@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+    <div class="panel-heading"><h2>Note{{#if member.short_name}} - {{ member.short_name }}{{/if}}</h2></div>
+    <div class="panel-body">
+          <table class="notes_table">
+              <tr>
+                  <th class="note_title">{{this.subject}}</th>
+                  <th class="note_level">{{this.access}}</th>
+              </tr>
+              <tr>
+                  <th colspan="2">Posted by <a href="#members/{{ this.author.id }}">{{this.author.short_name}}</a> on {{dateFormat this.date_add}}
+                      {{#if this.date_mod}}
+                          <small> (edited: {{this.date_mod}})</small>
+                      {{/if}}
+                  </th>
+              </tr>
+              <tr><td colspan="2" class="notes_content"><br>{{bbcode this.content}}</td></tr>
+          </table>
+    </div>
+</div>
