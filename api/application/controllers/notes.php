@@ -33,9 +33,11 @@ class Notes extends MY_Controller {
             $optxt = "";
             foreach( $notes as $key => $note ) 
             {
-                $notes[$key]['content'] = $this->format_note( $note['content'] );
+                if ( $this->input->get('no_content') )
+                    $notes[$key]['content'] = ''; //Unsetting disturbs APP
+                else    
+                    $notes[$key]['content'] = $this->format_note( $note['content'] );
             }
-            
             $this->response(array('status' => true, 'notes' => $notes, 'count' => sizeof($notes)  ));
         }
     }
@@ -99,6 +101,19 @@ class Notes extends MY_Controller {
         }
         $inStr = str_replace( '[/collapsible]', '</details>', $inStr );
 
+
+        //Fixing letter
+        while ( ($qp = strpos( $inStr, '[letter' ) ) !== false  && $safety++ < 20 ) 
+        {
+            if ($qp)
+                $qe = strpos($inStr, ']', $qp )+1;
+            else
+                $qe = strpos( $inStr, ']' )+1;
+            $optxt = substr( $inStr, $qp, $qe-$qp );
+            $inStr = substr( $inStr, 0, $qp) . $this->letter_replace( $optxt ) . substr( $inStr, $qe );
+        }
+        $inStr = str_replace( '[/letter]', '</blockquote>', $inStr );
+
         $inStr = str_replace( '[hr]', '<hr>', $inStr );
 
         return $inStr;
@@ -109,8 +124,17 @@ class Notes extends MY_Controller {
         if ( ($poz1 = strpos( $inStr, '=')) !== false ) /* we got author format from SMF forums */
             $outStr .= substr( $inStr, $poz1 + 1, -1 );
         else
-            $outStr .= "<b><i>Details:</i></b>";
+            $outStr .= "Details:";
         $outStr .= "</summary>";
+        return $outStr;
+    }
+    
+    public function letter_replace( $inStr = '' ) {
+        $outStr = "<blockquote class='quote_letter'><span>29TH INFANTRY DIVISION<br>116TH REGIMENT, 1ST BN<br>";
+        if ( ($poz1 = strpos( $inStr, '=')) !== false ) /* we got author format from SMF forums */
+            $outStr .= substr( $inStr, $poz1 + 1, -1 ) . "<br>";
+
+        $outStr .= "</span><center><img src='http://29th.org/images/116thicon.gif' /></center>";
         return $outStr;
     }
     
