@@ -92,11 +92,15 @@ $route['enlistments/(:num)/process'] = 'enlistments/process/$1';
 $route['enlistments/(:num)'] = 'enlistments/view/$1';
 $route['enlistments'] = 'enlistments/index';
 
+// Banlogs
+$route['banlogs'] = 'banlogs/index'; 
+$route['banlogs/(:num)'] = 'banlogs/view/$1';
+
 // Finances
 $route['finances'] = 'finances/index'; // Filtered
 
-// Finances
-$route['finances/balance'] = 'finances/balance'; // Filtered
+// Donations balance
+$route['finances/balance'] = 'finances/balance'; 
 
 // Extended LOAs
 $route['eloas'] = 'eloas/index'; // Filtered
