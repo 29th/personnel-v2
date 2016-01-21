@@ -325,8 +325,13 @@ table.notes_table {
     margin-bottom: 25px;
 }
 
-.notes_table th,td {
+.notes_table th {
     padding: 3px;    
+}
+
+.notes_table td {
+    padding: 3px; 
+    background-color:#FFFFE6;
 }
 
 .notes_table>tbody>tr:first-child>th {
