@@ -18,6 +18,7 @@ var $ = require("jquery"),
   Attendance = require("./collections/attendance"),
   AttendancePercentages = require("./collections/attendance_percentages"),
   Awardings = require("./collections/awardings"),
+  Banlogs = require("./collections/banlogs"),
   Demerits = require("./collections/demerits"),
   Discharges = require("./collections/discharges"),
   ELOAs = require("./collections/eloas"),
@@ -42,6 +43,7 @@ var $ = require("jquery"),
   AARView = require("./views/aar"),
   AssignmentEditView = require("./views/assignment_edit"),
   AssociateView = require("./views/associate"),
+  BanlogsView = require("./views/banlogs"),
   CalendarView = require("./views/calendar"),
   DemeritView = require("./views/demerit"),
   DischargeView = require("./views/discharge"),
@@ -91,6 +93,8 @@ require("./validation.config");
           //"assignments"
           "assignments/:id/edit": "assignment_edit",
           "associate": "associate",
+          "banlogs/:id": "banlog",
+          "banlogs": "banlogs",
           "calendar": "calendar",
           "demerits/:id": "demerit",
           "discharges/:id": "discharge",
@@ -385,6 +389,23 @@ require("./validation.config");
           $.when.apply($, promises).done(function () {
               //util.loading(false);
               self.showView(enlistmentsView);
+          });
+      },
+      banlogs: function () {
+          var self = this,
+              promises = [],
+              banlogs = new Banlogs(),
+              banlogsView = new BanlogsView({
+                  collection: banlogs
+              });
+
+          this.app.navRegion.currentView.setHighlight("banlogs");
+          promises.push(banlogs.fetch());
+
+          //util.loading(true);
+          $.when.apply($, promises).done(function () {
+              //util.loading(false);
+              self.showView(banlogsView);
           });
       },
       enlistment_add: function() {

@@ -2996,6 +2996,7 @@ select[multiple].form-group-lg .form-control {
 .btn:focus,
 .btn.focus {
   color: #5f7676;
+  background-color:whitesmoke;
   text-decoration: none;
 }
 .btn:active,
