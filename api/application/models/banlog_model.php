@@ -26,4 +26,10 @@ class Banlog_model extends MY_Model {
         $this->filter_join('ranks AS p_ranks', 'p_ranks.id = members.rank_id','left');
         return $this;
     }
+    
+    public function search_roid($seek_line) {
+//        $this->filter_where('banlog.roid', $seek_line );
+        $esc_str = $this->db->escape_like_str($seek_line);
+        $this->db->having("banlog.roid LIKE '%$esc_str%' OR banlog.handle LIKE '%$esc_str%' OR banlog.reason LIKE '%$esc_str%'");
+    }
 }
