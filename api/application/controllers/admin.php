@@ -136,9 +136,12 @@ class Admin extends CI_Controller {
 	{
 	    $this->grocery_crud->set_table('banlog')
 	        ->columns('date', 'handle', 'roid', 'id_admin')
-	        ->fields('date', 'handle', 'roid', 'id_admin', 'reason', 'comments')
+	        ->fields('date', 'handle', 'roid', 'uid', 'ip', 'id_admin', 'id_poster', 'reason', 'comments')
 	        ->required_fields('date', 'handle', 'roid', 'id_admin', 'reason')
-	        ->set_relation('id_admin', 'members', '{last_name}, {first_name} {middle_name}')->display_as('id_admin', 'Admin');
+	        ->display_as('uid', 'Unique ID')
+	        ->display_as('ip', 'IP')
+	        ->set_relation('id_admin', 'members', '{last_name}, {first_name} {middle_name}')->display_as('id_admin', 'Admin')
+	        ->set_relation('id_poster', 'members', '{last_name}, {first_name} {middle_name}')->display_as('id_poster', 'Poster');
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'banlog');
