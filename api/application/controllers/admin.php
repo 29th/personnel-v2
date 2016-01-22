@@ -507,6 +507,23 @@ class Admin extends CI_Controller {
  
         $this->output($output, 'unit_roles');
 	}
+
+	public function weapon_passes()
+	{
+	    $this->grocery_crud->set_table('passes')
+	        ->columns('add_date', 'member_id', 'start_date', 'end_date', 'type',  'reason')
+	        ->fields('add_date', 'member_id', 'author_id', 'recruit_id', 'start_date', 'end_date', 'type', 'reason')
+	        ->required_fields('date_add', 'member_id', 'author_id', 'start_date', 'end_date', 'reason')
+	        ->display_as('type','Type of Pass')
+	        ->display_as('add_date','Date of Adding')
+			->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member')
+	        ->set_relation('author_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('author_id', 'Author')
+	        ->set_relation('recruit_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('recruit_id', 'Recruit');
+        $output = $this->grocery_crud->render();
+ 
+        $this->output($output, 'weapon_passes');
+	}
+	
 	
 	/*
 	 * USER TRACKING
