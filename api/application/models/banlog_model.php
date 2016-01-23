@@ -30,6 +30,6 @@ class Banlog_model extends MY_Model {
     public function search_roid($seek_line) {
 //        $this->filter_where('banlog.roid', $seek_line );
         $esc_str = $this->db->escape_like_str($seek_line);
-        $this->db->having("banlog.roid LIKE '%$esc_str%' OR banlog.handle LIKE '%$esc_str%' OR banlog.reason LIKE '%$esc_str%'");
+        $this->db->having("banlog.roid LIKE '%$esc_str%' OR banlog.uid LIKE '%$esc_str%' OR banlog.guid LIKE '%$esc_str%' OR banlog.handle LIKE '%$esc_str%' OR banlog.reason LIKE '%$esc_str%' OR banlog.comments LIKE '%$esc_str%'");
     }
 }
