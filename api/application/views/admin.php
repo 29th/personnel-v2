@@ -29,7 +29,8 @@ $pages = array(
     'units' => 'Units',
     'unit_permissions' => 'Unit Permissions',
     'unit_roles' => 'Unit Roles',
-    'usertracking' => 'User Tracking'
+    'usertracking' => 'User Tracking',
+    'weapon_passes' => 'Weapon Passes'
 );
 
 ?>

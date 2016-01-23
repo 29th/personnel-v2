@@ -12,7 +12,7 @@ class Banlog_model extends MY_Model {
     }
     
     public function default_order_by() {
-        $this->db->order_by('banlog.id DESC');
+        $this->db->order_by('banlog.date DESC, banlog.id DESC');
     }
 
     public function select_member() {
