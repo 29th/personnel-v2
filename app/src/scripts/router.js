@@ -6,6 +6,7 @@ var $ = require("jquery"),
   Q = require("q"),
   util = require("./util"),
   Assignment = require("./models/assignment"),
+  Banlog = require("./models/banlog"),
   Demerit = require("./models/demerit"),
   Discharge = require("./models/discharge"),
   ELOA = require("./models/eloa"),
@@ -44,6 +45,7 @@ var $ = require("jquery"),
   AssignmentEditView = require("./views/assignment_edit"),
   AssociateView = require("./views/associate"),
   BanlogsView = require("./views/banlogs"),
+  BanlogView = require("./views/banlog"),
   CalendarView = require("./views/calendar"),
   DemeritView = require("./views/demerit"),
   DischargeView = require("./views/discharge"),
@@ -389,6 +391,25 @@ require("./validation.config");
           $.when.apply($, promises).done(function () {
               //util.loading(false);
               self.showView(enlistmentsView);
+          });
+      },
+      banlog: function (id) {
+          var self = this,
+              promises = [],
+              banlog = new Banlog({
+                  id: id
+              })
+              
+          var banlogView = new BanlogView({
+              model: banlog
+          });
+
+          this.app.navRegion.currentView.setHighlight("banlogs");
+          promises.push(banlog.fetch());
+
+          //util.loading(true);
+          $.when.apply($, promises).done(function () {
+              self.showView(banlogView);
           });
       },
       banlogs: function () {

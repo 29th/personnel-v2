@@ -22,7 +22,6 @@ var Marionette = require("backbone.marionette");
       },
       serializeData: function () {
           return $.extend({
-              vanilla_forum_url: config.forum.Vanilla.baseUrl,
           });
       },
       events: {
