@@ -10,7 +10,7 @@ var $ = require("jquery"),
           return config.apiHost + "/banlogs" + (this.id ? "/" + this.id : "");
       },
       parse: function (response, options) {
-          return response.banlog || {};
+          return response.banlogs || {};
       }
       //Here add verify when adding add/edit of banlogs
   });
