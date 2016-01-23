@@ -46,7 +46,7 @@ class Banlogs extends MY_Controller {
         }
 		// View records
 		else {
-            $banlogs = $this->banlog_model->select_member()->get_by_id($banlog_id);
+            $banlogs = nest( $this->banlog_model->select_member()->get_by_id($banlog_id) );
             $this->response(array('status' => true, 'banlogs' => $banlogs, 'a' => 'a' ));
 		}
     }
