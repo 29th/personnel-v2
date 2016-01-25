@@ -14,6 +14,7 @@ $route['members/(:num)/discharge'] = 'members/discharge/$1';
 $route['members/(:num)/coat'] = 'members/coat/$1';
 $route['members/(:num)/roles'] = 'members/roles/$1';
 $route['members/(:num)/notes'] = 'notes/index/member/$1';
+$route['members/(:num)/passes'] = 'passes/index/member/$1';
 $route['members/(:num)/finances'] = 'finances/index/member/$1'; // Filtered
 $route['members/(:num)/eloas'] = 'eloas/index/member/$1'; // Filtered
 $route['members/(:num)/demerits'] = 'demerits/index/member/$1'; // Filtered
@@ -105,6 +106,9 @@ $route['finances/balance'] = 'finances/balance';
 // Extended LOAs
 $route['eloas'] = 'eloas/index'; // Filtered
 $route['eloas/(:num)'] = 'eloas/view/$1';
+
+// Weapon Passes
+$route['passes'] = 'passes/index'; // Filtered
 
 // Admin
 $route['admin'] = 'admin/home';

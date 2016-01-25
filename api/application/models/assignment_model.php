@@ -113,7 +113,8 @@ class Assignment_model extends MY_Model {
             ->select('assignments.member_id AS `member|id`')
             ->select('units.id AS `unit|id`, units.abbr AS `unit|abbr`, units.name AS `unit|name`, ' . $this->virtual_fields['unit_key'] . ' AS `unit|key`, units.class AS `unit|class`, units.path AS `unit|path`, ' . $this->virtual_fields['depth'] . ' AS `unit|depth`', FALSE)
             ->select('positions.id AS `position|id`, positions.name AS `position|name`, positions.order AS `position|order`, positions.access_level AS `position|access_level`')
-            ->select('(SELECT COUNT(1)>0 FROM `eloas` WHERE `eloas`.`member_id` = assignments.member_id AND NOW() BETWEEN eloas.start_date AND eloas.end_date  ) as eloa');
+            ->select('(SELECT COUNT(1)>0 FROM `eloas` WHERE `eloas`.`member_id` = assignments.member_id AND NOW() BETWEEN eloas.start_date AND eloas.end_date  ) as eloa')
+            ->select('(SELECT COUNT(1)>0 FROM `passes` WHERE `passes`.`member_id` = assignments.member_id AND NOW() BETWEEN passes.start_date AND passes.end_date  ) as pass');
     }
     
     public function default_join() {
