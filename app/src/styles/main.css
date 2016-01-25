@@ -95,7 +95,7 @@ body {
 .unit #page {
     margin-top: 20px;
 }
-.unit .title abbr {
+/*.unit .title */abbr {
     color: #999999;
     font-size: 65%;
     font-weight: normal;
@@ -332,6 +332,10 @@ table.notes_table {
 .notes_table td {
     padding: 3px; 
     background-color:#FFFFE6;
+}
+
+.notes_table .center {
+    text-align:center;
 }
 
 .notes_table>tbody>tr:first-child>th {
