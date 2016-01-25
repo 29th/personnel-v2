@@ -30,7 +30,7 @@ class Passes extends MY_Controller {
                 $model->by_member( $member_id );
             $passes = nest($model->select_member()->paginate('', $skip)->result_array());
             $count = $model->total_rows;
-            $this->response(array('xx' => $option, 'yy' => $member_id, 'status' => true, 'count' => $count, 'skip' => $skip, 'passes' => $passes));
+            $this->response(array( 'status' => true, 'count' => $count, 'skip' => $skip, 'passes' => $passes));
         }
     }
     
