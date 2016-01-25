@@ -1,4 +1,4 @@
-<td>
+<td nowrap="nowrap">
   <a href="#members/{{ member.id }}/passes">{{ member.short_name }}</a>
   {{#if (eloa_active start_date end_date)}}
      <span class="active_eloa eloa_label">PASS ACTIVE</span>
@@ -7,7 +7,7 @@
      <span class="future_eloa eloa_label">UPCOMING PASS</span>
   {{/if}}
 </td>
-<td>{{ start_date }}</td>
-<td>{{ end_date }}</td>
-<td>{{ type }}</td>
+<td nowrap="nowrap">{{ start_date }}</td>
+<td nowrap="nowrap">{{ end_date }}</td>
+<td nowrap="nowrap">{{ type }}</td>
 <td>{{ reason }}</td>
