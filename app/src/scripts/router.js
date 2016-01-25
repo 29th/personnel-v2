@@ -14,6 +14,7 @@ var $ = require("jquery"),
   Event = require("./models/event"),
   Member = require("./models/member"),
   Note = require("./models/note"),
+  Pass = require("./models/pass"),
   User = require("./models/user"),
   Assignments = require("./collections/assignments"),
   Attendance = require("./collections/attendance"),
@@ -34,6 +35,7 @@ var $ = require("jquery"),
   Positions = require("./collections/positions"),
   Promotions = require("./collections/promotions"),
   Qualifications = require("./collections/qualifications"),
+  Passes = require("./collections/passes"),
   Recruits = require("./collections/recruits"),
   Servers = require("./collections/servers"),
   Standards = require("./collections/standards"),
@@ -72,6 +74,7 @@ var $ = require("jquery"),
   MemberView = require("./views/member"),
   NavView = require("./views/nav"),
   NoteView = require("./views/note"),
+  PassesView = require("./views/passes"),
   RosterView = require("./views/roster"),
   ServiceRecordView = require("./views/service_record"),
   UnitActivityView = require("./views/unit_activity"),
@@ -114,6 +117,7 @@ require("./validation.config");
           "members/:id/*path": "member",
           "members/:id": "member",
           "notes/:id": "note",
+          "passes": "passes",
           "recruits": "recruits",
           "units/:filter/*path": "unit",
           "units/:filter": "unit",
@@ -255,6 +259,42 @@ require("./validation.config");
           var associateView = new AssociateView({model: this.user});
           this.showView(associateView);
       },
+      banlog: function (id) {
+          var self = this,
+              promises = [],
+              banlog = new Banlog({
+                  id: id
+              })
+              
+          var banlogView = new BanlogView({
+              model: banlog
+          });
+
+          this.app.navRegion.currentView.setHighlight("banlogs");
+          promises.push(banlog.fetch());
+
+          //util.loading(true);
+          $.when.apply($, promises).done(function () {
+              self.showView(banlogView);
+          });
+      },
+      banlogs: function () {
+          var self = this,
+              promises = [],
+              banlogs = new Banlogs(),
+              banlogsView = new BanlogsView({
+                  collection: banlogs
+              });
+
+          this.app.navRegion.currentView.setHighlight("banlogs");
+          promises.push(banlogs.fetch());
+
+          //util.loading(true);
+          $.when.apply($, promises).done(function () {
+              //util.loading(false);
+              self.showView(banlogsView);
+          });
+      },
       calendar: function (id, member_id) {
           var self = this,
               promises = [],
@@ -294,22 +334,6 @@ require("./validation.config");
                   self.showView(demeritView);
               });
       },
-      note: function(id) {
-          var self = this,
-              promises = [],
-              note = new Note({
-                  id: id
-              }),
-              noteView = new NoteView({
-                  model: note
-              });
-              this.app.navRegion.currentView.setHighlight("roster");
-              promises.push(note.fetch());
-              
-              $.when.apply($, promises).done(function() {
-                  self.showView(noteView);
-              });
-      },
       discharge: function(id) {
           var self = this,
               promises = [],
@@ -340,6 +364,21 @@ require("./validation.config");
 
           $.when.apply($, promises).done(function () {
               self.showView(eloasView);
+          });
+      },
+      passes: function() {
+          var self = this,
+              promises = [],
+              passes = new Passes();
+
+          var passesView = new PassesView({
+              collection: passes
+          });
+
+          promises.push(passes.fetch());
+
+          $.when.apply($, promises).done(function () {
+              self.showView(passesView);
           });
       },
       enlistment: function (id) {
@@ -391,42 +430,6 @@ require("./validation.config");
           $.when.apply($, promises).done(function () {
               //util.loading(false);
               self.showView(enlistmentsView);
-          });
-      },
-      banlog: function (id) {
-          var self = this,
-              promises = [],
-              banlog = new Banlog({
-                  id: id
-              })
-              
-          var banlogView = new BanlogView({
-              model: banlog
-          });
-
-          this.app.navRegion.currentView.setHighlight("banlogs");
-          promises.push(banlog.fetch());
-
-          //util.loading(true);
-          $.when.apply($, promises).done(function () {
-              self.showView(banlogView);
-          });
-      },
-      banlogs: function () {
-          var self = this,
-              promises = [],
-              banlogs = new Banlogs(),
-              banlogsView = new BanlogsView({
-                  collection: banlogs
-              });
-
-          this.app.navRegion.currentView.setHighlight("banlogs");
-          promises.push(banlogs.fetch());
-
-          //util.loading(true);
-          $.when.apply($, promises).done(function () {
-              //util.loading(false);
-              self.showView(banlogsView);
           });
       },
       enlistment_add: function() {
@@ -600,6 +603,22 @@ require("./validation.config");
               type: type
           });
           this.app.flashRegion.show(flashView);
+      },
+      note: function(id) {
+          var self = this,
+              promises = [],
+              note = new Note({
+                  id: id
+              }),
+              noteView = new NoteView({
+                  model: note
+              });
+              this.app.navRegion.currentView.setHighlight("roster");
+              promises.push(note.fetch());
+              
+              $.when.apply($, promises).done(function() {
+                  self.showView(noteView);
+              });
       },
       member: function (id, path) {
           var self = this,
