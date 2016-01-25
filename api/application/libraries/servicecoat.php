@@ -77,22 +77,37 @@ class ServiceCoat {
     	    $this->load->model('member_model');
     	    $this->load->model('awarding_model');
     	    
+            $gdDate = $this->find_GD( $member_id );
             $member = nest($this->member_model->get_by_id($member_id));
             $rank = str_replace( '/', '', str_replace('.', '', $member['rank']['abbr']) );
             $unit = '29th';
+            //Checking for GD or DD to remove previous awards
             //$awards = array('acamp', 'gcon', 'french', 'lom', 'aocc', 's:rifle:dod', 'e:mg:dod', 'dsc', 'aocc', 'aocc', 'adef', 'dod', 'aocc', 'cib1', 'aocc', 'm:armor:dh', 'aocc', 'ww1v', 'cab1', 'aocc', 'aocc', 'aocc', 'aocc', 'aocc', 'aocc', 'ww1v');
-            $awardings = $this->awarding_model->where('awardings.member_id', $member_id)->get()->result_array();
+            if( $gdDate )
+            	$awardings = $this->awarding_model->where(array('awardings.member_id' => $member_id, 'awardings.date >' => $gdDate ))->get()->result_array();
+            else
+            	$awardings = $this->awarding_model->where('awardings.member_id', $member_id)->get()->result_array();
             $awardings_abbr = pluck('award|abbr', $awardings);
             $this->update_servicecoatC($member['last_name'], $member['steam_id'], $rank, $unit, $awardings_abbr);
+//            $this->update_servicecoatC( $this->find_GD( $member_id ), $member['steam_id'], $rank, $unit, $awardings_abbr);
             
             return array(
-                'name' => $member['last_name']
+                'name' =>  $member['last_name']
                 ,'id' => $member['steam_id']
                 ,'rank' => $rank
                 ,'unit' => $unit
                 ,'awardings' => $awardings_abbr
             );
 	    }
+	}
+	
+	public function find_GD( $member_id ) {
+        $this->load->model('discharge_model');
+        $this->discharge_model->where('type !=','Honorable');
+        $this->discharge_model->where('discharges.member_id',$member_id);
+        $this->discharge_model->order_by('date DESC');
+        $gdDate = $this->discharge_model->get()->result_array();
+		return ( $gdDate ? $gdDate[0]['date'] : '' );
 	}
 
 	private function imageftboxtoImage(&$image, $font, $font_size, $left, $top, $right, $bottom, $align, $valign, $text, $color)
