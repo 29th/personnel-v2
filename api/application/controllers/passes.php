@@ -27,8 +27,10 @@ class Passes extends MY_Controller {
             $skip = $this->input->get('skip') ? $this->input->get('skip', TRUE) : 0;
             $model = $this->pass_model;
             if ( $option == 'member' && is_numeric($member_id) )
-                $model->by_member( $member_id );
-            $passes = nest($model->select_member()->paginate('', $skip)->result_array());
+                $model->by_member( $member_id )->limit(99999)->select_member()->get();
+            else
+                $model->select_member()->paginate('', $skip);
+            $passes = nest($model->result_array());
             $count = $model->total_rows;
             $this->response(array( 'status' => true, 'count' => $count, 'skip' => $skip, 'passes' => $passes));
         }
