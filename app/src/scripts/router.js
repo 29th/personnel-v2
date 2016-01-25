@@ -67,6 +67,7 @@ var $ = require("jquery"),
   MemberELOAsView = require("./views/member_eloas"),
   MemberELOAView = require("./views/member_eloa"),
   MemberNotesView = require("./views/member_notes"),
+  MemberPassesView = require("./views/member_passes"),
   MemberProfileView = require("./views/member_profile"),
   MemberQualificationsView = require("./views/member_qualifications"),
   MemberRecruitsView = require("./views/member_recruits"),
@@ -74,7 +75,7 @@ var $ = require("jquery"),
   MemberView = require("./views/member"),
   NavView = require("./views/nav"),
   NoteView = require("./views/note"),
-  PassesView = require("./views/passes"),
+  PassView = require("./views/passes"),
   RosterView = require("./views/roster"),
   ServiceRecordView = require("./views/service_record"),
   UnitActivityView = require("./views/unit_activity"),
@@ -371,7 +372,7 @@ require("./validation.config");
               promises = [],
               passes = new Passes();
 
-          var passesView = new PassesView({
+          var passesView = new PassView({
               collection: passes
           });
 
@@ -772,6 +773,20 @@ require("./validation.config");
 
               pageView = new MemberNotesView({
                   collection: notes
+              });
+          }
+
+           // Weapon Passes
+          else if (path == "passes") {
+              memberLayout.setHighlight("passes");
+
+              var passes = new Passes(null, {
+                  member_id: id
+              });
+              promises.push(passes.fetch());
+
+              pageView = new MemberPassesView({
+                  collection: passes
               });
           }
 
