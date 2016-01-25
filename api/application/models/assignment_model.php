@@ -171,6 +171,8 @@ class Assignment_model extends MY_Model {
         switch($by) {
             case 'priority':
                 $this->filter_order_by('units.class, `unit|depth`, positions.order DESC'); break;
+            case 'name':
+                $this->filter_order_by('members.last_name'); break;
             default:
                 $this->filter_order_by('positions.order DESC, ranks.order DESC, assignments.start_date'); break;
         }

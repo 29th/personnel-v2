@@ -47,9 +47,11 @@ class Units extends MY_Controller {
 				// Get unit members if ?members=true
 				if($this->input->get('members') == 'true') {
 					$members = $this->assignment_model->by_unit($units[0]['id'], $this->input->get("children") ? TRUE : FALSE);
-					if( ! $this->input->get('historic')) $members = $members->by_date('now');
-					if($this->input->get('distinct')) $members = $members->distinct_members();
-					$members = $members->order_by($this->input->get('order') ? $this->input->get('order') : 'rank');
+					if( ! $this->input->get('historic')) 
+						$members = $members->by_date('now');
+					if($this->input->get('distinct'))
+						$members = $members->distinct_members();
+					$members = $members->order_by($this->input->get('order') ? $this->input->get('order') : 'rank' );
 					$members = nest($members->get()->result_array()); // Get members of this unit, including members of this unit's children, who are current
 					$units = $this->members_in_parents($members, $units, 'unit_id', 'id', 'members', $this->input->get("flat") ? TRUE : FALSE);
 					
