@@ -515,7 +515,7 @@ class Admin extends CI_Controller {
 	    $this->grocery_crud->set_table('passes')
 	        ->columns('add_date', 'member_id', 'start_date', 'end_date', 'type',  'reason')
 	        ->fields('add_date', 'member_id', 'author_id', 'recruit_id', 'start_date', 'end_date', 'type', 'reason')
-	        ->required_fields('date_add', 'member_id', 'author_id', 'start_date', 'end_date', 'reason')
+	        ->required_fields('add_date', 'member_id', 'author_id', 'start_date', 'end_date', 'type', 'reason')
 	        ->display_as('type','Type of Pass')
 	        ->display_as('add_date','Date of Adding')
 			->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member')
