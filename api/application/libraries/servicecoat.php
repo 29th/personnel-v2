@@ -26,7 +26,7 @@ class ServiceCoat {
 			's:rifle:a3','s:bar:a3','s:zook:a3','s:mg:a3','s:sniper:a3','s:armor:a3','s:smg:a3',
 			'e:rifle:a3','e:bar:a3','e:zook:a3','e:mg:a3','e:sniper:a3','e:armor:a3','e:smg:a3'
 			);
-		private $scAllARibbons = array('french','ww1v','aocc','eamc','acamp','adef','gcon','aach','arcom','pheart','bstar','sm','lom','sstar','dsm','dsc','ww2v','dms','anpdr','movsm','arcam');
+		private $scAllARibbons = array('french','ww1v','aocc','eamc','acamp','adef','gcon','aach','arcom','anpdr','pheart','bstar','sm','lom','sstar','dsm','dsc','ww2v','dms','movsm','arcam');
 		private $scAllURibbons = array('dh','dod','trenches','battlegrounds','muc','rs','arma');
 		private $scAllTRBadges = array('eib','cib','cib1','cib2','cib3','cib4','cab','cab1','cab2','cab3','cab4');
 		private $scAllTLBadges = array('rd');
@@ -644,6 +644,10 @@ class ServiceCoat {
 					'num' => 0,
 					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Army Commendation Medal.png')
 					),
+				'anpdr' => array(
+					'num' => 0,
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Army NCO Professional Development Ribbon.png')
+					),
 				'pheart' => array(
 					'num' => 0,
 					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Purple Heart.png')
@@ -679,10 +683,6 @@ class ServiceCoat {
 				'dms' => array(
 					'num' => 0,
 					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Defense Meritorious Service Medal Ribbon.png')
-					),
-				'anpdr' => array(
-					'num' => 0,
-					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Army NCO Professional Development Ribbon.png')
 					),
 				'movsm' => array(
 					'num' => 0,
