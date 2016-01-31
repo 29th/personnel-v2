@@ -95,6 +95,15 @@ class Member_model extends MY_Model {
         return $this;
     }
     
+    public function search_name( $pattern ) {
+        $esc_str = $this->db->escape_like_str($pattern);
+        $this->filter_where("(members.last_name LIKE '%$esc_str%' OR members.first_name LIKE '%$esc_str%')");
+        $this->select(' (SELECT type FROM discharges WHERE member_id = members.id ORDER BY date DESC LIMIT 1) AS dis_type ');
+        $this->select(' (SELECT status FROM enlistments WHERE member_id = members.id ORDER BY date DESC LIMIT 1) AS enlist ');
+        $this->order_by('members.rank_id DESC, units.id DESC, members.id ASC');
+        return $this;
+    }
+    
     public function distinct_members() {
         $this->filter_group_by('members.id');
         return $this;

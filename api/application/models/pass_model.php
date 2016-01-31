@@ -35,7 +35,7 @@ class Pass_model extends MY_Model {
     }
     
     public function default_order_by() {
-        $this->db->order_by('passes.start_date DESC, passes.end_date DESC');
+        $this->db->order_by('passes.end_date DESC, passes.start_date DESC');
     }
 
     public function active($date = FALSE) {
