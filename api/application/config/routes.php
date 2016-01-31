@@ -21,6 +21,7 @@ $route['members/(:num)/demerits'] = 'demerits/index/member/$1'; // Filtered
 $route['members/(:num)/events'] = 'events/index/member/$1'; // Filtered
 $route['members/(:num)/recruits'] = 'recruits/index/member/$1'; // Filtered
 $route['members/(:num)'] = 'members/view/$1';
+$route['members/search/(:any)'] = 'members/search/$1';
 $route['members'] = 'members/index';
 
 // Units

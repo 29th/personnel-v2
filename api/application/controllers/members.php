@@ -346,6 +346,21 @@ class Members extends MY_Controller {
         }
     }
     
+    public function search_get($pattern = '') {
+        // Must have permission to view this member's profile or any member's profile
+        if( ! $this->user->permission('profile_view_any')) {
+            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+        }
+        // View records
+        else {
+            if (strlen($pattern)>2)
+                $members = nest($this->member_model->distinct_members()->search_name($pattern)->get()->result_array());
+            else
+                $members = array();
+            $this->response(array('status' => true, 'members' => $members ));
+        }
+    }
+    
     /**
      * EXECUTE DISCHARGE
      */
