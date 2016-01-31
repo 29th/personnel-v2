@@ -24,6 +24,7 @@ var $ = require("jquery"),
   Demerits = require("./collections/demerits"),
   Discharges = require("./collections/discharges"),
   ELOAs = require("./collections/eloas"),
+  MemberSearch = require("./collections/membersearch"),
   Enlistments = require("./collections/enlistments"),
   Events = require("./collections/events"),
   Finances = require("./collections/finances"),
@@ -52,6 +53,7 @@ var $ = require("jquery"),
   DemeritView = require("./views/demerit"),
   DischargeView = require("./views/discharge"),
   ELOAsView = require("./views/eloas"),
+  MemberSearchView = require("./views/membersearch"),
   EnlistmentEditView = require("./views/enlistment_edit"),
   EnlistmentProcessView = require("./views/enlistment_process"),
   EnlistmentsView = require("./views/enlistments"),
@@ -105,6 +107,7 @@ require("./validation.config");
           "demerits/:id": "demerit",
           "discharges/:id": "discharge",
           "eloas": "eloas",
+          "membersearch": "membersearch",
           "enlistments/:id/edit": "enlistment_edit",
           "enlistments/:id/process": "enlistment_process",
           "enlistments/:id": "enlistment",
@@ -365,6 +368,21 @@ require("./validation.config");
 
           $.when.apply($, promises).done(function () {
               self.showView(eloasView);
+          });
+      },
+      membersearch: function() {
+          var self = this,
+              promises = [],
+              membersearch = new MemberSearch();
+
+          var membersearchView = new MemberSearchView({
+              collection: membersearch
+          });
+
+          promises.push(membersearch.fetch());
+
+          $.when.apply($, promises).done(function () {
+              self.showView(membersearchView);
           });
       },
       passes: function() {

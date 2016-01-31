@@ -4,6 +4,10 @@ body {
     background-color: #4C5844;
 }
 
+.row.header {
+    color: #D3D3D3;
+}
+
 /* Navbar */
 .navbar-brand {
     background: url("../images/site-logo.png") no-repeat -35px top;
@@ -67,7 +71,7 @@ body {
 }
 
 .member .assignments a {
-    color: #16027B;
+    color: #1CADF1; /* #16027B; */
 }
 
 /* Service Record */
