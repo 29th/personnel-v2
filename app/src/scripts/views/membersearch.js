@@ -14,7 +14,7 @@ var Marionette = require("backbone.marionette");
   module.exports = Marionette.CompositeView.extend({
       template: Template,
       itemView: ItemView,
-      title: "Extended LOAs",
+      title: "Members Search",
       itemViewContainer: "#rows"
       /**
        * Necessary because our collection will finish fetching before this view is rendered,
