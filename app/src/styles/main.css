@@ -71,7 +71,8 @@ body {
 }
 
 .member .assignments a {
-    color: #1CADF1; /* #16027B; */
+    color: #dfe5c9; /* #16027B; */
+    font-weight: bold;
 }
 
 /* Service Record */
