@@ -35,7 +35,7 @@ class ELOA_model extends MY_Model {
     }
     
     public function default_order_by() {
-        $this->db->order_by('eloas.start_date DESC, eloas.end_date DESC');
+        $this->db->order_by('eloas.end_date DESC, eloas.start_date DESC');
     }
 
     public function active($date = FALSE) {
