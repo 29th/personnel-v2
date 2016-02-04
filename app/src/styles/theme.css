@@ -2995,8 +2995,8 @@ select[multiple].form-group-lg .form-control {
 .btn:hover,
 .btn:focus,
 .btn.focus {
-  color: #5f7676;
-  background-color:whitesmoke;
+  color: #2B2C28;
+  background-color: #DFE5C9;
   text-decoration: none;
 }
 .btn:active,
@@ -3023,11 +3023,11 @@ fieldset[disabled] .btn {
 }
 
 .btn-default a {
-  color: white;
+  color: #2B2C28;
 }
 
 .btn-default a:hover {
-  color: #B9111F;
+  color: #2B2C28;
 }
 
 .btn-default:hover,
@@ -3079,9 +3079,9 @@ fieldset[disabled] .btn-default.active {
 .btn-default:active,
 .btn-default.active,
 .open > .dropdown-toggle.btn-default {
-  color: #5f7676;
-  background-color: #d5dde0;
-  border-color: #a1aab0;
+  color: #2B2C28;
+  background-color: #DFE5C9;
+  border-color: #686F5A;
 }
 .btn-default:active,
 .btn-default.active,
@@ -3587,8 +3587,8 @@ fieldset[disabled] .btn-link:focus {
 .btn-block {
   display: block;
   width: 100%;
-  background-color: #647359;
-  color: white;
+  background-color: #55584A;
+  color: #C3C3C3;
 }
 .btn-block + .btn-block {
   margin-top: 5px;

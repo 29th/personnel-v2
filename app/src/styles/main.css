@@ -39,9 +39,11 @@ body {
 }
 
 #forums-link button a:hover {
-    color: red;
+    color: #2B2C28;
 }
-
+#forums-link button a {
+    color: #DFE5C9 ;
+}
 /* Collapsible qualifications */
 /*.roster .depth-2 > div:not(.header-row) {
     display: none;
