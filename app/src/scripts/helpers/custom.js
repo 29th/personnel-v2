@@ -121,7 +121,7 @@ Handlebars.registerHelper('substring', function () {
 });
 
 Handlebars.registerHelper('enlistment_label', function (status) {
-    return (status === "Accepted" ? "primary" : (status === "Withdrawn" ? "warning" : (status === "Denied" ? "danger" : "default")));
+    return (status === "Accepted" ? "primary" : (status === "Withdrawn" ? "warning" : (status === "Denied" ? "danger" : (status === "AWOL" ? "info" : "default"))));
 });
 
 Handlebars.registerHelper('bbcode', function (string) {
