@@ -174,7 +174,7 @@ class Assignment_model extends MY_Model {
             case 'name':
                 $this->filter_order_by('members.last_name'); break;
             default:
-                $this->filter_order_by('positions.order DESC, ranks.order DESC, assignments.start_date'); break;
+                $this->filter_order_by('positions.order DESC, ranks.order DESC, assignments.start_date, members.last_name'); break;
         }
         return $this;
     }
