@@ -15,7 +15,7 @@ class Attendance_model extends MY_Model {
         $this->filter_join('ranks', 'ranks.id = members.rank_id');
         $this->filter_where('attendance.event_id', $event_id);
         $this->filter_where('(attendance.attended IS NOT NULL OR attendance.excused = 1)');
-        $this->filter_order_by('ranks.order DESC');
+        $this->filter_order_by('ranks.order DESC, members.last_name');
         return $this;
     }
 
