@@ -1,13 +1,12 @@
 body {
     padding-top: 60px;
     padding-bottom: 40px;
-    background-color: #4C5844;
+    background-color: #565A42;
 }
 
 .row.header {
     color: #D3D3D3;
 }
-
 /* Navbar */
 .navbar-brand {
     background: url("../images/site-logo.png") no-repeat -35px top;
@@ -29,7 +28,7 @@ body {
     font-size: 80%;
 }
 .qualification small {
-    color: #4C5844;
+    color: #858F9C;
 }
 .cursor {
     cursor: pointer;
@@ -40,9 +39,11 @@ body {
 }
 
 #forums-link button a:hover {
-    color: red;
+    color: #2B2C28;
 }
-
+#forums-link button a {
+    color: #DFE5C9 ;
+}
 /* Collapsible qualifications */
 /*.roster .depth-2 > div:not(.header-row) {
     display: none;
@@ -260,7 +261,7 @@ body {
 
 .unit_stats a,
 .unit_stats a:hover {
-    color: #251673;
+    color: #DFE5C9;
 }
 
 .stat_unit_head{
@@ -275,11 +276,11 @@ body {
 }
 
 .stat_good {
-  background-color: lightgreen;
+  background-color: #009800;
 }
 
 .stat_soso {
-  background-color: yellow;
+  background-color: #AFAF00;
 }
 
 .stat_bad {
@@ -299,7 +300,7 @@ body {
 }
 
 .fc-today {
-  background-color: #B9111F;
+  background-color: #2B2C28;
   color: black;
   font-weight: bold;
 }
@@ -326,7 +327,7 @@ body {
 
 table.notes_table {
     width: 100%;
-    border: 1px dotted black;
+    border: 1px solid #2B2C28;
     margin-bottom: 25px;
 }
 
@@ -336,7 +337,7 @@ table.notes_table {
 
 .notes_table td {
     padding: 3px; 
-    background-color:#FFFFE6;
+    background-color:#42443A;
 }
 
 .notes_table .center {
@@ -344,7 +345,7 @@ table.notes_table {
 }
 
 .notes_table>tbody>tr:first-child>th {
-    border-top: 1px dotted black;   
+    border-top: 1px solid #2B2C28;   
 }
 
 .notes_table td:first-child a {
@@ -353,8 +354,8 @@ table.notes_table {
 }
 
 .notes_table>tbody>tr>th {
-    background-color:#647359;
-    color: white;
+    background-color:#55584A;
+    color: #C3C3C3;
 }
 
 .notes_table blockquote {
