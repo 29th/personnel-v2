@@ -1,6 +1,6 @@
 <div class="panel panel-default">
-    <div class="panel-heading"><h2>Note{{#if member.short_name}} - {{ member.short_name }}{{/if}}</h2></div>
-    <div class="panel-body">
+    <div class="panel-heading"><h2>Note{{#if member.short_name}} - <a href="#members/{{ member.id }}">{{ member.short_name }}</a>{{/if}}</h2></div>
+    <div class="panel-body notes">
           <table class="notes_table">
               <tr>
                   <th class="note_title">{{this.subject}}</th>
