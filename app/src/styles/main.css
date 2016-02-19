@@ -362,6 +362,7 @@ table.notes_table {
     background-color: #FFFFE6;
     border:1px dashed #4C5844;
     border-left: 5px solid #4C5844;
+    color:#42443A;
 }
 
 .notes_table .note_title {
@@ -376,7 +377,7 @@ table.notes_table {
 }
 
 .notes_table .notes_content {
-    background-color:#BBCEAF;
+    background-color:#42443A;
     padding: 5px;
 }
 

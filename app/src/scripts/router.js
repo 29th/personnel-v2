@@ -15,6 +15,7 @@ var $ = require("jquery"),
   Member = require("./models/member"),
   Note = require("./models/note"),
   Pass = require("./models/pass"),
+  TP = require("./models/tp"),
   User = require("./models/user"),
   Assignments = require("./collections/assignments"),
   Attendance = require("./collections/attendance"),
@@ -37,6 +38,7 @@ var $ = require("jquery"),
   Promotions = require("./collections/promotions"),
   Qualifications = require("./collections/qualifications"),
   Passes = require("./collections/passes"),
+  TPs = require("./collections/tps"),
   Recruits = require("./collections/recruits"),
   Servers = require("./collections/servers"),
   Standards = require("./collections/standards"),
@@ -77,7 +79,8 @@ var $ = require("jquery"),
   MemberView = require("./views/member"),
   NavView = require("./views/nav"),
   NoteView = require("./views/note"),
-  PassView = require("./views/passes"),
+  PassesView = require("./views/passes"),
+  TPsView = require("./views/tps"),
   RosterView = require("./views/roster"),
   ServiceRecordView = require("./views/service_record"),
   UnitActivityView = require("./views/unit_activity"),
@@ -122,6 +125,7 @@ require("./validation.config");
           "members/:id": "member",
           "notes/:id": "note",
           "passes": "passes",
+          "tps": "tps",
           "recruits": "recruits",
           "units/:filter/*path": "unit",
           "units/:filter": "unit",
@@ -385,12 +389,27 @@ require("./validation.config");
               self.showView(membersearchView);
           });
       },
+      tps: function() {
+          var self = this,
+              promises = [],
+              tps = new TPs();
+
+          var tpsView = new TPsView({
+              collection: tps
+          });
+
+          promises.push(tps.fetch());
+
+          $.when.apply($, promises).done(function () {
+              self.showView(tpsView);
+          });
+      },
       passes: function() {
           var self = this,
               promises = [],
               passes = new Passes();
 
-          var passesView = new PassView({
+          var passesView = new PassesView({
               collection: passes
           });
 
