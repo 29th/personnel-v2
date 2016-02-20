@@ -1077,7 +1077,7 @@ require("./validation.config");
               var assignments = new Assignments(null, {
                   unit_id: filter || "Bn",
                   from: "30 days ago",
-                  to: "today"
+                  to: "tomorrow"
               });
               promises.push(assignments.fetch());
 
@@ -1085,7 +1085,7 @@ require("./validation.config");
               var promotions = new Promotions(null, {
                   unit_id: filter || "Bn",
                   from: "30 days ago",
-                  to: "today"
+                  to: "tomorrow"
               });
               promises.push(promotions.fetch());
 
@@ -1093,7 +1093,7 @@ require("./validation.config");
               var awardings = new Awardings(null, {
                   unit_id: filter || "Bn",
                   from: "30 days ago",
-                  to: "today"
+                  to: "tomorrow"
               });
               promises.push(awardings.fetch());
 
@@ -1101,7 +1101,7 @@ require("./validation.config");
               var finances = new Finances(null, {
                   unit_id: filter || "Bn",
                   from: "30 days ago",
-                  to: "today"
+                  to: "tomorrow"
               });
               promises.push(finances.fetch());
 
@@ -1109,7 +1109,7 @@ require("./validation.config");
               var demerits = new Demerits(null, {
                   unit_id: filter || "Bn",
                   from: "30 days ago",
-                  to: "today"
+                  to: "tomorrow"
               });
               promises.push(demerits.fetch());
 
@@ -1117,7 +1117,7 @@ require("./validation.config");
               var eloas = new ELOAs(null, {
                   unit_id: filter || "Bn",
                   from: "30 days ago",
-                  to: "today"
+                  to: "tomorrow"
               });
               promises.push(eloas.fetch());
 
@@ -1125,7 +1125,7 @@ require("./validation.config");
               var discharges = new Discharges(null, {
                   unit_id: filter || "Bn",
                   from: "30 days ago",
-                  to: "today"
+                  to: "tomorrow"
               });
               promises.push(discharges.fetch());
 
@@ -1133,7 +1133,7 @@ require("./validation.config");
               var qualifications = new Qualifications(null, {
                   unit_id: filter || "Bn",
                   from: "30 days ago",
-                  to: "today"
+                  to: "tomorrow"
               });
               promises.push(qualifications.fetch());
 
@@ -1141,7 +1141,7 @@ require("./validation.config");
               var attendance = new Attendance(null, {
                   unit_id: filter || "Bn",
                   from: "30 days ago",
-                  to: "today"
+                  to: "tomorrow"
               });
               promises.push(attendance.fetch());
 
