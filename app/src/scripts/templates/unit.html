@@ -1,12 +1,25 @@
 <div class="row header">
     <div class="col-sm-10">
-        <div class="title">
-          <span class="unit_breadcrums"></span>
-          {{#if logo}}<img src='images/units/{{ logo }}' class="unit_logo" />{{/if}}
-          {{ name }} <abbr>({{ abbr }})</abbr>
-          {{#if this.active }}{{else}}<h5><span class="unit_not_active">Unit is not active</span></h5> {{/if}}<br>
-          {{#if slogan}}<center><span class="unit_slogan">"{{ slogan }}"</span></center>{{/if}}
-        </div>
+      <span class="unit_breadcrums"></span>
+      <table class="unit_header">
+          <tr>
+              <td class="unit_logo" rowspan="3">{{#if this.logo}}<img src='images/units/{{ logo }}' />{{/if}}</td>
+              <td class="unit_title">
+                  {{ name }} <abbr>({{ abbr }})</abbr>
+                  {{#if this.steam_group_abbr}}<a href="http://steamcommunity.com/groups/{{steam_group_abbr}}" taget="_blank"><img src="images/other/steam.gif"></a>{{/if}}<br>
+                  {{#if this.active }}{{else}}<span class="unit_not_active">Unit is not active</span> {{/if}}</td>
+          </tr>
+          <tr>
+              <td class="unit_nickname">
+                  {{#if nickname}}a.k.a. "<span>{{ nickname }}</span>"{{/if}}
+              </td>
+          </tr>
+          <tr>
+              <td class="unit_slogan">
+                   {{#if slogan}}"{{ slogan }}"{{/if}}
+              </td>
+          </tr>
+      </table>
     </div>
     <div class="col-sm-2" id="admin"></div>
 </div>
