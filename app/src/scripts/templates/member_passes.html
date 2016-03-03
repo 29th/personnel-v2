@@ -7,7 +7,7 @@
                 {{#each passes}}
                   <tr>
                       <td class="center">
-  {{#if (eloa_active start_date end_date)}}<span class="active_eloa eloa_label">ACTIVE</span>{{/if}}
+  {{#if (between start_date end_date)}}<span class="active_eloa eloa_label">ACTIVE</span>{{/if}}
   {{#if (eloa_future start_date)}}<span class="future_eloa eloa_label">UPCOMING</span>{{/if}}
                       </td>
                       <td nowrap="nowrap">{{dateFormat this.start_date}}</td>

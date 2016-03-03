@@ -41,6 +41,19 @@ var $ = require("jquery"),
       },
       parse: function (response, options) {
           this.more = parseInt(response.count, 10) > parseInt(response.skip, 10) + response.units.length;
+          for (var i = 0; i < response.units.length; i++ ) {
+            if (response.units[i]['days']) 
+            {
+              var the_dates = response.units[i]['days'].split(' - ');
+              response.units[i]['start_date'] = the_dates[0];
+              response.units[i]['end_date'] = the_dates[1];
+            }
+            else
+            {
+              response.units[i]['start_date'] = "unknown";
+              response.units[i]['end_date'] = "unknown";
+            }
+          }
           return response.units || [];
       }
   });

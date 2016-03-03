@@ -138,7 +138,7 @@ Handlebars.registerHelper('past', function (date) {
     return moment(date).isBefore(moment());
 });
 
-Handlebars.registerHelper('eloa_active', function (s_date, e_date) {
+Handlebars.registerHelper('between', function (s_date, e_date) {
     return moment(e_date).add(1, 'days').isAfter(moment()) && moment(s_date).isBefore(moment());
 });
 

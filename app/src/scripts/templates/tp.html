@@ -1,0 +1,74 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2> {{ tp.name }}</h2>
+    </div>
+    <div class="panel-body panel-no-padding tp-info">
+      <div>  
+        Game: <span> {{ tp.game }}</span><br>
+        Timezone: <span> {{ tp.timezone }}</span><br>
+        Active: <span> {{#is tp.active "===" "1"}} <b>Yes</b> {{else}} No {{/is}}</span><br>
+      </div>
+      
+      <div>
+          <header>BCT Days:</header>
+          <ol>
+          {{#if tp.bct_days}}
+            {{#each tp.bct_days }}
+              <li><a href="#events/{{this.id}}">{{dateFormat this.datetime format="DD MMM YYYY, HH:mm"}} EST</a> {{#if this.reporter_member_id }} Attendance: {{day_perc}}% {{else}} - No AAR yet{{/if}}
+            {{/each}}
+          {{else}}
+              <b>No BCT days have been set for that Training Platoon!</b>
+          {{/if}}
+          </ol>
+      </div>
+    </div>
+    <div class="panel-body panel-no-padding tp-data">
+        <table class="table table-horizontal">
+          <thead>
+            <tr>
+                <th rowspan="2">Name</th>
+                <th rowspan="2">Recruiter</th>
+                <th rowspan="2">Enlistment</th>
+                <th rowspan="2">Steam</th>
+                <th colspan="5" style="border-bottom:0;text-align:center;width:25%">Attendance</th>
+            </tr>
+            <tr>
+                <th class="text-center">1</th>
+                <th class="text-center">2</th>
+                <th class="text-center">3</th>
+                <th class="text-center">4</th>
+                <th class="text-center">5</th>
+            </tr>
+          </thead>
+          <tbody>
+          {{#if tp.members}}
+            {{#each tp.members}}
+            <tr>
+                <td>
+                    <img src={{#if this.country.abbr}}"images/countries/{{ toLowerCase this.country.abbr }}.png" title="{{ this.country.name }}"{{else}}"images/countries/___.png"{{/if}}>&nbsp;&nbsp;
+                    <a href="#members/{{ this.member.id }}">{{ this.member.short_name }}</a>&nbsp;
+                </td>
+                <td>{{#if this.enlistment.recruiter_short }} <a href="#members/{{ this.enlistment.recruiter_member_id}}">{{this.enlistment.recruiter_short }}</a>  {{/if}}</td>
+                <td>{{#if this.enlistment.id }} <a href='#enlistments/{{this.enlistment.id}}'>{{this.enlistment.status}}</a> {{else}} -!- {{/if}}</td>
+                <td>{{#if this.member.roid}}<a href='http://steamcommunity.com/profiles/{{this.member.roid}}' target='_blank'><img src='images/other/steam.gif' /></a>{{/if}}</td>
+
+                {{#if this.att}}
+                    {{#each this.att}}
+                <td class={{#is this.attended "===" "1"}}"tp-attended">Yes{{else}}"tp-absent">{{#is this.event_id "===" "0" }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{else}}No{{/is}}{{/is}}</td>
+                    {{/each}}
+                {{else}}
+                <td class="tp-absent">No</td>
+                <td class="tp-absent">No</td>
+                <td class="tp-absent">No</td>
+                <td class="tp-absent">No</td>
+                <td class="tp-absent">No</td>
+                {{/if}}
+            </tr>
+            {{/each}}
+          {{else}}
+              <tr><td colspan="9" class="text-center"> No recruits have been assigned to that Training Platoon </td></tr>
+          {{/if}}
+          </tbody>
+        </table>
+    </div>
+</div>

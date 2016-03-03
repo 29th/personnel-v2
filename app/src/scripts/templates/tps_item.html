@@ -1,6 +1,23 @@
-<td nowrap="nowrap">{{ abbr }}</td>
+<td nowrap="nowrap"><a href='#tps/{{id}}'>{{ abbr }}</a></td>
 <td nowrap="nowrap">{{ game }}</td>
 <td nowrap="nowrap">{{ timezone }}</td>
-<td nowrap="nowrap">{{#is active ">" "0"}} <span class="active_eloa eloa_label">Active</span>{{else}}Not active{{/is}}</td>
+<td class="text-center" nowrap="nowrap">
+    <span class="eloa_label
+    {{#is active ">" "0"}}
+        {{#is (between start_date end_date) }}
+            current-tp">Current
+        {{else}}
+            active-tp">Active
+        {{/is}}
+    {{else}}
+        nonactive-tp">
+        {{#is (past end_date) }}
+            Ended
+        {{else}}
+            Upcoming
+        {{/is}}
+    {{/is}}
+    </span>
+</td>
 <td nowrap="nowrap">{{ days }}</td>
 <td>{{ member_count }}</td>

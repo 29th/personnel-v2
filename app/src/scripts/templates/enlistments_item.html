@@ -1,8 +1,16 @@
 <td nowrap><a href="#enlistments/{{ this.id }}">{{dateFormat this.date}}</a></td>
 <td><span class="label label-{{ enlistment_label this.status }}">{{ this.status }}</span></td>
 <td nowrap><a href="#units/{{ this.unit.key }}">{{ this.unit.abbr }}</a></td>
-<td nowrap>{{#is this.member.rank_id ">" 1}}&#9733; {{/is}}{{ this.last_name }}{{#if this.first_name}}, {{ this.first_name }}{{/if}}{{#if middle_name}} {{ substring middle_name 0 1 }}.{{/if}}</td>
+<td nowrap>
+    <img src="images/countries/{{#if country.abbr}}{{ toLowerCase this.country.abbr }}.png" title="{{ this.country.name }}{{else}}___.png" {{/if}}">&nbsp;
+    {{#is this.member.rank_id ">" 1}}&#9733; {{/is}}{{ this.last_name }}{{#if this.first_name}}, {{ this.first_name }}{{/if}}{{#if middle_name}} {{ substring middle_name 0 1 }}.{{/if}}
+</td>
 <td>{{#if this.ingame_name }}{{ this.ingame_name }}{{/if}}</td>
-<td>{{#if this.member.roid}}<a href='http://steamcommunity.com/profiles/{{this.member.roid}}' target='_blank'><img src='images/other/steam.gif' /></a>{{/if}}</td>
+<td nowrap>
+    {{#if this.member.roid}}
+        <a href='http://steamcommunity.com/profiles/{{this.member.roid}}' target='_blank'><img src='images/other/steam.gif' /></a> &nbsp; 
+    {{/if}}
+    {{game}}/{{timezone}}
+</td>
 <td nowrap>{{#if this.liaison.id }}<a href="#members/{{ this.liaison.id }}">{{ this.liaison.short_name }}</a>{{/if}}</td>
-<td>{{#if this.recruiter_member_id }}<a href="#members/{{ this.recruiter_member_id }}">{{ this.recruiter }}</a>{{else}}{{ this.recruiter }}{{/if}}</td>
+<td>{{#if this.recruiter_member_id }}<a href="#members/{{ this.recruiter_member_id }}">{{ substring recruiter 0 20 }}</a>{{else}}{{ substring recruiter 0 20 }}{{/if}}</td>
