@@ -335,8 +335,45 @@ abbr {
 
 /* TPs */
 .tp-info {
-  color:black;    
+  color:white;
 }
+
+.tp-info div {
+    display: inline-block;
+    padding: 0 20px;
+    vertical-align: text-top;
+}
+
+.tp-info > div > span {
+     color: white;   
+     font-size:1.3em;
+}
+
+.tp-attended {
+  color:white;    
+  font-weight:bold;
+  text-align:center;
+}
+
+.tp-absent {
+  color:#FF1111;    
+  font-weight:bold;
+  text-align:center;
+}
+
+.active-tp{
+    background-color: #B9111F;
+}
+
+.nonactive-tp{
+    background-color: black;   
+}
+
+.current-tp{
+    background-color: blue;
+}
+
+
 
 /* Notes */
 

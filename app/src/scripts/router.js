@@ -80,6 +80,7 @@ var $ = require("jquery"),
   NavView = require("./views/nav"),
   NoteView = require("./views/note"),
   PassesView = require("./views/passes"),
+  TPView = require("./views/tp"),
   TPsView = require("./views/tps"),
   RosterView = require("./views/roster"),
   ServiceRecordView = require("./views/service_record"),
@@ -125,6 +126,7 @@ require("./validation.config");
           "members/:id": "member",
           "notes/:id": "note",
           "passes": "passes",
+          "tps/:id": "tp",
           "tps": "tps",
           "recruits": "recruits",
           "units/:filter/*path": "unit",
@@ -387,6 +389,25 @@ require("./validation.config");
 
           $.when.apply($, promises).done(function () {
               self.showView(membersearchView);
+          });
+      },
+      tp: function (id) {
+          var self = this,
+              promises = [],
+              tp = new TP({
+                  id: id
+              })
+              
+          var tpView = new TPView({
+              model: tp
+          });
+
+          this.app.navRegion.currentView.setHighlight("tps");
+          promises.push(tp.fetch());
+
+          //util.loading(true);
+          $.when.apply($, promises).done(function () {
+              self.showView(tpView);
           });
       },
       tps: function() {

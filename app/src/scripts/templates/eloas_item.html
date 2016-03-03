@@ -1,6 +1,6 @@
 <td>
   <a href="#members/{{ member.id }}/eloas">{{ member.short_name }}</a>
-  {{#if (eloa_active start_date end_date)}}
+  {{#if (between start_date end_date)}}
      <span class="active_eloa eloa_label">ELOA ACTIVE</span>
   {{/if}}
   {{#if (eloa_future start_date)}}

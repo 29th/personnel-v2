@@ -5,7 +5,7 @@
         {{#each eloas}}
           <hr>
           From <b>{{dateFormat this.start_date format="ll"}}</b> to <b>{{dateFormat this.end_date format="ll"}}</b> 
-  {{#if (eloa_active this.start_date this.end_date)}}
+  {{#if (between this.start_date this.end_date)}}
      <span class="active_eloa eloa_label">ELOA ACTIVE</span>
   {{/if}}
   {{#if (eloa_future this.start_date)}}
