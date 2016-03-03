@@ -111,6 +111,10 @@ $route['eloas/(:num)'] = 'eloas/view/$1';
 // Weapon Passes
 $route['passes'] = 'passes/index'; // Filtered
 
+// TPs / Lighthouse
+$route['tps'] = 'tps/index'; // Filtered
+$route['tps/(:num)'] = 'tps/view/$1'; // Filtered
+
 // Admin
 $route['admin'] = 'admin/home';
 
