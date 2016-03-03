@@ -141,7 +141,7 @@ class Enlistment_model extends MY_Model {
             ->select('members.rank_id AS `member|rank_id`')
             ->select('enlistments.liaison_member_id AS `liaison|id`')
             ->select('CONCAT(l_ranks.`abbr`, " ", IF(l_members.`name_prefix` != "", CONCAT(l_members.`name_prefix`, " "), ""), l_members.`last_name`) AS `liaison|short_name`', FALSE)
-            ->select('enlistments.country_id AS `country|id`, countries.name AS `country|name`');
+            ->select('enlistments.country_id AS `country|id`, countries.name AS `country|name`, countries.abbr AS `country|abbr`');
     }
     
     public function default_join() {
