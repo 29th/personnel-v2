@@ -12,9 +12,13 @@
       <div>
           <header>BCT Days:</header>
           <ol>
-          {{#each tp.bct_days }}
+          {{#if tp.bct_days}}
+            {{#each tp.bct_days }}
               <li><a href="#events/{{this.id}}">{{dateFormat this.datetime format="DD MMM YYYY, HH:mm"}} EST</a> {{#if this.reporter_member_id }} Attendance: {{day_perc}}% {{else}} - No AAR yet{{/if}}
-          {{/each}}
+            {{/each}}
+          {{else}}
+              <b>No BCT days have been set for that Training Platoon!</b>
+          {{/if}}
           </ol>
       </div>
     </div>
