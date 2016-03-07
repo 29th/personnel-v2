@@ -49,6 +49,32 @@ class Banlogs extends MY_Controller {
             $banlogs = nest( $this->banlog_model->select_member()->get_by_id($banlog_id) );
             $this->response(array('status' => true, 'banlogs' => $banlogs, 'a' => 'a' ));
 		}
-    }
-    
+    }   //view_get
+
+
+    public function index_post() {
+        // Must be logged in
+        if( ! ($forum_member_id = $this->user->logged_in())) 
+        {
+            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+        }
+        // Form validation for both models
+        else if($this->banlog_model->run_validation('validation_rules_add') === FALSE) 
+        {
+            $this->response(array('status' => false, 'error' => $this->banlog_model->validation_errors), 400);
+        }
+        // Create record
+        else 
+        {
+            // Create enlistment record using member_id
+/*
+*/
+            $banlog_data = whitelist($this->post(), array('roid', 'uid', 'guid', 'handle', 'ip', 'date', 'id_admin', 'reason', 'comments'));
+            $banlog_data['id_poster'] = $this->db->query("SELECT id FROM `members` WHERE forum_member_id = " . $this->user->logged_in() )->result_array()[0]['id'];
+        
+            $insert_id = $this->banlog_model->save(NULL, $banlog_data);
+            $new_record = $insert_id ? nest($this->banlog_model->get_by_id($insert_id)) : null;
+            $this->response(array('status' => $insert_id ? true : false, 'banlogs' => $new_record));
+        }
+    }   //index_post
 }

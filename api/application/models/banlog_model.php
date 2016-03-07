@@ -4,6 +4,23 @@ class Banlog_model extends MY_Model {
     public $table = 'banlog';
     public $primary_key = 'banlog.id';
     
+    public function validation_rules_add() {
+        return array(
+            array(
+                'field' => 'handle'
+                ,'rules' => 'min_length[1]||max_length[40]'
+            )
+            ,array(
+                'field' => 'reason'
+                ,'rules' => 'min_length[1]||max_length[60]'
+            )
+            ,array(
+                'field' => 'roid'
+                ,'rules' => 'numeric'
+            )
+        );
+    }
+    
     public function default_select() {
         $this->db->select('SQL_CALC_FOUND_ROWS banlog.*', FALSE);
     }
