@@ -51,6 +51,7 @@ var $ = require("jquery"),
   AssociateView = require("./views/associate"),
   BanlogsView = require("./views/banlogs"),
   BanlogView = require("./views/banlog"),
+  BanlogEditView = require("./views/banlog_edit"),
   CalendarView = require("./views/calendar"),
   DemeritView = require("./views/demerit"),
   DischargeView = require("./views/discharge"),
@@ -105,6 +106,7 @@ require("./validation.config");
           //"assignments"
           "assignments/:id/edit": "assignment_edit",
           "associate": "associate",
+          "banlogs/add": "banlog_add",
           "banlogs/:id": "banlog",
           "banlogs": "banlogs",
           "calendar": "calendar",
@@ -286,6 +288,37 @@ require("./validation.config");
           //util.loading(true);
           $.when.apply($, promises).done(function () {
               self.showView(banlogView);
+          });
+      },
+      banlog_add: function() {
+          var self = this,
+              promises = [],
+              banlog = new Banlog(),
+              units = new Units(null, {
+                  children: true,
+                  members: true,
+                  flat: true,
+                  distinct: true
+              }),
+              banlogEditView = new BanlogEditView({
+                  units: units,
+                  model: banlog
+              });
+
+          this.app.navRegion.currentView.setHighlight("banlogs");
+          
+          promises.push(banlog.fetch(),units.fetch());
+          // User must be logged in and not already a member
+//          $.when(this.promises.user).done(function(user) {
+          $.when.apply($, promises).done(function(user) {
+              // Must be logged in
+              if(self.user.get("forum_member_id") === undefined) {
+                  // not logged in
+                  self.showView(new FlashView({msg: "You must be logged in to view this page", type: "error"}));
+              } else {
+                  // Success - logged in and not already a member
+                  self.showView(banlogEditView);
+              }
           });
       },
       banlogs: function () {

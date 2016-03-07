@@ -27,10 +27,16 @@ var Marionette = require("backbone.marionette");
       events: {
           "click .more": "onClickMore",
           "click .searcher": "onClickBtnGroup",
+          "click .add_banlog": "onClickAddBanLog",
           "change .search_pattern": "onClickBtnGroup"
       },
       onRender: function () {
           this.checkMoreButton();
+      },
+      onClickAddBanLog: function () {
+          Backbone.history.navigate('banlogs/add', {
+                          trigger: true
+                      });
       },
       onClickMore: function (e) {
           e.preventDefault();
