@@ -26,7 +26,8 @@ var Marionette = require("backbone.marionette");
       },
       events: {
           "click .more": "onClickMore",
-          "click .searcher": "onClickBtnGroup"
+          "click .searcher": "onClickBtnGroup",
+          "change .search_pattern": "onClickBtnGroup"
       },
       onRender: function () {
           this.checkMoreButton();
@@ -54,13 +55,9 @@ var Marionette = require("backbone.marionette");
           var btn = $(e.currentTarget),
               self = this,
               search_pattern = $( "#search_pattern" ).val();
-//              status = btn.data("status");
-//          $(".btn-group .btn").removeClass("active");
-//          btn.addClass("active");
           this.collection.resetPage();
           this.collection.setFilter("status", search_pattern).fetch({
               success: function () {
-//                  self.checkMoreButton();
               }
               // TODO: Add error handling, loading indicator?
           });
