@@ -2,8 +2,11 @@
     <div class="panel-heading">
         <h2>Ban Logs</h2>
         <br>
-        <input type="text" class="form-control" id="search_pattern" name="search_pattern" value="" width="40">
+        <input type="text" class="form-control search_pattern" id="search_pattern" name="search_pattern" value="" width="40">
         <button type="button" id="search_btn" class="btn btn-default searcher">Search ROID, Handle or Reason</button>
+        {{#if allowedTo.addBanLog}}
+        <button type="button" id="add_banlog" class="btn btn-default add_banlog">Add New Ban Log</button>
+        {{/if}}
     </div>
     <div class="panel-body">
 

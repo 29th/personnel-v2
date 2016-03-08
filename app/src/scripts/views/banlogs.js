@@ -17,19 +17,34 @@ var Marionette = require("backbone.marionette");
       title: "Banlogs",
       itemView: ItemView,
       itemViewContainer: "#rows",
-      initialize: function () {
+      initialize: function (options) {
+          options = options || {};
+          this.permissions = options.permissions || {};
+          this.permissions.on("reset", this.render, this);
           _.bindAll(this, "onClickMore", "onClickBtnGroup");
       },
       serializeData: function () {
+          var permissions = this.permissions.length ? this.permissions.pluck("abbr") : [],
+              allowedTo = {
+                  addBanLog: permissions.indexOf("banlog_edit_any") !== -1
+              };
           return $.extend({
+              allowedTo: allowedTo
           });
       },
       events: {
           "click .more": "onClickMore",
-          "click .searcher": "onClickBtnGroup"
+          "click .searcher": "onClickBtnGroup",
+          "click .add_banlog": "onClickAddBanLog",
+          "change .search_pattern": "onClickBtnGroup"
       },
       onRender: function () {
           this.checkMoreButton();
+      },
+      onClickAddBanLog: function () {
+          Backbone.history.navigate('banlogs/add', {
+                          trigger: true
+                      });
       },
       onClickMore: function (e) {
           e.preventDefault();
@@ -54,13 +69,9 @@ var Marionette = require("backbone.marionette");
           var btn = $(e.currentTarget),
               self = this,
               search_pattern = $( "#search_pattern" ).val();
-//              status = btn.data("status");
-//          $(".btn-group .btn").removeClass("active");
-//          btn.addClass("active");
           this.collection.resetPage();
           this.collection.setFilter("status", search_pattern).fetch({
               success: function () {
-//                  self.checkMoreButton();
               }
               // TODO: Add error handling, loading indicator?
           });

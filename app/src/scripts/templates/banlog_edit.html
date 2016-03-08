@@ -1,0 +1,81 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+     <h2>Add / Edit a Ban Log</h2>
+  </div>
+  <div class="panel-body">
+  <form role="form">
+    
+    <div class="form-group">
+        <label for="date">Date</label>
+        <input type="text" class="form-control" name="date" id="date" value="{{ date }}" data-provide="datepicker" data-date-format="yyyy-mm-dd">
+        <p class="help-block error-msg"></p>
+    </div>
+    
+    <div class="form-group">
+        <label for="handle">In-Game Handle</label>
+        <input type="text" class="form-control" name="handle" id="handle" value="{{ handle }}">
+        <p class="help-block error-msg"></p>
+    </div>
+    
+    <div class="form-group">
+        <label for="roid">ROID</label>
+        <input type="text" class="form-control" name="roid" id="roid" value="{{ roid }}">
+        <p class="help-block">Please use ROID (steamID64) - a 17-digit number.  <a href="http://www.29th.org/generators/idconvert2/" target="_blank">UID->ROID Converter</a></p>
+        <p class="help-block error-msg"></p>
+    </div>
+    
+    <div class="form-group">
+        <label for="uid">Unique ID</label>
+        <input type="text" class="form-control" name="uid" id="uid" value="{{ uid }}">
+        <p class="help-block">Format: 0x01234567890ABCDE</p>
+        <p class="help-block error-msg"></p>
+    </div>
+    
+    <div class="form-group">
+        <label for="guid">GUID</label>
+        <input type="text" class="form-control" name="guid" id="guid" value="{{ guid }}">
+        <p class="help-block">Arma3 ID</p>
+        <p class="help-block error-msg"></p>
+    </div>
+    
+    <div class="form-group">
+        <label for="ip">IP</label>
+        <input type="text" class="form-control" name="ip" id="ip" value="{{ ip }}">
+        <p class="help-block"></p>
+        <p class="help-block error-msg"></p>
+    </div>
+    
+    <div class="form-group">
+        {{#each members}}
+          [{{this}}]<br>
+        
+        {{/each}}
+        <label for="id_admin">Admin Banning</label>
+        <select class="form-control selectpicker" name="id_admin" id="id_admin" data-live-search="true">
+            {{#select id_admin}}
+            <option value="">Select...</option>
+            {{#each units.[0]}}
+                <option value="{{ this.member.id }}">{{ this.member.short_name }}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+        <p class="help-block error-msg"></p>
+    </div>
+    
+    <div class="form-group">
+        <label for="reason">Reason</label>
+        <input type="text" class="form-control" name="reason" id="reason" value="{{ reason }}">
+        <p class="help-block">Short reason for banning</p>
+        <p class="help-block error-msg"></p>
+    </div>
+    
+    <div class="form-group">
+        <label for="comments">Other Comments</label>
+        <textarea class="form-control" rows="3" name="comments" id="comments">{{ comments }}</textarea>
+        <p class="help-block error-msg"></p>
+    </div>
+    
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+  </form>
+  </div>
+</div>
