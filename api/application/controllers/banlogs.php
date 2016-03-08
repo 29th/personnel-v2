@@ -21,7 +21,7 @@ class Banlogs extends MY_Controller {
      */
     public function index_get($member_id = FALSE) {
         // Must have permission to view any member's profile
-        if( ! $this->user->permission('profile_view_any')) {
+        if( ! $this->user->permission('banlog_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Index records
@@ -41,7 +41,7 @@ class Banlogs extends MY_Controller {
      */
     public function view_get($banlog_id) {
 		// Must have permission to view this type of record for this member or for any member
-		if( ! $this->user->permission('profile_view_any')) {
+		if( ! $this->user->permission('banlog_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// View records
@@ -49,6 +49,32 @@ class Banlogs extends MY_Controller {
             $banlogs = nest( $this->banlog_model->select_member()->get_by_id($banlog_id) );
             $this->response(array('status' => true, 'banlogs' => $banlogs, 'a' => 'a' ));
 		}
-    }
-    
+    }   //view_get
+
+
+    public function index_post() {
+        // Must be logged in
+        if( ! $this->user->permission('banlog_edit_any')) {
+            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+        }
+        // Form validation for both models
+        else if($this->banlog_model->run_validation('validation_rules_add') === FALSE) 
+        {
+            $this->response(array('status' => false, 'error' => $this->banlog_model->validation_errors), 400);
+        }
+        // Create record
+        else 
+        {
+            // Create enlistment record using member_id
+/*
+*/
+            $banlog_data = whitelist($this->post(), array('roid', 'uid', 'guid', 'handle', 'ip', 'date', 'id_admin', 'reason', 'comments'));
+            $banlog_data['id_poster'] = $this->db->query("SELECT id FROM `members` WHERE forum_member_id = " . $this->user->logged_in() )->result_array()[0]['id'];
+        
+            $insert_id = $this->banlog_model->save(NULL, $banlog_data);
+            $new_record = $insert_id ? nest($this->banlog_model->get_by_id($insert_id)) : null;
+            $this->response(array('status' => $insert_id ? true : false, 'banlogs' => $new_record));
+        }
+    }   //index_post
+
 }
