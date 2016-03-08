@@ -21,7 +21,7 @@ class Banlogs extends MY_Controller {
      */
     public function index_get($member_id = FALSE) {
         // Must have permission to view any member's profile
-        if( ! $this->user->permission('profile_view_any')) {
+        if( ! $this->user->permission('banlog_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Index records
@@ -41,7 +41,7 @@ class Banlogs extends MY_Controller {
      */
     public function view_get($banlog_id) {
 		// Must have permission to view this type of record for this member or for any member
-		if( ! $this->user->permission('profile_view_any')) {
+		if( ! $this->user->permission('banlog_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// View records
@@ -54,8 +54,7 @@ class Banlogs extends MY_Controller {
 
     public function index_post() {
         // Must be logged in
-        if( ! ($forum_member_id = $this->user->logged_in())) 
-        {
+        if( ! $this->user->permission('banlog_edit_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Form validation for both models
@@ -77,4 +76,5 @@ class Banlogs extends MY_Controller {
             $this->response(array('status' => $insert_id ? true : false, 'banlogs' => $new_record));
         }
     }   //index_post
+
 }
