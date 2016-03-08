@@ -16,15 +16,13 @@ require("backbone.validation");
       initialize: function (options) {
           options = options || {};
           this.units = options.units || {};
-          this.tps = options.tps || {};
           _.bindAll(this, "onSubmitForm");
           Backbone.Validation.bind(this);
       },
       serializeData: function () {
           return $.extend({
               countries: Countries,
-              units: this.units.length ? this.units.toJSON() : {},
-              tps: this.tps.length ? this.tps.at(0).get("children").toJSON() : {}
+              units: this.units.length ? this.units.toJSON() : {}
           }, this.model.toJSON());
       },
       onRender: function() {

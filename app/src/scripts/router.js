@@ -293,7 +293,9 @@ require("./validation.config");
       banlog_add: function() {
           var self = this,
               promises = [],
-              banlog = new Banlog(),
+              banlog = new Banlog({
+                  isnew:true
+              }),
               units = new Units(null, {
                   children: true,
                   members: true,
@@ -308,8 +310,7 @@ require("./validation.config");
           this.app.navRegion.currentView.setHighlight("banlogs");
           
           promises.push(banlog.fetch(),units.fetch());
-          // User must be logged in and not already a member
-//          $.when(this.promises.user).done(function(user) {
+
           $.when.apply($, promises).done(function(user) {
               // Must be logged in
               if(self.user.get("forum_member_id") === undefined) {
@@ -326,6 +327,7 @@ require("./validation.config");
               promises = [],
               banlogs = new Banlogs(),
               banlogsView = new BanlogsView({
+                  permissions: this.permissions,
                   collection: banlogs
               });
 

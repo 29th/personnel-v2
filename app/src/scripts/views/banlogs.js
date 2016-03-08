@@ -17,11 +17,19 @@ var Marionette = require("backbone.marionette");
       title: "Banlogs",
       itemView: ItemView,
       itemViewContainer: "#rows",
-      initialize: function () {
+      initialize: function (options) {
+          options = options || {};
+          this.permissions = options.permissions || {};
+          this.permissions.on("reset", this.render, this);
           _.bindAll(this, "onClickMore", "onClickBtnGroup");
       },
       serializeData: function () {
+          var permissions = this.permissions.length ? this.permissions.pluck("abbr") : [],
+              allowedTo = {
+                  addBanLog: permissions.indexOf("banlog_edit_any") !== -1
+              };
           return $.extend({
+              allowedTo: allowedTo
           });
       },
       events: {
