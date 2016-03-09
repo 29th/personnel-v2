@@ -87,6 +87,7 @@ $route['qualifications/(:num)'] = 'qualifications/view/$1';
 $route['qualifications'] = 'qualifications/index';
 $route['demerits/(:num)'] = 'demerits/view/$1';
 $route['demerits'] = 'demerits/index'; // Filtered
+$route['notes/add'] = 'notes/add';
 $route['notes/(:num)'] = 'notes/view/$1';
 
 // Enlistments
@@ -96,6 +97,7 @@ $route['enlistments'] = 'enlistments/index';
 
 // Banlogs
 $route['banlogs'] = 'banlogs/index'; 
+$route['banlogs/add'] = 'banlogs/add'; 
 $route['banlogs/(:num)'] = 'banlogs/view/$1';
 
 // Finances

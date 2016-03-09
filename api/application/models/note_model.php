@@ -4,6 +4,15 @@ class Note_model extends MY_Model {
     public $table = 'notes';
     public $primary_key = 'notes.id';
     
+    public function validation_rules_add() {
+        return array(
+            array(
+                'field' => 'subject'
+                ,'rules' => 'min_length[1]||max_length[60]'
+            )
+        );
+    }
+    
     public function default_select() {
         $this->db->select('SQL_CALC_FOUND_ROWS notes.*', FALSE)
             ->select('authors.id AS `author|id`', FALSE)
