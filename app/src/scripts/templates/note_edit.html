@@ -1,0 +1,60 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+      <h2>Add new event</h2>
+  </div>
+  <div class="panel-body">
+
+
+    <form role="form">
+    
+    <div class="form-group">
+        {{#each members}}
+          [{{this}}]<br>
+        
+        {{/each}}
+        <label for="member_id">Member - subject of note</label>
+        <select class="form-control selectpicker" name="member_id" id="member_id" data-live-search="true">
+            {{#select member_id}}
+            <option value="">Select...</option>
+            {{#each units.[0]}}
+                <option value="{{ this.member.id }}">{{ this.member.short_name }}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+        <p class="help-block error-msg"></p>
+    </div>
+
+    <div class="form-group">
+        <label for="date_add">Date add</label>
+        <input type="text" class="form-control" id="date_add" name="date_add" value="{{ date_add }}" data-provide="datepicker" data-date-format="yyyy-mm-dd"{{#if id}} disabled="true"{{/if}}>
+    </div>
+
+    <div class="form-group">
+        <label for="access">Access Level</label>
+        <select class="form-control selectpicker" name="access" id="access" data-live-search="true">
+            {{#select access}}
+            <option value="">Select...</option>
+            {{#each levelList}}
+                <option value="{{ this }}">{{ this }}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+        <p class="help-block error-msg"></p>
+    </div>
+    
+    <div class="form-group">
+        <label for="subject">Subject</label>
+        <input type="text" class="form-control" name="subject" id="subject" value="{{ subject }}">
+        <p class="help-block error-msg"></p>
+    </div>
+    
+    <div class="form-group">
+        <label for="content">Content</label>
+        <textarea class="form-control" rows="6" name="content" id="content">{{ content }}</textarea>
+        <p class="help-block error-msg"></p>
+    </div>
+    
+    
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+  </form>
+</div>

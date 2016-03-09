@@ -13,7 +13,7 @@ var Marionette = require("backbone.marionette");
           this.notes = options.collection || false;
       },
       serializeData: function () {
-          var items = [];
+          var items = []
           return _.extend({
               notes: this.notes.toJSON(),
               count: this.notes.length

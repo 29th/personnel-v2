@@ -17,6 +17,10 @@
             <li class="divider"></li>
             <li><a href="#members/{{ member_id }}/discharge">Discharge</a></li>
         {{/if}}
+        {{#if allowedTo.addNote }}
+            <li class="divider"></li>
+            <li><a href="#notes/add">Add Note</a></li>
+        {{/if}}
     </ul>
 </div>
 {{/if}}

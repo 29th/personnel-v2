@@ -21,7 +21,6 @@ require("backbone.validation");
       },
       serializeData: function () {
           return $.extend({
-              countries: Countries,
               units: this.units.length ? this.units.toJSON() : {}
           }, this.model.toJSON());
       },
