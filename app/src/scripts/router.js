@@ -80,6 +80,7 @@ var $ = require("jquery"),
   MemberView = require("./views/member"),
   NavView = require("./views/nav"),
   NoteView = require("./views/note"),
+  NoteEditView = require("./views/note_edit"),
   PassesView = require("./views/passes"),
   TPView = require("./views/tp"),
   TPsView = require("./views/tps"),
@@ -126,6 +127,7 @@ require("./validation.config");
           "members/:id/assign": "assignment_add",
           "members/:id/*path": "member",
           "members/:id": "member",
+          "notes/add": "note_edit",
           "notes/:id": "note",
           "passes": "passes",
           "tps/:id": "tp",
@@ -713,6 +715,41 @@ require("./validation.config");
               $.when.apply($, promises).done(function() {
                   self.showView(noteView);
               });
+      },
+      note_edit: function() {
+          var self = this,
+              promises = [],
+              note = new Note(),
+              units = new Units(null, {
+                  children: true,
+                  members: true,
+                  flat: true,
+                  order: 'name',
+                  distinct: true
+              }),
+              noteEditView = new NoteEditView({
+                  permissions: this.permissions,
+                  model: note,
+                  units: units
+              });
+          promises.push(units.fetch());
+
+          $.when.apply($, promises).done(function(user) {
+              // Must be logged in
+              if(self.user.get("forum_member_id") === undefined) {
+                  // not logged in
+                  self.showView(new FlashView({msg: "You must be logged in to view this page", type: "error"}));
+              } else {
+                  // Success - logged in and not already a member
+                  self.showView(noteEditView);
+              }
+          });
+
+/*              
+          $.when.apply($, promises).done(function() {
+              self.showView(noteEditView);
+          });
+*/          
       },
       member: function (id, path) {
           var self = this,

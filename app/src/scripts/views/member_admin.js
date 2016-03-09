@@ -23,9 +23,10 @@ var Marionette = require("backbone.marionette");
                   addELOA: memberPermissions.indexOf("eloa_add") !== -1 || permissions.indexOf("eloa_add_any") !== -1,
                   modifyProfile: memberPermissions.indexOf("profile_edit") !== -1 || permissions.indexOf("profile_edit_any") !== -1,
                   assign: permissions.indexOf("assignment_add") !== -1 || permissions.indexOf("assignment_add_any") !== -1,
-                  discharge: memberPermissions.indexOf("discharge_add") !== -1 || permissions.indexOf("discharge_add_any") !== -1
+                  discharge: memberPermissions.indexOf("discharge_add") !== -1 || permissions.indexOf("discharge_add_any") !== -1,
+                  addNote: ( permissions.indexOf("note_view_all") !== -1 || permissions.indexOf("note_view_mp") !== -1 || permissions.indexOf("note_view_lh") !== -1 || permissions.indexOf("note_view_co") !== -1 || permissions.indexOf("note_view_pl") !== -1 || permissions.indexOf("note_view_sq") !== -1 )
               };
-          allowedTo.admin = allowedTo.modifyProfile || allowedTo.assign || allowedTo.discharge || allowedTo.addELOA;
+          allowedTo.admin = allowedTo.modifyProfile || allowedTo.assign || allowedTo.discharge || allowedTo.addELOA || allowedTo.addNote;
           
           return {
               member_id: this.memberPermissions.member_id,
