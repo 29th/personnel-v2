@@ -55,17 +55,42 @@ class Notes extends MY_Controller {
         // Create record
         else 
         {
-            // Create enlistment record using member_id
-/*
-*/
-            $note_data = whitelist($this->post(), array('date_add', 'member_id', 'access', 'subject', 'content'));
+            $note_data = whitelist($this->post(), array('member_id', 'access', 'subject', 'content'));
             $note_data['author_member_id'] = $this->db->query("SELECT id FROM `members` WHERE forum_member_id = " . $this->user->logged_in() )->result_array()[0]['id'];
+            $note_data['date_add'] = Date('Y-m-d');
         
             $insert_id = $this->note_model->save(NULL, $note_data);
             $new_record = $insert_id ? nest($this->note_model->get_by_id($insert_id)) : null;
             $this->response(array('status' => $insert_id ? true : false, 'note' => $new_record ));
         }
     }   //index_post
+
+    public function view_post($note_id) {
+        // Must be logged in
+        if( ! ($note = nest($this->note_model->get_by_id($note_id)))) {
+            $this->response(array('status' => false, 'error' => 'Note not found!'), 404);
+        }
+        else if( ! $this->user->permission('note_view_any')) {
+            $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+        }
+        // Form validation for both models
+        else if($this->note_model->run_validation('validation_rules_add') === FALSE) 
+        {
+            $this->response(array('status' => false, 'error' => $this->note_model->validation_errors), 400);
+        }
+        // Update record
+        else 
+        {
+/*
+*/
+            $note_data = whitelist($this->post(), array( 'access', 'subject', 'content'));
+            $note_data['date_mod'] = Date('Y-m-d H:i:s');
+        
+            $result = $this->note_model->save($note_id, $note_data);
+            $new_record = $result ? nest($this->note_model->get_by_id($result)) : null;
+            $this->response(array('status' => $result ? true : false, 'note' => $new_record ));
+        }
+    }   //view_post
 
      public function view_get($note_id) {
           // Must have permission to view this type of record for this member or for any member
