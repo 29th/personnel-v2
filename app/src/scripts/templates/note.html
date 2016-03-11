@@ -1,12 +1,13 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2>Note{{#if member.short_name}} - <a href="#members/{{ member.id }}">{{ member.short_name }}</a>{{/if}}</h2>
-        {{#if allowedTo.addNote}}
-        <button type="button" id="add_note" class="btn btn-default add_note">Add New Note</button>
-        {{/if}}
+        <h2>Note{{#if member.short_name}} - <a href="#members/{{ member.id }}/notes">{{ member.short_name }}</a>{{/if}}</h2>
 
     </div>
     <div class="panel-body notes panel-no-padding">
+    {{#if allowedTo.editNote}}
+        <button type="button" id="add_note" class="btn btn-default add_note">Add New Note</button>
+        <button type="button" id="edit_note" class="btn btn-default edit_note">Edit That Note</button>
+    {{/if}}
        <table class="notes_table">
               <tr>
                   <th class="note_title">{{this.subject}}</th>

@@ -127,7 +127,8 @@ require("./validation.config");
           "members/:id/assign": "assignment_add",
           "members/:id/*path": "member",
           "members/:id": "member",
-          "notes/add": "note_edit",
+          "notes/add": "note_add",
+          "notes/:id/edit": "note_edit",
           "notes/:id": "note",
           "passes": "passes",
           "tps/:id": "tp",
@@ -707,6 +708,7 @@ require("./validation.config");
                   id: id
               }),
               noteView = new NoteView({
+                  permissions: this.permissions,
                   model: note
               });
               this.app.navRegion.currentView.setHighlight("roster");
@@ -716,7 +718,10 @@ require("./validation.config");
                   self.showView(noteView);
               });
       },
-      note_edit: function() {
+      note_add: function(id) {
+          this.note_edit( null );  
+      },
+      note_edit: function(id) {
           var self = this,
               promises = [],
               note = new Note(),
@@ -733,6 +738,11 @@ require("./validation.config");
                   units: units
               });
           promises.push(units.fetch());
+
+          if(id) {
+              note.id = id;
+              promises.push(note.fetch());
+          }
 
           $.when.apply($, promises).done(function(user) {
               // Must be logged in
@@ -902,6 +912,7 @@ require("./validation.config");
               promises.push(notes.fetch());
 
               pageView = new MemberNotesView({
+                  permissions: this.permissions,
                   collection: notes
               });
           }

@@ -1,19 +1,36 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-      <h2>Add new event</h2>
+      <h2>{{#if id}}Edit {{else}}Add new {{/if}}event</h2>
   </div>
   <div class="panel-body">
 
 
     <form role="form">
     
+{{#if id}}
+    <div class="form-group">
+        <label for="date_add">Date of Adding</label>
+        <input type="text" class="form-control disabled" id="date_add" name="date_add" value="{{ date_add }}" data-date-format="yyyy-mm-dd" disabled="true">
+    </div>
+{{/if}}
+
+{{#if id}}
+    <div class="form-group">
+        <label for="author_member_id">Author of the note</label>
+        <input type="text" class="form-control disabled" id="author_member_id" name="author_member_id" value="{{ author.short_name }}" disabled="true">
+    </div>
+{{/if}}
+
     <div class="form-group">
         {{#each members}}
           [{{this}}]<br>
         
         {{/each}}
         <label for="member_id">Member - subject of note</label>
-        <select class="form-control selectpicker" name="member_id" id="member_id" data-live-search="true">
+{{#if id}}
+        <input type="text" class="form-control disabled" id="member_id" name="member_id" value="{{ member.short_name }}" disabled="true">
+{{else}}
+        <select class="form-control selectpicker" name="member_id" id="member_id" data-live-search="true" {{#if id}}disabled="true"{{/if}}>
             {{#select member_id}}
             <option value="">Select...</option>
             {{#each units.[0]}}
@@ -22,11 +39,7 @@
             {{/select}}
         </select>
         <p class="help-block error-msg"></p>
-    </div>
-
-    <div class="form-group">
-        <label for="date_add">Date add</label>
-        <input type="text" class="form-control" id="date_add" name="date_add" value="{{ date_add }}" data-provide="datepicker" data-date-format="yyyy-mm-dd"{{#if id}} disabled="true"{{/if}}>
+{{/if}}
     </div>
 
     <div class="form-group">

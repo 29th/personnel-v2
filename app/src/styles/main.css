@@ -454,6 +454,16 @@ table.notes_table {
     text-decoration: none;
 }
 
+.notes_table th a {
+    color: white;
+}
+
+.form-group .disabled {
+    color: #3A3C33;
+    background-color: #ecf0f1;
+    border-color: #bdc3c7;
+}
+
 /* X-MAS */
 /*
 .panel .panel-heading {
