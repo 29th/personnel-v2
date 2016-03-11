@@ -1,15 +1,16 @@
 <td>
+    &nbsp;<img src={{#if country.abbr}}"images/countries/{{ toLowerCase this.country.abbr }}.png" title="{{ this.country.name }}"{{else}}"images/countries/___.png" {{/if}}>&nbsp;
     <a href="#members/{{this.id}}">{{this.rank.abbr}} {{this.full_name}}</a>
 </td>
 <td>
     {{#if this.unit.name}}
         Active duty
     {{else}}
-        {{#if this.dis_type}}
-            {{this.dis_type}} Discharge
+        {{#if this.dis.type}}
+            {{this.dis.type}} Discharge on {{this.dis.date}}
         {{else}}
-            {{#if this.enlist}}
-                Enlisted ({{this.enlist}})
+            {{#if this.enlist.status}}
+                Enlisted ({{this.enlist.status}}) on {{this.enlist.date}}
             {{else}}
                 Unknown
             {{/if}}
