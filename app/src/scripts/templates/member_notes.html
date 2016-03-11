@@ -3,9 +3,10 @@
         <div class="panel-body panel-no-padding">
           {{#if notes}}
               <table class="notes_table">
-                <tr><th>Subject</th><th>Author</th><th>Date added</th><th>Level</th></tr>
+                <tr>{{#if allowedTo.editNote}}<th><i class="fa fa-edit"></th>{{/if}}<th>Subject</th><th>Author</th><th>Date added</th><th>Level</th></tr>
                 {{#each notes}}
                   <tr>
+                      {{#if ../allowedTo.editNote}}<td><a href='#notes/{{this.id}}/edit' title="Edit that note"><i class="fa fa-edit"></i></a></td>{{/if}}
                       <td><a href='#notes/{{this.id}}'>{{this.subject}}</a></td>
                       <td>Posted by <a href="#members/{{ this.author.id }}">{{this.author.short_name}}</a></td>
                       <td>{{dateFormat this.date_add}}</td>

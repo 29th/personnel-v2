@@ -125,7 +125,10 @@ Handlebars.registerHelper('enlistment_label', function (status) {
 });
 
 Handlebars.registerHelper('bbcode', function (string) {
-    return new Handlebars.SafeString(bbcode.parse(string.replace(/\n/g, "<br>")));
+    if (string)
+        return new Handlebars.SafeString(bbcode.parse(string.replace(/\n/g, "<br>")));
+    else
+        return "";
 });
 
 Handlebars.registerHelper('within_24_hours', function (a, b) {

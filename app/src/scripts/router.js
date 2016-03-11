@@ -708,6 +708,7 @@ require("./validation.config");
                   id: id
               }),
               noteView = new NoteView({
+                  permissions: this.permissions,
                   model: note
               });
               this.app.navRegion.currentView.setHighlight("roster");
@@ -911,6 +912,7 @@ require("./validation.config");
               promises.push(notes.fetch());
 
               pageView = new MemberNotesView({
+                  permissions: this.permissions,
                   collection: notes
               });
           }
