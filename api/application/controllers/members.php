@@ -353,12 +353,44 @@ class Members extends MY_Controller {
         }
         // View records
         else {
-            if (strlen($pattern)>2)
-                $members = nest($this->member_model->distinct_members()->search_name($pattern)->get()->result_array());
+            if (strlen($pattern)>2) 
+            {
+                $members = ($this->member_model->distinct_members()->search_name($pattern)->get()->result_array());
+                foreach ( $members as $key => $member )
+                {
+                    $res  = $this->getLastDischargeofMember( $member['id'] );
+                    if ( $res ) 
+                    {
+                        $members[$key]['dis|type'] = $res['type'];
+                        $members[$key]['dis|date'] = $res['date'];
+                        $members[$key]['dis|id'] = $res['id'];
+                    }
+                    $res = $this->getLastEnlistmentofMember( $member['id'] );
+                    if ( $res ) 
+                    {
+                        $members[$key]['enlist|status'] = $res['status'];
+                        $members[$key]['enlist|date'] = $res['date'];
+                        $members[$key]['enlist|id'] = $res['id'];
+                    }
+                }
+                $members = nest( $members );
+            }
             else
                 $members = array();
             $this->response(array('status' => true, 'members' => $members ));
         }
+    }
+    
+    private function getLastDischargeofMember( $member_id ) 
+    {
+        $res = $this->db->query('SELECT * FROM discharges WHERE member_id = ' . $member_id . ' ORDER BY date DESC LIMIT 1;' )->result_array();
+        return ($res ? $res[0] : array());
+    }
+    
+    private function getLastEnlistmentofMember( $member_id ) 
+    {
+        $res = $this->db->query('SELECT * FROM enlistments WHERE member_id = ' . $member_id . ' ORDER BY date DESC LIMIT 1;' )->result_array();
+        return ($res ? $res[0] : array());
     }
     
     /**
