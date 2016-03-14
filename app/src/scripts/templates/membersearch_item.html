@@ -10,7 +10,9 @@
             <b><a href="#discharges/{{this.dis.id}}">{{this.dis.type}} Discharge</a></b> on {{this.dis.date}}
         {{else}}
             {{#if this.enlist.status}}
-                <b><a href="#enlistments/{{this.enlist.id}}">Enlisted ({{this.enlist.status}})</a></b> on {{this.enlist.date}}
+                <b><a href="#enlistments/{{this.enlist.id}}">Enlisted ({{this.enlist.status}})</a></b>
+                {{#if this.enlist.unit_id}} with <a href="#tps/{{this.enlist.unit_id}}">{{this.enlist.tp}}</a>{{/if}}
+                on {{this.enlist.date}}
             {{else}}
                 Unknown
             {{/if}}
