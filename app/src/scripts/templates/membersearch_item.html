@@ -7,10 +7,10 @@
         Active duty
     {{else}}
         {{#if this.dis.type}}
-            {{this.dis.type}} Discharge on {{this.dis.date}}
+            <b><a href="#discharges/{{this.dis.id}}">{{this.dis.type}} Discharge</a></b> on {{this.dis.date}}
         {{else}}
             {{#if this.enlist.status}}
-                Enlisted ({{this.enlist.status}}) on {{this.enlist.date}}
+                <b><a href="#enlistments/{{this.enlist.id}}">Enlisted ({{this.enlist.status}})</a></b> on {{this.enlist.date}}
             {{else}}
                 Unknown
             {{/if}}
@@ -18,5 +18,5 @@
     {{/if}}
 </td>
 <td>
-    {{#if this.unit.id}} <a href="#units/{{this.unit.id}}">{{this.unit.name}} </a> {{/if}}
+    {{#if this.unit.id}} {{this.position.name}} in <a href="#units/{{this.unit.id}}">{{this.unit.name}} </a> {{/if}}
 </td>
