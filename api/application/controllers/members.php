@@ -371,6 +371,8 @@ class Members extends MY_Controller {
                         $members[$key]['enlist|status'] = $res['status'];
                         $members[$key]['enlist|date'] = $res['date'];
                         $members[$key]['enlist|id'] = $res['id'];
+                        $members[$key]['enlist|unit_id'] = $res['unit_id'];
+                        $members[$key]['enlist|tp'] = $res['abbr'];
                     }
                 }
                 $members = nest( $members );
@@ -389,7 +391,7 @@ class Members extends MY_Controller {
     
     private function getLastEnlistmentofMember( $member_id ) 
     {
-        $res = $this->db->query('SELECT * FROM enlistments WHERE member_id = ' . $member_id . ' ORDER BY date DESC LIMIT 1;' )->result_array();
+        $res = $this->db->query('SELECT enlistments.*, units.abbr FROM enlistments LEFT JOIN units ON units.id = enlistments.unit_id WHERE member_id = ' . $member_id . ' ORDER BY date DESC LIMIT 1;' )->result_array();
         return ($res ? $res[0] : array());
     }
     
