@@ -88,11 +88,11 @@ class Tps extends MY_Controller {
             FROM `enlistments` AS e
             LEFT JOIN `members` AS m ON e.recruiter_member_id = m.id
             LEFT JOIN `ranks` AS r ON m.rank_id = r.id
-            WHERE e.`status` IN ('Accepted','AWOL') AND e.`unit_id` = $unit_id AND e.`member_id` = $member_id 
+            WHERE /* e.`status` IN ('Accepted','AWOL') AND */ e.`unit_id` = $unit_id AND e.`member_id` = $member_id 
             ORDER BY e.id DESC
             LIMIT 1;" ;
         $res = $this->db->query( $cSql )->result_array();
 //    	return ( $res ? $res[0] : "");
-    	return $res[0];
+    	return ( $res ? $res[0] : array() );
     }
 }
