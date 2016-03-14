@@ -98,10 +98,7 @@ class Member_model extends MY_Model {
     public function search_name( $pattern ) {
         $esc_str = $this->db->escape_like_str($pattern);
         $this->filter_where("(members.last_name LIKE '%$esc_str%' OR members.first_name LIKE '%$esc_str%' OR members.steam_id LIKE '%$esc_str%')");
-        $this->select(' `dis`.`type` AS `dis|type`, `dis`.`date` AS `dis|date`, `enlist`.`status` AS `enlist|type`, `enlist`.`date` AS `enlist|date`');
-        $this->join("(SELECT * FROM `discharges` WHERE id IN (SELECT Max(id) FROM discharges GROUP BY member_id)) AS dis ", 'dis.member_id=members.id', 'left');
-        $this->join('(SELECT * FROM `enlistments` WHERE id IN (SELECT Max(id) FROM enlistments GROUP BY member_id)) AS enlist ', 'enlist.member_id=members.id', 'left');
-        $this->order_by('units.id DESC, dis.date DESC, members.rank_id DESC, members.id ASC');
+        $this->order_by('units.active DESC, members.rank_id DESC, `unit|depth`, units.abbr, members.id DESC');
         return $this;
     }
     
