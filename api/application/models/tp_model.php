@@ -7,7 +7,7 @@ class Tp_model extends MY_Model {
     public function default_select() {
         $this->db->select('SQL_CALC_FOUND_ROWS *', FALSE)
         ->select('(SELECT COUNT( DISTINCT( member_id )) FROM assignments WHERE unit_id = units.id ) AS member_count', FALSE)
-        ->select("(SELECT CONCAT( DATE_FORMAT(MIN(datetime),'%Y-%m-%d'),' - ', DATE_FORMAT(MAX(datetime),'%Y-%m-%d')) FROM events WHERE events.unit_id = `units`.id )  AS days", FALSE);
+        ->select("(SELECT CONCAT( DATE_FORMAT( MIN(datetime) ,'%Y-%m-%d'),' - ', DATE_FORMAT( MAX(datetime) ,'%Y-%m-%d')) FROM events WHERE events.unit_id = `units`.id )  AS days", FALSE);
     }
     
     public function default_join() {
@@ -25,4 +25,8 @@ class Tp_model extends MY_Model {
         $this->db->order_by('units.abbr DESC');
     }
 
+    public function only_future_tps() {
+        $this->filter_where("(SELECT MIN(datetime) FROM events WHERE events.unit_id = `units`.id ) >= DATE_FORMAT( NOW(), '%Y-%m-%d' ) ");
+    }
+    
 }

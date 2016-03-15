@@ -6,6 +6,7 @@ class Tps extends MY_Controller {
         $this->load->model('unit_model');
     }
     public $model_name = 'tp_model';
+    public $paginate = true;
     public $abilities = array(
         'view_any' => 'profile_view_any',
         'view' => 'profile_view'
@@ -22,6 +23,27 @@ class Tps extends MY_Controller {
      * Handled by index_filter_get in MY_Controller
      */
     
+    public function index_get($filter = FALSE) {
+		// Must have permission to view any member's profile
+		if( ! $this->user->permission('profile_view_any')) {
+			$this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+		}
+		// View record(s)
+		else {
+		    $skip = $this->input->get('skip') ? $this->input->get('skip', TRUE) : 0;
+		    $tps = $this->tp_model;
+//		    $tps;
+		    if ( $this->input->get('future') ) 
+		    {
+		        $tps->only_future_tps();
+		    }
+		    $records = nest( $tps->paginate('', $skip)->result_array() );
+		    $count = $tps->total_rows;
+			$this->response(array( 'status' => true, 'count' => $count, 'skip' => $skip, 'units' => $records ));
+		}
+    }//index_get
+
+
     public function view_get($filter = FALSE) {
 		// Must have permission to view any member's profile
 		if( ! $this->user->permission('profile_view_any')) {
