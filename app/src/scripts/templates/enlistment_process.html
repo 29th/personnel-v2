@@ -46,7 +46,7 @@
             {{#select recruiter_member_id}}
             <option value="">Select...</option>
             {{#each units.[0]}}
-                <option value="{{ this.member.id }}">{{ this.member.short_name }}</option>
+                {{#if this.member.short_name}}<option value="{{ this.member.id }}">{{ this.member.short_name }}</option>{{/if}
             {{/each}}
             {{/select}}
         </select>
@@ -59,8 +59,8 @@
         <select class="form-control selectpicker" name="liaison_member_id" id="liaison_member_id" data-live-search="true">
             {{#select liaison_member_id}}
             <option value="">Select...</option>
-            {{#each units.[0]}}
-                <option value="{{ this.member.id }}">{{ this.member.short_name }}</option>
+            {{#each lh.[0]}}
+                {{#if this.member.short_name}}<option value="{{ this.member.id }}">{{ this.member.short_name }}</option>{{/if}}
             {{/each}}
 <!---            {{#each units}}
             <optgroup label="{{ this.abbr }}">

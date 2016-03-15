@@ -15,6 +15,7 @@ require("bootstrap-select");
       initialize: function (options) {
           options = options || {};
           this.tps = options.tps || {};
+          this.lh = options.lh || {};
           this.units = options.units || {};
 
           this.permissions = options.permissions || {};
@@ -31,6 +32,7 @@ require("bootstrap-select");
           return $.extend({
               tps: this.tps.length ? this.tps.at(0).get("children").toJSON() : {},
               units: this.units.length ? this.units.toJSON() : {},
+              lh: this.lh.length ? this.lh.toJSON() : {},
               allowedTo: allowedTo
           }, this.model.toJSON());
       },
