@@ -48,6 +48,7 @@ var $ = require("jquery"),
           this.historic = options.historic || false;
           this.flat = options.flat || false;
           this.distinct = options.distinct || false;
+          this.position = options.position || false;
       },
       url: function () {
           var params = {},
@@ -60,6 +61,7 @@ var $ = require("jquery"),
           if (this.historic) params.historic = this.historic;
           if (this.flat) params.flat = this.flat;
           if (this.distinct) params.distinct = this.distinct;
+          if (this.position) params.position = this.position;
           if (!_.isEmpty(params)) url += "?" + $.param(params);
           return url;
       },

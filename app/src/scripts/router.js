@@ -159,7 +159,7 @@ require("./validation.config");
           if( ! this.units) {
               this.units = new Units(null, {
                   children: true,
-                  members: true,
+//                  members: true,
                   flat: true
               });
               this.units.fetch({reset: true});
@@ -517,6 +517,7 @@ require("./validation.config");
               promises = [],
               enlistments = new Enlistments(),
               enlistmentsView = new EnlistmentsView({
+                  permissions: this.permissions,
                   collection: enlistments
               });
 
@@ -577,27 +578,43 @@ require("./validation.config");
               enlistment = new Enlistment({
                   id: id
               }),
-              tps = new Units(null, {
+              tps = new Units(null, { 
                   filter: "TPs",
                   children: true,
                   inactive: false // This was set to true prior to 2014-11-27, not sure why
               }),
+/*
+              tps = new TPs(null, { 
+                  future: true // This was set to true prior to 2014-11-27, not sure why
+              }),
+*/
               // Units contains the members for recruiter selection
               units = new Units(null, {
                   children: true,
                   members: true,
                   flat: true,
+                  order: 'name',
+                  distinct: true
+              }),
+              lh = new Units(null, {
+                  children: false,
+                  members: true,
+                  filter: "LH",
+                  order: 'name',
+                  flat: true,
+                  position: 'liaison',
                   distinct: true
               }),
               enlistmentProcessView = new EnlistmentProcessView({
                   model: enlistment,
                   tps: tps,
+                  lh: lh,
                   units: units,
                   permissions: this.permissions
               });
 
           this.app.navRegion.currentView.setHighlight("enlistments");
-          promises.push(enlistment.fetch(), tps.fetch(), units.fetch());
+          promises.push(enlistment.fetch(), tps.fetch(), lh.fetch(), units.fetch());
 
           $.when.apply($, promises).done(function () {
               self.showView(enlistmentProcessView);

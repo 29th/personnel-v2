@@ -5,7 +5,7 @@
   <div class="panel-body">
     <form role="form">
     <div class="form-group">
-        <label for="unit_id">Unit</label>
+        <label for="unit_id">Training Platoon</label>
         <select class="form-control selectpicker" name="unit_id" id="unit_id" data-live-search="true">
             {{#select unit_id}}
             <option value="">Select...</option>
@@ -14,10 +14,12 @@
                 {{ this.abbr }}
                 {{#if this.game }}({{ this.game }}){{/if}}
                 {{#if this.timezone }}({{ this.timezone }}){{/if}}
+                {{#if this.days }} - {{ this.days }}{{/if}}
             </option>
             {{/each}}
             {{/select}}
         </select>
+        <p class="help-block">{{#if this.game}}Applicant wrote: <b>{{ this.game }} / {{this.timezone}}</b> {{/if}}</p>
     </div>
     
     <div class="form-group">
@@ -46,11 +48,11 @@
             {{#select recruiter_member_id}}
             <option value="">Select...</option>
             {{#each units.[0]}}
-                <option value="{{ this.member.id }}">{{ this.member.short_name }}</option>
+                {{#if this.member.short_name}}<option value="{{ this.member.id }}">{{ this.member.short_name }}</option>{{/if}}
             {{/each}}
             {{/select}}
         </select>
-        <p class="help-block">{{#if recruiter}}Applicant wrote: {{ recruiter }}{{/if}}</p>
+        <p class="help-block">{{#if recruiter}}Applicant wrote: <b>{{ recruiter }}</b>{{/if}}</p>
     </div>
     
     {{#if allowedTo.assignLiaison}}
@@ -59,8 +61,8 @@
         <select class="form-control selectpicker" name="liaison_member_id" id="liaison_member_id" data-live-search="true">
             {{#select liaison_member_id}}
             <option value="">Select...</option>
-            {{#each units.[0]}}
-                <option value="{{ this.member.id }}">{{ this.member.short_name }}</option>
+            {{#each lh.[0]}}
+                {{#if this.member.short_name}}<option value="{{ this.member.id }}">{{ this.member.short_name }} ({{this.position.name}})</option>{{/if}}
             {{/each}}
 <!---            {{#each units}}
             <optgroup label="{{ this.abbr }}">
