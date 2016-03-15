@@ -14,6 +14,7 @@
                 {{ this.abbr }}
                 {{#if this.game }}({{ this.game }}){{/if}}
                 {{#if this.timezone }}({{ this.timezone }}){{/if}}
+                {{#if this.days }} - {{ this.days }}{{/if}}
             </option>
             {{/each}}
             {{/select}}

@@ -30,8 +30,8 @@ require("bootstrap-select");
                   assignLiaison: permissions.indexOf("enlistment_assign_any") !== -1
               };
           return $.extend({
-//              tps: this.tps.length ? this.tps.at(0).get("children").toJSON() : {},
-              tps: this.tps.length ? this.tps.toJSON() : {},
+              tps: this.tps.length ? this.tps.at(0).get("children").toJSON() : {},
+//              tps: this.tps.length ? this.tps.toJSON() : {},
               units: this.units.length ? this.units.toJSON() : {},
               lh: this.lh.length ? this.lh.toJSON() : {},
               allowedTo: allowedTo
