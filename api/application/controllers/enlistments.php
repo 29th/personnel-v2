@@ -171,6 +171,11 @@ class Enlistments extends MY_Controller {
                         'start_date' => format_date('now', 'mysqldate')
                     ));
                 }
+                // If changing to AWOL status
+                else if($data['status'] == 'AWOL' && $assignment) {
+                    $assignment['end_date'] = format_date('now', 'mysqldate');
+                    $this->assignment_model->save($assignment['id'], array('end_date' => format_date('now', 'mysqldate')));
+                }
                 // Otherwise, if not accepted and an assignment exists, delete it
                 else if($data['status'] != 'Accepted' && $assignment) {
                     $this->assignment_model->delete($assignment['id']);
