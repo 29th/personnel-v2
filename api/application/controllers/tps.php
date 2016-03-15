@@ -39,7 +39,7 @@ class Tps extends MY_Controller {
 		    }
 		    $records = nest( $tps->paginate('', $skip)->result_array() );
 		    $count = $tps->total_rows;
-			$this->response(array( 'status' => true, 'count' => $count, 'skip' => $skip, 'units' => $records ));
+			$this->response(array( 'status' => true, 'count' => $count, 'skip' => $skip, 'tps' => $records ));
 		}
     }//index_get
 
