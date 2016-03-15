@@ -13,6 +13,7 @@ var $ = require("jquery"),
           this.filter = options.filter || false;
           this.member_id = options.member_id || null;
           this.unit_id = options.unit_id || null;
+          this.future = options.future || null;
           this.skip = 0;
           this.from = options.from || null;
           this.to = options.to || null;
@@ -28,6 +29,7 @@ var $ = require("jquery"),
           url += "/tps";
 
           var params = [];
+          if(this.future) params.push("future=" + this.future);
           if(this.skip) params.push("skip=" + this.skip);
           if(this.from) params.push("from=" + this.from);
           if(this.to) params.push("to=" + this.to);

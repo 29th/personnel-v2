@@ -517,6 +517,7 @@ require("./validation.config");
               promises = [],
               enlistments = new Enlistments(),
               enlistmentsView = new EnlistmentsView({
+                  permissions: this.permissions,
                   collection: enlistments
               });
 
@@ -577,10 +578,15 @@ require("./validation.config");
               enlistment = new Enlistment({
                   id: id
               }),
+/*
               tps = new Units(null, { 
                   filter: "TPs",
                   children: true,
                   inactive: false // This was set to true prior to 2014-11-27, not sure why
+              }),
+*/
+              tps = new TPs(null, { 
+                  future: true // This was set to true prior to 2014-11-27, not sure why
               }),
               // Units contains the members for recruiter selection
               units = new Units(null, {
