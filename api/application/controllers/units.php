@@ -52,6 +52,8 @@ class Units extends MY_Controller {
 						$members = $members->by_date('now');
 					if($this->input->get('distinct'))
 						$members = $members->distinct_members();
+					if($this->input->get('position'))
+						$members = $members->by_position( $this->input->get('position') );
 					$members = $members->order_by($this->input->get('order') ? $this->input->get('order') : ( $units[0]['class'] == 'Training' ? 'name'  : 'rank' ) );
 					$members = nest($members->get()->result_array()); // Get members of this unit, including members of this unit's children, who are current
 					$units = $this->members_in_parents($members, $units, 'unit_id', 'id', 'members', $this->input->get("flat") ? TRUE : FALSE);

@@ -136,6 +136,12 @@ class Assignment_model extends MY_Model {
         return $this;
     }
     
+    public function by_position( $position = '') {
+        if ( $position )
+            $this->filter_where("(positions.name LIKE '%$position%' )");
+        return $this;
+    }
+    
     /**
      * Get members by unit id
      */
