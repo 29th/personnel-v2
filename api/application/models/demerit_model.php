@@ -4,6 +4,36 @@ class Demerit_model extends MY_Model {
     public $table = 'demerits';
     public $primary_key = 'demerits.id';
     
+    public function validation_rules_add() {
+        return array(
+            array(
+                'field' => 'member_id'
+                ,'rules' => 'required|numeric'
+            )
+            ,array(
+                'field' => 'topic_id'
+                ,'rules' => 'required|numeric'
+            )
+            ,array(
+                'field' => 'reason'
+                ,'rules' => 'required'
+            )
+        );
+    }
+    
+    public function validation_rules_edit() {
+        return array(
+            array(
+                'field' => 'topic_id'
+                ,'rules' => 'required|numeric'
+            )
+            ,array(
+                'field' => 'reason'
+                ,'rules' => 'required'
+            )
+        );
+    }
+    
     public function default_select() {
         $this->db->select('SQL_CALC_FOUND_ROWS demerits.id, demerits.date, demerits.reason, demerits.forum_id, demerits.topic_id, \'Disciplinary\' as demerit_type', FALSE)
             
