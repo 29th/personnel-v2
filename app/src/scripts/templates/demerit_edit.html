@@ -1,0 +1,67 @@
+<div class="panel panel-default">
+{{#is demerit_id "===" id }}
+  <div class="panel-heading">
+     <h2>{{#if id}}Edit {{else}}Add new {{/if}} demerit</h2>
+  </div>
+  <div class="panel-body">
+
+  <form role="form">
+
+    <div class="form-group">
+        {{#each members}}
+          [{{this}}]<br>
+        
+        {{/each}}
+        <label for="member_id">Member - subject of demerit</label>
+        <input type="hidden" name="member_id" value="{{member.id}}">
+{{#if id}}
+        <input type="text" class="form-control disabled" value="{{ member.short_name }}" disabled="true">
+{{else}}
+        <select class="form-control selectpicker disabled" data-live-search="true" disabled="true">
+            {{#select member.id}}
+            {{#each units.[0]}}
+                <option value="{{ this.member.id }}">{{ this.member.short_name }}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+{{/if}}
+    </div>
+    
+{{#if id}}
+    <div class="form-group">
+        <label for="author_member_id">Author of the demerit</label>
+        <input type="text" class="form-control disabled" id="author_member_id" name="author_member_id" value="{{ author.short_name }}" disabled="true">
+    </div>
+{{/if}}
+
+    <div class="form-group">
+        <label >Type of forums</label>
+        <input type="text" class="form-control disabled" value="{{#if forum_id}}{{ forum_id }}{{else}}Vanilla{{/if}}" disabled="true">
+    </div>
+
+    <div class="form-group">
+        <label for="topic_id">Forum Topic ID</label>
+        <input type="text" class="form-control" name="topic_id" id="topic_id" value="{{ topic_id }}">
+        <p class="help-block error-msg"></p>
+    </div>
+    
+    <div class="form-group">
+        <label for="date">Date of Offense</label>
+        <input type="text" class="form-control" id="date" name="date" value="{{ date }}" data-provide="datepicker" data-date-format="yyyy-mm-dd">
+    </div>
+    
+    <div class="form-group">
+        <label for="reason">Reason</label>
+        <textarea class="form-control" rows="6" name="reason" id="reason">{{ reason }}</textarea>
+        <p class="help-block error-msg"></p>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+  </form>
+  </div>
+  {{else}}
+  <div class="panel-heading">
+  No such demerit found!
+  </div>
+  {{/is}}
+</div

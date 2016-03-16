@@ -53,6 +53,7 @@ var $ = require("jquery"),
   BanlogView = require("./views/banlog"),
   BanlogEditView = require("./views/banlog_edit"),
   CalendarView = require("./views/calendar"),
+  DemeritEditView = require("./views/demerit_edit"),
   DemeritView = require("./views/demerit"),
   DischargeView = require("./views/discharge"),
   ELOAsView = require("./views/eloas"),
@@ -112,6 +113,7 @@ require("./validation.config");
           "banlogs": "banlogs",
           "calendar": "calendar",
           "demerits/:id": "demerit",
+          "demerits/:id/edit": "demerit_edit",
           "discharges/:id": "discharge",
           "eloas": "eloas",
           "membersearch": "membersearch",
@@ -125,6 +127,7 @@ require("./validation.config");
           "events/:id/aar": "aar",
           "finances": "finances",
           "members/:id/assign": "assignment_add",
+          "members/:id/demerit": "demerit_add",
           "members/:id/*path": "member",
           "members/:id": "member",
           "notes/add": "note_add",
@@ -372,15 +375,64 @@ require("./validation.config");
               demerit = new Demerit({
                   id: id
               }),
+              memberPermissions = new Permissions(), // User permissions on member being viewed
               demeritView = new DemeritView({
+                  permissions: this.permissions,
+                  memberPermissions: memberPermissions,
                   model: demerit
               });
               this.app.navRegion.currentView.setHighlight("roster");
               promises.push(demerit.fetch());
               
-              $.when.apply($, promises).done(function() {
-                  self.showView(demeritView);
+              $.when.apply($, promises).done(function () {
+                  memberPermissions.member_id = demerit.get("member").id;
+                  promises = [];
+                  promises.push(memberPermissions.fetch());
+                  $.when.apply($, promises).done(function () {
+                      self.showView(demeritView);
+                  });
               });
+      },
+      demerit_add: function (member_id) {
+          this.demerit_edit(null, member_id);
+      },
+      demerit_edit: function (id, member_id) {
+          var self = this,
+              promises = [],
+              demerit = new Demerit(),
+              units = new Units(null, {
+                  children: true,
+                  members: true,
+                  flat: true
+              }),
+              view = new DemeritEditView({
+                  permissions: this.permissions,
+                  units: units,
+                  model: demerit
+              });
+
+          this.app.navRegion.currentView.setHighlight("roster");
+          promises.push(units.fetch());
+          
+          if(id) {
+              demerit.id = id;
+              promises.push(demerit.fetch());
+          }
+          else {
+              view.demerits = new Demerits(null, {
+                  member_id: member_id,
+                  current: true
+              });
+              promises.push(view.demerits.fetch());
+          }
+          if(member_id) {
+//              promises.push(subject_member.fetch());
+              demerit.set("member", {id: member_id});
+          }
+
+          $.when.apply($, promises).done(function () {
+              self.showView(view);
+          });
       },
       discharge: function(id) {
           var self = this,
