@@ -28,6 +28,7 @@
             <tr>
                 <th rowspan="2">Name</th>
                 <th rowspan="2">Recruiter</th>
+                <th rowspan="2">Liaison</th>
                 <th rowspan="2">Enlistment</th>
                 <th rowspan="2">Steam</th>
                 <th colspan="5" style="border-bottom:0;text-align:center;width:25%">Attendance</th>
@@ -48,7 +49,8 @@
                     <img src={{#if this.country.abbr}}"images/countries/{{ toLowerCase this.country.abbr }}.png" title="{{ this.country.name }}"{{else}}"images/countries/___.png"{{/if}}>&nbsp;&nbsp;
                     <a href="#members/{{ this.member.id }}">{{ this.member.short_name }}</a>&nbsp;
                 </td>
-                <td>{{#if this.enlistment.recruiter_short }} <a href="#members/{{ this.enlistment.recruiter_member_id}}">{{this.enlistment.recruiter_short }}</a>  {{/if}}</td>
+                <td>{{#if this.enlistment.recruiter.short }} <a href="#members/{{ this.enlistment.recruiter.id}}">{{this.enlistment.recruiter.short }}</a>  {{/if}}</td>
+                <td>{{#if this.enlistment.liaison.short }} <a href="#members/{{ this.enlistment.liaison.id}}">{{this.enlistment.liaison.short }}</a>  {{/if}}</td>
                 <td>{{#if this.enlistment.id }} <a href='#enlistments/{{this.enlistment.id}}'>{{this.enlistment.status}}</a> {{else}} -!- {{/if}}</td>
                 <td>{{#if this.member.roid}}<a href='http://steamcommunity.com/profiles/{{this.member.roid}}' target='_blank'><img src='images/other/steam.gif' /></a>{{/if}}</td>
 
