@@ -15,7 +15,7 @@ var $ = require("jquery"),
           return response.demerit || {};
       },
       validation: {
-          type: {
+          date: {
               required: true
           },
           reason: {
