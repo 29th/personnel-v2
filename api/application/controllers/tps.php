@@ -32,7 +32,6 @@ class Tps extends MY_Controller {
 		else {
 		    $skip = $this->input->get('skip') ? $this->input->get('skip', TRUE) : 0;
 		    $tps = $this->tp_model;
-//		    $tps;
 		    if ( $this->input->get('future') ) 
 		    {
 		        $tps->only_future_tps();
@@ -95,8 +94,11 @@ class Tps extends MY_Controller {
     }
     
     private function tpAddMemberAttendance( $unit_id, $member_id ) {
-        $cSql = "SELECT `event_id`,`attended` FROM `attendance` WHERE `event_id` IN ( SELECT `id` FROM `events` WHERE `unit_id` = $unit_id) AND `member_id` = $member_id";
-        $res = $this->db->query( $cSql )->result_array();
+        $res = $this->db->query( "
+            SELECT `event_id`,`attended` 
+            FROM `attendance` 
+            WHERE `event_id` IN ( SELECT `id` FROM `events` WHERE `unit_id` = $unit_id) AND `member_id` = $member_id
+            " )->result_array();
         //Add missing days on active and future TPs
         for ($i = sizeof($res); $i < 5; $i++) {
              $res[] = array( 'event_id' => "0", 'attended' => "0" );
@@ -106,14 +108,20 @@ class Tps extends MY_Controller {
 
     private function tpAddMemberEnlistment( $unit_id, $member_id ) {
         $cSql = "
-            SELECT e.id, e.status, e.recruiter_member_id, CONCAT(r.abbr,' ',m.last_name) AS recruiter_short
+            SELECT e.id, e.status, 
+                e.recruiter_member_id AS `recruiter|id`, 
+                CONCAT(r.abbr,' ',m.last_name) AS `recruiter|short`, 
+                e.liaison_member_id AS `liaison|id`, 
+                CONCAT(r2.abbr,' ',m2.last_name) AS `liaison|short`
             FROM `enlistments` AS e
             LEFT JOIN `members` AS m ON e.recruiter_member_id = m.id
             LEFT JOIN `ranks` AS r ON m.rank_id = r.id
-            WHERE /* e.`status` IN ('Accepted','AWOL') AND */ e.`unit_id` = $unit_id AND e.`member_id` = $member_id 
+            LEFT JOIN `members` AS m2 ON e.liaison_member_id = m2.id
+            LEFT JOIN `ranks` AS r2 ON m2.rank_id = r2.id
+            WHERE e.`unit_id` = $unit_id AND e.`member_id` = $member_id 
             ORDER BY e.id DESC
             LIMIT 1;" ;
-        $res = $this->db->query( $cSql )->result_array();
+        $res = nest($this->db->query( $cSql )->result_array());
 //    	return ( $res ? $res[0] : "");
     	return ( $res ? $res[0] : array() );
     }

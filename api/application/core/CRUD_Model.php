@@ -152,7 +152,6 @@ abstract class CRUD_Model extends CI_Model {
     {
         $this->load->helper('url');
         $this->load->library('pagination');
-
         $this->offset = $offset;
         $per_page     = $this->default_limit;
 
