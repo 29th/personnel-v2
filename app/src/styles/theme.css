@@ -20306,7 +20306,7 @@ body.nooverflow {
 .panel .panel-heading .nav-tabs li a {
   border: 1px solid transparent;
   border-right: 1px solid black;
-  color: black; /* #93a8a8; */
+  color: white;/* black;  #93a8a8; */
   padding: 0 10px;
   line-height: 48px;
   border-radius: 0;
