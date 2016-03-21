@@ -39,6 +39,7 @@ var $ = require("jquery"),
       parse: function (response, options) {
           this.duration = response.duration || null;
           this.discharge_date = response.discharge_date || null;
+          this.member_status = response.member_status || null;
           return response.assignments || [];
       }
   });
