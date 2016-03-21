@@ -33,6 +33,7 @@ var Marionette = require("backbone.marionette");
           });
           return _.extend({
               assignments: activeAssignments,
+              member_status: this.assignments.member_status,
               highlight: this.highlight
           }, this.model.toJSON());
       }

@@ -3,9 +3,13 @@
     <div class="col-sm-{{#if rank.filename}}9{{else}}10{{/if}}">
         <div class="title">{{ rank.name }} {{ full_name }} <abbr>{{#is eloa ">" "0"}}(ELOA){{/is}}{{#is pass ">" "0"}}(Weapon Pass){{/is}}</abbr></div>
         <ul class="assignments">
+        {{#if assignments}}
             {{#each assignments}}
                 <li>{{ this.position.name }}, <a href="#units/{{ this.unit.key }}">{{this.unit.name }}</a></li>
             {{/each}}
+        {{else}}
+            <li>{{this.member_status}}</li>
+        {{/if}}
         </ul>
     </div>
     <div class="col-sm-2" id="admin"></div>
