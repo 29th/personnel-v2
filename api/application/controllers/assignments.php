@@ -57,7 +57,8 @@ class Assignments extends MY_Controller {
             $assignments = nest($model->order_by('priority')->get()->result_array());
             if ( $member_id )
                 list($duration, $discharge_date) = $this->calculate_duration($assignments, $member_id);
-            $this->response(array('status' => true, 'duration' => $duration, 'discharge_date' => $discharge_date, 'assignments' => $assignments ));
+            $status = $this->get_member_status($member_id);   
+            $this->response(array('status' => true, 'duration' => $duration, 'discharge_date' => $discharge_date, 'assignments' => $assignments, 'member_status' => $status ));
         }
     }
     
@@ -84,6 +85,18 @@ class Assignments extends MY_Controller {
           }
         }
         return array( sizeof($days), $gdDate );
+    }
+    
+    private function get_member_status( $member_id ) 
+    {
+        $res = $this->db->query("SELECT `type` FROM discharges WHERE `member_id`=$member_id ORDER BY date DESC LIMIT 1")->result_array();
+        $ret = ( $res ? str_replace('able', 'ab', $res[0]['type']) . 'ly Discharged' : '');
+        if (!$ret)
+        {
+            $res = $this->db->query("SELECT Count(1) AS cnt FROM `enlistments` WHERE member_id = $member_id AND `status` = 'Pending';")->result_array();
+            $ret = ( $res && $res[0]['cnt'] > 0  ? "Enlistee " : "Public Member" );
+        }
+        return $ret;
     }
     
     /**
