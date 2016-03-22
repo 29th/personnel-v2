@@ -27,7 +27,7 @@ var Marionette = require("backbone.marionette");
           "click .edit_note": "onClickEditNote"
       },
       onClickAddNote: function () {
-          Backbone.history.navigate('notes/add', {
+          Backbone.history.navigate('members/' + this.model.get("member").id + '/notes/add', {
                           trigger: true
                       });
       },

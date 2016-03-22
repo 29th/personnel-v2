@@ -128,9 +128,9 @@ require("./validation.config");
           "finances": "finances",
           "members/:id/assign": "assignment_add",
           "members/:id/demerit": "demerit_add",
+          "members/:id/notes/add": "note_add",
           "members/:id/*path": "member",
           "members/:id": "member",
-          "notes/add": "note_add",
           "notes/:id/edit": "note_edit",
           "notes/:id": "note",
           "passes": "passes",
@@ -788,9 +788,9 @@ require("./validation.config");
               });
       },
       note_add: function(id) {
-          this.note_edit( null );  
+          this.note_edit( null, id );  
       },
-      note_edit: function(id) {
+      note_edit: function( id, member_id ) {
           var self = this,
               promises = [],
               note = new Note(),
@@ -811,6 +811,9 @@ require("./validation.config");
           if(id) {
               note.id = id;
               promises.push(note.fetch());
+          }
+          else if(member_id) {
+              note.member_id = member_id;
           }
 
           $.when.apply($, promises).done(function(user) {
