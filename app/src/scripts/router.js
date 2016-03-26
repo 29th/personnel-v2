@@ -86,6 +86,7 @@ var $ = require("jquery"),
   TPView = require("./views/tp"),
   TPsView = require("./views/tps"),
   RosterView = require("./views/roster"),
+  RosterFullView = require("./views/roster_full"),
   ServiceRecordView = require("./views/service_record"),
   UnitActivityView = require("./views/unit_activity"),
   UnitAlertsView = require("./views/unit_alerts"),
@@ -1133,8 +1134,8 @@ require("./validation.config");
                   children: true,
                   members: true
               }),
-              rosterView = new RosterView({
-                  collection: units
+              rosterView = new RosterFullView({
+                  collection: units,
               });
 
           this.app.navRegion.currentView.setHighlight("roster");

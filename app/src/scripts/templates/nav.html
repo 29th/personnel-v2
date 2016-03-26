@@ -5,6 +5,7 @@
             <li><a href="{{ forum.Vanilla.baseUrl }}/categories" class="">Boards</a></li>
             <li><a href="{{ forum.Vanilla.baseUrl }}/discussions" class="">Discussions</a></li>
             <li><a href="{{ forum.Vanilla.baseUrl }}/activity" class="">Activity</a></li>
+            <li><a href="{{ forum.Vanilla.baseUrl }}/search" class="">Search</a></li>
             <li><a href="{{ forum.Vanilla.baseUrl }}/discussions/markallviewed" class="">Mark All Viewed</a></li>
             <li><a href="{{ forum.Vanilla.baseUrl }}/members" class="">Members list</a></li>
         </ul>
@@ -35,10 +36,7 @@
         <div class="dropdown-menu arrow dropdown-menu">
             <ul class="scrollthis">
                 {{#each units}}
-                <li class="nav-roster-unit"><a href="#units/{{ this.id }}">{{ this.abbr }}</a></li>
-                    {{#each this.members}}
-                    <li><a href="#members/{{ this.member.id }}">{{ this.member.short_name }}</a></li>
-                    {{/each}}
+                <li class="nav-roster-unit"><a href="#units/{{ this.key }}">{{ this.abbr }}</a></li>
                 {{/each}}
             </ul>
         </div>
