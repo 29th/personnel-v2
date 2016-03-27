@@ -86,6 +86,7 @@ var $ = require("jquery"),
   TPView = require("./views/tp"),
   TPsView = require("./views/tps"),
   RosterView = require("./views/roster"),
+  RosterFullView = require("./views/roster_full"),
   ServiceRecordView = require("./views/service_record"),
   UnitActivityView = require("./views/unit_activity"),
   UnitAlertsView = require("./views/unit_alerts"),
@@ -128,9 +129,9 @@ require("./validation.config");
           "finances": "finances",
           "members/:id/assign": "assignment_add",
           "members/:id/demerit": "demerit_add",
+          "members/:id/notes/add": "note_add",
           "members/:id/*path": "member",
           "members/:id": "member",
-          "notes/add": "note_add",
           "notes/:id/edit": "note_edit",
           "notes/:id": "note",
           "passes": "passes",
@@ -788,9 +789,9 @@ require("./validation.config");
               });
       },
       note_add: function(id) {
-          this.note_edit( null );  
+          this.note_edit( null, id );  
       },
-      note_edit: function(id) {
+      note_edit: function( id, member_id ) {
           var self = this,
               promises = [],
               note = new Note(),
@@ -811,6 +812,9 @@ require("./validation.config");
           if(id) {
               note.id = id;
               promises.push(note.fetch());
+          }
+          else if(member_id) {
+              note.member_id = member_id;
           }
 
           $.when.apply($, promises).done(function(user) {
@@ -1130,8 +1134,8 @@ require("./validation.config");
                   children: true,
                   members: true
               }),
-              rosterView = new RosterView({
-                  collection: units
+              rosterView = new RosterFullView({
+                  collection: units,
               });
 
           this.app.navRegion.currentView.setHighlight("roster");

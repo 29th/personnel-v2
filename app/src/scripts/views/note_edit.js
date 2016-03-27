@@ -50,6 +50,7 @@ require("backbone.validation");
               }
           return $.extend({
               units: this.units.length ? this.units.toJSON() : {},
+              member_id: this.model.member_id,
               levelList:levelList
           }, this.model.toJSON());
       },

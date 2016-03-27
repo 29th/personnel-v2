@@ -2,7 +2,7 @@ var $ = require("jquery"),
   _ = require("underscore"),
   Backbone = require("backbone"),
   Marionette = require("backbone.marionette"),
-  Template = require("../templates/roster_nestable.html"),
+  Template = require("../templates/roster_nestable_full.html"),
   TemplateContainer = require("../templates/roster_nestable_container.html");
 var Marionette = require("backbone.marionette");
 require("jquery-nestable");
@@ -10,8 +10,6 @@ require("jquery-nestable");
   
   var ItemView = Marionette.CompositeView.extend({
       template: Template,
-      tagName: "li",
-      className: "dd-item",
       itemViewContainer: "ol",
       initialize: function (options) {
           options = options || {};
@@ -20,6 +18,11 @@ require("jquery-nestable");
               this.attendance = options.attendance;
               this.itemViewOptions.attendance = options.attendance;
           }
+          if (options.view_mode) {
+               this.view_mode = options.view_mode || '';
+               this.itemViewOptions.view_mode = options.view_mode || '';
+          }
+          
           if(this.model.get("children").length) {
               this.collection = this.model.get("children");
           }
@@ -28,7 +31,7 @@ require("jquery-nestable");
       serializeData: function() {
           // If attendance is set, add attended and excused values to each member
           if (!_.isEmpty(this.attendance)) {
-              var attendance = this.attendance;
+              var attendance = this.attendance
               _.each(this.model.get("members"), function (member) {
                   var record = attendance.find(function (model) {
                       return model.get("member").id === member.member.id;
@@ -38,27 +41,26 @@ require("jquery-nestable");
                       member.excused = record.get("excused");
                   }
               });
+
           }
           
+          var positions = [];
+          if ( this.model.toJSON().abbr == 'Rsrv S1' ) 
+          {
+            positions[0] = this.model.toJSON().members;
+          }
+          else
+          {
+              positions = _.groupBy(this.model.get("members"), function (item) {
+                  return 1000-item.position.order;
+              });
+        
+          }
           return $.extend({
               attendance: this.itemViewOptions.attendance,
+              positions: positions
           }, this.model.toJSON());
       },
-      /*onBeforeRender: function () {
-          // If attendance is set, add attended and excused values to each member
-          if (!_.isEmpty(this.attendance)) {
-              attendance = this.attendance;
-              _.each(this.model.get("members"), function (member) {
-                  var record = attendance.find(function (model) {
-                      return model.get("member").id === member.id;
-                  });
-                  if (record) {
-                      member.attended = record.get("attended");
-                      member.excused = record.get("excused");
-                  }
-              });
-          }
-      }*/
   });
 
   module.exports = Marionette.CompositeView.extend({
@@ -71,6 +73,7 @@ require("jquery-nestable");
           options = options || {};
           this.itemViewOptions = this.itemViewOptions || {};
           if (options.attendance) this.itemViewOptions.attendance = options.attendance;
+          if (options.view_mode) this.itemViewOptions.view_mode = options.view_mode;
           _.bindAll(this, "onClickControls");
       },
       onRender: function() {

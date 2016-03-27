@@ -1,0 +1,38 @@
+<div class="" style="height:120px;font-size:3em;padding:10px;margin:15px;">
+    {{#if logo}}<img src="images/units/{{logo}}" style="height:100px" />{{/if}}
+    <a href="#units/{{ key }}">{{ name }}</a>
+</div>
+<ol class="dd-list">
+    <center>
+{{#if members.length}}
+    {{#each positions}}
+      {{#each this}}
+        <div class="roster-member">
+        <center>
+        <table class="roster-full-table">
+            <tr>
+                <td rowspan="3" class="roster-full-img">
+                    {{#if this.rank.filename}}<img src="images/ranks/60x60/{{ this.rank.filename }}.png" title="{{ this.rank.name }}">{{/if}}
+                </td>
+                <td class="roster-full-name">
+                    <a href="#members/{{ this.member.id }}">{{ this.member.full_name }}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ this.rank.name }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ this.position.name }}
+                </td>
+            </tr>
+        
+        </table></center></div>
+      {{/each}}
+    <br style="clear: left;" />
+    {{/each}}
+    </center>
+{{/if}}
+</ol>

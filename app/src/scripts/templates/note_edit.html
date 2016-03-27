@@ -26,19 +26,24 @@
           [{{this}}]<br>
         
         {{/each}}
-        <label for="member_id">Member - subject of note</label>
 {{#if id}}
-        <input type="text" class="form-control disabled" id="member_id" name="member_id" value="{{ member.short_name }}" disabled="true">
-{{else}}
-        <select class="form-control selectpicker" name="member_id" id="member_id" data-live-search="true" >
-            {{#select member_id}}
-            <option value="">Select...</option>
+        <label for="member_id">Member - subject of demerit</label>
+        <input type="hidden" name="member_id" value="{{member.id}}">
+        <input type="text" class="form-control disabled" value="{{ member.short_name }}" disabled="true">
+{{else}} 
+    {{#if  member.id}}
+        <label for="member_id">Member - subject of demerit</label>
+        <input type="hidden" name="member_id" value="{{member.id}}">
+        <select class="form-control selectpicker disabled" data-live-search="true" disabled="true">
+            {{#select member.id}}
             {{#each units.[0]}}
                 <option value="{{ this.member.id }}">{{ this.member.short_name }}</option>
             {{/each}}
             {{/select}}
         </select>
-        <p class="help-block error-msg"></p>
+    {{else}}
+        <input type="hidden" name="member_id" value="{{member_id}}">
+    {{/if}}
 {{/if}}
     </div>
 
