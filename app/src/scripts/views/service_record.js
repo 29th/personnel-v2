@@ -28,9 +28,9 @@ var Marionette = require("backbone.marionette");
           var items = [],
               dischargeDate = this.assignments.discharge_date,
           // Group everything together by date
-              dates = _.sortBy(_.groupBy(this.assignments.toJSON().concat(this.promotions.toJSON(), this.awardings.toJSON(), this.discharges.toJSON(), this.enlistments.toJSON(), this.finances.toJSON(), this.demerits.toJSON()), function (item) {
+              dates = _.groupBy(this.assignments.toJSON().concat(this.promotions.toJSON(), this.awardings.toJSON(), this.discharges.toJSON(), this.enlistments.toJSON(), this.finances.toJSON(), this.demerits.toJSON()), function (item) {
                   return item.start_date || item.date;
-              }));
+              });
           // Transform grouped-by data into an array of dates with items
           _.each(dates, function (dateItems, date) {
               items.push({
