@@ -463,9 +463,11 @@ class Admin extends CI_Controller {
 	{
 	    $this->grocery_crud->set_table('units')
 	        ->columns('name', 'abbr', 'path', 'order', 'game', 'timezone', 'class', 'active')
-	        ->fields('id', 'name', 'abbr', 'path', 'order', 'game', 'timezone', 'class', 'active')
+	        ->fields('id', 'name', 'abbr', 'path', 'order', 'game', 'timezone', 'class', 'active', 'steam_group_abbr', 'slogan', 'nickname','logo' )
 	        ->required_fields('name', 'abbr', 'path', 'class')
 	        ->display_as('abbr', 'Abbreviation')
+	        ->display_as('steam_group_abbr', 'Steam Group')
+	        ->display_as('slogan', 'Motto')
 	        ->callback_after_update(array($this, '_callback_units_after_update'));
         $output = $this->grocery_crud->render();
  

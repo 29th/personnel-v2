@@ -40,7 +40,7 @@ class Banlog_model extends MY_Model {
         $this->filter_join('members', 'members.id = banlog.id_admin','left');
         $this->filter_join('ranks', 'ranks.id = members.rank_id','left');
         $this->filter_join('members AS p_members', 'p_members.id = banlog.id_poster','left');
-        $this->filter_join('ranks AS p_ranks', 'p_ranks.id = members.rank_id','left');
+        $this->filter_join('ranks AS p_ranks', 'p_ranks.id = p_members.rank_id','left');
         return $this;
     }
     
