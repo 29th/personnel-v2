@@ -602,6 +602,9 @@ require("./validation.config");
               } else if(self.user.get("classes").length) {
                   // already a member
                   self.showView(new FlashView({msg: "You are already a member", type: "error"}));
+              } else if(self.user.get("currently_enlisting")) {
+                  // already enlisting
+                  self.showView(new FlashView({msg: "Your current enlistment is being processed!", type: "error"}));
               } else {
                   // Success - logged in and not already a member
                   self.showView(enlistmentEditView);

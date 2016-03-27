@@ -39,12 +39,18 @@
                 <li class="nav-roster-unit"><a href="#units/{{ this.key }}">{{ this.abbr }}</a></li>
                 {{/each}}
             </ul>
-        </div>
+        </div>   
     </li>
     
     {{#if forum_member_id}}
         {{#unless classes}}
-        <li{{#is highlight "===" "enlist"}} class="active"{{/is}} data-highlight="enlist"><a href="#enlist">{{#if short_name}}Re-{{/if}}Enlist</a></li>
+        <li{{#is highlight "===" "enlist"}} class="active"{{/is}} data-highlight="enlist">
+        {{#if currently_enlisting}}
+            <a href="#enlistments/{{currently_enlisting}}">Currently Enlisting</a>
+        {{else}}
+            <a href="#enlist">{{#if short_name}}Re-{{/if}}Enlist</a>
+        {{/if}}
+        </li>
         {{/unless}}
     {{else}}
         <li><a href="{{ forum.Vanilla.baseUrl }}{{ forum.Vanilla.signInPath }}">Sign In</a></li>
