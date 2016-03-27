@@ -7,14 +7,14 @@
 {{#if members.length}}
     {{#each positions}}
       {{#each this}}
-        <div style="margin:3px;width:32%;display: inline-block;">
+        <div class="roster-member">
         <center>
-        <table class="roster-full-table" style="border:1px solid black;width:300px;background-color:#55584a;">
+        <table class="roster-full-table">
             <tr>
-                <td rowspan="3" style="width:66px;padding:2px;">
+                <td rowspan="3" class="roster-full-img">
                     {{#if this.rank.filename}}<img src="images/ranks/60x60/{{ this.rank.filename }}.png" title="{{ this.rank.name }}">{{/if}}
                 </td>
-                <td style="font-weight:bold;font-size:1.5em;">
+                <td class="roster-full-name">
                     <a href="#members/{{ this.member.id }}">{{ this.member.full_name }}</a>
                 </td>
             </tr>

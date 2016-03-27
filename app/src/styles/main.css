@@ -464,6 +464,30 @@ table.notes_table {
     border-color: #bdc3c7;
 }
 
+/* Graphical roster */
+
+.roster-member {
+    margin:3px;
+    width:300px;
+    display: inline-block;
+}
+
+.roster-full-table {
+    border:1px solid black;
+    width:100%;
+    background-color:#55584a;
+}
+
+.roster-full-img {
+    width:66px;
+    padding:2px;
+}
+
+.roster-full-name {
+    font-weight:bold;
+    font-size:1.5em;
+}
+
 /* X-MAS */
 /*
 .panel .panel-heading {
