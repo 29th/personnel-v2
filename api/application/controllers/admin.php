@@ -342,7 +342,7 @@ class Admin extends CI_Controller {
 	    $this->grocery_crud->set_table('positions')
 	        ->columns('name', 'active', 'order', 'access_level')
 	        ->required_fields('name', 'access_level')
-	        ->field_type('access_level', 'dropdown', array('0' => 'Default', '1' => 'Leadership'));
+	        ->field_type('access_level', 'dropdown', array('0' => 'Default', '2' => 'Elevated', '1' => 'Leadership'));
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'positions');
@@ -489,7 +489,7 @@ class Admin extends CI_Controller {
 	        ->required_fields('unit_id', 'access_level', 'ability_id')
 	        ->set_relation('unit_id', 'units', 'abbr')->display_as('unit_id', 'Unit')
 	        ->set_relation('ability_id', 'abilities', 'abbr')->display_as('ability_id', 'Ability')
-	        ->field_type('access_level', 'dropdown', array('0' => 'Default', '1' => 'Leadership'));
+	        ->field_type('access_level', 'dropdown', array('0' => 'Default', '2' => 'Elevated', '1' => 'Leadership'));
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'unit_permissions');
@@ -500,7 +500,7 @@ class Admin extends CI_Controller {
 	    $this->grocery_crud->set_table('unit_roles')
 	        ->required_fields('unit_id', 'access_level', 'role_id')
 	        ->set_relation('unit_id', 'units', 'abbr')->display_as('unit_id', 'Unit')
-	        ->field_type('access_level', 'dropdown', array('0' => 'Default', '1' => 'Leadership'));
+	        ->field_type('access_level', 'dropdown', array('0' => 'Default', '2' => 'Elevated', '1' => 'Leadership'));
 	    
         $this->load->library('vanilla');
         $roles = $this->role_list_to_dropdown($this->vanilla->get_role_list());
