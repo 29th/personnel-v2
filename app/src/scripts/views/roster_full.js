@@ -3,7 +3,7 @@ var $ = require("jquery"),
   Backbone = require("backbone"),
   Marionette = require("backbone.marionette"),
   Template = require("../templates/roster_nestable_full.html"),
-  TemplateContainer = require("../templates/roster_nestable_container.html");
+  TemplateContainer = require("../templates/roster_nestable_full_container.html");
 var Marionette = require("backbone.marionette");
 require("jquery-nestable");
 
