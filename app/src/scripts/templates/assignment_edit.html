@@ -21,7 +21,7 @@
             {{#select position.id}}
             <option value="">Select...</option>
             {{#each positions}}
-            <option value="{{ this.id }}">{{ this.name }}{{#is this.access_level "===" "1"}} (Leadership){{/is}}{{#is this.access_level "===" "2"}} (Elevated){{/is}}</option>
+            <option value="{{ this.id }}">{{ this.name }}{{#is this.access_level "===" "5"}} (Elevated){{/is}}{{#is this.access_level "===" "10"}} (Leadership){{/is}}</option>
             {{/each}}
             {{/select}}
         </select>
