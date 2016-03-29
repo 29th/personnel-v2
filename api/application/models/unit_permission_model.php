@@ -15,7 +15,7 @@ class Unit_Permission_model extends MY_Model {
     
     public function by_unit($unit_id, $access_level = FALSE) {
         $this->filter_where('unit_permissions.unit_id', $unit_id);
-        if($access_level !== FALSE) $this->filter_where('unit_permissions.access_level = ', $access_level); //used to be <=
+        if($access_level !== FALSE) $this->filter_where('unit_permissions.access_level <= ', $access_level);
         return $this;
     }
 }
