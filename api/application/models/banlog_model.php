@@ -12,7 +12,7 @@ class Banlog_model extends MY_Model {
             )
             ,array(
                 'field' => 'reason'
-                ,'rules' => 'min_length[1]||max_length[60]'
+                ,'rules' => 'min_length[1]||max_length[1000]'
             )
             ,array(
                 'field' => 'roid'
