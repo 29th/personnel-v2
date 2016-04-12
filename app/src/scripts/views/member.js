@@ -36,7 +36,10 @@ var Marionette = require("backbone.marionette");
                   return (assignment.end_date === null || Date.parse(assignment.end_date) >= new Date());
               }),
               allowedTo = {
-                  viewProfile: permissions.indexOf("profile_view_any") !== -1
+                  viewProfile: permissions.indexOf("profile_view_any") !== -1,
+                  viewQualifications: permissions.indexOf("qualification_view_any") !== -1,
+                  viewNotes: permissions.indexOf("note_view_any") !== -1,
+                  viewEvents: permissions.indexOf("event_view_any") !== -1
               };
           return _.extend({
               assignments: activeAssignments,
