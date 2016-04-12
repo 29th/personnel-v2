@@ -17,7 +17,9 @@
             </div>
         {{/if}}
         {{#if allowedTo.postAar}}
+            {{#if (past this.datetime) }} 
             <a href="#events/{{ id }}/aar" class="btn btn-default pull-right"><span class="glyphicon glyphicon-list"></span> Post AAR</a>
+            {{/if}}
         {{/if}}
     </div>
   </div>

@@ -221,6 +221,7 @@ require("./validation.config");
           $.when.apply($, promises).done(function () {
               // Need the event fetch to complete before we know the unit. Now get the expected attendees
               expectedUnits.filter = event.get("unit").id;
+              expectedUnits.onDate = event.get("datetime").substr(0,10);
               if (event.get("attendance").length) attendance.add(event.get("attendance"));
               promises = [];
               promises.push(expectedUnits.fetch());
