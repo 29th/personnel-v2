@@ -108,7 +108,10 @@ abbr {
     font-weight: normal;
 }
 
-.unit_breadcrums {
+.unit_breadcrums a{
+    font-weight: bold;
+    color: #D3D3D3;
+    text-decoration: underline;
 }
 
 .unit_logo {
