@@ -859,8 +859,9 @@ require("./validation.config");
 
           // Layout & Views
           var memberLayout = new MemberView({
-              model: member,
-              assignments: assignments
+                model: member,
+                permissions: this.permissions,
+                assignments: assignments
           }),
               memberAdminView = new MemberAdminView({
                   permissions: this.permissions,
@@ -1355,7 +1356,8 @@ require("./validation.config");
 
           // Rendering
           //util.loading(true);
-          $.when.apply($, promises).done(function () {
+          Q.allSettled(promises).then(function() {
+          //$.when.apply($, promises).done(function () {
               //util.loading(false);
               unitLayout.numColumns = columnViews.length;
               self.showView(unitLayout);
