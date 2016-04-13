@@ -77,22 +77,22 @@ class Units extends MY_Controller {
 				if($filter !== FALSE) {
 					$key = 'unit';
 					$units = $units[0];
+					$units['breadcrumbs'] = $this->addUnitsBreadCrumbs($units['path'] . '/' . $units['id']);
 				}
-				if ($units['id'] != 1)
-					$units['breadcrumbs'] = $this->addUnitsBreadCrumbs($units['old_path']);
+					
 			}
 			$this->response(array('status' => true, $key => $units));
 		}
     }
 	
 	public function addUnitsBreadCrumbs( $unitPath = FALSE ) {
-		if (!$unitPath) return array();
+		if (!$unitPath || strlen( $unitPath ) <= 3 ) return array();
 		$tempTab = explode( ' ', trim(str_replace( '/', ' ', substr( $unitPath , 2 ) )));
 		$retTab = array();
 		foreach( $tempTab as $key => $rec ) 
 		{
-			$tempTab[$key] = $this->db->query("SELECT `name` FROM `units` WHERE id =" . $tempTab[$key] )->result_array();
-			$retTab[] = array( 'id' => $rec, 'name' => str_replace(', ', '', substr( $tempTab[$key][0]['name'], strrpos( $tempTab[$key][0]['name'], ', ' ) ) ) );
+			$tempTab[$key] = $this->db->query("SELECT `abbr`,`name` FROM `units` WHERE id =" . $tempTab[$key] )->result_array();
+			$retTab[] = array( 'id' => str_replace(array('Co. HQ',' HQ'), array('',''), $tempTab[$key][0]['abbr']), 'name' => str_replace(', ', '', substr( $tempTab[$key][0]['name'], strrpos( $tempTab[$key][0]['name'], ', ' ) ) ) );
 		}
 		return $retTab;
 	}
