@@ -10,6 +10,9 @@ var Marionette = require("backbone.marionette");
       initialize: function (options) {
           options = options || {};
           this.assignments = options.assignments || {};
+
+          this.permissions = options.permissions || {};
+          this.permissions.on("reset", this.render, this);
       },
       modelEvents: {
           //"change": "render" // Isn't this redundant?
@@ -28,13 +31,21 @@ var Marionette = require("backbone.marionette");
       },
       serializeData: function () {
           // Remove primary_assignment and inactive assignments
-          var activeAssignments = this.assignments.toJSON().filter(function (assignment) {
-              return (assignment.end_date === null || Date.parse(assignment.end_date) >= new Date());
-          });
+          var permissions = this.permissions.length ? this.permissions.pluck("abbr") : [],
+              activeAssignments = this.assignments.toJSON().filter(function (assignment) {
+                  return (assignment.end_date === null || Date.parse(assignment.end_date) >= new Date());
+              }),
+              allowedTo = {
+                  viewProfile: permissions.indexOf("profile_view_any") !== -1,
+                  viewQualifications: permissions.indexOf("qualification_view_any") !== -1,
+                  viewNotes: permissions.indexOf("note_view_any") !== -1,
+                  viewEvents: permissions.indexOf("event_view_any") !== -1
+              };
           return _.extend({
               assignments: activeAssignments,
               member_status: this.assignments.member_status,
-              highlight: this.highlight
+              highlight: this.highlight,
+              allowedTo: allowedTo
           }, this.model.toJSON());
       }
   });

@@ -18,7 +18,10 @@
     <div class="col-sm-12">
         <ul class="nav nav-tabs">
             <li{{#is highlight "===" "profile"}} class="active"{{/is}} data-highlight="profile"><a href="#members/{{ id }}">Profile</a></li>
+            {{#if allowedTo.viewProfile }}
             <li{{#is highlight "===" "servicerecord"}} class="active"{{/is}} data-highlight="servicerecord"><a href="#members/{{ id }}/servicerecord">Service Record</a></li>
+            {{/if}}
+            {{#if allowedTo.viewEvents }}
             <li{{#is highlight "===" "attendance"}} class="active"{{/is}} data-highlight="attendance"><a href="#members/{{ id }}/attendance">Attendance</a></li>
             <li{{#is highlight "===" "qualifications"}} class="active"{{/is}} data-highlight="qualifications"><a href="#members/{{ id }}/qualifications">Qualifications</a></li>
             <li{{#is highlight "===" "recruits"}} class="active"{{/is}} data-highlight="recruits"><a href="#members/{{ id }}/recruits">Recruits</a></li>
@@ -26,6 +29,7 @@
             <li{{#is highlight "===" "eloas"}} class="active"{{/is}} data-highlight="eloas"><a href="#members/{{ id }}/eloas">ELOAs</a></li> 
             <li{{#is highlight "===" "notes"}} class="active"{{/is}} data-highlight="notes"><a href="#members/{{ id }}/notes">Notes</a></li> 
             <li{{#is highlight "===" "passes"}} class="active"{{/is}} data-highlight="passes"><a href="#members/{{ id }}/passes">Weapon Passes</a></li> 
+            {{/if}}
         </ul>
     </div>
 </div>
