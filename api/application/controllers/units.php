@@ -77,7 +77,7 @@ class Units extends MY_Controller {
 				if($filter !== FALSE) {
 					$key = 'unit';
 					$units = $units[0];
-					$units['breadcrumbs'] = $this->addUnitsBreadCrumbs($units['path'] . '/' . $units['id']);
+					$units['breadcrumbs'] = $this->addUnitsBreadCrumbs($units['path'] . $units['id'] . '/');
 				}
 					
 			}
