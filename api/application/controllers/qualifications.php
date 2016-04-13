@@ -3,8 +3,8 @@
 class Qualifications extends MY_Controller {
     public $model_name = 'qualification_model';
     public $abilities = array(
-        'view_any' => 'profile_view_any',
-        'view' => 'profile_view'
+        'view_any' => 'qualification_view_any',
+        'view' => 'qualification_view'
     );
     public $paginate = false;
 

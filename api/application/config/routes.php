@@ -117,7 +117,7 @@ $route['passes'] = 'passes/index'; // Filtered
 
 // TPs / Lighthouse
 $route['tps'] = 'tps/index'; // Filtered
-$route['tps/(:num)'] = 'tps/view/$1'; // Filtered
+$route['tps/(:any)'] = 'tps/view/$1'; // Filtered
 
 // Admin
 $route['admin'] = 'admin/home';
