@@ -52,9 +52,14 @@ class Enlistments extends MY_Controller {
         }
         // View record
         else {
-            $this->load->library('vanilla');
-            $temp = $this->vanilla->get_steam_id($enlistment['member']['forum_member_id']);
-            $enlistment['forum_steam_id'] = ( $temp ? $temp['Value'] : '' );
+            if ( $enlistment['member']['forum_member_id'] )
+            {
+                $this->load->library('vanilla');
+                $temp = $this->vanilla->get_steam_id($enlistment['member']['forum_member_id']);
+                $enlistment['forum_steam_id'] = ( $temp ? $temp['Value'] : '' );
+            }
+            else
+                $enlistment['forum_steam_id'] = '';
             $this->response(array('status' => true, 'enlistment' => $enlistment));
         }
     }
