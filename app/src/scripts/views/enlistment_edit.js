@@ -16,6 +16,7 @@ require("backbone.validation");
       initialize: function (options) {
           options = options || {};
           this.tps = options.tps || {};
+          this.userdata = options.user || {};
           _.bindAll(this, "onSubmitForm");
           this.ages = [];
           var i;
@@ -28,6 +29,7 @@ require("backbone.validation");
           return $.extend({
               ages: this.ages,
               countries: Countries,
+              userdata: _.isEmpty(this.userdata) ? [] : this.userdata.toJSON(),
               tps: this.tps.length ? this.tps.at(0).get("children").toJSON() : {}
           }, this.model.toJSON());
       },
