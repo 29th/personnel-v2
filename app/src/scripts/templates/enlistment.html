@@ -70,18 +70,20 @@
                 <th>Game</th>
                 <td>{{ game }}</td>
             </tr>
-            </tr>
             <tr>
                 <th>In-Game Name</th>
                 <td>{{ ingame_name }}</td>
-            </tr>
             </tr>
             <tr>
                 <th>Steam ID</th>
                 <td>{{#if steam_id }} <a href="http://steamcommunity.com/profiles/{{steam_id}}" target="_blank">{{steam_id}}</a> {{/if}}</td>
             </tr>
+{{#if forum_steam_id}}
+            <tr>
+                <th>Verified Steam ID</th>
+                <td><a href="http://steamcommunity.com/profiles/{{forum_steam_id}}" target="_blank">{{forum_steam_id}}</a></td>
             </tr>
-            </tr>
+{{/if}}
             <tr>
                 <th>Realism Experience</th>
                 <td>{{ experience }}</td>

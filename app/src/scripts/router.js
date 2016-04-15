@@ -589,7 +589,8 @@ require("./validation.config");
               promises = [],
               enlistment = new Enlistment(),
               enlistmentEditView = new EnlistmentEditView({
-                  model: enlistment
+                  model: enlistment,
+                  user: self.user
               });
 
           this.app.navRegion.currentView.setHighlight("enlistments");

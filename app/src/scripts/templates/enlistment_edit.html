@@ -7,19 +7,19 @@
     
     <div class="form-group">
         <label for="first_name">First Name</label>
-        <input type="text" class="form-control" name="first_name" id="first_name" value="{{ first_name }}">
+        <input type="text" class="form-control" name="first_name" id="first_name" value="{{#if first_name}}{{ first_name }}{{else}}{{userdata.first_name}}{{/if}}">
         <p class="help-block error-msg"></p>
     </div>
     
     <div class="form-group">
         <label for="middle_name">Middle Initial</label>
-        <input type="text" class="form-control" name="middle_name" id="middle_name" value="{{ middle_name }}">
+        <input type="text" class="form-control" name="middle_name" id="middle_name" value="{{#if middle_name}}{{ middle_name }}{{else}}{{userdata.middle_name}}{{/if}}">
         <p class="help-block error-msg"></p>
     </div>
     
     <div class="form-group">
         <label for="last_name">Last Name</label>
-        <input type="text" class="form-control" name="last_name" id="last_name" value="{{ last_name }}">
+        <input type="text" class="form-control" name="last_name" id="last_name" value="{{#if last_name}}{{ last_name }}{{else}}{{userdata.last_name}}{{/if}}">
         <p class="help-block">Please use your real name or a realistic sounding name.</p>
         <p class="help-block error-msg"></p>
     </div>
@@ -41,12 +41,21 @@
     <div class="form-group">
         <label for="country_id">Country</label>
         <select class="form-control" name="country_id" id="country_id">
+          {{#if country_id}}
             {{#select country_id}}
             <option value="">Select...</option>
             {{#each countries}}
             <option value="{{ this.id }}">{{ this.name }}</option>
             {{/each}}
             {{/select}}
+          {{else}}
+            {{#select userdata.country.id}}
+            <option value="">Select...</option>
+            {{#each countries}}
+            <option value="{{ this.id }}">{{ this.name }}</option>
+            {{/each}}
+            {{/select}}
+          {{/if}}
         </select>
         <p class="help-block error-msg"></p>
     </div>
@@ -89,9 +98,9 @@
     
     <div class="form-group">
         <label for="steam_id">Steam ID</label>
-        <input type="text" class="form-control" name="steam_id" id="steam_id" value="{{ steam_id }}">
+        <input type="text" class="form-control" name="steam_id" id="steam_id" value="{{#if steam_id}}{{ steam_id }}{{else}}{{userdata.steam_id}}{{/if}}">
         <p class="help-block">Your Steam Identification Number. <a href="http://29th.org/roid" target="_blank">Click here for help</a>.</p>
-        <p class="help-block error-msg"></p>
+        <p class="help-block">Verified Steam ID: <b></b></p>
     </div>
     
     <div class="form-group">
