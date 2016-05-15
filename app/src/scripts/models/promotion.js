@@ -1,16 +1,32 @@
 var $ = require("jquery"),
   _ = require("underscore"),
-  Backbone = require("backbone");
+  Backbone = require("backbone"),
+  config = require("../config");
 
   "use strict";
 
   module.exports = Backbone.Model.extend({
-      initialize: function () {
-        var oldRank = this.get("old_rank"),
-            newRank = this.get("new_rank");
-        oldRank.order = parseInt(oldRank.order, 10);
-        newRank.order = parseInt(newRank.order, 10);
-        this.set("old_rank", oldRank);
-        this.set("new_rank", newRank);
+      url: function () {
+          var url = config.apiHost + "/promotions";
+          if(this.id) url += "/" + this.id;
+          return url;
+      },
+      parse: function (response, options) {
+          return response || {};
+      },
+      validation: {
+          new_rank_id: {
+              required: true,
+              msg: "Pick a new rank!",
+          },
+          date: {
+              required: true,
+              msg: "Pick a date!",
+          },
+          topic_id: {
+              required: true,
+              pattern: "number",
+              msg: "If there is no topic ID, enter 0"
+          }
       }
   });

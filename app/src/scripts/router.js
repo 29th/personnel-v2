@@ -14,6 +14,7 @@ var $ = require("jquery"),
   Event = require("./models/event"),
   Member = require("./models/member"),
   Note = require("./models/note"),
+  Promotion = require("./models/promotion"),
   Pass = require("./models/pass"),
   TP = require("./models/tp"),
   User = require("./models/user"),
@@ -38,10 +39,11 @@ var $ = require("jquery"),
   Promotions = require("./collections/promotions"),
   Qualifications = require("./collections/qualifications"),
   Passes = require("./collections/passes"),
-  TPs = require("./collections/tps"),
+  Ranks = require("./collections/ranks"),
   Recruits = require("./collections/recruits"),
   Servers = require("./collections/servers"),
   Standards = require("./collections/standards"),
+  TPs = require("./collections/tps"),
   UnitAwols = require("./collections/unit_awols"),
   UnitAlerts = require("./collections/unit_alerts"),
   UnitStats = require("./collections/unit_stats"),
@@ -52,6 +54,7 @@ var $ = require("jquery"),
   BanlogsView = require("./views/banlogs"),
   BanlogView = require("./views/banlog"),
   BanlogEditView = require("./views/banlog_edit"),
+  PromotionEditView = require("./views/promotion_edit"),
   CalendarView = require("./views/calendar"),
   DemeritEditView = require("./views/demerit_edit"),
   DemeritView = require("./views/demerit"),
@@ -130,6 +133,7 @@ require("./validation.config");
           "members/:id/assign": "assignment_add",
           "members/:id/demerit": "demerit_add",
           "members/:id/notes/add": "note_add",
+          "members/:id/promote": "promotion_add",
           "members/:id/*path": "member",
           "members/:id": "member",
           "notes/:id/edit": "note_edit",
@@ -838,6 +842,50 @@ require("./validation.config");
               self.showView(noteEditView);
           });
 */          
+      },
+      promotion_add: function( member_id ) {
+          var self = this,
+              promises = [],
+              promotion = new Promotion({
+                  isnew:true,
+                  member_id: member_id
+              }),
+/*
+              units = new Units(null, {
+                  children: true,
+                  members: true,
+                  flat: true,
+                  distinct: true
+              }), */
+              member = new Member({
+                  id: member_id
+              }),
+              
+              ranks = new Ranks({
+              }),
+              
+              promotionEditView = new PromotionEditView({
+                  //units: units,
+                  member: member,
+                  ranks: ranks,
+                  model: promotion
+              });
+
+          this.app.navRegion.currentView.setHighlight("promotions");
+          
+          promises.push(promotion.fetch(),member.fetch(),ranks.fetch());
+//          promises.push(promotion.fetch());
+
+          $.when.apply($, promises).done(function(user) {
+              // Must be logged in
+              if(self.user.get("forum_member_id") === undefined) {
+                  // not logged in
+                  self.showView(new FlashView({msg: "You must be logged in to view this page", type: "error"}));
+              } else {
+                  // Success - logged in and not already a member
+                  self.showView(promotionEditView);
+              }
+          });
       },
       member: function (id, path) {
           var self = this,
