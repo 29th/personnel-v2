@@ -21,9 +21,12 @@ class Users extends MY_Controller {
 	 * Gets basic user information
 	 */
     public function view_get() {
-        if($this->user->logged_in()) {
+        if($this->user->logged_in()) 
+        {
             $this->response(array('status' => true, 'user' => $this->user->member()));
-        } else {
+        } 
+        else 
+        {
             $this->response(array('status' => false, 'error' => 'Not logged in'));
         }
     }

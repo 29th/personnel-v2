@@ -62,16 +62,16 @@ class Promotions extends MY_Controller {
             $insert_id = $this->promotion_model->save(NULL, $data);
 			
 			// Update rank if necessary
-            $this->check_rank($data['member_id'], $data['date'], $data['new_rank_id']);
+            $this->latest_rank($data['member_id'], $data['date'], $data['new_rank_id']);
             
             // Update service coat
-            $this->servicecoat->update($member_id);
+            $this->servicecoat->update($data['member_id']);
             
             // Update username
             $this->load->library('vanilla');
-            $this->vanilla->update_username($member_id);
+            $this->vanilla->update_username($data['member_id']);
             
-            $this->response(array('status' => $insert_id ? true : false, 'promotion' => $insert_id ? $this->promotion_model->get_by_id($insert_id) : null));
+            $this->response(array( 'status' => $insert_id ? true : false, 'promotions' => $insert_id ? $this->promotion_model->get_by_id($insert_id) : null));
         }
     }
     
@@ -102,7 +102,7 @@ class Promotions extends MY_Controller {
             $result = $this->promotion_model->save($promotion_id, $data);
 			
 			// Update rank if necessary
-            $this->check_rank($this->post('member_id'), $this->post('date'), $this->post('new_rank_id'));
+            $this->latest_rank($this->post('member_id'), $this->post('date'), $this->post('new_rank_id'));
             
             // Update service coat
             $this->servicecoat->update($member_id);
