@@ -13,6 +13,9 @@
         {{#if allowedTo.assign }}
             <li><a href="#members/{{ member_id }}/assign">Assign</a></li>
         {{/if}}
+        {{#if allowedTo.promote }}
+            <li><a href="#members/{{ member_id }}/promote">Promote</a></li>
+        {{/if}}
         {{#if allowedTo.discharge }}
             <li class="divider"></li>
             <li><a href="#members/{{ member_id }}/discharge">Discharge</a></li>

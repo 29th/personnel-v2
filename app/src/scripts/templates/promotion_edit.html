@@ -1,0 +1,55 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+     <h2>Promote member</h2>
+  </div>
+  <div class="panel-body">
+  <form role="form">
+    
+    <div class="form-group">
+        <label for="member_id">Member</label>
+        <input type="hidden" name="member_id" value="{{member.id}}">
+        <input type="text" class="form-control disabled" value="{{ this.member.short_name }}" disabled="true">
+        <p class="help-block error-msg"></p>
+    </div>
+    
+    <div class="form-group">
+        <label for="old_rank_id">Current Rank</label>
+        <input type="hidden" name="old_rank_id" value="{{this.member.rank.id}}">
+        <input type="text" class="form-control disabled" name="old_rank" id="old_rank" value="{{ this.member.rank.name }}" disabled="true">
+        <p class="help-block error-msg"></p>
+    </div>
+    
+    <div class="form-group">
+        <label for="new_rank_id">New Rank</label>
+        <select class="form-control selectpicker" name="new_rank_id" id="new_rank_id" data-live-search="true">
+            {{#select new_rank_id}}
+            <option value="">Select...</option>
+            {{#each ranks}}
+                <option value="{{ this.id }}">{{ this.abbr }} - {{ this.name }}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+        <p class="help-block error-msg"></p>
+    </div>
+
+    <div class="form-group">
+        <label for="date">Date of Promotion</label>
+        <input type="text" class="form-control" id="date" name="date" value="{{ date }}" data-provide="datepicker" data-date-format="yyyy-mm-dd">
+    </div>
+    
+    <div class="form-group">
+        <label >Type of forums</label>
+        <input type="hidden" name="forum_id" value="3">
+        <input type="text" class="form-control disabled" value="Vanilla" disabled="true">
+    </div>
+
+    <div class="form-group">
+        <label for="topic_id">Forum Topic ID</label>
+        <input type="text" class="form-control" name="topic_id" id="topic_id" value="{{ topic_id }}">
+        <p class="help-block error-msg"></p>
+    </div>
+    
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+  </form>
+  </div>
+</div>
