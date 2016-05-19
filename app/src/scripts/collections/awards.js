@@ -16,7 +16,7 @@ var $ = require("jquery"),
 
           var params = [];
           if(this.game) params.push("game=" + this.game);
-          if(this.members) params.push("members=" + this.members);
+         // if(this.members) params.push("members=" + this.members);
           if(params.length) url += "?" + params.join("&");
           
           return url;

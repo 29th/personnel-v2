@@ -1,8 +1,7 @@
 var $ = require("jquery"),
   _ = require("underscore"),
   Backbone = require("backbone"),
-  Template = require("../templates/awards.html"),
-  config = require("../config");
+  Template = require("../templates/awards.html");
 var Marionette = require("backbone.marionette");
 
 
