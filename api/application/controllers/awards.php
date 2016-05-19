@@ -10,7 +10,10 @@ class Awards extends MY_Controller {
      * INDEX
      */
     public function index_get() {
-        $awards = $this->award_model->get()->result();
+        $awards = $this->award_model;
+        if( $this->input->get('game') )
+            $awards->by_game( $this->input->get('game') );
+        $awards = $awards->get()->result();
         $this->response(array('status' => true, 'awards' => $awards));
     }
     
