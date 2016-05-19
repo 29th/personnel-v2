@@ -22,9 +22,23 @@ class Awards extends MY_Controller {
      */
     public function view_get($award_id) {
         $award = $this->award_model->get_by_id($award_id);
+        if( $this->input->get('members') )
+            $award->awardings = nest( $this->add_members($award_id) );
         $this->response(array('status' => true, 'award' => $award));
     }
     
+    private function add_members( $award_id ) {
+        $res = $this->db->query("
+            SELECT aw.member_id AS `member|id`, aw.date, CONCAT (r.abbr,' ', m.last_name) AS `member|short_name`, aw.forum_id AS 'forums|id', aw.topic_id AS 'forums|topic'
+            FROM `awardings` AS aw
+            LEFT JOIN `members` AS m ON m.id = aw.member_id
+            LEFT JOIN `ranks` AS r ON m.rank_id = r.id
+            WHERE aw.award_id = " . $award_id . "
+            ORDER BY aw.date DESC")->result_array();
+        return $res;
+    }
+
+
     /*public function index_post() {
         if($this->form_validation->run('award_add') === FALSE) {
             $this->response(array('status' => false, 'error' => $this->form_validation->get_error_array()));
