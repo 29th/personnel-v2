@@ -541,3 +541,19 @@ nav.navbar {
 }
 */
 
+
+.award.award_title {
+    font-size:25px;
+    color: #96A68C;
+    background-color: #565A42;
+}
+
+.award.award_img{
+    padding-right: 20px;    
+}
+
+.award.award_description {
+    color: white;
+    font-size: 18px;
+    
+}
