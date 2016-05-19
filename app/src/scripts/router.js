@@ -5,6 +5,7 @@ var $ = require("jquery"),
   Handlebars = require("hbsfy/runtime"),
   Q = require("q"),
   util = require("./util"),
+  Award = require("./models/award"),
   Assignment = require("./models/assignment"),
   Banlog = require("./models/banlog"),
   Demerit = require("./models/demerit"),
@@ -21,6 +22,7 @@ var $ = require("jquery"),
   Assignments = require("./collections/assignments"),
   Attendance = require("./collections/attendance"),
   AttendancePercentages = require("./collections/attendance_percentages"),
+  Awards = require("./collections/awards"),
   Awardings = require("./collections/awardings"),
   Banlogs = require("./collections/banlogs"),
   Demerits = require("./collections/demerits"),
@@ -51,6 +53,8 @@ var $ = require("jquery"),
   AARView = require("./views/aar"),
   AssignmentEditView = require("./views/assignment_edit"),
   AssociateView = require("./views/associate"),
+  AwardView = require("./views/award"),
+  AwardsView = require("./views/awards"),
   BanlogsView = require("./views/banlogs"),
   BanlogView = require("./views/banlog"),
   BanlogEditView = require("./views/banlog_edit"),
@@ -112,6 +116,8 @@ require("./validation.config");
           //"assignments"
           "assignments/:id/edit": "assignment_edit",
           "associate": "associate",
+          "awards": "awards",
+          "awards/:id": "award",
           "banlogs/add": "banlog_add",
           "banlogs/:id": "banlog",
           "banlogs": "banlogs",
@@ -282,6 +288,46 @@ require("./validation.config");
       associate: function() {
           var associateView = new AssociateView({model: this.user});
           this.showView(associateView);
+      },
+      award: function (id) {
+          var self = this,
+              promises = [],
+              award = new Award({
+                  id: id,
+                  members: true
+              })
+              
+          var awardView = new AwardView({
+              model: award
+          });
+
+          this.app.navRegion.currentView.setHighlight("awards");
+          promises.push(award.fetch());
+
+          //util.loading(true);
+          $.when.apply($, promises).done(function () {
+              self.showView(awardView);
+          });
+      },
+      awards: function () {
+          var self = this,
+              promises = [],
+              awards = new Awards({
+                  game: 'N/A',
+                  members: true
+              }),
+              awardsView = new AwardsView({
+                  collection: awards
+              });
+
+          this.app.navRegion.currentView.setHighlight("awards");
+          promises.push(awards.fetch());
+
+          //util.loading(true);
+          $.when.apply($, promises).done(function () {
+              //util.loading(false);
+              self.showView(awardsView);
+          });
       },
       banlog: function (id) {
           var self = this,

@@ -541,3 +541,28 @@ nav.navbar {
 }
 */
 
+
+.award.award_title {
+    font-size:25px;
+    color: #96A68C;
+    background-color: #565A42;
+}
+
+.award.award_img{
+    padding-right: 20px;    
+}
+
+.award.award_description {
+    color: white;
+    font-size: 18px;
+    
+}
+
+.award > h3 {
+    background-color: #565A42;
+    color: #96A68C;
+    margin: 0;
+    padding: 5px 20px;
+    font-size: 1.4em;
+    font-weight: bold;    
+}

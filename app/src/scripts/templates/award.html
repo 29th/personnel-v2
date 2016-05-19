@@ -1,0 +1,29 @@
+<div class="panel panel-default">
+    <div class="panel-body panel-no-padding award">
+        <table class="table table-horizontal">
+            <tr>
+                <th class="award award_title" colspan="2">{{award.title}} <span style='float: right;font-size:0.4em;'><a href='#awards/{{award.id}}'>Show details</a></span></th>
+            </tr>
+            <tr>
+                <td><center><img class="award award_img" src="{{#if award.image}}{{award.image}}{{else}}{{award.bar}}{{/if}}" /></center></td>
+                <td class="award award_description">{{award.description}}</td>
+            </tr>
+        </table>
+    {{#if award.awardings}}
+        <h3> Members awarded with that award: </h3>
+        <table class="table table-horizontal">
+        {{#each award.awardings}}
+            <tr class="no_content">
+                <td>
+                    <span class="fa fa-bullseye"> 
+                        &nbsp; <a href="#members/{{member.id}}">{{member.short_name}}</a> awarded on {{#if forums.url}}<a href="{{forums.url}}">{{date}}</a>{{else}}{{date}}{{/if}}
+                    </span>
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    {{else}}
+        <h3> No one has yet been awarded with {{award.title}} </h3>
+    {{/if}}
+    </div>
+</div>
