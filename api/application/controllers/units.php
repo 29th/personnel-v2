@@ -5,6 +5,7 @@ class Units extends MY_Controller {
         parent::__construct();
         $this->load->model('unit_model');
         $this->load->model('assignment_model');
+        $this->load->model('discharge_model');
         //$this->load->model('permission_model');
     }
     
@@ -213,11 +214,11 @@ class Units extends MY_Controller {
     public function stats_get($filter) {
         $this->load->model('attendance_model');
 		// Get unit ID
+	    $unit = $this->unit_model->by_filter($filter)->get()->row_array();
 		if(is_numeric($filter)) {
 		    $unit_id = $filter;
 		}
 		else {
-		    $unit = $this->unit_model->by_filter($filter)->get()->row_array();
 		    $unit_id = isset($unit['id']) ? $unit['id'] : NULL;
 		}
         
@@ -228,28 +229,158 @@ class Units extends MY_Controller {
 		// View records
 		else {
 			$cSql = 
-			"(SELECT m.id AS `member|id`, r.abbr AS `member|rank`, m.last_name AS `member|last_name`, " .
-			"u.id AS `unit|id`, u.abbr AS `unit|abbr`, u.name AS `unit|name`, u.path AS `unit|path`, u.order AS `unit|order`, u.class AS `unit|class`, " .
-			"(SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id AND e.mandatory = 1 AND DATEDIFF( NOW( ) , e.datetime ) <30 ) as `percentage|d30`, " .
-			"(SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id AND e.mandatory = 1 AND DATEDIFF( NOW( ) , e.datetime ) <60 ) as `percentage|d60`, " .
-			"(SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id AND e.mandatory = 1 AND DATEDIFF( NOW( ) , e.datetime ) <90 ) as `percentage|d90`, " .
-			"(SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id AND e.mandatory = 1 ) as `percentage|dall` " .
+			"(SELECT DISTINCT m.id AS `member|id`, r.abbr AS `member|rank`, m.last_name AS `member|last_name`" .
+			", u.id AS `unit|id`, u.abbr AS `unit|abbr`, u.name AS `unit|name`, u.path AS `unit|path`, u.order AS `unit|order`, u.class AS `unit|class`" .
+			", (SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id AND e.mandatory = 1 AND DATEDIFF( NOW( ) , e.datetime ) <30 ) as `percentage|d30`" .
+			", (SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id AND e.mandatory = 1 AND DATEDIFF( NOW( ) , e.datetime ) <60 ) as `percentage|d60`" .
+			", (SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id AND e.mandatory = 1 AND DATEDIFF( NOW( ) , e.datetime ) <90 ) as `percentage|d90`" .
+			", (SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id AND e.mandatory = 1 ) as `percentage|dall` " .
 			"FROM members AS m " .
 			"LEFT JOIN assignments AS a ON m.id = a.member_id " .
 			"LEFT JOIN positions AS p ON a.position_id = p.id " .
 			"LEFT JOIN ranks AS r ON m.rank_id = r.id " .
 			"LEFT JOIN units AS u ON a.unit_id = u.id " .
+			"LEFT JOIN awardings AS aw ON aw.member_id = m.id AND aw.award_id = 22 " .
 			"WHERE a.end_date IS NULL AND a.unit_id IN (SELECT id FROM units AS u WHERE u.active=1 AND (u.id = $unit_id OR u.path LIKE '%/$unit_id/%') ) ".
-			"ORDER BY u.class, u.name, p.order DESC, m.rank_id DESC, m.last_name ) as aaa ";
+			"ORDER BY u.class, u.name, p.order DESC, m.rank_id DESC, a.start_date ASC ) as aaa ";
 			
 			$stats1 = nest( $this->db->get($cSql)->result_array() );
 			$stats = array();
+			
+			switch ($unit['game']) {
+				case 'RS': $aFillter = 'ro2'; break;
+				case 'DH': $aFillter = 'dh'; break;
+				case 'Arma 3': $aFillter = 'a3'; break;
+				default: $aFillter = 'xx'; break;
+			}
+
+			$res = ( $this->db->get("(SELECT DISTINCT `weapon` FROM `standards` WHERE game='" . $unit['game'] . "' ) wl")->result_array() );
+			$wpn_list = array( 'EIB' => '' );
+			foreach ( $res as $row )
+				$wpn_list[ str_replace( array('RS','ARMA'), array('',''), $row['weapon'] ) ] = '';
+
 			foreach ( $stats1 as $val  ) {
+				//getting data about badges and tics
+				$readiness = $this->get_readiness( $val['member']['id'], $val['unit']['id'], $unit['game'] );
+				$val['readiness'] = $wpn_list;
+				//now we fill in the array with appropriate data
+
+				foreach ( $readiness['badges'] as $badge )
+				{
+					if ( $badge['code'] == 'eib')
+					{
+						$val['readiness']['EIB'] = 'EIB';
+					}
+					elseif ( strpos( $badge['name'], ': Automatic Rifle (' )  )
+					{
+						if (isset( $val['readiness']['Automatic Rifle'] ))
+						{
+							if (!$val['readiness']['Automatic Rifle']) $val['readiness']['Automatic Rifle'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
+						}
+						else
+							if (!$val['readiness']['AutoRifle']) $val['readiness']['AutoRifle'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
+					}
+					elseif ( strpos( $badge['name'], ': Rifle (' )  )
+					{
+						if (!$val['readiness']['Rifle']) $val['readiness']['Rifle'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
+					}
+					elseif ( strpos( $badge['name'], ': Machine Gun (' )  )
+					{
+						if (isset( $val['readiness']['Machine Gun'] ))	
+						{
+							if (!$val['readiness']['Machine Gun']) $val['readiness']['Machine Gun'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
+						}
+						else
+							if (!$val['readiness']['MachineGun']) $val['readiness']['MachineGun'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
+					}
+					elseif ( strpos( $badge['name'], ': Armor (' )  )
+					{
+						if (!$val['readiness']['Armor']) $val['readiness']['Armor'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
+					}
+					elseif ( strpos( $badge['name'], ': Bazooka (' )  )
+					{
+						if (isset( $val['readiness']['Bazooka'] ))	
+						{
+							if (!$val['readiness']['Bazooka']) $val['readiness']['Bazooka'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
+						}
+						else
+							if (!$val['readiness']['CombatEngineer']) $val['readiness']['CombatEngineer'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
+					}
+					elseif ( strpos( $badge['name'], ': Submachine Gun (' )  )
+					{
+						if (!$val['readiness']['SMG']) $val['readiness']['SMG'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
+					}
+					elseif ( strpos( $badge['name'], ': Sniper (' )  )
+					{
+						if (!$val['readiness']['Sniper']) $val['readiness']['Sniper'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
+					}
+					elseif ( strpos( $badge['name'], ': Mortar (' )  )
+					{
+						if (!$val['readiness']['Mortar']) $val['readiness']['Mortar'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
+					}
+					elseif ( strpos( $badge['name'], ': Pilot (' )  )
+					{
+						if (!$val['readiness']['Pilot']) $val['readiness']['Pilot'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
+					}
+				}
+				
+				foreach ( $readiness['tics'] as $tic )
+				{
+					$wpn = str_replace( array('RS','ARMA'), array('',''), $tic['weapon'] );
+					if (!$val['readiness'][$wpn])
+						$val['readiness'][$wpn] = strval( round(($tic['licz']/$tic['suma'])*100) . '%' );
+					elseif ( $this->badge_order( $val['readiness'][$wpn], $tic['badge'] ) )
+						$val['readiness'][$wpn] .= ' + ' . strval( round(($tic['licz']/$tic['suma'])*100) . '%' );
+				}
+
 				$stats[$val['unit']['abbr']][] = $val; 
 			}
-//			ksort($stats);
-			$this->response(array('status' => true, 'stats' => $stats ));
+
+			$this->response(array( 'a' => $wpn_list, 'status' => true, 'stats' => $stats ));
 		}
+    }
+    
+    private function badge_order( $a , $b )
+    {
+    	if ( $b == 'Marksman' || $a == 'Expert' || $a == 'EIB' ) return false;
+    	if ( $b == 'Expert' ) return true;
+    	if ( $a == 'Marksman' && ( $b == 'Sharpshooter' || $b == 'Expert' ) ) return true;
+    	if ( $a == 'Sharpshooter' && $b == 'Expert' ) return true;
+    	return false;
+    }
+    
+    private function get_readiness( $member_id, $unit_id, $aFillter ) 
+    {
+		$this->discharge_model->where('type !=','Honorable');
+		$this->discharge_model->where('discharges.member_id',$member_id);
+    	$this->discharge_model->order_by('date DESC');
+		$gdDate = $this->discharge_model->get()->result_array();
+		$gdDate = ( sizeof($gdDate) ? $gdDate[0]['date'] : null );
+
+    	$bSQL = "
+    		(SELECT a.id AS `id`, a.title AS `name`,  a.code AS `code`, a.game AS `game`
+    		FROM `awardings` AS aw
+    		LEFT JOIN `awards` AS a ON aw.award_id = a.id
+    		WHERE aw.member_id = $member_id
+				AND (a.game = '$aFillter' OR a.id = 22 )" . ( $gdDate ? " AND aw.date > '$gdDate' "  : '') . "
+			ORDER BY a.game, aw.date DESC
+    	) AS bb";
+    	$badges = $this->db->get($bSQL)->result_array();
+
+    	$qSQL = "
+    		(SELECT 
+    			COUNT(1) AS `licz`, 
+    			(SELECT COUNT(1) FROM `standards` AS `s1` WHERE `s1`.`game`=`s`.`game` AND `s1`.`weapon`=`s`.`weapon` AND `s1`.`badge` = `s`.`badge`) AS `suma`, 
+    			`game`, 
+    			`weapon`, 
+    			`badge` FROM `qualifications` AS `q`
+			LEFT JOIN `standards` AS `s` ON `q`.`standard_id` = `s`.`id`
+			WHERE `q`.`member_id` = $member_id
+				AND (`s`.`game` = '$aFillter' OR `s`.`weapon` = 'EIB')
+			GROUP BY `game`, `weapon`, `badge` ORDER BY `game`, `weapon`, `badge`) qq`"; //Yes, "qq" should have apostrophy in front but framework is dumb
+    	$qualifications = $this->db->get($qSQL)->result_array();
+
+    	return array( 'badges' => $badges, 'tics' => $qualifications );	
     }
     
     /**
