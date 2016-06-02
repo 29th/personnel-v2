@@ -1,8 +1,9 @@
 var $ = require("jquery"),
-  _ = require("underscore"),
-  Backbone = require("backbone"),
-  Template = require("../templates/tp.html"),
-  config = require("../config");
+  _ = require("underscore")
+  , Backbone = require("backbone")
+  , Template = require("../templates/tp.html")
+  , config = require("../config")
+  ;
 var Marionette = require("backbone.marionette");
 
 
@@ -20,6 +21,6 @@ var Marionette = require("backbone.marionette");
           }, this.model.toJSON());
       },
       onRender: function () {
-          this.title = "Training Platoon";
+          this.title = this.model.toJSON().tp.name;
       }
   });

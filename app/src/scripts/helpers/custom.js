@@ -204,9 +204,24 @@ Handlebars.registerHelper('stat_color', function (perc) {
     }
 });
 
+Handlebars.registerHelper('stat_format', function (txt) {
+//    txt = txt.replace('Marksman','<span title="Marksman Badge">&#9733;</span>');
+//    txt = txt.replace('Sharpshooter','<span title="Sharpshooter Badge">&#9733;&#9733;</span>');
+//    txt = txt.replace('Expert','<span title="Expert Badge">&#9733;&#9733;&#9733;</span>');
+    txt = txt.replace('Marksman','<img src="images/awards/marks_np.gif" title="Marksman Badge">');
+    txt = txt.replace('Sharpshooter','<img src="images/awards/sharps_np.gif" title="Sharpshooter Badge">');
+    txt = txt.replace('Expert','<img src="images/awards/expert_np.gif" title="Expert Badge">');
+    txt = txt.replace('EIB','<img src="images/awards/eib.gif" title="Expert Infantry Badge">');
+    if (txt.indexOf('100%')>=0)
+        return txt.replace("100%","<span class='stat_color stat_aweful' title='Awaiting Badge Approval'>100%</span>");
+    if (!txt)
+        return '0%';
+    return txt;
+});
+
 var isArray = function(value) {
     return Object.prototype.toString.call(value) === '[object Array]';
-}
+};
 
 var ExpressionRegistry = function() {
     this.expressions = [];
