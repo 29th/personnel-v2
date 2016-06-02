@@ -14,7 +14,7 @@ var $ = require("jquery"),
           return config.apiHost + "/units/" + this.filter + "/stats" + (this.days ? "?days=" + this.days : "");
       },
       parse: function (response, options) {
-          return response.stats || [];
+          return response || [];
       },
       setFilter: function (key, val) {
           this[key] = val; // unsecure

@@ -22,6 +22,11 @@ var Marionette = require("backbone.marionette");
           this.collection.setFilter("days", days).fetch({reset: true}); // TODO: Add error handling, loading indicator?
       },
       serializeData: function() {
-          return {days: this.collection.count, items: this.collection.toJSON()};
+          var items = this.collection.toJSON()[0];
+          return {
+            days: this.collection.count, 
+            weapon_list: items.a,
+            items: items.stats
+          };
       }
   });

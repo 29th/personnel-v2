@@ -277,6 +277,10 @@ abbr {
   font-weight: bold;
 }
 
+.unit_stats td img {
+    height: 16px;
+}
+
 .unit_stats a,
 .unit_stats a:hover {
     color: #DFE5C9;
@@ -285,7 +289,9 @@ abbr {
 .stat_unit_head{
     text-align: center;
     text-decoration: underline;
-    padding-top: 10px;
+    padding-top: 15px;
+    font-size:2em;
+    font-weight:bold;
 }
 
 .stat_great {
