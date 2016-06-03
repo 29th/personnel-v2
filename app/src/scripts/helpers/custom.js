@@ -212,6 +212,7 @@ Handlebars.registerHelper('stat_format', function (txt) {
     txt = txt.replace('Sharpshooter','<img src="images/awards/sharps_np.gif" title="Sharpshooter Badge">');
     txt = txt.replace('Expert','<img src="images/awards/expert_np.gif" title="Expert Badge">');
     txt = txt.replace('EIB','<img src="images/awards/eib.gif" title="Expert Infantry Badge">');
+    txt = txt.replace('NCO','<img src="images/awards/anpdr.gif" style="height:8px;width:33px;" title="Army NCO Professional Development Ribbon">');
     if (txt.indexOf('100%')>=0)
         return txt.replace("100%","<span class='stat_color stat_aweful' title='Awaiting Badge Approval'>100%</span>");
     if (!txt)
