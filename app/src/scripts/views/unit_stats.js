@@ -25,7 +25,7 @@ var Marionette = require("backbone.marionette");
           var items = this.collection.toJSON()[0];
           return {
             days: this.collection.count, 
-            weapon_list: items.a,
+            ait_list: items.ait_list,
             items: items.stats
           };
       }
