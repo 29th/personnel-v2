@@ -257,7 +257,7 @@ class Units extends MY_Controller {
 			}
 
 			$res = ( $this->db->get("(SELECT DISTINCT `weapon` FROM `standards` WHERE game='" . $unit['game'] . "' ) wl")->result_array() );
-			$wpn_list = array( 'EIB' => '' );
+			$wpn_list = array( 'EIB' => '', 'SLT' => '' );
 			foreach ( $res as $row )
 				$wpn_list[ str_replace( array('RS','ARMA'), array('',''), $row['weapon'] ) ] = '';
 
@@ -273,6 +273,10 @@ class Units extends MY_Controller {
 					if ( $badge['code'] == 'eib')
 					{
 						$val['readiness']['EIB'] = 'EIB';
+					}
+					if ( $badge['code'] == 'anpdr')
+					{
+						$val['readiness']['SLT'] = 'NCO';
 					}
 					elseif ( strpos( $badge['name'], ': Automatic Rifle (' )  )
 					{
@@ -366,7 +370,7 @@ class Units extends MY_Controller {
     		FROM `awardings` AS aw
     		LEFT JOIN `awards` AS a ON aw.award_id = a.id
     		WHERE aw.member_id = $member_id
-				AND (a.game = '$aFillter' OR a.id = 22 )" . ( $gdDate ? " AND aw.date > '$gdDate' "  : '') . "
+				AND (a.game = '$aFillter' OR a.id = 22 OR a.id = 111 )" . ( $gdDate ? " AND aw.date > '$gdDate' "  : '') . "
 			ORDER BY a.game, aw.date DESC
     	) AS bb";
     	$badges = $this->db->get($bSQL)->result_array();
@@ -380,7 +384,7 @@ class Units extends MY_Controller {
     			`badge` FROM `qualifications` AS `q`
 			LEFT JOIN `standards` AS `s` ON `q`.`standard_id` = `s`.`id`
 			WHERE `q`.`member_id` = $member_id
-				AND (`s`.`game` = '$aFillter' OR `s`.`weapon` = 'EIB')
+				AND (`s`.`game` = '$aFillter' OR `s`.`weapon` = 'EIB' OR `s`.`weapon` = 'SLT')
 			GROUP BY `game`, `weapon`, `badge` ORDER BY `game`, `weapon`, `badge`) qq`"; //Yes, "qq" should have apostrophy in front but framework is dumb
     	$qualifications = $this->db->get($qSQL)->result_array();
 
