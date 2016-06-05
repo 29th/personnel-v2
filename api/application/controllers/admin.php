@@ -126,7 +126,10 @@ class Admin extends CI_Controller {
 	public function awards()
 	{
 	    $this->grocery_crud->set_table('awards')
-	        ->required_fields('code', 'title');
+	        ->columns('code', 'title', 'description', 'game')
+	        ->required_fields('code', 'title')
+	        ->field_type('order','integer')
+	        ->field_type('active', 'dropdown', array('1' => 'Active','0' => 'Desactivated'));
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'awards');
@@ -265,6 +268,7 @@ class Admin extends CI_Controller {
 	        ->columns('date', 'member_id', 'vendor', 'amount_received', 'amount_paid', 'fee', 'notes')
 	        ->required_fields('date') // not sure how to do OR here
 	        /*->field_type('forum_id', 'dropdown', array('1' => 'PHPBB', '2' => 'SMF', '3' => 'Vanilla'))*/->display_as('forum_id', 'Forum')
+	        ->field_type('topic_id','integer')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member');
         $output = $this->grocery_crud->render();
  
@@ -340,8 +344,8 @@ class Admin extends CI_Controller {
 	public function positions()
 	{
 	    $this->grocery_crud->set_table('positions')
-	        ->columns('name', 'active', 'order', 'access_level')
-	        ->required_fields('name', 'access_level')
+	        ->columns('name', 'active', 'order', 'AIT', 'access_level')
+	        ->required_fields('name', 'access_level','AIT')
 	        ->field_type('access_level', 'dropdown', array('0' => 'Default', '5' => 'Elevated', '10' => 'Leadership'));
         $output = $this->grocery_crud->render();
  
@@ -355,8 +359,8 @@ class Admin extends CI_Controller {
 	        ->required_fields('member_id', 'date', 'old_rank_id', 'new_rank_id')
 	        /*->field_type('forum_id', 'dropdown', array('1' => 'PHPBB', '2' => 'SMF', '3' => 'Vanilla'))*/->display_as('forum_id', 'Forum')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member')
-	        ->set_relation('old_rank_id', 'ranks', 'abbr')->display_as('old_rank_id', 'Old Rank')
-	        ->set_relation('new_rank_id', 'ranks', 'abbr')->display_as('new_rank_id', 'New Rank');
+	        ->set_relation('old_rank_id', 'ranks', '{abbr} ({name})')->display_as('old_rank_id', 'Old Rank')
+	        ->set_relation('new_rank_id', 'ranks', '{abbr} ({name})')->display_as('new_rank_id', 'New Rank');
         $this->grocery_crud->callback_after_insert(array($this, '_callback_promotions_after_change'));
 	    $this->grocery_crud->callback_after_update(array($this, '_callback_promotions_after_change'));
 	    $this->grocery_crud->callback_before_delete(array($this, '_callback_promotions_before_delete'));
@@ -465,6 +469,8 @@ class Admin extends CI_Controller {
 	        ->columns('name', 'abbr', 'path', 'order', 'game', 'timezone', 'class', 'active')
 	        ->fields('id', 'name', 'abbr', 'path', 'order', 'game', 'timezone', 'class', 'active', 'steam_group_abbr', 'slogan', 'nickname','logo' )
 	        ->required_fields('name', 'abbr', 'path', 'class')
+	        ->field_type('timezone', 'enum', array('EST', 'GMT'))
+	        ->field_type('order','integer')
 	        ->display_as('abbr', 'Abbreviation')
 	        ->display_as('steam_group_abbr', 'Steam Group')
 	        ->display_as('slogan', 'Motto')
