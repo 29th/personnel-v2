@@ -1,0 +1,41 @@
+{{#each standards}}
+    {{#is @key "!==" "N/A"}}
+        <h1 class="row header-row">{{ @key }}</h1>
+    {{/is}}
+    <ul class="game_cnt">
+    {{#each this}}
+        {{#is @key "!==" "N/A"}}
+            <h2>{{ @key }}</h2>
+        {{else}}
+            <h2>General</h2>
+        {{/is}}
+    
+        {{#each this}}
+            {{#is @key "!==" "N/A"}}
+                <h3>{{ @key }}</h3>
+            {{/is}}
+            <ul>
+            {{#each this}}
+                <li style="list-style-type: none">
+                    {{#if this.qualification}}
+                        {{#if ../../../../../allowedTo.addQualification }}
+                            <button class="btn btn-xs toggle-remove" data-id="{{ this.qualification.id }}"><span class="glyphicon glyphicon-check"></span></button>
+                        {{else}}
+                            <span class="glyphicon glyphicon-check"></span>
+                        {{/if}}
+                    {{else}}
+                        {{#if ../../../../../allowedTo.addQualification }}
+                            <button class="btn btn-xs toggle-add" data-standard-id="{{ this.id }}"><span class="glyphicon glyphicon-unchecked"></span></button>
+                        {{else}}
+                            <span class="glyphicon glyphicon-unchecked"></span>
+                        {{/if}}
+                    {{/if}}
+                    {{ this.description }}
+                </li>
+            {{/each}}
+            </ul>
+        {{/each}}
+    {{/each}}
+    </ul>
+    <hr>
+{{/each}}

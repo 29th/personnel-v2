@@ -4191,11 +4191,11 @@ button.close {
     border-bottom-color: #f2f5f7;
   }
 }
-.tab-content > .tab-pane {
+.tab-content > .tab-pane, .gametab-content > .gametab-pane {
   display: none;
   visibility: hidden;
 }
-.tab-content > .active {
+.tab-content > .active, .gametab-content > .active {
   display: block;
   visibility: visible;
 }

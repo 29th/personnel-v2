@@ -2,6 +2,7 @@ var $ = require("jquery"),
   _ = require("underscore"),
   Backbone = require("backbone"),
   Qualification = require("../models/qualification"),
+  Template = require("../templates/member_qualifications.html"),
   GameTemplate = require("../templates/member_qualifications_game.html"),
   WeaponTemplate = require("../templates/member_qualifications_weapon.html"),
   BadgeTemplate = require("../templates/member_qualifications_badge.html"),
@@ -67,7 +68,7 @@ var Marionette = require("backbone.marionette");
           e.preventDefault();
       }
   });
-  
+//------------------------------------------------------------------------------  
   var BadgeView = Marionette.CompositeView.extend({
       itemView: StandardView,
       itemViewContainer: "ul",
@@ -86,7 +87,7 @@ var Marionette = require("backbone.marionette");
           };
       }
   });
-  
+//------------------------------------------------------------------------------  
   var WeaponView = Marionette.CompositeView.extend({
       itemView: BadgeView,
       itemViewContainer: ".tab-content",
@@ -113,14 +114,17 @@ var Marionette = require("backbone.marionette");
           this.$(".nav-tabs li").eq(0).addClass("active");
       }
   });
-  
+//------------------------------------------------------------------------------  
   var GameView = Marionette.CompositeView.extend({
       itemView: WeaponView,
       template: GameTemplate,
+      className: "gametab-pane",
       initialize: function(options) {
           this.collection = this.model.get("children");
           this.rootOptions = options.rootOptions || {};
           this.rootOptions.game = this.model.get("game");
+          var className = ('game_' + this.rootOptions.game).replace(/ /g, "");
+          this.$el.addClass(className);
       },
       itemViewOptions: function() {
           return {
@@ -129,9 +133,12 @@ var Marionette = require("backbone.marionette");
       }
   });
   
+//------------------------------------------------------------------------------  
   // Container view
-  module.exports = Marionette.CollectionView.extend({
+  module.exports = Marionette.CompositeView.extend({
       itemView: GameView,
+      itemViewContainer: ".gametab-content",
+      template: Template,
       initialize: function(options) {
           options = options || {};
           this.permissions = options.permissions  || {};
@@ -147,6 +154,11 @@ var Marionette = require("backbone.marionette");
           this.rootOptions.allowedTo = {
               addQualification: memberPermissions.indexOf("qualification_add") !== -1 || permissions.indexOf("qualification_add_any") !== -1
           };
+      },
+      onRender: function() {
+          // Set first badge tab to be displayed by default
+          this.$(".gametab-pane").eq(0).addClass("active");
+          this.$(".nav-tabs li").eq(0).addClass("active");
       },
       itemViewOptions: function() {
           return {
