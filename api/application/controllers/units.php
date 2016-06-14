@@ -280,12 +280,7 @@ class Units extends MY_Controller {
 					}
 					elseif ( strpos( $badge['name'], ': Automatic Rifle (' )  )
 					{
-						if (isset( $val['readiness']['Automatic Rifle'] ))
-						{
-							if (!$val['readiness']['Automatic Rifle']) $val['readiness']['Automatic Rifle'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
-						}
-						else
-							if (!$val['readiness']['AutoRifle']) $val['readiness']['AutoRifle'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
+						if (!$val['readiness']['Automatic Rifle']) $val['readiness']['Automatic Rifle'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
 					}
 					elseif ( strpos( $badge['name'], ': Rifle (' )  )
 					{
@@ -293,12 +288,7 @@ class Units extends MY_Controller {
 					}
 					elseif ( strpos( $badge['name'], ': Machine Gun (' )  )
 					{
-						if (isset( $val['readiness']['Machine Gun'] ))	
-						{
-							if (!$val['readiness']['Machine Gun']) $val['readiness']['Machine Gun'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
-						}
-						else
-							if (!$val['readiness']['MachineGun']) $val['readiness']['MachineGun'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
+						if (!$val['readiness']['Machine Gun']) $val['readiness']['Machine Gun'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
 					}
 					elseif ( strpos( $badge['name'], ': Armor (' )  )
 					{
@@ -306,16 +296,11 @@ class Units extends MY_Controller {
 					}
 					elseif ( strpos( $badge['name'], ': Bazooka (' )  )
 					{
-						if (isset( $val['readiness']['Bazooka'] ))	
-						{
-							if (!$val['readiness']['Bazooka']) $val['readiness']['Bazooka'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
-						}
-						else
-							if (!$val['readiness']['CombatEngineer']) $val['readiness']['CombatEngineer'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
+						if (!$val['readiness']['Combat Engineer']) $val['readiness']['Combat Engineer'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
 					}
 					elseif ( strpos( $badge['name'], ': Submachine Gun (' )  )
 					{
-						if (!$val['readiness']['SMG']) $val['readiness']['SMG'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
+						if (!$val['readiness']['Submachine Gun']) $val['readiness']['Submachine Gun'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
 					}
 					elseif ( strpos( $badge['name'], ': Sniper (' )  )
 					{
