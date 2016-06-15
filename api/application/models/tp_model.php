@@ -7,7 +7,8 @@ class Tp_model extends MY_Model {
     public function default_select() {
         $this->db->select('SQL_CALC_FOUND_ROWS *', FALSE)
         ->select('(SELECT COUNT( DISTINCT( member_id )) FROM assignments WHERE unit_id = units.id ) AS member_count', FALSE)
-        ->select("(SELECT CONCAT( DATE_FORMAT( MIN(datetime) ,'%Y-%m-%d'),' - ', DATE_FORMAT( MAX(datetime) ,'%Y-%m-%d')) FROM events WHERE events.unit_id = `units`.id )  AS days", FALSE);
+        ->select("(SELECT CONCAT( DATE_FORMAT( MIN(datetime) ,'%Y-%m-%d'),' - ', DATE_FORMAT( MAX(datetime) ,'%Y-%m-%d')) FROM events WHERE events.unit_id = `units`.id )  AS days", FALSE)
+        ->select("(SELECT Round( (SUM(attended)/COUNT(1))*100 ) FROM `attendance` WHERE `event_id` IN (SELECT `id` FROM `events` WHERE `unit_id` = `units`.`id`)) AS avg");
     }
     
     public function default_join() {
