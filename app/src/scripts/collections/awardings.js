@@ -13,6 +13,7 @@ var $ = require("jquery"),
           this.skip = 0;
           this.from = options.from || null;
           this.to = options.to || null;
+          this.badges = options.badges || null;
       },
       url: function () {
           var url = config.apiHost;
@@ -28,6 +29,7 @@ var $ = require("jquery"),
           if(this.skip) params.push("skip=" + this.skip);
           if(this.from) params.push("from=" + this.from);
           if(this.to) params.push("to=" + this.to);
+          if(this.badges) params.push("badges=" + this.badges);
           if(params.length) url += "?" + params.join("&");
           
           return url;
