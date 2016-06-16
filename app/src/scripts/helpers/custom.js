@@ -138,7 +138,12 @@ Handlebars.registerHelper('within_24_hours', function (a, b) {
 });
 
 Handlebars.registerHelper('past', function (date) {
-    return moment(date).isBefore(moment());
+    var date_conv = moment(date+' UTC-04:00').local();
+    return moment(date_conv).isBefore(moment());
+});
+
+Handlebars.registerHelper('time_conv', function (date) {
+    return moment(date+' UTC-04:00').local().format('YYYY-MM-DD HH:mm:ss');
 });
 
 Handlebars.registerHelper('between', function (s_date, e_date) {

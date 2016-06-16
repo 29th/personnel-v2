@@ -1,4 +1,4 @@
-<td><a href="#events/{{ this.id }}">{{dateFormat this.datetime format="YYYY-MM-DD HH:mm"}}</a></td>
+<td><a href="#events/{{ this.id }}">{{dateFormat (time_conv this.datetime) format="YYYY-MM-DD HH:mm"}}</a></td>
 <td><a href="#units/{{ this.unit.key }}">{{str_replace this.unit.abbr "HQ" ""}}</a></td>
 <td class="text-center">
     {{#is this.mandatory "===" "1"}}<span class="label label-info">Mandatory</span>{{else}}<span class="label label-default">Non-Mandatory</span>{{/is}}
