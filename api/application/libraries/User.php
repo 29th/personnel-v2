@@ -36,6 +36,7 @@ class User {
             $this->load->model('member_model');
             $this->load->model('assignment_model');
             $this->_member = nest($this->member_model->where('members.forum_member_id', $this->forum_member_id)->get()->row_array());
+            $this->_member['events'] = $this->add_user_events($this->_member['unit']);
             $this->_member['forum_member_id'] = $this->forum_member_id; // In case the member wasn't found
             $this->_member['classes'] = isset($this->_member['id']) ? $this->assignment_model->get_classes($this->_member['id']) : array();
         }
@@ -335,5 +336,13 @@ class User {
             }
         }
         return $this->_viewing['unit']['permissions'];
+    }
+    
+    private function add_user_events( $unit )
+    {
+        $unit_id_list = $unit['id'] . ',' . str_replace(' ',',',trim( str_replace('/',' ', $unit['path'])));
+        $this->load->model('event_model');
+        $events = $this->event_model->filter_for_user($unit_id_list)->get()->result_array();
+        return nest( $events );
     }
 }

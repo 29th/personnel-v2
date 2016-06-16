@@ -97,6 +97,14 @@ class Event_model extends MY_Model {
     }*/
 
     public function select_member() {}
+    
+    public function filter_for_user($unit_ids) {
+//        $this->filter_join('attendance','attendance.event_id = events.id');
+        $this->filter_where('events.datetime BETWEEN CURDATE() - INTERVAL 3 DAY AND CURDATE() + INTERVAL 4 DAY');
+        $this->filter_where("`units`.`id` IN ($unit_ids)");
+//        $this->filter_where('`attendance`.`member_id`',$member_id);
+        return $this;
+    }
 
     public function by_unit($unit_id) {
         if(is_numeric($unit_id)) {

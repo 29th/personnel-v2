@@ -145,7 +145,7 @@ class Assignment_model extends MY_Model {
     /**
      * Get members by unit id
      */
-    public function by_unit($unit_id, $children = FALSE) {
+    public function by_unit($unit_id, $children = FALSE, $onDate = FALSE) {
         $this->filter_select('positions.name AS `position|name`, ranks.name AS `rank|name`, ranks.abbr AS `rank|abbr`, ranks.filename AS `rank|filename`');
         $this->filter_select($this->virtual_fields['short_name'] . ' AS `member|short_name`', FALSE);
         $this->filter_select("CONCAT(members.first_name, ' ', members.last_name) AS `member|full_name`", FALSE);
