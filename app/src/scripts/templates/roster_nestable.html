@@ -5,6 +5,23 @@
     {{/if}}
 </div>
 
+{{#if staff_positions}}
+<ol class="dd-list">
+  {{#each staff_positions}}
+    <li>
+<b>{{this.position}}</b><br>
+    {{#each members}}
+        <div class="roster-staff-unit">
+            {{#if this.rank.filename}}<img src="images/ranks/16x16/{{ this.rank.filename }}.png" title="{{ this.rank.name }}">{{/if}}
+            &nbsp;<img src={{#if country.abbr}}"images/countries/{{ toLowerCase this.country.abbr }}.png" title="{{ this.country.name }}"{{else}}"images/countries/___.png" {{/if}}>&nbsp;
+            <a href="#members/{{ this.member.id }}">{{ this.member.short_name }}</a> 
+            <span class="roster-unit">{{#is eloa "!==" "0" }} (ELOA) {{/is}}{{#is pass "!==" "0" }} <b>(Weapon Pass)</b> {{/is}}</span><br>
+        </div>
+    {{/each}}
+    </li>
+  {{/each}}
+</ol>
+{{else}}
 <ol class="dd-list">
 {{#if members.length}}
     {{#each members}}
@@ -17,7 +34,6 @@
             </label>
 
         {{else}}
-
             {{#if this.rank.filename}}<img src="images/ranks/16x16/{{ this.rank.filename }}.png" title="{{ this.rank.name }}">{{/if}}
             &nbsp;<img src={{#if country.abbr}}"images/countries/{{ toLowerCase this.country.abbr }}.png" title="{{ this.country.name }}"{{else}}"images/countries/___.png" {{/if}}>&nbsp;
             <a href="#members/{{ this.member.id }}">{{ this.member.short_name }}</a> 
@@ -27,3 +43,4 @@
     {{/each}}
 {{/if}}
 </ol>
+{{/if}}

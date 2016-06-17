@@ -497,6 +497,10 @@ table.notes_table {
     font-size:1.5em;
 }
 
+.roster-staff-unit {
+    margin-left:20px;
+}
+
 /* X-MAS */
 /*
 .panel .panel-heading {
