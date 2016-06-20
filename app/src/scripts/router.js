@@ -1163,16 +1163,17 @@ require("./validation.config");
               promises.push(qualifications.fetch());
 
               // Awards
-              /*var awards = new Awardings(null, {
-                  member_id: id
+              var awards = new Awardings(null, {
+                  member_id: id,
+                  badges: true
               });
-              promises.push(awards.fetch());*/
+              promises.push(awards.fetch());
 
               pageView = new MemberQualificationsView({
                   collection: standards,
                   member_id: id,
                   qualifications: qualifications,
-                  //awards: awards,
+                  awards: awards,
                   permissions: this.permissions,
                   memberPermissions: memberPermissions,
               });

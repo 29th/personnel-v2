@@ -39,26 +39,35 @@ require("jquery-nestable");
                   }
               });
           }
+          //View for staff units
+          if ( this.model.toJSON().class == 'Staff' )
+          {
+            var items=[],
+            positions = _.groupBy( this.model.get("members") , function (member) {
+                  return member.position.name;
+              });
+            _.each(positions, function (members, position) {
+              items.push({
+                  position: position,
+                  order: members[0].position.order,
+                  members: members
+              });
+            });
+/*
+            _.each(this.model.get("members"), function (member) 
+            {
+              if ( !positions[member.position.name] )
+                positions[member.position.name] = [];
+              positions[member.position.name].push(member);
+            });
+*/
+          }
           
           return $.extend({
               attendance: this.itemViewOptions.attendance,
+              staff_positions: items,
           }, this.model.toJSON());
       },
-      /*onBeforeRender: function () {
-          // If attendance is set, add attended and excused values to each member
-          if (!_.isEmpty(this.attendance)) {
-              attendance = this.attendance;
-              _.each(this.model.get("members"), function (member) {
-                  var record = attendance.find(function (model) {
-                      return model.get("member").id === member.id;
-                  });
-                  if (record) {
-                      member.attended = record.get("attended");
-                      member.excused = record.get("excused");
-                  }
-              });
-          }
-      }*/
   });
 
   module.exports = Marionette.CompositeView.extend({

@@ -42,6 +42,22 @@
             </ul>
         </div>   
     </li>
+   {{#if events}}
+    <li class="active dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Drills <span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+          {{#each events}}
+            <li>
+                <a href="#events/{{id}}">
+                    {{#if (past this.datetime)}}Past:{{else}}<b>Upcoming:</b>{{/if}} {{this.unit.key}} {{this.type}}<br>
+                    <small>{{dateFormat (time_conv this.datetime)  format="ddd, YYYY-MM-DD HH:mm"}}</small>
+                </a>
+            </li>
+          {{/each}}
+        </ul>
+    </li>
+   {{/if}}
+
     
     {{#if forum_member_id}}
         {{#unless classes}}

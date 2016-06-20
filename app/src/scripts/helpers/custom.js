@@ -138,7 +138,12 @@ Handlebars.registerHelper('within_24_hours', function (a, b) {
 });
 
 Handlebars.registerHelper('past', function (date) {
-    return moment(date).isBefore(moment());
+    var date_conv = moment.utc(date+'-04:00').local();
+    return moment(date_conv).isBefore(moment());
+});
+
+Handlebars.registerHelper('time_conv', function (date) {
+    return moment.utc(date+'-04:00').local(); //.format('YYYY-MM-DD HH:mm')
 });
 
 Handlebars.registerHelper('between', function (s_date, e_date) {
@@ -205,9 +210,6 @@ Handlebars.registerHelper('stat_color', function (perc) {
 });
 
 Handlebars.registerHelper('stat_format', function (txt) {
-//    txt = txt.replace('Marksman','<span title="Marksman Badge">&#9733;</span>');
-//    txt = txt.replace('Sharpshooter','<span title="Sharpshooter Badge">&#9733;&#9733;</span>');
-//    txt = txt.replace('Expert','<span title="Expert Badge">&#9733;&#9733;&#9733;</span>');
     txt = txt.replace('Marksman','<img src="images/awards/marks_np.gif" title="Marksman Badge">');
     txt = txt.replace('Sharpshooter','<img src="images/awards/sharps_np.gif" title="Sharpshooter Badge">');
     txt = txt.replace('Expert','<img src="images/awards/expert_np.gif" title="Expert Badge">');
