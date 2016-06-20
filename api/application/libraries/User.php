@@ -340,7 +340,7 @@ class User {
     
     private function add_user_events( $unit )
     {
-        $unit_id_list = $unit['id'] . ',' . str_replace(' ',',',trim( str_replace('/',' ', $unit['path'])));
+        $unit_id_list = $unit['id'] . ( $unit['id'] <> 1 ? ',' . str_replace(' ',',',trim( str_replace('/',' ', $unit['path']))) : '' );
         $this->load->model('event_model');
         $events = $this->event_model->filter_for_user($unit_id_list)->get()->result_array();
         return nest( $events );
