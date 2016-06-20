@@ -48,7 +48,7 @@ class Awarding_model extends MY_Model {
     
     public function default_select() {
         $this->db->select('SQL_CALC_FOUND_ROWS awardings.id, awardings.date, awardings.forum_id, awardings.topic_id', FALSE)
-            ->select('a.code AS `award|abbr`, a.title AS `award|name`, a.image AS `award|filename`'); // Change code to abbr, title to name, image to filename
+            ->select('a.code AS `award|abbr`, a.title AS `award|name`, a.image AS `award|filename`, a.game AS `award|game`'); // Change code to abbr, title to name, image to filename
     }
     
     public function default_join() {
@@ -57,5 +57,9 @@ class Awarding_model extends MY_Model {
     
     public function default_order_by() {
         $this->db->order_by('awardings.date DESC');
+    }
+    
+    public function only_badges() {
+        $this->db->where("a.game <> 'N/A'");
     }
 }
