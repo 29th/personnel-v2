@@ -70,7 +70,8 @@ class Promotions extends MY_Controller {
             // Update username
             $this->load->library('vanilla');
             $this->vanilla->update_username($data['member_id']);
-            
+            $this->vanilla->update_roles($data['member_id']);
+           
             $this->response(array( 'status' => $insert_id ? true : false, 'promotions' => $insert_id ? $this->promotion_model->get_by_id($insert_id) : null));
         }
     }
@@ -110,6 +111,7 @@ class Promotions extends MY_Controller {
             // Update username
             $this->load->library('vanilla');
             $this->vanilla->update_username($member_id);
+            $this->vanilla->update_roles($member_id);
             
             $this->response(array('status' => $result ? true : false, 'promotion' => $this->promotion_model->get_by_id($promotion_id)));
         }
@@ -141,6 +143,7 @@ class Promotions extends MY_Controller {
             // Update username
             $this->load->library('vanilla');
             $this->vanilla->update_username($member_id);
+            $this->vanilla->update_roles($member_id);
             
             $this->response(array('status' => true));
         }

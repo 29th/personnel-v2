@@ -50,20 +50,31 @@ class Vanilla {
             }
         }
         
+        
         // Get forum roles for classes that member is a part of
         $class_roles = $this->class_role_model->by_classes($classes)->get()->result_array();
         if( ! empty($class_roles)) {
             $roles = array_merge($roles, pluck('role_id', $class_roles));
         }
         
+        //Adding for officers
+        $rank = $member['rank']['abbr'];
+        if( $rank == '2Lt.' || $rank == '1Lt.' || $rank == 'Cpt.' || $rank == 'Maj.' || $rank == 'Lt. Col.' || $rank == 'Col.' )
+        {
+            $roles[] = '73';//$this->get_commisioned_officer_role_id();
+        }
+        
         // Eliminate duplicates
         $roles = array_values(array_unique($roles));
         
         // Delete all of the user's roles from forums database ** by forum_member_id NOT member_id
-        if( ! $this->forums_db->query('DELETE FROM `GDN_UserRole` WHERE `UserID` = ?', $member['forum_member_id'])) {
+        if( ! $this->forums_db->query('DELETE FROM `GDN_UserRole` WHERE `UserID` = ?', $member['forum_member_id'])) 
+        {
             //$this->response(array('status' => false, 'error' => 'There was an issue deleting the user\'s old roles'));
             return FALSE;
-        } else {
+        } 
+        else 
+        {
             
             // Insert new roles if there are any (there wouldn't be if member was discharged)
             if( ! empty($roles)) {
@@ -98,11 +109,15 @@ class Vanilla {
             return FALSE;
         }
         
-        return $this->forums_db->query('UPDATE GDN_User SET `Name` = ? WHERE UserID = ?', array($member['short_name'], $member['forum_member_id']));
+        return $this->forums_db->query('UPDATE GDN_User SET `Name` = ? WHERE UserID = ?', array(str_replace("/","",$member['short_name']), $member['forum_member_id']));
     }
     
     public function get_role_list() {
         return $this->forums_db->query('SELECT `RoleID`, `Name` FROM GDN_Role ORDER BY `Sort`')->result_array();
+    }
+
+    public function get_commisioned_officer_role_id() {
+        return $this->forums_db->query('SELECT `RoleID` FROM GDN_Role WHEREx `name` = \'Commissioned Officer\'')->row_array()[0];
     }
 
 }
