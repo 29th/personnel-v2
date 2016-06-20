@@ -98,7 +98,7 @@ class Vanilla {
             return FALSE;
         }
         
-        return $this->forums_db->query('UPDATE GDN_User SET `Name` = ? WHERE UserID = ?', array($member['short_name'], $member['forum_member_id']));
+        return $this->forums_db->query('UPDATE GDN_User SET `Name` = ? WHERE UserID = ?', array(str_replace("/","",$member['short_name']), $member['forum_member_id']));
     }
     
     public function get_role_list() {
