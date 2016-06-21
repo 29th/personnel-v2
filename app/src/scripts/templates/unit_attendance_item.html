@@ -11,7 +11,11 @@
   <td>{{subtract absent excused }}</td>
 {{else}}
   {{#if (past this.datetime) }}
-    <td colspan="2" class="event_aar_missing" style="text-align: center;font-weight: bold;color: red;"> Missing AAR! </td>
+    {{#if (within_24_hours this.datetime)}}
+      <td colspan="2" class="event_not_yet" style="text-align: center"> Awaiting AAR </td>
+    {{else}}
+      <td colspan="2" class="event_aar_missing" style="text-align: center;font-weight: bold;color: red;"> Missing AAR! </td>
+    {{/if}}
   {{else}}
     <td colspan="2" class="event_not_yet" style="text-align: center"> Event has not yet taken place </td>
   {{/if}}
