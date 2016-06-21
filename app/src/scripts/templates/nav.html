@@ -50,7 +50,33 @@
             <li>
                 <a href="#events/{{id}}">
                     {{#if (past this.datetime)}}Past:{{else}}<b>Upcoming:</b>{{/if}} {{this.unit.key}} {{this.type}}<br>
-                    <small>{{dateFormat (time_conv this.datetime)  format="ddd, YYYY-MM-DD HH:mm"}}</small>
+                    <small>
+                        {{dateFormat (time_conv this.datetime)  format="ddd, YYYY-MM-DD HH:mm"}}
+                        {{#is attended "===" "1"}}
+                            <span class="label label-default">Attended</span>
+                        {{/is}}
+                        {{#is attended "===" "0"}}
+                            {{#is excused "===" "0" }}
+                              {{#if (within_24_hours this.datetime)}}
+                             <span class="label label-warning">Post LOA</span>
+                              {{else}}
+                             <span class="label label-danger">AWOL!</span>
+                              {{/if}}
+                            {{else}}
+                             <span class="label label-primary">Excused</span>
+                            {{/is}}
+                        {{/is}}
+                        {{#is attended "===" null}}
+                            {{#if (past this.datetime)}}
+                                {{#if (within_24_hours this.datetime)}}
+                                    <span class="label label-warning">Post LOA</span>
+                                {{else}}
+                                    <span class="label label-info">Missing AAR</span>
+                                {{/if}}
+                            {{else}}
+                            {{/if}}
+                        {{/is}}
+                    </small>
                 </a>
             </li>
           {{/each}}
