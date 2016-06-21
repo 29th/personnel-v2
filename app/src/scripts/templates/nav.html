@@ -58,18 +58,18 @@
                         {{#is attended "===" "0"}}
                             {{#is excused "===" "0" }}
                               {{#if (within_24_hours this.datetime)}}
-                             <span class="label label-warning">Post LOA</span>
+                             <span class="label label-primary">Post LOA</span>
                               {{else}}
                              <span class="label label-danger">AWOL!</span>
                               {{/if}}
                             {{else}}
-                             <span class="label label-primary">Excused</span>
+                             <span class="label label-warning">Excused</span>
                             {{/is}}
                         {{/is}}
                         {{#is attended "===" null}}
                             {{#if (past this.datetime)}}
                                 {{#if (within_24_hours this.datetime)}}
-                                    <span class="label label-warning">Post LOA</span>
+                                    <span class="label label-primary">Post LOA</span>
                                 {{else}}
                                     <span class="label label-info">Missing AAR</span>
                                 {{/if}}
