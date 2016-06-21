@@ -21,7 +21,7 @@
           </tr>
           {{#each this}}
             <tr>
-              <td><a href='#members/{{this.member.id}}/'>{{this.member.rank}}&nbsp;{{ this.member.last_name }}</a></td>
+              <td><a href='#members/{{this.member.id}}/'>{{this.member.rank}}&nbsp;{{ this.member.last_name }}{{#is member.eloa "===" "1" }} (ELOA){{/is}}</a></td>
               <td class="{{stat_color this.percentage.d30}}">{{#is this.percentage.d30 "===" null}}100{{else}}{{this.percentage.d30}}{{/is}}</td>
               <td class="{{stat_color this.percentage.d60}}">{{#is this.percentage.d60 "===" null}}100{{else}}{{this.percentage.d60}}{{/is}}</td>
               <td class="{{stat_color this.percentage.d90}}">{{#is this.percentage.d90 "===" null}}100{{else}}{{this.percentage.d90}}{{/is}}</td>
