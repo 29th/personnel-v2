@@ -29,6 +29,7 @@ var $ = require("jquery"),
           url += "/tps";
 
           var params = [];
+          if(this.status) params.push("active=true");
           if(this.future) params.push("future=" + this.future);
           if(this.skip) params.push("skip=" + this.skip);
           if(this.from) params.push("from=" + this.from);
@@ -37,8 +38,16 @@ var $ = require("jquery"),
           
           return url;
       },
+      setFilter: function (key, val) {
+          this[key] = val; // unsecure
+          return this;
+      },
       nextPage: function () {
           this.skip += this.settings.limit;
+          return this;
+      },
+      resetPage: function() {
+          this.skip = 0;
           return this;
       },
       parse: function (response, options) {
