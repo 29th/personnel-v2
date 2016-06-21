@@ -30,4 +30,8 @@ class Tp_model extends MY_Model {
         $this->filter_where("(SELECT MIN(datetime) FROM events WHERE events.unit_id = `units`.id ) >= DATE_FORMAT( NOW(), '%Y-%m-%d' ) ");
     }
     
+    public function only_active() {
+        $this->filter_where("`units`.`active`",1);
+    }
+    
 }
