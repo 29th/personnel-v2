@@ -36,6 +36,10 @@ class Tps extends MY_Controller {
 		    {
 		        $tps->only_future_tps();
 		    }
+		    if ( $this->input->get('active') ) 
+		    {
+		        $tps->only_active();
+		    }
 		    $records = nest( $tps->paginate('', $skip)->result_array() );
 		    $count = $tps->total_rows;
 			$this->response(array( 'status' => true, 'count' => $count, 'skip' => $skip, 'tps' => $records ));
