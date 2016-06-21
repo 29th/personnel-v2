@@ -338,13 +338,25 @@ class User {
         return $this->_viewing['unit']['permissions'];
     }
     
-    private function add_user_events( $unit, $member_id )
+    private function add_user_events( )
     {
-        if (! $unit['id'] )
+        $this->load->model('assignment_model');
+        $member_units = nest($this->assignment_model->where('assignments.member_id', $this->member('id'))->by_date('now')->get()->result_array());
+        $units = array();
+        foreach ( $member_units as $mem_unit )
+        {
+            $units[] = $mem_unit['unit_id'];
+            $mem_unit['unit']['path'] = substr( $mem_unit['unit']['path'], 1, -1 );
+            if ( $mem_unit['unit']['path'] )
+                $units = array_merge( $units, explode('/', $mem_unit['unit']['path'])); 
+        }
+        $units = array_unique( $units );
+        if (! $units )
             return array();
-        $unit_id_list = $unit['id'] . ( $unit['id'] <> 1 ? ',' . str_replace(' ',',',trim( str_replace('/',' ', $unit['path']))) : '' );
+        //$unit_id_list = $unit['id'] . ( $unit['id'] <> 1 ? ',' . str_replace(' ',',',trim( str_replace('/',' ', $unit['path']))) : '' );
         $this->load->model('event_model');
-        $events = $this->event_model->filter_for_user($unit_id_list,$member_id)->get()->result_array();
+        $events = $this->event_model->filter_for_user( implode(',', $units), $this->member('id') )->get()->result_array();
         return nest( $events );
+   
     }
 }
