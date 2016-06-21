@@ -236,6 +236,7 @@ class Units extends MY_Controller {
 			", (SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id AND e.mandatory = 1 AND DATEDIFF( NOW( ) , e.datetime ) <60 ) as `percentage|d60`" .
 			", (SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id AND e.mandatory = 1 AND DATEDIFF( NOW( ) , e.datetime ) <90 ) as `percentage|d90`" .
 			", (SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id AND e.mandatory = 1 ) as `percentage|dall` " .
+			', (SELECT COUNT(1)>0 FROM `eloas` WHERE `eloas`.`member_id` = a.member_id AND NOW() BETWEEN eloas.start_date AND eloas.end_date  ) as `member|eloa` ' .
 			"FROM members AS m " .
 			"LEFT JOIN assignments AS a ON m.id = a.member_id " .
 			"LEFT JOIN positions AS p ON a.position_id = p.id " .
