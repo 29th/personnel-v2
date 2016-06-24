@@ -8,7 +8,8 @@ module.exports = {
     		"signInPath": "/entry/signin",
     		"profilePath": "/profile/%s/%s",
     		"topicPath": "/discussion/%s",
-    		"privateMessagePath": "/messages/add"
+    		"privateMessagePath": "/messages/add",
+    		"apiPath" : "/api"
 		  },
       "SMF": {
           "baseUrl": process.env.FORUM_SMF_BASE_URL,
@@ -16,5 +17,8 @@ module.exports = {
       }
     },
     wikiUrl: process.env.WIKI_URL,
-    vanillaCategoryEnlistments: 62
+    vanillaCategoryAwards: 59,
+    vanillaCategoryEnlistments: 62,
+    vanillaCategoryPromotions: 59,
+    vanillaCategoryTransfers: 58
 };
