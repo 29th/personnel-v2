@@ -1326,7 +1326,8 @@ class ServiceCoat {
 					$scBRArrayRB[$badge]++;
 				}
 			}
-			$scNumBRBadges = 0;			
+			$scNumBRBadges = 0;	
+			$scBRRBBadge = false;
 			$scBRActual = array();
 			//get highest rb
 			foreach($scBRArrayRB as $badge => $num)
@@ -1363,12 +1364,13 @@ class ServiceCoat {
 						default:						
 						break;
 					}
-					$scBRActual[rb] = 1;
+					$scBRActual['rb'] = 1;
 					$scBRRBBadge = true;
 					break;
 				}
 			}
-			if(in_array(mp,$this->scBRBadges)) $scBRMPBadge = true;
+//			if(in_array('mp',$this->scBRBadges)) $scBRMPBadge = true;
+			$scBRMPBadge = in_array('mp',$this->scBRBadges) ;
 			if($scBRRBBadge) $scNumBRBadges++;
 			if($scBRMPBadge) $scNumBRBadges++; 
 			if($scBRMPBadge)
@@ -1376,7 +1378,7 @@ class ServiceCoat {
 				$this->scMPImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesOther/MP.png');
 				$scMPImage['x'] = imagesx($this->scMPImage);
 				$scMPImage['y'] = imagesy($this->scMPImage);
-				$scBRActual[mp] = 1;
+				$scBRActual['mp'] = 1;
 			}
 			$scCurrentBRBadge = 1;
 			foreach($scBRActual as $badge => $num)
@@ -1386,13 +1388,13 @@ class ServiceCoat {
 					case 1:
 						switch($badge)
 						{
-							case rb:
+							case 'rb':
 								$scBRXPos = $scBRMidPos['x'] - ($scRBImage['x'] / 2);
 								$scBRYPos = $scBRMidPos['y'] - ($scRBImage['y'] / 2);
 								imagecopy($this->scImage, $this->scRBImage, $scBRXPos, $scBRYPos, 0, 0, $scRBImage['x'], $scRBImage['y']);
 								imagedestroy($this->scRBImage);
 							break;
-							case mp:
+							case 'mp':
 								$scBRXPos = $scBRMidPos['x'] - ($scMPImage['x'] / 2);
 								$scBRYPos = $scBRMidPos['y'] - ($scMPImage['y'] / 2);
 								imagecopy($this->scImage, $this->scMPImage, $scBRXPos, $scBRYPos, 0, 0, $scMPImage['x'], $scMPImage['y']);
