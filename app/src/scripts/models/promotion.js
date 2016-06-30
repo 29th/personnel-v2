@@ -15,10 +15,6 @@ var $ = require("jquery"),
           return response || {};
       },
       validation: {
-//          new_rank_id: {
-//              required: true,
-//              msg: "Pick a new rank!",
-//          },
           new_rank_id: 
             function(value, attr, computed) 
             {
@@ -34,11 +30,5 @@ var $ = require("jquery"),
               required: true,
               msg: "Pick a date!",
           }
-          /*,
-          topic_id: {
-              required: true,
-              pattern: "number",
-              msg: "If there is no topic ID, enter 0"
-          }*/
       }
   });

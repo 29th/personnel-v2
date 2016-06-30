@@ -49,17 +49,11 @@ require("backbone.validation");
               patch: true,
               data: data,
               processData: true,
-              success: function (model, response, options) {
-                  alert('YES');
-                  //Backbone.history.navigate("members/" + model.get("member_id"), {trigger: true} );
-              },
-              error: function(a,b,c) {
-                //console.log("ERROR!!!");
-                alert('NO');
-              }
+              success: function (model, response, options) { Backbone.history.navigate("members/" + model.get("member_id"), {trigger: true} ); },
+              error: function(a,b,c) {console.log("ERROR!!!");}
             }) ) 
             { //Validation returned null - is successfull
-              var DiscTmpl = '',
+              var 
                 url = config.forum.Vanilla.baseUrl + config.forum.Vanilla.apiPath + '/discussions',
                 mem = this.member.toJSON(),
                 ranks = this.ranks.toJSON(),
@@ -84,12 +78,9 @@ require("backbone.validation");
                     data: data,
                     processData: true,
                     success: function (model, response, options) {
-                        Backbone.history.navigate("members/" + model.get("member_id"), 
-                        {
-                            trigger: true
-                        });
+                        Backbone.history.navigate("members/" + model.get("member_id"), { trigger: true });
                     },
-                    error: function(a,b,c) {console.log("ERROR!!!");}
+                    error: function() {console.log("ERROR!!!");}
                   }); 
                 }
               });
@@ -106,13 +97,10 @@ require("backbone.validation");
             processData: true,
             success: function (model, response, options) 
             {
-                Backbone.history.navigate("members/" + model.get("member_id"), 
-                {
-                    trigger: true
-                });
+                Backbone.history.navigate("members/" + model.get("member_id"), { trigger: true });
     
             },
-            error: function(a,b,c) {console.log("ERROR!!!");}
+            error: function() {console.log("ERROR!!!");}
           }); 
         }
       }
