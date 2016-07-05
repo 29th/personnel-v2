@@ -22,9 +22,9 @@ class ServiceCoat {
 			'm:rifle:ro2','m:bar:ro2','m:zook:ro2','m:mg:ro2','m:smg:ro2','m:sniper:ro2',
 			's:rifle:ro2','s:bar:ro2','s:zook:ro2','s:mg:ro2','s:smg:ro2','s:sniper:ro2',
 			'e:rifle:ro2','e:bar:ro2','e:zook:ro2','e:mg:ro2','e:smg:ro2','e:sniper:ro2',
-			'm:rifle:a3','m:bar:a3','m:zook:a3','m:mg:a3','m:sniper:a3','m:armor:a3','m:smg:a3',
-			's:rifle:a3','s:bar:a3','s:zook:a3','s:mg:a3','s:sniper:a3','s:armor:a3','s:smg:a3',
-			'e:rifle:a3','e:bar:a3','e:zook:a3','e:mg:a3','e:sniper:a3','e:armor:a3','e:smg:a3'
+			'm:rifle:a3','m:bar:a3','m:zook:a3','m:mg:a3','m:sniper:a3','m:armor:a3','m:smg:a3','m:grenadier:a3',
+			's:rifle:a3','s:bar:a3','s:zook:a3','s:mg:a3','s:sniper:a3','s:armor:a3','s:smg:a3','s:grenadier:a3',
+			'e:rifle:a3','e:bar:a3','e:zook:a3','e:mg:a3','e:sniper:a3','e:armor:a3','e:smg:a3','e:grenadier:a3'
 			);
 		private $scAllARibbons = array('french','ww1v','aocc','eamc','acamp','adef','gcon','aach','arcom','anpdr','pheart','bstar','sm','lom','sstar','dsm','dsc','ww2v','dms','movsm','arcam');
 		private $scAllURibbons = array('dh','dod','trenches','battlegrounds','muc','rs','arma');
@@ -391,6 +391,7 @@ class ServiceCoat {
 				'mg' => NULL,
 				'zook' => NULL,
 				'armor' => NULL,
+				'grenadier' => NULL,
 				'sniper' => NULL,
 				'mortar' => NULL
 				);
@@ -465,6 +466,9 @@ class ServiceCoat {
 					break;
 					case 'armor':
 						$scClaspsList['armor'] = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesAQB/armor_clasps.png');
+					break;
+					case 'grenadier':
+						$scClaspsList['grenadier'] = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesAQB/grenadier_clasps.png');
 					break;
 					case 'sniper':
 						$scClaspsList['sniper'] = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesAQB/sniper_clasps.png');
@@ -1326,7 +1330,8 @@ class ServiceCoat {
 					$scBRArrayRB[$badge]++;
 				}
 			}
-			$scNumBRBadges = 0;			
+			$scNumBRBadges = 0;	
+			$scBRRBBadge = false;
 			$scBRActual = array();
 			//get highest rb
 			foreach($scBRArrayRB as $badge => $num)
@@ -1363,12 +1368,13 @@ class ServiceCoat {
 						default:						
 						break;
 					}
-					$scBRActual[rb] = 1;
+					$scBRActual['rb'] = 1;
 					$scBRRBBadge = true;
 					break;
 				}
 			}
-			if(in_array(mp,$this->scBRBadges)) $scBRMPBadge = true;
+//			if(in_array('mp',$this->scBRBadges)) $scBRMPBadge = true;
+			$scBRMPBadge = in_array('mp',$this->scBRBadges) ;
 			if($scBRRBBadge) $scNumBRBadges++;
 			if($scBRMPBadge) $scNumBRBadges++; 
 			if($scBRMPBadge)
@@ -1376,7 +1382,7 @@ class ServiceCoat {
 				$this->scMPImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesOther/MP.png');
 				$scMPImage['x'] = imagesx($this->scMPImage);
 				$scMPImage['y'] = imagesy($this->scMPImage);
-				$scBRActual[mp] = 1;
+				$scBRActual['mp'] = 1;
 			}
 			$scCurrentBRBadge = 1;
 			foreach($scBRActual as $badge => $num)
@@ -1386,13 +1392,13 @@ class ServiceCoat {
 					case 1:
 						switch($badge)
 						{
-							case rb:
+							case 'rb':
 								$scBRXPos = $scBRMidPos['x'] - ($scRBImage['x'] / 2);
 								$scBRYPos = $scBRMidPos['y'] - ($scRBImage['y'] / 2);
 								imagecopy($this->scImage, $this->scRBImage, $scBRXPos, $scBRYPos, 0, 0, $scRBImage['x'], $scRBImage['y']);
 								imagedestroy($this->scRBImage);
 							break;
-							case mp:
+							case 'mp':
 								$scBRXPos = $scBRMidPos['x'] - ($scMPImage['x'] / 2);
 								$scBRYPos = $scBRMidPos['y'] - ($scMPImage['y'] / 2);
 								imagecopy($this->scImage, $this->scMPImage, $scBRXPos, $scBRYPos, 0, 0, $scMPImage['x'], $scMPImage['y']);
