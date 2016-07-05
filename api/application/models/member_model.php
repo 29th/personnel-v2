@@ -88,7 +88,7 @@ class Member_model extends MY_Model {
     
     public function default_order_by() {
         $this->db//->order_by('ranks.order DESC')
-            ->order_by('units.class ASC, `unit|depth`, positions.order DESC');
+            ->order_by('units.class ASC, `unit|depth`, positions.order DESC, ranks.id DESC');
     }
 
     public function active() {
