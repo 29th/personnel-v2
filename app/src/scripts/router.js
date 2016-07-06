@@ -921,7 +921,6 @@ require("./validation.config");
           this.app.navRegion.currentView.setHighlight("promotions");
           
           promises.push(promotion.fetch(),member.fetch(),ranks.fetch(),units.fetch());
-//          promises.push(promotion.fetch());
 
           $.when.apply($, promises).done(function(user) {
               // Must be logged in
