@@ -72,6 +72,7 @@ require("backbone.validation");
                 contentType: "application/json",
                 success : function ( dis ) 
                 {
+                  data.topic_id = dis.Discussion.DiscussionID;
                   mod.save(data, {
                     method: "POST",
                     patch: true,
