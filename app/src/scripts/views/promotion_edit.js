@@ -35,14 +35,19 @@ require("backbone.validation");
           this.$(".selectpicker").selectpicker();
       },
       onSubmitForm: function (e) {
+          e.preventDefault();
           var data = $(e.currentTarget).serializeObject();
           this.model.save(data, {
+            method: "POST",
+            patch: true,
+            data: data,
+            processData: true,
             success: function (model, response, options) {
                   Backbone.history.navigate("members/" + model.get("member_id"), {
                       trigger: true
                   });
             },
-              error: function() {console.log("ERROR!!!")}
+            error: function() {console.log("ERROR!!!")}
           });
       }
 /* 
