@@ -34,6 +34,19 @@ require("backbone.validation");
       onRender: function() {
           this.$(".selectpicker").selectpicker();
       },
+      onSubmitForm: function (e) {
+          var data = $(e.currentTarget).serializeObject();
+          this.model.save(data, {
+            success: function (model, response, options) {
+                  Backbone.history.navigate("members/" + model.get("member_id"), {
+                      trigger: true
+                  });
+            },
+              error: function() {console.log("ERROR!!!")}
+          });
+      }
+/* 
+//This is new version - using forums/api
       onSubmitForm: function (e) 
       {
           e.preventDefault();
@@ -105,4 +118,5 @@ require("backbone.validation");
           }); 
         }
       }
+*/
   });

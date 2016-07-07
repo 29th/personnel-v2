@@ -29,6 +29,11 @@ var $ = require("jquery"),
           date: {
               required: true,
               msg: "Pick a date!",
-          }
+          },
+          topic_id: {
+              required: true,
+              pattern: "number",
+              msg: "If there is no topic ID, enter 0"
+           }
       }
   });
