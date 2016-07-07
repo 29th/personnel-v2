@@ -37,7 +37,7 @@
         <div class="dropdown-menu arrow dropdown-menu">
             <ul class="scrollthis">
                 {{#each units}}
-                <li class="nav-roster-unit"><a href="#units/{{ this.key }}">{{ this.abbr }}</a></li>
+                <li class="nav-roster-unit"><a href="#units/{{ this.key }}">{{#times this.depth}}&nbsp;&nbsp;{{/times}}{{ this.abbr }}</a></li>
                 {{/each}}
             </ul>
         </div>   
@@ -58,18 +58,18 @@
                         {{#is attended "===" "0"}}
                             {{#is excused "===" "0" }}
                               {{#if (within_24_hours this.datetime)}}
-                             <span class="label label-warning">Post LOA</span>
+                             <span class="label label-primary">Post LOA</span>
                               {{else}}
                              <span class="label label-danger">AWOL!</span>
                               {{/if}}
                             {{else}}
-                             <span class="label label-primary">Excused</span>
+                             <span class="label label-warning">Excused</span>
                             {{/is}}
                         {{/is}}
                         {{#is attended "===" null}}
                             {{#if (past this.datetime)}}
                                 {{#if (within_24_hours this.datetime)}}
-                                    <span class="label label-warning">Post LOA</span>
+                                    <span class="label label-primary">Post LOA</span>
                                 {{else}}
                                     <span class="label label-info">Missing AAR</span>
                                 {{/if}}

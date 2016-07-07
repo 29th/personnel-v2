@@ -1,3 +1,4 @@
+
 <div class="panel panel-default">
   <div class="panel-heading">
      <h2>Promote member</h2>
@@ -44,11 +45,35 @@
     </div>
 
     <div class="form-group">
+<!---
+        <label for="do_forum_post">Add post to forums?</label>
+        <input type="checkbox"  class="form-control" name="do_forum_post" id="do_forum_post" checked>
+--->
         <label for="topic_id">Forum Topic ID</label>
         <input type="text" class="form-control" name="topic_id" id="topic_id" value="{{ topic_id }}">
+
         <p class="help-block error-msg"></p>
     </div>
+<!---    
+    <div id='forum_quotes'>
+        <label for="quoted_member_id">Member quoted</label>
+        <select class="form-control selectpicker" name="quoted_member_id" id="quoted_member_id" data-live-search="true">
+          {{#select member.id}}
+            <option value="">No quote will be added</option>
+            {{#each units.[0]}}
+              <option value="{{ this.member.id }},{{ this.member.short_name }}">{{ this.member.short_name }}</option>
+            {{/each}}
+          {{/select}}
+        </select>
     
+        <div class="form-group">
+            <label for="content">Quote</label>
+            <textarea class="form-control" rows="8" name="content" id="content">{{ content }}</textarea>
+            <p class="help-block error-msg"></p>
+        </div>
+    
+    </div>
+--->    
     <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
   </form>
   </div>

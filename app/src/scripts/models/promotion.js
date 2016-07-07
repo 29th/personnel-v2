@@ -15,10 +15,17 @@ var $ = require("jquery"),
           return response || {};
       },
       validation: {
-          new_rank_id: {
-              required: true,
-              msg: "Pick a new rank!",
-          },
+          new_rank_id: 
+            function(value, attr, computed) 
+            {
+              if(value == computed.old_rank_id) {
+                return 'Old and new ranks can not be same!';
+              }
+              if (!value) {
+                return "Pick a new rank!";
+              }                
+            }
+          ,
           date: {
               required: true,
               msg: "Pick a date!",
@@ -27,6 +34,6 @@ var $ = require("jquery"),
               required: true,
               pattern: "number",
               msg: "If there is no topic ID, enter 0"
-          }
+           }
       }
   });

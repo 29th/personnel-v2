@@ -896,13 +896,13 @@ require("./validation.config");
                   isnew:true,
                   member_id: member_id
               }),
-/*
               units = new Units(null, {
                   children: true,
                   members: true,
                   flat: true,
+                  order: 'name',
                   distinct: true
-              }), */
+              }),
               member = new Member({
                   id: member_id
               }),
@@ -913,14 +913,14 @@ require("./validation.config");
               promotionEditView = new PromotionEditView({
                   //units: units,
                   member: member,
+                  units: units,
                   ranks: ranks,
                   model: promotion
               });
 
           this.app.navRegion.currentView.setHighlight("promotions");
           
-          promises.push(promotion.fetch(),member.fetch(),ranks.fetch());
-//          promises.push(promotion.fetch());
+          promises.push(promotion.fetch(),member.fetch(),ranks.fetch(),units.fetch());
 
           $.when.apply($, promises).done(function(user) {
               // Must be logged in
