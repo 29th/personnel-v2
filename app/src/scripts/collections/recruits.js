@@ -31,6 +31,6 @@ var $ = require("jquery"),
           return url;
       },
       parse: function (response, options) {
-          return response.enlistments || [];
+          return response.recruits || [];
       }
   });
