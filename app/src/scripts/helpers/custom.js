@@ -138,11 +138,13 @@ Handlebars.registerHelper('within_24_hours', function (a, b) {
 });
 
 Handlebars.registerHelper('past', function (date) {
+    date = moment( date ).format('YYYY-MM-DD HH:mm');
     var date_conv = moment.utc(date+'-04:00').local();
     return moment(date_conv).isBefore(moment());
 });
 
 Handlebars.registerHelper('time_conv', function (date) {
+    date = moment( date ).format('YYYY-MM-DD HH:mm');
     return moment.utc(date+'-04:00').local(); //.format('YYYY-MM-DD HH:mm')
 });
 

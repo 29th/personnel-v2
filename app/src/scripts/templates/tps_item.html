@@ -7,12 +7,16 @@
         {{#is (between start_date end_date) }}
             current-tp">Current
         {{else}}
-            active-tp">Active
+            {{#is (past end_date)}}
+                current-tp">Ended
+            {{else}}
+                active-tp">Active
+            {{/is}}
         {{/is}}
     {{else}}
         nonactive-tp">
         {{#is (past end_date) }}
-            Ended
+            Past
         {{else}}
             Upcoming
         {{/is}}
