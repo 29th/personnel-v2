@@ -1,10 +1,47 @@
-<div class="panel panel-default" id="recruits">
-	<div class="panel-heading"><h2>AOCCs due</h2></div><br>
+<div class="col-md-6" id="col0">
+  <div class="panel panel-default">
+	<div class="panel-heading"><h2>Recruits by TP</h2></div>
 	<div class="panel-body">
+        <h2>Total Recruits: <b>{{this.rec_count}}</b></h2>
+        {{#each recruits_by_tp}}
+          {{#if this.tp }}    
+            <div class="row"><b>{{ this.tp }}</b> ({{this.count}})<br>
+            <ul>
+            {{#each recruiters}}
+              {{#if this.recruiter_id}}    
+              <li>
+                <h3>&nbsp;&nbsp;&nbsp;<a href="#members/{{ this.recruiter_id }}">{{this.recruiter_name}}</a> ({{this.count}}) </h3>
+                 <ul>
+                 {{#each recruits}}
+                  {{#if this.member.id}}
+                    <li class="">
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><a href="#members/{{ this.member.id }}">{{this.member.rank}} {{ this.member.first_name }} {{ this.member.last_name }}</a></b> ({{this.enlistment.date}}) 
+                    </li>
+                 {{/if}}
+                {{/each }}
+                </ul>
+              {{/if}}
+            {{/each}}
+            </ul>
+            </div><hr>
+          {{/if}}
+        {{/each }}
 	</div>
+  </div>
 </div>
-{{#each items}}
-    <h3>test</h3>
-    <ul>
-    </ul>
-{{/each}}
+
+<div class="col-md-6" id="col1">
+  <div class="panel panel-default">
+	<div class="panel-heading"><h2>Recruits by recruiter</h2></div>
+	<div class="panel-body">
+        <ol>    
+        {{#each recruits_by_recruiter}}
+          {{#if this.recruiter_name }}    
+            <li><div class=""><b><a href="#members/{{ this.recruiter_id }}/recruits" title="Click to see the complete list of recruits">{{ this.recruiter_name }}</a></b>  with <big>{{this.count}}</big> {{#is this.count ">" "1"}} recruits{{else}}recruit{{/is}}</div></li>
+            
+          {{/if}}
+        {{/each }}
+        </ol>
+	</div>
+  </div>
+</div>

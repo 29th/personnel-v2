@@ -1333,15 +1333,15 @@ require("./validation.config");
               unitLayout.setHighlight("recruits");
               
               var unitRecruits = new Recruits(null, {
-                  from:"2014-12-01",
+                  from:"2000",
                   to: "today",
                   unit_id: filter || "Bn"
               });
               promises.push(unitRecruits.fetch());
 
-              columnViews = new UnitRecruitsView({
+              columnViews.push(new UnitRecruitsView({
                   collection: unitRecruits
-              });
+              }));
           }
           // Roster
           else {
