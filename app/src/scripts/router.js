@@ -567,6 +567,24 @@ require("./validation.config");
               self.showView(tpsView);
           });
       },
+      recruits: function() {
+          var self = this,
+              promises = [];
+
+          var unitRecruits = new Recruits(null, {
+              from:"2000",
+              to: "today"
+          });
+          var unitRecruitsView = new UnitRecruitsView({
+              collection: unitRecruits
+          });
+
+          promises.push(unitRecruits.fetch());
+
+          $.when.apply($, promises).done(function () {
+              self.showView(unitRecruitsView);
+          });
+      },
       passes: function() {
           var self = this,
               promises = [],
@@ -1335,7 +1353,7 @@ require("./validation.config");
               var unitRecruits = new Recruits(null, {
                   from:"2000",
                   to: "today",
-                  unit_id: filter || "Bn"
+                  unit_id: filter //|| "Bn"
               });
               promises.push(unitRecruits.fetch());
 
