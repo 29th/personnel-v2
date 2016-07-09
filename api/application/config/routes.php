@@ -87,6 +87,8 @@ $route['qualifications/(:num)'] = 'qualifications/view/$1';
 $route['qualifications'] = 'qualifications/index';
 $route['notes/add'] = 'notes/add';
 $route['notes/(:num)'] = 'notes/view/$1';
+$route['recruits'] = 'recruits/index'; // Filtered
+
 
 // Enlistments
 $route['enlistments/(:num)/process'] = 'enlistments/process/$1';
