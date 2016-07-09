@@ -49,18 +49,16 @@ class Recruits_model extends MY_Model
     }
 
     public function by_unit($unit_id) {
-//        $this->filter_join('assignments', 'assignments.member_id = ' . $this->table . '.recruiter_member_id');
-//        $this->filter_join('units', 'units.id = assignments.unit_id');
-
         if(is_numeric($unit_id)) {
             $this->filter_where('enlistments.recruiter_member_id IN ( SELECT member_id FROM `assignments` WHERE end_date IS NULL AND unit_id IN ( SELECT id FROM `units` WHERE (units.id = ' . $unit_id . ' OR units.path LIKE "%/' . $unit_id . '/%") ) )');
         } elseif($lookup = $this->getByUnitKey($unit_id)) {
-//            $this->filter_where('(units.id = ' . $lookup['id'] . ' OR units.path LIKE "%/' . $lookup['id'] . '/%")');
             $this->filter_where('enlistments.recruiter_member_id IN ( SELECT member_id FROM `assignments` WHERE end_date IS NULL AND unit_id IN ( SELECT id FROM `units` WHERE (units.id = ' . $lookup['id'] . ' OR units.path LIKE "%/' . $lookup['id'] . '/%") ) )');
         }
-        //$this->filter_where('assignments.end_date IS NULL'); // Only include current members
-        //$this->filter_group_by($this->primary_key);
         return $this;
+    }
+
+    public function recruited_only() {
+        $this->filter_where('enlistments.recruiter_member_id IS NOT NULL');
     }
 
     public function select_member() {}

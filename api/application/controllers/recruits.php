@@ -24,7 +24,6 @@ class Recruits extends MY_Controller {
         else 
         {
             $model = $this->recruits_model;
-            
             // Filter by member
             if($filter_key == 'member') {
                 $model->by_member($filter_value);
@@ -32,6 +31,9 @@ class Recruits extends MY_Controller {
             // Filter by unit
             elseif($filter_key == 'unit') {
                 $model->by_unit($filter_value);
+            }
+            elseif (!$filter_key) {
+                $model->recruited_only();   
             }
 
             // If date range
