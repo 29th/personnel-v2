@@ -41,6 +41,10 @@ class Tps extends MY_Controller {
 		        $tps->only_active();
 		    }
 		    $records = nest( $tps->paginate('', $skip)->result_array() );
+		    foreach ( $records as $key => $rec )
+		    {
+		        $records[$key]['bct_days'] = $this->tpAddDays( $rec['id'] );
+		    }
 		    $count = $tps->total_rows;
 			$this->response(array( 'status' => true, 'count' => $count, 'skip' => $skip, 'tps' => $records ));
 		}
