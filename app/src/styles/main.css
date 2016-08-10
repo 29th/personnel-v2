@@ -576,3 +576,17 @@ nav.navbar {
     font-size: 1.4em;
     font-weight: bold;    
 }
+
+.is_arr a {
+    font-weight: bold;
+    color: white;
+}
+
+#sig_line img {
+    height: 80px;
+}
+
+.member-profile-table th {
+    max-height: 80px;
+    max-width: 400px;
+}

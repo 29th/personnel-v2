@@ -16,6 +16,7 @@ module.exports = {
           "topicPath": "/?topic=%s.0"
       }
     },
+    sigUrl: process.env.SIG_URL,
     wikiUrl: process.env.WIKI_URL,
     vanillaCategoryAwards: 59,
     vanillaCategoryEnlistments: 62,
