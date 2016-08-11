@@ -577,9 +577,13 @@ nav.navbar {
     font-weight: bold;    
 }
 
-.is_arr a {
+.is_aar a {
     font-weight: bold;
     color: white;
+}
+
+.no_aar a {
+    color: black;
 }
 
 .signature {
