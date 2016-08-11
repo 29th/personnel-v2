@@ -582,11 +582,11 @@ nav.navbar {
     color: white;
 }
 
-#sig_line img {
-    height: 80px;
+.signature {
+    max-height: 80px;
+    max-width: 400px;
 }
 
 .member-profile-table th {
-    max-height: 80px;
-    max-width: 400px;
+    width:200px;
 }
