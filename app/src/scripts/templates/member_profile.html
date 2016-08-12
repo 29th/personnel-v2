@@ -2,7 +2,7 @@
     <div class="panel-heading"><h2>Profile</h2></div>
     <div class="panel-body panel-no-padding">
     
-        <table class="table">
+        <table class="table member-profile-table">
             <tr>
                 <th>Active Class{{#is classes.length ">" 1}}es{{/is}}</th>
                 <td>{{join classes delimiter=", "}}</td>
@@ -17,6 +17,12 @@
                 <th>Steam ID</th>
                 <td>{{#if steam_id}}<a href="http://steamcommunity.com/profiles/{{ steam_id }}" target="_blank">{{ steam_id }}</a>{{/if}}</td>
             </tr>
+            {{#if sig}}
+            <tr>
+                <th>Signature</th>
+                <td><img src='{{sig}}' title="Personal signature" class="signature"></td>
+            </tr>
+            {{/if}}
             {{#is forum_member_id "!==" "0"}}
             <tr>
                 <th>Forum Profile</th>

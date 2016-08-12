@@ -14,7 +14,7 @@ var Marionette = require("backbone.marionette");
       },
       serializeData: function () {
           var fin_sum = _.reduce(this.finances.pluck("amount_received"), function(m, x) { return +m + +x; }, 0);
-
+          
           return _.extend({
               forum: config.forum,
               fin_sum: fin_sum,

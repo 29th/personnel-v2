@@ -26,3 +26,13 @@
 <td nowrap="nowrap">{{ days }}</td>
 <td>{{ member_count }}</td>
 <td>{{#if avg}}{{ avg }}%{{else}}N/A{{/if}}</td>
+<td>
+{{#each bct_days}}
+  {{#if reporter_member_id }}
+    <span class="is_aar" title="Posted">
+  {{else}}
+    <span class="no_aar" title="No report yet">
+  {{/if}}
+    &nbsp; <a href=#events/{{id}}>{{add 1 @index}}</a> &nbsp;</span> 
+{{/each}}
+</td>

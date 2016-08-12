@@ -576,3 +576,21 @@ nav.navbar {
     font-size: 1.4em;
     font-weight: bold;    
 }
+
+.is_aar a {
+    font-weight: bold;
+    color: white;
+}
+
+.no_aar a {
+    color: black;
+}
+
+.signature {
+    max-height: 80px;
+    max-width: 400px;
+}
+
+.member-profile-table th {
+    width:200px;
+}
