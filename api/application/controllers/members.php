@@ -55,7 +55,15 @@ class Members extends MY_Controller {
         else {
             $member = nest($this->member_model->get_by_id($member_id));
             $member['classes'] = $this->assignment_model->get_classes($member_id);
-            $this->response(array('status' => true, 'member' => $member));
+            if ( $member['steam_id'] ) 
+            {
+                $ch = curl_init("http://www.29th.org/sigs/" . $member['steam_id'] . '.png');
+                curl_setopt($ch, CURLOPT_NOBODY, true);
+                curl_exec($ch);
+                if ( curl_getinfo($ch, CURLINFO_HTTP_CODE) == '200' )
+                    $member['sig'] = "http://www.29th.org/sigs/" . $member['steam_id'] . ".png";
+            }
+            $this->response(array('status' => true, 'member' => $member ));
         }
     }
     
