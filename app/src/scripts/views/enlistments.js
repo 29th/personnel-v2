@@ -54,11 +54,19 @@ var Marionette = require("backbone.marionette");
       onClickBtnGroup: function (e) {
           var btn = $(e.currentTarget),
               self = this,
-              status = btn.data("status");
-          $(".btn-group .btn").removeClass("active");
+              status = btn.data("status"),
+              game = btn.data("game"),
+              timezone = btn.data("timezone");
+          if (status) $(".btn-group .btn-status").removeClass("active");
+          if (game) $(".btn-group .btn-game").removeClass("active");
+          if (timezone) $(".btn-group .btn-timezone").removeClass("active");
           btn.addClass("active");
           this.collection.resetPage();
-          this.collection.setFilter("status", status).fetch({
+          this.collection
+            .setFilter( "status", status || $(".btn-group .btn-status.active").data('status') )
+            .setFilter( "game", game || $(".btn-group .btn-game.active").data('game') )
+            .setFilter( "timezone", timezone || $(".btn-group .btn-timezone.active").data('timezone') )
+            .fetch({
               success: function () {
                   self.checkMoreButton();
               }
