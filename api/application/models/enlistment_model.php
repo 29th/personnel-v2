@@ -159,6 +159,16 @@ class Enlistment_model extends MY_Model {
         return $this;
     }
     
+    public function by_game($game) {
+        $this->filter_where('enlistments.game', $game);
+        return $this;
+    }
+    
+    public function by_timezone($timezone) {
+        $this->filter_where('enlistments.timezone IN (\'Either\', \'' . $timezone . '\')');
+        return $this;
+    }
+    
     public function default_order_by() {
         $this->db->order_by('enlistments.date DESC, enlistments.id DESC');
     }
