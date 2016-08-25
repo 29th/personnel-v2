@@ -27,10 +27,18 @@ class Enlistments extends MY_Controller {
         // Index records
         else {
             $status = $this->input->get('status', TRUE);
+            $game = $this->input->get('game', TRUE);
+            $timezone = $this->input->get('timezone', TRUE);
             $skip = $this->input->get('skip') ? $this->input->get('skip', TRUE) : 0;
             $model = $this->enlistment_model;
             if($status) {
                 $model->by_status($status);
+            }
+            if($game) {
+                $model->by_game($game);
+            }
+            if($timezone) {
+                $model->by_timezone($timezone);
             }
             if($member_id) {
                 $model->where('enlistments.member_id', $member_id);
