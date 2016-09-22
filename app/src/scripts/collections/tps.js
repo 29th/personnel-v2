@@ -11,6 +11,7 @@ var $ = require("jquery"),
       initialize: function (models, options) {
           options = options || {};
           this.filter = options.filter || false;
+          this.status = options.status || false;
           this.member_id = options.member_id || null;
           this.unit_id = options.unit_id || null;
           this.future = options.future || null;
