@@ -555,7 +555,9 @@ require("./validation.config");
       tps: function() {
           var self = this,
               promises = [],
-              tps = new TPs();
+              tps = new TPs(null,{
+                  status : 'activated'
+              });
 
           var tpsView = new TPsView({
               collection: tps
