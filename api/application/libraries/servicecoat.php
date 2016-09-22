@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php //if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 define("ALIGN_LEFT", "left");
 define("ALIGN_CENTER", "center");
@@ -26,8 +26,8 @@ class ServiceCoat {
 			's:rifle:a3','s:bar:a3','s:zook:a3','s:mg:a3','s:sniper:a3','s:armor:a3','s:smg:a3','s:grenadier:a3',
 			'e:rifle:a3','e:bar:a3','e:zook:a3','e:mg:a3','e:sniper:a3','e:armor:a3','e:smg:a3','e:grenadier:a3'
 			);
-		private $scAllARibbons = array('french','ww1v','aocc','eamc','acamp','adef','gcon','aach','arcom','anpdr','pheart','bstar','sm','lom','sstar','dsm','dsc','ww2v','dms','movsm','arcam');
-		private $scAllURibbons = array('dh','dod','trenches','battlegrounds','muc','rs','arma');
+		private $scAllARibbons = array('french','dsc','dsm','sstar','lom','sm','bstar','pheart','dms','msm','arcom','aach','gcon','arcam','adef','acamp','eamc','ww2v','aocc','afem','movsm','anpdr',  'ww1v');
+		private $scAllURibbons = array('dh','dod','trenches','battlegrounds','muc','suc','rs','arma');
 		private $scAllTRBadges = array('eib','cib','cib1','cib2','cib3','cib4','cab','cab1','cab2','cab3','cab4');
 		private $scAllTLBadges = array('rd');
 		private $scAllBLBadges = array('drillsergeant');
@@ -695,6 +695,19 @@ class ServiceCoat {
 				'arcam' => array(
 					'num' => 0,
 					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Army Reserve Components Achievement Medal.png')
+					),
+
+				'afem' => array(
+					'num' => 0,
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Armed Forces Expeditionary Medal.png')
+					),
+				'afsm' => array(
+					'num' => 0,
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Armed Forces Service Medal.png')
+					),
+				'msm' => array(
+					'num' => 0,
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Meritorious Service Medal.png')
 					)
 				);
 			//Initiates the RibArray
@@ -1059,6 +1072,7 @@ class ServiceCoat {
 				'dod' => 0,
 				'dh' => 0,
 				'muc' => 0,
+				'suc' => 0,
 				'rs' => 0,
 				'arma' => 0
 				);
@@ -1246,6 +1260,11 @@ class ServiceCoat {
 						break;
 						case 'muc':
 							$this->scURib = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RibbonsCUC/MeritoriousUnitCitation.png');
+							imagecopy($this->scImage, $this->scURib, $scCurrentURibX, $scCurrentURibY, 0, 0, $scURibbonSize['x'], $scURibbonSize['y']);
+							imagedestroy($this->scURib);
+						break;
+						case 'suc':
+							$this->scURib = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RibbonsCUC/SuperiorUnitCitation.png');
 							imagecopy($this->scImage, $this->scURib, $scCurrentURibX, $scCurrentURibY, 0, 0, $scURibbonSize['x'], $scURibbonSize['y']);
 							imagedestroy($this->scURib);
 						break;
