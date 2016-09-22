@@ -120,7 +120,10 @@ class Tps extends MY_Controller {
                 e.recruiter_member_id AS `recruiter|id`, 
                 CONCAT(r.abbr,' ',m.last_name) AS `recruiter|short`, 
                 e.liaison_member_id AS `liaison|id`, 
-                CONCAT(r2.abbr,' ',m2.last_name) AS `liaison|short`
+                CONCAT(r2.abbr,' ',m2.last_name) AS `liaison|short`,
+                (SELECT CONCAT(ru.abbr,' - ',ru.game,'/',ru.timezone) FROM assignments AS ra LEFT JOIN units AS ru ON ra.unit_id = ru.id WHERE ra.end_date IS NULL AND ru.class='Combat' AND ra.member_id = e.recruiter_member_id ORDER BY (ru.path) DESC LIMIT 1) AS `recruiter|assignement`
+" . /*                poa_result, 
+                passed */ "
             FROM `enlistments` AS e
             LEFT JOIN `members` AS m ON e.recruiter_member_id = m.id
             LEFT JOIN `ranks` AS r ON m.rank_id = r.id
