@@ -32,7 +32,7 @@
             {{#is this.fin_sum "!==" 0}}
             <tr>
                 <th>Amount Donated</th>
-                <td>${{ this.fin_sum }}</td>
+                <td>${{ decimals this.fin_sum }}</td>
             </tr>
             {{/is}}
         </table>
