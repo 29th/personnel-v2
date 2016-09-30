@@ -11,7 +11,7 @@ class ServiceCoat {
     private $root = __DIR__;
 
 	//Arrays of codes supported
-		private $scAllRanks = array('pvt','pfc','t5','cpl','t4','sgt','t3','ssgt','tsgt','msgt','fsgt','2lt','1lt','cpt','maj','lt col');
+		private $scAllRanks = array('pvt','pfc','t5','cpl','t4','sgt','t3','ssgt','tsgt','msgt','fsgt','wo1','cw2','cw3','cw4','cw5','2lt','1lt','cpt','maj','lt col');
 		private	$scAllAQBadges = array(
 			'm:rifle:dod','m:bar:dod','m:zook:dod','m:mg:dod','m:armor:dod','m:smg:dod','m:sniper:dod','m:mortar:dod',
 			's:rifle:dod','s:bar:dod','s:zook:dod','s:mg:dod','s:armor:dod','s:smg:dod','s:sniper:dod','s:mortar:dod',
@@ -305,36 +305,36 @@ class ServiceCoat {
 				imagedestroy($this->scRankfsgt);
 				$this->handleEnlistedInsig();				
 			break;
-/*			case 'wo1':
-				$this->scRankfsgt = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksOfficer/WO1.png');
-				imagecopy($this->scImage, $this->scRankfsgt, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
-				imagedestroy($this->scRankfsgt);
+			case 'wo1':
+				$this->scRankwo1 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksOfficer/WO1.png');
+				imagecopy($this->scImage, $this->scRankwo1, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
+				imagedestroy($this->scRankwo1);
 				$this->handleEnlistedInsig();				
 			break;
 			case 'cw2':
-				$this->scRankfsgt = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksOfficer/CW2.png');
-				imagecopy($this->scImage, $this->scRankfsgt, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
-				imagedestroy($this->scRankfsgt);
+				$this->scRankcw2 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksOfficer/CW2.png');
+				imagecopy($this->scImage, $this->scRankcw2, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
+				imagedestroy($this->scRankcw2);
 				$this->handleEnlistedInsig();				
 			break;
 			case 'cw3':
-				$this->scRankfsgt = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksOfficer/CW3.png');
-				imagecopy($this->scImage, $this->scRankfsgt, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
-				imagedestroy($this->scRankfsgt);
+				$this->scRankcw3 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksOfficer/CW3.png');
+				imagecopy($this->scImage, $this->scRankcw3, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
+				imagedestroy($this->scRankcw3);
 				$this->handleEnlistedInsig();				
 			break;
 			case 'cw4':
-				$this->scRankfsgt = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksOfficer/CW4.png');
-				imagecopy($this->scImage, $this->scRankfsgt, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
-				imagedestroy($this->scRankfsgt);
+				$this->scRankcw4 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksOfficer/CW4.png');
+				imagecopy($this->scImage, $this->scRankcw4, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
+				imagedestroy($this->scRankcw4);
 				$this->handleEnlistedInsig();				
 			break;
 			case 'cw5':
-				$this->scRankfsgt = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksOfficer/CW5.png');
-				imagecopy($this->scImage, $this->scRankfsgt, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
-				imagedestroy($this->scRankfsgt);
+				$this->scRankcw5 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksOfficer/CW5.png');
+				imagecopy($this->scImage, $this->scRankcw5, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
+				imagedestroy($this->scRankcw5);
 				$this->handleEnlistedInsig();				
-			break; */
+			break;
 			case '2lt':
 				$this->scRank2lt = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksOfficer/2LT.png');
 				imagecopy($this->scImage, $this->scRank2lt, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
@@ -1414,27 +1414,27 @@ class ServiceCoat {
 				{
 					switch($badge)
 					{
-						case recruiter5:
+						case 'recruiter5':
 							$this->scRBImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesOther/RB5.png');
 							$scRBImage['x'] = imagesx($this->scRBImage);
 							$scRBImage['y'] = imagesy($this->scRBImage);
 						break;
-						case recruiter4:
+						case 'recruiter4':
 							$this->scRBImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesOther/RB4.png');
 							$scRBImage['x'] = imagesx($this->scRBImage);
 							$scRBImage['y'] = imagesy($this->scRBImage);
 						break;
-						case recruiter3:
+						case 'recruiter3':
 							$this->scRBImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesOther/RB3.png');
 							$scRBImage['x'] = imagesx($this->scRBImage);
 							$scRBImage['y'] = imagesy($this->scRBImage);
 						break;
-						case recruiter2:
+						case 'recruiter2':
 							$this->scRBImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesOther/RB2.png');
 							$scRBImage['x'] = imagesx($this->scRBImage);
 							$scRBImage['y'] = imagesy($this->scRBImage);
 						break;
-						case recruiter:
+						case 'recruiter':
 							$this->scRBImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesOther/RB1.png');
 							$scRBImage['x'] = imagesx($this->scRBImage);
 							$scRBImage['y'] = imagesy($this->scRBImage);
@@ -1605,6 +1605,21 @@ class ServiceCoat {
 		$rank = strtolower($rank);
 		switch($rank)
 		{
+			case 'wo1':
+				return true;
+			break;
+			case 'cw2':
+				return true;
+			break;
+			case 'cw3':
+				return true;
+			break;
+			case 'cw4':
+				return true;
+			break;
+			case 'cw5':
+				return true;
+			break;
 			case '2lt':
 				return true;
 			break;
