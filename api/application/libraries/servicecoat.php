@@ -1,4 +1,4 @@
-<?php //if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 define("ALIGN_LEFT", "left");
 define("ALIGN_CENTER", "center");
@@ -11,7 +11,7 @@ class ServiceCoat {
     private $root = __DIR__;
 
 	//Arrays of codes supported
-		private $scAllRanks = array('pvt','pfc','t5','cpl','t4','sgt','t3','ssgt','tsgt','msgt','fsgt','2lt','1lt','cpt','maj','lt col');
+		private $scAllRanks = array('pvt','pfc','t5','cpl','t4','sgt','t3','ssgt','tsgt','msgt','fsgt','wo1','cw2','cw3','cw4','cw5','2lt','1lt','cpt','maj','lt col');
 		private	$scAllAQBadges = array(
 			'm:rifle:dod','m:bar:dod','m:zook:dod','m:mg:dod','m:armor:dod','m:smg:dod','m:sniper:dod','m:mortar:dod',
 			's:rifle:dod','s:bar:dod','s:zook:dod','s:mg:dod','s:armor:dod','s:smg:dod','s:sniper:dod','s:mortar:dod',
@@ -19,9 +19,9 @@ class ServiceCoat {
 			'm:rifle:dh','m:bar:dh','m:zook:dh','m:mg:dh','m:armor:dh','m:smg:dh','m:sniper:dh','m:mortar:dh',
 			's:rifle:dh','s:bar:dh','s:zook:dh','s:mg:dh','s:armor:dh','s:smg:dh','s:sniper:dh','s:mortar:dh',
 			'e:rifle:dh','e:bar:dh','e:zook:dh','e:mg:dh','e:armor:dh','e:smg:dh','e:sniper:dh','e:mortar:dh',
-			'm:rifle:ro2','m:bar:ro2','m:zook:ro2','m:mg:ro2','m:smg:ro2','m:sniper:ro2',
-			's:rifle:ro2','s:bar:ro2','s:zook:ro2','s:mg:ro2','s:smg:ro2','s:sniper:ro2',
-			'e:rifle:ro2','e:bar:ro2','e:zook:ro2','e:mg:ro2','e:smg:ro2','e:sniper:ro2',
+			'm:rifle:ro2','m:bar:ro2','m:zook:ro2','m:mg:ro2','m:smg:ro2','m:sniper:ro2','m:armor:ro2',
+			's:rifle:ro2','s:bar:ro2','s:zook:ro2','s:mg:ro2','s:smg:ro2','s:sniper:ro2','s:armor:ro2',
+			'e:rifle:ro2','e:bar:ro2','e:zook:ro2','e:mg:ro2','e:smg:ro2','e:sniper:ro2','e:armor:ro2',
 			'm:rifle:a3','m:bar:a3','m:zook:a3','m:mg:a3','m:sniper:a3','m:armor:a3','m:smg:a3','m:grenadier:a3',
 			's:rifle:a3','s:bar:a3','s:zook:a3','s:mg:a3','s:sniper:a3','s:armor:a3','s:smg:a3','s:grenadier:a3',
 			'e:rifle:a3','e:bar:a3','e:zook:a3','e:mg:a3','e:sniper:a3','e:armor:a3','e:smg:a3','e:grenadier:a3'
@@ -29,7 +29,7 @@ class ServiceCoat {
 		private $scAllARibbons = array('french','dsc','dsm','sstar','lom','sm','bstar','pheart','dms','msm','arcom','aach','gcon','arcam','adef','acamp','eamc','ww2v','aocc','afem','movsm','anpdr',  'ww1v');
 		private $scAllURibbons = array('dh','dod','trenches','battlegrounds','muc','suc','rs','arma');
 		private $scAllTRBadges = array('eib','cib','cib1','cib2','cib3','cib4','cab','cab1','cab2','cab3','cab4');
-		private $scAllTLBadges = array('rd');
+		private $scAllTLBadges = array('rd','m:pilot:a3','s:pilot:a3','e:pilot:a3');
 		private $scAllBLBadges = array('drillsergeant');
 		private $scAllBRBadges = array('mp','recruiter','recruiter2','recruiter3','recruiter4','recruiter5');
 	//SC Positions
@@ -64,6 +64,7 @@ class ServiceCoat {
 			$this->scURibbons = array();
 			$this->scTRBadges = array();
 			$this->scTLBadges = array();
+			$this->scPiBadges = array();
 			$this->scBLBadges = array();
 			$this->scBRBadges = array();
 			$this->scInsignia = null;	
@@ -302,6 +303,36 @@ class ServiceCoat {
 				$this->scRankfsgt = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksEnlisted/FSGT.png');
 				imagecopy($this->scImage, $this->scRankfsgt, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 				imagedestroy($this->scRankfsgt);
+				$this->handleEnlistedInsig();				
+			break;
+			case 'wo1':
+				$this->scRankwo1 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksOfficer/WO1.png');
+				imagecopy($this->scImage, $this->scRankwo1, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
+				imagedestroy($this->scRankwo1);
+				$this->handleEnlistedInsig();				
+			break;
+			case 'cw2':
+				$this->scRankcw2 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksOfficer/CW2.png');
+				imagecopy($this->scImage, $this->scRankcw2, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
+				imagedestroy($this->scRankcw2);
+				$this->handleEnlistedInsig();				
+			break;
+			case 'cw3':
+				$this->scRankcw3 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksOfficer/CW3.png');
+				imagecopy($this->scImage, $this->scRankcw3, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
+				imagedestroy($this->scRankcw3);
+				$this->handleEnlistedInsig();				
+			break;
+			case 'cw4':
+				$this->scRankcw4 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksOfficer/CW4.png');
+				imagecopy($this->scImage, $this->scRankcw4, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
+				imagedestroy($this->scRankcw4);
+				$this->handleEnlistedInsig();				
+			break;
+			case 'cw5':
+				$this->scRankcw5 = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RanksOfficer/CW5.png');
+				imagecopy($this->scImage, $this->scRankcw5, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
+				imagedestroy($this->scRankcw5);
 				$this->handleEnlistedInsig();				
 			break;
 			case '2lt':
@@ -1295,6 +1326,30 @@ class ServiceCoat {
 						imagecopy($this->scImage, $this->scTLrupduck, $scRupturedDuckX, $scRupturedDuckY, 0, 0, $scRupturedDuckSizeX, $scRupturedDuckSizeY);
 						imagedestroy($this->scTLrupduck);
 					break;
+					case 'e:pilot:a3':
+					case 's:pilot:a3':
+					case 'm:pilot:a3':
+						$scTLRibbonRows = $scURibRows;
+						if($scURibRemain > 0 && $scURibRemain < 3)
+						{
+							$scTLRibbonRows = $scURibRows + 1;
+						}
+						switch(substr( $badge, 0, 1 ) ) 
+						{
+							case 'e':
+								$this->scTLpilot = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesPilot/Expert.png'); break;
+							case 's':
+								$this->scTLpilot = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesPilot/Sharps.png'); break;
+							case 'm':
+								$this->scTLpilot = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesPilot/Marks.png'); break;
+						}
+						$scPilotSizeX = imagesx($this->scTLpilot);
+						$scPilotSizeY = imagesy($this->scTLpilot);
+						$scPilotX = ($scURibMidPos['x'] - ($scPilotSizeX / 2) - 20);
+						$scPilotY = $scURibMidPos['y'] - ($scTLRibbonRows * $scURibbonSize['y'] + $scPilotSizeY) - $this->scFourthInch;
+						imagecopy($this->scImage, $this->scTLpilot, $scPilotX, $scPilotY, 0, 0, $scPilotSizeX, $scPilotSizeY);
+						imagedestroy($this->scTLpilot);
+					break;
 					default:
 					break;
 				}
@@ -1359,27 +1414,27 @@ class ServiceCoat {
 				{
 					switch($badge)
 					{
-						case recruiter5:
+						case 'recruiter5':
 							$this->scRBImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesOther/RB5.png');
 							$scRBImage['x'] = imagesx($this->scRBImage);
 							$scRBImage['y'] = imagesy($this->scRBImage);
 						break;
-						case recruiter4:
+						case 'recruiter4':
 							$this->scRBImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesOther/RB4.png');
 							$scRBImage['x'] = imagesx($this->scRBImage);
 							$scRBImage['y'] = imagesy($this->scRBImage);
 						break;
-						case recruiter3:
+						case 'recruiter3':
 							$this->scRBImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesOther/RB3.png');
 							$scRBImage['x'] = imagesx($this->scRBImage);
 							$scRBImage['y'] = imagesy($this->scRBImage);
 						break;
-						case recruiter2:
+						case 'recruiter2':
 							$this->scRBImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesOther/RB2.png');
 							$scRBImage['x'] = imagesx($this->scRBImage);
 							$scRBImage['y'] = imagesy($this->scRBImage);
 						break;
-						case recruiter:
+						case 'recruiter':
 							$this->scRBImage = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesOther/RB1.png');
 							$scRBImage['x'] = imagesx($this->scRBImage);
 							$scRBImage['y'] = imagesy($this->scRBImage);
@@ -1478,9 +1533,10 @@ class ServiceCoat {
 		//Handle Name
 			$imageForText = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'blank_name.png'); //sets up image for name
 			$scNameColor2 = imagecolorallocate($imageForText, 219, 219, 219); //initiates color used for text
-			$this->imageftboxtoImage($imageForText, getenv('DIR_COAT_RESOURCES') . 'Fonts/arial.ttf', 12, 0, 50, 150, 0, ALIGN_CENTER, VALIGN_MIDDLE, $this->scName, $scNameColor2);
+			$imageTextSize = min( 12, intval( 130 / strlen( $this->scName ) ) );
+			$this->imageftboxtoImage($imageForText, getenv('DIR_COAT_RESOURCES') . 'Fonts/arial.ttf', $imageTextSize, 0, 50, 150, 0, ALIGN_CENTER, VALIGN_MIDDLE, $this->scName, $scNameColor2);
 			$imageForText = $this->imagetransrotate($imageForText, 1);
-			imagecopy($this->scImage, $imageForText, 143, 320, 0, 0, $this->scImgSize['x'], $this->scImgSize['y']);
+			imagecopy($this->scImage, $imageForText, 147, 320, 0, 0, $this->scImgSize['x'], $this->scImgSize['y']);
 			imagedestroy($imageForText);
 		//Handle Flair
 			$this->handleTopRightAwards();
@@ -1549,6 +1605,21 @@ class ServiceCoat {
 		$rank = strtolower($rank);
 		switch($rank)
 		{
+			case 'wo1':
+				return true;
+			break;
+			case 'cw2':
+				return true;
+			break;
+			case 'cw3':
+				return true;
+			break;
+			case 'cw4':
+				return true;
+			break;
+			case 'cw5':
+				return true;
+			break;
 			case '2lt':
 				return true;
 			break;
