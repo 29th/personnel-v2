@@ -26,7 +26,7 @@ class ServiceCoat {
 			's:rifle:a3','s:bar:a3','s:zook:a3','s:mg:a3','s:sniper:a3','s:armor:a3','s:smg:a3','s:grenadier:a3',
 			'e:rifle:a3','e:bar:a3','e:zook:a3','e:mg:a3','e:sniper:a3','e:armor:a3','e:smg:a3','e:grenadier:a3'
 			);
-		private $scAllARibbons = array('french','dsc','dsm','sstar','lom','sm','bstar','pheart','dms','msm','arcom','aach','gcon','arcam','adef','acamp','eamc','ww2v','aocc','afem','movsm','anpdr',  'ww1v');
+		private $scAllARibbons = array('french','dsc','dsm','sstar','lom','sm','bstar','pheart','dms','msm','arcom','aach','gcon','arcam','adef','acamp','eamc','ww2v','aocc','afem','afsm','movsm','anpdr',  'ww1v');
 		private $scAllURibbons = array('dh','dod','trenches','battlegrounds','muc','suc','rs','arma');
 		private $scAllTRBadges = array('eib','cib','cib1','cib2','cib3','cib4','cab','cab1','cab2','cab3','cab4');
 		private $scAllTLBadges = array('rd','m:pilot:a3','s:pilot:a3','e:pilot:a3');
