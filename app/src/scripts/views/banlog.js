@@ -17,6 +17,7 @@ var Marionette = require("backbone.marionette");
       serializeData: function () {
           
           return $.extend({
+            forum: config.forum
           }, this.model.toJSON());
       },
       onRender: function () {
