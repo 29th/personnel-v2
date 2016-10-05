@@ -88,11 +88,9 @@
                 <th>Realism Experience</th>
                 <td>{{ experience }}</td>
             </tr>
-            </tr>
             <tr>
                 <th>Recruiter</th>
                 <td>{{#if this.recruiter_member_id }}<a href="#members/{{ this.recruiter_member_id }}">{{/if}}{{ recruiter }}{{#if this.recruiter_member_id }}</a>{{/if}}</td>
-            </tr>
             </tr>
             <tr>
                 <th>Other Comments</th>
@@ -101,6 +99,43 @@
         </table>
     </div>
 </div>
+
+{{#if allowedTo.modifyProfile}}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>Admin</h2>
+    </div>
+    <div class="panel-body">
+        <table class="table table-horizontal">
+{{#if this.email}}
+            <tr>
+                <th>E-Mail</th>
+                <td>
+                {{this.email}}
+                </td>
+            </tr>
+{{/if}}
+{{#if this.ips}}
+            <tr>
+                <th>IPs</th>
+                <td>
+                {{#each ips}}{{this}}<br>{{/each}}
+                </td>
+            </tr>
+{{/if}}
+{{#if this.banlogs}}
+            <tr>
+                <th>Banlogs</th>
+                <td>
+                {{#each banlogs}}{{this.date}} <b><a href='#banlogs/{{this.id}}'>{{this.handle}}</a></b><br>{{/each}}
+                </td>
+            </tr>
+{{/if}}
+        </table>
+    </div>
+</div>
+{{/if}}
+        
 
 <div class="panel panel-default">
     <div class="panel-heading">
