@@ -33,7 +33,7 @@ class Banlogs extends MY_Controller {
                 $model->search_roid($seek_line);
             $banlogs = nest($model->select_member()->paginate('', $skip)->result_array());
             $count = $model->total_rows;
-            $this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'banlogs' => $banlogs));
+            $this->response(array('status' => true, 'count' => $count, 'skip' => $skip, 'banlogs' => $banlogs ));
         }
     }
     /**
@@ -45,9 +45,16 @@ class Banlogs extends MY_Controller {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
 		// View records
-		else {
+		else 
+		{
             $banlogs = nest( $this->banlog_model->select_member()->get_by_id($banlog_id) );
-            $this->response(array('status' => true, 'banlogs' => $banlogs, 'a' => 'a' ));
+            
+            $this->load->library('vanilla');
+            $discussions_list = $this->vanilla->get_ban_disputes($banlogs['roid']);
+            if ( $discussions_list )
+                $banlogs['forum_discussions'] = $discussions_list;
+            
+            $this->response(array('status' => true, 'banlogs' => $banlogs ));
 		}
     }   //view_get
 
