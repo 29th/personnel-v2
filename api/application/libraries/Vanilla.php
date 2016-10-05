@@ -117,7 +117,17 @@ class Vanilla {
     }
 
     public function get_commisioned_officer_role_id() {
-        return $this->forums_db->query('SELECT `RoleID` FROM GDN_Role WHEREx `name` = \'Commissioned Officer\'')->row_array()[0];
+        return $this->forums_db->query('SELECT `RoleID` FROM GDN_Role WHERE `name` = \'Commissioned Officer\'')->row_array()[0];
+    }
+
+    public function get_user_ip($member_id) {
+        $res = $this->forums_db->query('SELECT `AllIPAddresses` FROM GDN_User WHERE `UserID` = ' . (int) $member_id)->row_array();
+        return ( $res ? $res['AllIPAddresses'] : '' );
+    }
+
+    public function get_user_email($member_id) {
+        $res = $this->forums_db->query('SELECT `Email` FROM GDN_User WHERE `UserID` = ' . (int) $member_id)->row_array();
+        return ( $res ? $res['Email'] : '' );
     }
 
 }

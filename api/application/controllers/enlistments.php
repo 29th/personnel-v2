@@ -60,11 +60,24 @@ class Enlistments extends MY_Controller {
         }
         // View record
         else {
-            if ( $enlistment['member']['forum_member_id'] )
+            if ( $enlistment['member']['forum_member_id']
+                && ( $this->user->permission('profile_view', array('member' => $enlistment['member']['id']))|| $this->user->permission('profile_edit_any') ) )
             {
                 $this->load->library('vanilla');
                 $temp = $this->vanilla->get_steam_id($enlistment['member']['forum_member_id']);
                 $enlistment['forum_steam_id'] = ( $temp ? $temp['Value'] : '' );
+
+                $ips =  $this->vanilla->get_user_ip($enlistment['member']['forum_member_id']);
+                $enlistment['ips'] = ( $ips ? explode( ',', $ips ) : [] );
+
+                $email =  $this->vanilla->get_user_email($enlistment['member']['forum_member_id']);
+                $enlistment['email'] = ( $email ? $email : '' );
+                
+                $this->load->model('banlog_model');
+                $bm = $this->banlog_model;
+                $bm->search_roid($enlistment['steam_id']);
+                $banlog = $bm->select_member()->get()->result_array();
+                $enlistment['banlogs'] = $banlog;
             }
             else
                 $enlistment['forum_steam_id'] = '';
