@@ -49,6 +49,16 @@
                 <th>Comments</th>
                 <td>{{#if comments}}{{bbcode comments }}{{/if}}</td>
             </tr>
+{{#if this.forum_discussions}}
+            <tr>
+                <th>Ban Disputes with this ROID</th>
+                <td>
+                {{#each this.forum_discussions}}
+                    <b>{{dateFormat last}}</b> - <a href='{{ ../forum.Vanilla.baseUrl }}/discussion/{{id}}'>{{name}} </a><br>
+                {{/each}}
+                </td>
+            </tr>
+{{/if}}
         </table>
     </div>
 </div>
