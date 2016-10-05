@@ -130,4 +130,26 @@ class Vanilla {
         return ( $res ? $res['Email'] : '' );
     }
 
+    public function get_ban_disputes( $roid ) {
+        $res = $this->forums_db->query("
+            SELECT 
+                `DiscussionID` AS `id`, 
+                `Name` AS `name`, 
+                `DateInserted` AS `start`, 
+                `DateLastComment` AS 'last' 
+            FROM `GDN_Discussion` 
+            WHERE `CategoryID`=92 AND `DiscussionID` IN (
+                SELECT `DiscussionID` 
+                FROM GDN_Discussion 
+                WHERE `Body` LIKE '%$roid%' 
+                UNION 
+                SELECT `DiscussionID` 
+                FROM GDN_Comment 
+                WHERE `Body` LIKE '%$roid%'
+            )
+            ORDER BY `DateLastComment` DESC
+            " )->result_array();
+        return nest($res);//( $res ? $res['DiscussionID'] : '' );
+    }
+
 }
