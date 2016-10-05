@@ -103,6 +103,13 @@ class Member_model extends MY_Model {
         return $this;
     }
     
+    public function search_last_name( $pattern ) {
+        $esc_str = $this->db->escape_like_str($pattern);
+        $this->filter_where("(members.last_name LIKE '%$esc_str%')");
+        $this->order_by('units.active DESC, members.rank_id DESC, `unit|depth`, units.abbr, members.id DESC');
+        return $this;
+    }
+    
     public function distinct_members() {
         $this->filter_group_by('members.id');
         return $this;

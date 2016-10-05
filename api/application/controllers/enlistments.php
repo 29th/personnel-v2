@@ -60,11 +60,52 @@ class Enlistments extends MY_Controller {
         }
         // View record
         else {
-            if ( $enlistment['member']['forum_member_id'] )
+            if ( $enlistment['member']['forum_member_id']
+                && ( $this->user->permission('enlistment_edit', array('member' => $enlistment['member']['id'])) || $this->user->permission('enlistment_edit_any') ) )
             {
                 $this->load->library('vanilla');
                 $temp = $this->vanilla->get_steam_id($enlistment['member']['forum_member_id']);
                 $enlistment['forum_steam_id'] = ( $temp ? $temp['Value'] : '' );
+
+                $ips =  $this->vanilla->get_user_ip($enlistment['member']['forum_member_id']);
+                $enlistment['ips'] = ( $ips ? explode( ',', $ips ) : [] );
+
+                $email =  $this->vanilla->get_user_email($enlistment['member']['forum_member_id']);
+                $enlistment['email'] = ( $email ? $email : '' );
+                
+                $this->load->model('banlog_model');
+                $bm = $this->banlog_model;
+                $bm->search_roid( ( $enlistment['member']['roid'] ? $enlistment['member']['roid'] : $enlistment['steam_id'] ) );
+                $banlog = $bm->select_member()->get()->result_array();
+                $enlistment['banlogs'] = $banlog;
+
+                $mem_list = $this->member_model->distinct_members()->search_last_name($enlistment['last_name'])->get()->result_array();
+                if ($mem_list)
+                {
+                  foreach ( $mem_list as $key => $member )
+                  {
+                    $res  = $this->db->query('SELECT * FROM discharges WHERE member_id = ' . $member['id'] . ' ORDER BY date DESC LIMIT 1;' )->result_array();
+                    if ( $res ) 
+                    {
+                        $mem_list[$key]['dis|type'] = $res[0]['type'];
+                        $mem_list[$key]['dis|date'] = $res[0]['date'];
+                        $mem_list[$key]['dis|id']   = $res[0]['id'];
+                    }
+
+                    $res = $this->db->query('SELECT enlistments.*, units.abbr FROM enlistments LEFT JOIN units ON units.id = enlistments.unit_id WHERE member_id = ' . $member['id'] . ' ORDER BY date DESC LIMIT 1;' )->result_array();;
+                    if ( $res ) 
+                    {
+                        $mem_list[$key]['enlist|status']  = $res[0]['status'];
+                        $mem_list[$key]['enlist|date']    = $res[0]['date'];
+                        $mem_list[$key]['enlist|id']      = $res[0]['id'];
+                        $mem_list[$key]['enlist|unit_id'] = $res[0]['unit_id'];
+                        $mem_list[$key]['enlist|tp']      = $res[0]['abbr'];
+                    }
+
+                  }
+                    
+                }
+                $enlistment['other_members'] = nest($mem_list);
             }
             else
                 $enlistment['forum_steam_id'] = '';
