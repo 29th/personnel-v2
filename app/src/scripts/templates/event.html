@@ -37,10 +37,10 @@
                 <div class="reporter">
                     Reported by <a href="#members/{{ reporter.id }}">{{ reporter.short_name }}</a>
                     {{#if report_posting_date}}
-                    on {{ dateFormat report_posting_date format="YYYY-MM-DD HH:mm" }}
+                    on {{ dateFormat (time_conv report_posting_date) format="YYYY-MM-DD HH:mm" }}
                     {{/if}}
                     {{#is report_edit_date "not" report_posting_date}}
-                    updated {{ dateFormat report_edit_date format="YYYY-MM-DD HH:mm" }}
+                    updated {{ dateFormat (time_conv report_edit_date) format="YYYY-MM-DD HH:mm" }}
                     {{/is}}
                 </div>
             {{/if}}
