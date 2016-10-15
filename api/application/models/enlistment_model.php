@@ -122,7 +122,7 @@ class Enlistment_model extends MY_Model {
             )
             ,array(
                 'field' => 'unit_id'
-                ,'rules' => 'numeric'
+                ,'rules' => 'numeric'||null
             )
             ,array(
                 'field' => 'recruiter_member_id'

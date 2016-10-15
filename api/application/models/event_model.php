@@ -66,7 +66,7 @@ class Event_model extends MY_Model {
     
     public function default_select() {
         $this->db->select('SQL_CALC_FOUND_ROWS events.id, events.datetime, events.type, events.mandatory, events.report, NOW() > events.datetime AS occurred, events.reporter_member_id AS `reporter|id`, report_posting_date, report_edit_date', FALSE)
-            ->select('units.id AS `unit|id`, units.abbr AS `unit|abbr`, units.name AS `unit|name`')
+            ->select('units.id AS `unit|id`, units.abbr AS `unit|abbr`, units.name AS `unit|name`, units.class AS `unit|class`, units.game AS `unit|game`, units.timezone AS `unit|timezone`')
             ->select($this->virtual_fields['unit_key'] . ' AS `unit|key`', FALSE)
             ->select($this->virtual_fields['short_name'] . ' AS `reporter|short_name`', FALSE)
             ->select('events.server_id AS `server|id`, servers.name AS `server|name`, servers.abbr AS `server|abbr`');
