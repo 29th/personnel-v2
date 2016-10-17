@@ -71,7 +71,7 @@ class Member_model extends MY_Model {
             ->select('members.rank_id AS `rank|id`, ranks.abbr AS `rank|abbr`, ranks.name AS `rank|name`, ranks.filename AS `rank|filename`')
             ->select('units.id AS `unit|id`, units.abbr AS `unit|abbr`, ' . $this->virtual_fields['unit_key'] . ' AS `unit|key`, units.name AS `unit|name`, ' . $this->virtual_fields['depth'] . ' AS `unit|depth`, units.path AS `unit|path` ', FALSE)
             ->select('positions.name AS `position|name`')
-            ->select('(SELECT id FROM `enlistments` WHERE `enlistments`.`member_id` = `members`.`id` AND `status` = \'Pending\' ) AS currently_enlisting')
+            ->select('(SELECT id FROM `enlistments` WHERE `enlistments`.`member_id` = `members`.`id` AND `status` = \'Pending\' ORDER BY id DESC LIMIT 1 ) AS currently_enlisting')
             ->select('countries.id AS `country|id`, countries.abbr AS `country|abbr`, countries.name AS `country|name`')
             ->select('(SELECT COUNT(1)>0 FROM `eloas` WHERE `eloas`.`member_id` = `members`.`id` AND NOW() BETWEEN eloas.start_date AND eloas.end_date  ) as eloa')
             ->select('(SELECT COUNT(1)>0 FROM `passes` WHERE `passes`.`member_id` = `members`.`id` AND NOW() BETWEEN passes.start_date AND passes.end_date  ) as pass');
