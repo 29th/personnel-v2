@@ -45,17 +45,10 @@ require("jquery-nestable");
           }
           
           var positions = [];
-          if ( this.model.toJSON().abbr == 'Rsrv S1' ) 
-          {
-            positions[0] = this.model.toJSON().members;
-          }
-          else
-          {
               positions = _.groupBy(this.model.get("members"), function (item) {
                   return 1000-item.position.order;
               });
         
-          }
           return $.extend({
               attendance: this.itemViewOptions.attendance,
               positions: positions
