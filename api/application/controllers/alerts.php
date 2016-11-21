@@ -129,7 +129,8 @@ class Alerts extends MY_Controller {
                 }
                 else
                     $records[$klucz]['ww1v_count'] = 0;
-                
+                unset( $records[$klucz]['aocc_list'] );
+                unset( $records[$klucz]['ww1v_list'] );
                 
                 
                 
@@ -161,11 +162,8 @@ class Alerts extends MY_Controller {
             $count = sizeof( $aoccs );//$this->alerts_model->total_rows;
             $this->response(array(
                 'status' => true, 
-//                'a' => $records,
                 'count' => $count, 
-                'alerts' => array( 'aoccs' => $aoccs, 'aqbs' => '', 'cabs' => $cabs )/*,
-                'all_recs' => $records, 
-                'all_cnt' => sizeof( $records ) */
+                'alerts' => array( 'aoccs' => $aoccs, 'aqbs' => '', 'cabs' => $cabs )
             ));
         }
     }
