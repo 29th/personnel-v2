@@ -21,24 +21,34 @@ class Notes extends MY_Controller {
         // Index records
         else {
             
+            $skip = $this->input->get('skip') ? $this->input->get('skip', TRUE) : 0;
             $permissions = $this->get_notes_permissions();
-            if($filter_key == 'member' && $member_id && is_numeric( $member_id ) ) {
-                $this->note_model->where('notes.member_id', $member_id);
+            $model =  $this->note_model;
+            if ( $this->user->permission('note_view_all') ) 
+            {
             }
-            if ( $this->user->permission('note_view_all') )
-                $notes = nest( $this->note_model->get()->result_array() );
             else
-                $notes = nest( $this->note_model->by_access($permissions)->get()->result_array() );
-                
+            {
+                $model->by_access($permissions);
+            }
+            if($filter_key == 'member' && $member_id && is_numeric( $member_id ) ) 
+            {
+                $model->where('notes.member_id', $member_id)->get();
+            }
+            else 
+            {
+                $model->paginate('', $skip);
+            }
+            $notes = nest( $model->result_array() );
             $optxt = "";
             foreach( $notes as $key => $note ) 
             {
-                if ( $this->input->get('no_content') )
-                    $notes[$key]['content'] = ''; //Unsetting disturbs APP
-                else    
+                if ( $this->input->get('no_content') && $this->input->get('no_content') == 'false' )
                     $notes[$key]['content'] = $this->format_note( $note['content'] );
+                else    
+                    $notes[$key]['content'] = ''; //Unsetting disturbs APP
             }
-            $this->response(array('status' => true, 'notes' => $notes, 'count' => sizeof($notes)  ));
+            $this->response(array('status' => true, 'skip' => $skip, 'notes' => $notes, 'count' => $model->total_rows  ));
         }
     }
     

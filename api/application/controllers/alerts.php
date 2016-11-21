@@ -100,8 +100,42 @@ class Alerts extends MY_Controller {
                 $records[$klucz]['aoocs_due'] = floor( $duration/182.625 );
                 $records[$klucz]['ww1vs_due'] = floor( $duration/730.5 );
                 
+                //Getting only AOCCs after GD
+                if ( $rec_obj['aocc_list'] )
+                {
+                    $temp_arr = explode(',',$rec_obj['aocc_list']);
+                    if ( $discharge_date )
+                        foreach ( $temp_arr as $occurence ) 
+                        {
+                            if ( $occurence > $discharge_date )
+                                $records[$klucz]['aocc_count']++;
+                        }
+                    else
+                        $records[$klucz]['aocc_count'] = sizeof( $temp_arr );
+                }
+                else
+                    $records[$klucz]['aocc_count'] = 0;
+                if ( $rec_obj['ww1v_list'] )
+                {
+                    $temp_arr = explode(',',$rec_obj['ww1v_list']);
+                    if ( $discharge_date )
+                        foreach ( $temp_arr as $occurence ) 
+                        {
+                            if ( $occurence > $discharge_date )
+                                $records[$klucz]['ww1v_count']++;
+                        }
+                    else
+                        $records[$klucz]['ww1v_count'] = sizeof( $temp_arr );
+                }
+                else
+                    $records[$klucz]['ww1v_count'] = 0;
+                unset( $records[$klucz]['aocc_list'] );
+                unset( $records[$klucz]['ww1v_list'] );
+                
+                
+                
                 //check for AOCC/WWIVM
-                if ( $records[$klucz]['aoocs_due'] > (int)$rec_obj['aocc_count'] || $records[$klucz]['ww1vs_due'] > (int)$rec_obj['ww1v_count'] )
+                if ( $records[$klucz]['aoocs_due'] > $records[$klucz]['aocc_count'] || $records[$klucz]['ww1vs_due'] > $records[$klucz]['ww1v_count'] )
                 {
                   $aoccs[] = $records[$klucz];
                 }
@@ -129,9 +163,7 @@ class Alerts extends MY_Controller {
             $this->response(array(
                 'status' => true, 
                 'count' => $count, 
-                'alerts' => array( 'aoccs' => $aoccs, 'aqbs' => '', 'cabs' => $cabs )/*,
-                'all_recs' => $records, 
-                'all_cnt' => sizeof( $records ) */
+                'alerts' => array( 'aoccs' => $aoccs, 'aqbs' => '', 'cabs' => $cabs )
             ));
         }
     }
