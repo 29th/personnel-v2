@@ -44,7 +44,7 @@ require("backbone.validation");
               {
                 levelList = ['Public','Members Only','Squad Level'];
               }
-              if ( permissions.indexOf("note_view_lh") !== -1 ) 
+              else if ( permissions.indexOf("note_view_lh") !== -1 && levelList.indexOf('Lighthouse') == -1 ) 
               {
                 levelList.push('Lighthouse');
               }

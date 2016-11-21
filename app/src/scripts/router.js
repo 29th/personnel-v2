@@ -88,6 +88,7 @@ var $ = require("jquery"),
   MemberView = require("./views/member"),
   NavView = require("./views/nav"),
   NoteView = require("./views/note"),
+  NotesView = require("./views/notes"),
   NoteEditView = require("./views/note_edit"),
   PassesView = require("./views/passes"),
   TPView = require("./views/tp"),
@@ -142,6 +143,7 @@ require("./validation.config");
           "members/:id/promote": "promotion_add",
           "members/:id/*path": "member",
           "members/:id": "member",
+          "notes": "notes",
           "notes/:id/edit": "note_edit",
           "notes/:id": "note",
           "passes": "passes",
@@ -516,6 +518,22 @@ require("./validation.config");
 
           $.when.apply($, promises).done(function () {
               self.showView(eloasView);
+          });
+      },
+      notes: function () {
+          var self = this,
+              promises = [],
+              notes = new Notes(),
+              notesView = new NotesView({
+                  permissions: this.permissions,
+                  collection: notes
+              });
+
+          this.app.navRegion.currentView.setHighlight("notes");
+          promises.push(notes.fetch());
+
+          $.when.apply($, promises).done(function () {
+              self.showView(notesView);
           });
       },
       membersearch: function() {
