@@ -79,7 +79,7 @@ class Enlistments extends MY_Controller {
                 $banlog = $bm->select_member()->get()->result_array();
                 $enlistment['banlogs'] = $banlog;
 
-                $mem_list = $this->member_model->distinct_members()->search_last_name($enlistment['last_name'])->get()->result_array();
+                $mem_list = $this->member_model->distinct_members()->search_member_name_or_roid($enlistment['last_name'],( $enlistment['member']['roid'] ? $enlistment['member']['roid'] : $enlistment['steam_id'] ))->get()->result_array();
                 if ($mem_list)
                 {
                   foreach ( $mem_list as $key => $member )
