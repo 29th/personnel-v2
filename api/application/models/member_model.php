@@ -103,9 +103,9 @@ class Member_model extends MY_Model {
         return $this;
     }
     
-    public function search_last_name( $pattern ) {
+    public function search_member_name_or_roid( $pattern, $roid ) {
         $esc_str = $this->db->escape_like_str($pattern);
-        $this->filter_where("(members.last_name LIKE '%$esc_str%')");
+        $this->filter_where("(members.last_name LIKE '%$esc_str%' OR members.steam_id = '$roid')");
         $this->order_by('units.active DESC, members.rank_id DESC, `unit|depth`, units.abbr, members.id DESC');
         return $this;
     }
