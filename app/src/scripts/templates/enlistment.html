@@ -140,15 +140,17 @@
                 <th>Other members by that name</th>
                 <td>
                 {{#each other_members}}
-                   {{#is this.id '!==' ../member_id }}
+                   {{#is this.id '!==' ../member_id }} 
                     &nbsp;<img src={{#if this.country.abbr}}"images/countries/{{ toLowerCase this.country.abbr }}.png" title="{{ this.country.name }}"{{else}}"images/countries/___.png" {{/if}}>&nbsp;
                     <a href="#members/{{this.id}}">{{this.rank.abbr}} {{this.full_name}}</a>
                     {{#if this.unit.name}}
                         - Active duty - {{this.position.name}} in <a href="#units/{{this.unit.id}}">{{this.unit.name}} </a>
-                        {{#is this.rank.id ">" "3" }}
-                        <span class='label label-danger'>Requires member to be informed and allow use of the same name!</span>
-                        {{else}}
-                        <span class='label label-warning'>Dupicate last name! Prefix will be required!</span>
+                        {{#is this.last_name '===' ../../../../last_name}}
+                            {{#is this.rank.id ">" "3" }} 
+                                <span class='label label-danger'>Requires member to be informed and allow use of the same name!</span>
+                            {{else}}
+                                <span class='label label-warning'>Dupicate last name! Prefix will be required!</span>
+                            {{/is}}
                         {{/is}}
                     {{else}}
                         {{#if this.dis.type}}
