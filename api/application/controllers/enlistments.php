@@ -54,6 +54,8 @@ class Enlistments extends MY_Controller {
      */
     public function view_get($enlistment_id) {
         $enlistment = nest($this->enlistment_model->get_by_id($enlistment_id));
+        $enlistment['previous_units'] = json_decode( $enlistment['units'] );
+        unset( $enlistment['units'] );
         // Must have permission to view this member's profile or any member's profile
         if( ! $this->user->permission('profile_view', array('member' => $enlistment['member']['id'])) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
@@ -73,12 +75,14 @@ class Enlistments extends MY_Controller {
                 $email =  $this->vanilla->get_user_email($enlistment['member']['forum_member_id']);
                 $enlistment['email'] = ( $email ? $email : '' );
                 
+                //Adding banlogs entries
                 $this->load->model('banlog_model');
                 $bm = $this->banlog_model;
                 $bm->search_roid( ( $enlistment['member']['roid'] ? $enlistment['member']['roid'] : $enlistment['steam_id'] ) );
                 $banlog = $bm->select_member()->get()->result_array();
                 $enlistment['banlogs'] = $banlog;
 
+                //Adding previous members
                 $mem_list = $this->member_model->distinct_members()->search_member_name_or_roid($enlistment['last_name'],( $enlistment['member']['roid'] ? $enlistment['member']['roid'] : $enlistment['steam_id'] ))->get()->result_array();
                 if ($mem_list)
                 {
@@ -176,6 +180,8 @@ class Enlistments extends MY_Controller {
             $this->usertracking->track_this();
             $data = whitelist($this->post(), array('first_name', 'middle_name', 'last_name', 'age', 'country_id', 'timezone', 'game', 'ingame_name', 'steam_name', 'steam_id', 'experience', 'recruiter', 'comments'));
         
+			$data['units'] = json_encode($this->post('units'));
+			
 			// Only use first letter of middle_name
 			if(isset($data['middle_name']) && $data['middle_name']) $data['middle_name'] = substr($data['middle_name'], 0, 1);
 		
