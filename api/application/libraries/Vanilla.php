@@ -94,7 +94,7 @@ class Vanilla {
      * Find the steam id associated with the forum member account if it exists
      */
     public function get_steam_id($user_id) {
-        return $this->forums_db->query('SELECT `Value` FROM `GDN_UserMeta` WHERE `UserID` = ' . (int) $user_id)->row_array();
+        return $this->forums_db->query('SELECT `Value` FROM `GDN_UserMeta` WHERE `Name` = \'Plugin.steamprofile.SteamID64\' AND `UserID` = ' . (int) $user_id)->row_array();
     }
     
     public function update_username($member_id) {
