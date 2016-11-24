@@ -63,6 +63,8 @@ class Members extends MY_Controller {
                 if ( curl_getinfo($ch, CURLINFO_HTTP_CODE) == '200' )
                     $member['sig'] = "http://www.29th.org/sigs/" . $member['steam_id'] . ".png";
             }
+            $this->load->library('vanilla');
+            $member['forum_steam_id'] = $this->vanilla->get_steam_id($member['forum_member_id']);
             $this->response(array('status' => true, 'member' => $member ));
         }
     }
