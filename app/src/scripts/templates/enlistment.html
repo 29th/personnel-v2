@@ -89,6 +89,25 @@
                 <td>{{ experience }}</td>
             </tr>
             <tr>
+                <th>Previous units</th>
+                <td>
+{{#if previous_units}}    
+                    <table class="table">
+                        <thead>
+                            <tr><th> Unit </th><th> Game </th><th> Name </th><th> Rank </th><th> Reason for leaving </th>
+                        </thead>
+                        <tbody>
+        {{#each previous_units}}
+                            <tr><td>{{unit}}</td><td>{{game}}</td><td>{{name}}</td><td>{{rank}}</td><td>{{reason}}</td></tr>
+        {{/each}}
+                        </tbody>
+                    </table>
+{{else}}
+                    No units defined
+{{/if}}
+                </td>
+            </tr>
+            <tr>
                 <th>Recruiter</th>
                 <td>{{#if this.recruiter_member_id }}<a href="#members/{{ this.recruiter_member_id }}">{{/if}}{{ recruiter }}{{#if this.recruiter_member_id }}</a>{{/if}}</td>
             </tr>
