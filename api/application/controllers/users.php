@@ -23,7 +23,10 @@ class Users extends MY_Controller {
     public function view_get() {
         if($this->user->logged_in()) 
         {
-            $this->response(array('status' => true, 'user' => $this->user->member()));
+            $this->load->library('vanilla');
+            $member = $this->user->member();
+            $member['forum_steam_id'] = $this->vanilla->get_steam_id($member['forum_member_id']);
+            $this->response(array('status' => true, 'user' => $member));
         } 
         else 
         {
