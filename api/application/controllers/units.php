@@ -315,6 +315,10 @@ class Units extends MY_Controller {
 					{
 						if (!$val['readiness']['Pilot']) $val['readiness']['Pilot'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
 					}
+					elseif ( strpos( $badge['name'], ': Grenadier (' )  )
+					{
+						if (!$val['readiness']['Grenadier']) $val['readiness']['Grenadier'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
+					}
 				}
 				
 				foreach ( $readiness['tics'] as $tic )
