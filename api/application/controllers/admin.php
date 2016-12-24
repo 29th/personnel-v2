@@ -283,12 +283,14 @@ class Admin extends CI_Controller {
 	    $crud->set_table('members')
 	        ->set_subject('Member')
 	        ->columns('last_name', 'first_name', 'middle_name', 'rank_id', 'country_id', 'steam_id', 'forum_member_id'/*, 'units', 'classes'*/)
-	        ->fields('id', 'last_name', 'first_name', 'middle_name', 'forum_member_id', 'country_id', 'city', 'steam_id', 'email')
+	        ->fields('id', 'name_prefix', 'last_name', 'first_name', 'middle_name', 'forum_member_id', 'country_id', 'city', 'steam_id', 'email')
 	        ->required_fields('last_name', 'first_name')
 	        ->set_relation('country_id', 'countries', 'abbr')->display_as('country_id', 'Country')
 	        ->set_relation('rank_id', 'ranks', 'abbr')->display_as('rank_id', 'Rank')
 	        ->display_as('forum_member_id', 'Forum ID')
+	        ->display_as('name_prefix', 'Prefix')
 	        ->callback_column('steam_id', array($this, '_callback_members_steam_id'))
+	        ->callback_column('last_name', array($this, '_callback_members_last_name'))
 	        ->callback_after_update(array($this, '_callback_members_after_update'));
 	    
 	    // This seemed to delete assignments when I update a member for some reason...
@@ -302,6 +304,10 @@ class Admin extends CI_Controller {
  
         $output = $crud->render();
         $this->output($output, 'members');
+	}
+	
+	public function _callback_members_last_name($value, $row) {
+	    return ( $row->name_prefix ? $row->name_prefix . ". " . $row->last_name : $row->last_name );
 	}
 	
 	public function _callback_members_steam_id($value, $row) {

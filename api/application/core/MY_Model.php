@@ -8,7 +8,7 @@ class MY_Model extends CRUD_Model {
         'depth' => 'LENGTH(units.`path`) - (LENGTH(REPLACE(units.`path`, "/", "")))',
         'parent_id' => 'NULLIF(SUBSTRING_INDEX(SUBSTRING_INDEX(units.`path`, "/", -2), "/", 1), "")',
         'unit_key' => 'REPLACE(REPLACE(REPLACE(REPLACE(units.`abbr`, " HQ", ""), " Co", ""), ".", ""), " ", "")',
-        'short_name' => 'CONCAT(ranks.`abbr`, " ", IF(members.`name_prefix` != "", CONCAT(members.`name_prefix`, " "), ""), members.`last_name`)',
+        'short_name' => 'CONCAT(ranks.`abbr`, " ", IF(members.`name_prefix` != "", CONCAT(members.`name_prefix`, ". "), ""), members.`last_name`)',
         'full_name' => 'CONCAT(members.`first_name`, " ", IF(members.`middle_name` != "", CONCAT(LEFT(members.`middle_name`, 1), ". "), ""), members.`last_name`)',
     );
     
