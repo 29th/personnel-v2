@@ -148,7 +148,8 @@ class Assignment_model extends MY_Model {
     public function by_unit($unit_id, $children = FALSE, $onDate = FALSE) {
         $this->filter_select('positions.name AS `position|name`, ranks.name AS `rank|name`, ranks.abbr AS `rank|abbr`, ranks.filename AS `rank|filename`');
         $this->filter_select($this->virtual_fields['short_name'] . ' AS `member|short_name`', FALSE);
-        $this->filter_select("CONCAT(members.first_name, ' ', members.last_name) AS `member|full_name`", FALSE);
+        $this->filter_select($this->virtual_fields['full_name'] . ' AS `member|full_name`', FALSE);
+//        $this->filter_select("CONCAT(members.first_name, ' ', members.last_name) AS `member|full_name`", FALSE);
         $this->filter_select('members.steam_id AS `member|roid`', FALSE);
         $this->filter_select('countries.abbr AS `country|abbr`, countries.name AS `country|name`');
         $this->filter_join('members', 'members.id = assignments.member_id');
