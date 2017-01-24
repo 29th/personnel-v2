@@ -182,6 +182,9 @@
                             {{/if}}
                         {{/if}}
                     {{/if}}
+                    {{#is this.steam_id '===' ../../../../steam_id}}
+                     &nbsp;<span class='label label-danger'>&nbsp;DUPLICATE ROID!&nbsp;</span>
+                    {{/is}}
                     <br>
                   {{/is}}
                 {{/each}}
