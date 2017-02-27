@@ -26,7 +26,7 @@ class ServiceCoat {
 			's:rifle:a3','s:bar:a3','s:zook:a3','s:mg:a3','s:sniper:a3','s:armor:a3','s:smg:a3','s:grenadier:a3',
 			'e:rifle:a3','e:bar:a3','e:zook:a3','e:mg:a3','e:sniper:a3','e:armor:a3','e:smg:a3','e:grenadier:a3'
 			);
-		private $scAllARibbons = array('french','dsc','dsm','sstar','lom','sm','bstar','pheart','dms','msm','arcom','aach','gcon','arcam','adef','acamp','eamc','ww2v','aocc','afem','afsm','movsm','anpdr',  'ww1v');
+		private $scAllARibbons = array('french','dsc','dsm','sstar','lom','sm','bstar','pheart','dms','msm','arcom','aach','mpsm','gcon','arcam','adef','acamp','eamc','ww2v','aocc','afem','afsm','movsm','anpdr','ww1v');
 		private $scAllURibbons = array('dh','dod','trenches','battlegrounds','muc','suc','rs','arma');
 		private $scAllTRBadges = array('eib','cib','cib1','cib2','cib3','cib4','cab','cab1','cab2','cab3','cab4');
 		private $scAllTLBadges = array('rd','m:pilot:a3','s:pilot:a3','e:pilot:a3');
@@ -83,7 +83,6 @@ class ServiceCoat {
             $rank = str_replace( '/', '', str_replace('.', '', $member['rank']['abbr']) );
             $unit = '29th';
             //Checking for GD or DD to remove previous awards
-            //$awards = array('acamp', 'gcon', 'french', 'lom', 'aocc', 's:rifle:dod', 'e:mg:dod', 'dsc', 'aocc', 'aocc', 'adef', 'dod', 'aocc', 'cib1', 'aocc', 'm:armor:dh', 'aocc', 'ww1v', 'cab1', 'aocc', 'aocc', 'aocc', 'aocc', 'aocc', 'aocc', 'ww1v');
             if( $gdDate )
             	$awardings = $this->awarding_model->where(array('awardings.member_id' => $member_id, 'awardings.date >' => $gdDate ))->get()->result_array();
             else
@@ -643,17 +642,25 @@ class ServiceCoat {
 			$scRibSize['y'] = imagesy($temp_img);
 			imagedestroy($temp_img);
 			$scRibAwards = array(
-				'french' => array(
+				'anpdr' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/French Croix de Guerre Medal.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Army NCO Professional Development Ribbon.png')
 					),
-				'ww1v' => array(
+				'afem' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/WWI Victory Medal.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Armed Forces Expeditionary Medal.png')
 					),
-				'aocc' => array(
+				'movsm' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Army of Occupation Medal.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Military Outstanding Volunteer Service Medal.png')
+					),
+				'afsm' => array(
+					'num' => 0,
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Armed Forces Service Medal.png')
+					),
+				'ww2v' => array(
+					'num' => 0,
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/WWII Victory Medal.png')
 					),
 				'eamc' => array(
 					'num' => 0,
@@ -667,9 +674,25 @@ class ServiceCoat {
 					'num' => 0,
 					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/American Defense Service Medal.png')
 					),
+				'ww1v' => array(
+					'num' => 0,
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/WWI Victory Medal.png')
+					),
+				'aocc' => array(
+					'num' => 0,
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Army of Occupation Medal.png')
+					),
+				'arcam' => array(
+					'num' => 0,
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Army Reserve Components Achievement Medal.png')
+					),
 				'gcon' => array(
 					'num' => 0,
 					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Good Conduct Medal.png')
+					),	
+				'mpsm' => array(
+					'num' => 0,
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Meritorious Public Service Medal.png')
 					),	
 				'aach' => array(
 					'num' => 0,
@@ -679,9 +702,13 @@ class ServiceCoat {
 					'num' => 0,
 					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Army Commendation Medal.png')
 					),
-				'anpdr' => array(
+				'msm' => array(
 					'num' => 0,
-					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Army NCO Professional Development Ribbon.png')
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Meritorious Service Medal.png')
+					),
+				'dms' => array(
+					'num' => 0,
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Defense Meritorious Service Medal Ribbon.png')
 					),
 				'pheart' => array(
 					'num' => 0,
@@ -707,38 +734,13 @@ class ServiceCoat {
 					'num' => 0,
 					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Distinguished Service Medal.png')
 					),
+				'french' => array(
+					'num' => 0,
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/French Croix de Guerre Medal.png')
+					),
 				'dsc' => array(
 					'num' => 0,
 					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Distinguished Service Cross.png')
-					),
-				'ww2v' => array(
-					'num' => 0,
-					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/WWII Victory Medal.png')
-					),
-				'dms' => array(
-					'num' => 0,
-					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Defense Meritorious Service Medal Ribbon.png')
-					),
-				'movsm' => array(
-					'num' => 0,
-					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Military Outstanding Volunteer Service Medal.png')
-					),
-				'arcam' => array(
-					'num' => 0,
-					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Army Reserve Components Achievement Medal.png')
-					),
-
-				'afem' => array(
-					'num' => 0,
-					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Armed Forces Expeditionary Medal.png')
-					),
-				'afsm' => array(
-					'num' => 0,
-					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Armed Forces Service Medal.png')
-					),
-				'msm' => array(
-					'num' => 0,
-					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Meritorious Service Medal.png')
 					)
 				);
 			//Initiates the RibArray
