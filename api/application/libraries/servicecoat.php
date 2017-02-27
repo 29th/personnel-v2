@@ -646,10 +646,6 @@ class ServiceCoat {
 					'num' => 0,
 					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Army NCO Professional Development Ribbon.png')
 					),
-				'afem' => array(
-					'num' => 0,
-					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Armed Forces Expeditionary Medal.png')
-					),
 				'movsm' => array(
 					'num' => 0,
 					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Military Outstanding Volunteer Service Medal.png')
@@ -657,6 +653,18 @@ class ServiceCoat {
 				'afsm' => array(
 					'num' => 0,
 					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Armed Forces Service Medal.png')
+					),
+				'afem' => array(
+					'num' => 0,
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Armed Forces Expeditionary Medal.png')
+					),
+				'ww1v' => array(
+					'num' => 0,
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/WWI Victory Medal.png')
+					),
+				'aocc' => array(
+					'num' => 0,
+					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Army of Occupation Medal.png')
 					),
 				'ww2v' => array(
 					'num' => 0,
@@ -673,14 +681,6 @@ class ServiceCoat {
 				'adef' => array(
 					'num' => 0,
 					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/American Defense Service Medal.png')
-					),
-				'ww1v' => array(
-					'num' => 0,
-					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/WWI Victory Medal.png')
-					),
-				'aocc' => array(
-					'num' => 0,
-					'img' => imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Ribbons/Army of Occupation Medal.png')
 					),
 				'arcam' => array(
 					'num' => 0,
