@@ -8,8 +8,8 @@
         <div class="col-sm-4" id="attendance"></div>
         <div class="col-sm-8">
             <div class="form-group">
-                <label for="report">After Action Report</label>
-                <textarea name="report" id="report" class="form-control" rows="15">{{ report }}</textarea>
+                <label for="report">After Action Report {{#is report}}{{else}}{{#is unit.aar_template}}&nbsp;&nbsp;<span class='label label-warning'>From unit's AAR template</span>{{/is}}{{/is}}</label>
+                <textarea name="report" id="report" class="form-control" rows="35">{{#is report}}{{ report }}{{else}} {{unit.aar_template}} {{/is}}</textarea>
             </div>
             <button type="submit" class="btn btn-primary btn-lg">Submit</button>
         </div>

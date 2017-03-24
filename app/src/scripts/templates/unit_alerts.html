@@ -6,12 +6,13 @@
     </div>
     <div class="panel-body">
      {{#each aoccs}}
+      <h4><a href="#members/{{ this.member.id }}">{{ this.member.short_name }}</a> ({{overdue}} days overdue)</h4>
       <ul>
         {{#is aocc_count "<" aoocs_due}}
-        <li><a href="#members/{{ this.member.id }}">{{ this.member.short_name }}</a> has <b>{{aocc_count}}</b> Army of Occupation Medal(s) and should have <b><big>{{aoocs_due}}</big></b> </li>
+        <li> Army of Occupation Medal - current: <b>{{aocc_count}}</b>; should have: <b><big>{{aoocs_due}}</big></b> </li>
         {{/is}}
         {{#is ww1v_count "<" ww1vs_due}}
-        <li><a href="#members/{{ this.member.id }}">{{ this.member.short_name }}</a> has <b>{{ww1v_count}}</b> World War I Victory Medal(s) and should have <b><big>{{ww1vs_due}}</big></b> </li>
+        <li> World War I Victory Medal - current: <b>{{ww1v_count}}</b>; should have: <b><big>{{ww1vs_due}}</big></b> </li>
         {{/is}}
       </ul>
      {{/each}}
