@@ -99,6 +99,7 @@ class Alerts extends MY_Controller {
                 list($duration, $discharge_date) = $this->calculate_duration($assignments, $rec_obj['member']['id']);
                 $records[$klucz]['aoocs_due'] = floor( $duration/182.625 );
                 $records[$klucz]['ww1vs_due'] = floor( $duration/730.5 );
+                $records[$klucz]['overdue'] = floor( $duration - $records[$klucz]['aoocs_due']*182.625 );
                 
                 //Getting only AOCCs after GD
                 if ( $rec_obj['aocc_list'] )
