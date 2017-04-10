@@ -48,7 +48,11 @@ var $ = require("jquery"),
           return this;
       },
       resetPage: function() {
+          var model;
           this.skip = 0;
+          while (model = this.first()) {
+            model.destroy();
+          }
           return this;
       },
       parse: function (response, options) {
