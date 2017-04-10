@@ -70,7 +70,7 @@ class Enlistments extends MY_Controller {
                 $enlistment['forum_steam_id'] = ( $temp ? $temp['Value'] : '' );
 
                 $ips =  $this->vanilla->get_user_ip($enlistment['member']['forum_member_id']);
-                $enlistment['ips'] = ( $ips ? explode( ',', $ips ) : [] );
+                $enlistment['ips'] = $ips; //( $ips ? explode( ',', $ips ) : [] );
 
                 $email =  $this->vanilla->get_user_email($enlistment['member']['forum_member_id']);
                 $enlistment['email'] = ( $email ? $email : '' );

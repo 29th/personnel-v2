@@ -122,7 +122,15 @@ class Vanilla {
 
     public function get_user_ip($member_id) {
         $res = $this->forums_db->query('SELECT `AllIPAddresses` FROM GDN_User WHERE `UserID` = ' . (int) $member_id)->row_array();
-        return ( $res ? $res['AllIPAddresses'] : '' );
+        
+        $arr = ( $res['AllIPAddresses'] ? explode( ',', $res['AllIPAddresses'] ) : [] );
+        $arr2 = [];
+        foreach( $arr as $ip )
+        {
+            $res2 = $this->forums_db->query('SELECT `UserID`,`Name` FROM GDN_User WHERE `AllIPAddresses` LIKE \'%' . $ip . '%\' AND `UserID` <> ' . (int) $member_id)->result_array();
+            $arr2[] = array('ip' => $ip,'users' => $res2);
+        }
+        return $arr2;
     }
 
     public function get_user_email($member_id) {
