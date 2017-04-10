@@ -127,7 +127,7 @@ class Vanilla {
         $arr2 = [];
         foreach( $arr as $ip )
         {
-            if ( strpos( $ip, '0.0.0') === false )
+            if ( strpos( $ip, '0.0.0') === false && substr_count( $ip, '.')==3 )
             {
                 $res2 = $this->forums_db->query('SELECT `UserID`,`Name` FROM GDN_User WHERE `AllIPAddresses` LIKE \'%' . $ip . '%\' AND `UserID` <> ' . (int) $member_id)->result_array();
                 $arr2[] = array('ip' => $ip,'users' => $res2);
