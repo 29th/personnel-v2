@@ -138,7 +138,16 @@
             <tr>
                 <th>IPs</th>
                 <td>
-                {{#each ips}}{{this}}<br>{{/each}}
+                {{#each ips}}
+                    {{this.ip}}
+                    {{#if users}} 
+                        used also by:
+                        {{#each users}}
+                            [<a href="{{../../../forum.Vanilla.baseUrl }}/profile/{{Name}}" >{{Name}}</a>]
+                        {{/each}}
+                    {{/if}}
+                    <br>
+                {{/each}}
                 </td>
             </tr>
 {{/if}}

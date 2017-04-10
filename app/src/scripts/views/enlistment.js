@@ -26,7 +26,7 @@ var Marionette = require("backbone.marionette");
               
           return $.extend({
               allowedTo: allowedTo,
-              
+              forum: config.forum,              
               vanilla_forum_url: config.forum.Vanilla.baseUrl,
               vanilla_identifier: "enlistment-" + this.model.get('id'),
               vanilla_url: config.baseUrl + "/%23" + Backbone.history.fragment,
