@@ -1,0 +1,111 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2>Editing unit [{{abbr}}]</h2>
+  </div>
+  <div class="panel-body">
+
+    <form role="form">
+      <div class="form-group">
+        <label >ID</label>
+        <input type="text" class="form-control disabled" id="unit_id" name="unit_id" value="{{ id }}" disabled="true">
+      </div>
+    
+      <div class="form-group">
+        <label for="slogan">Slogan</label>
+        <input type="text" class="form-control" id="slogan" name="slogan" value="{{ slogan }}">
+        <p class="help-block error-msg"></p>
+      </div>
+    
+      <div class="form-group">
+        <label for="nickname">Nickname</label>
+        <input type="text" class="form-control" id="nickname" name="nickname" value="{{ nickname }}">
+        <p class="help-block error-msg"></p>
+      </div>
+    
+      <div class="form-group">
+        <label for="steam_group_abbr">Steam Group Abbreviation</label>
+        <input type="text" class="form-control" id="steam_group_abbr" name="steam_group_abbr" value="{{ steam_group_abbr }}">
+        <p class="help-block error-msg"></p>
+      </div>
+    
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{ name }}">
+        <p class="help-block error-msg"></p>
+      </div>
+    
+      <div class="form-group">
+        <label for="abbr">Abbreviation</label>
+        <input type="text" class="form-control" id="abbr" name="abbr" value="{{ abbr }}">
+        <p class="help-block error-msg"></p>
+      </div>
+    
+      <div class="form-group">
+        <label for="active">Activity</label>
+        <select class="form-control" name="active" id="active">
+            {{#select active}}
+            <option value="1">Active</option>
+            <option value="0">Disactivated</option>
+            {{/select}}
+        </select>
+        <p class="help-block error-msg"></p>
+      </div>
+
+      <div class="form-group">
+        <label for="game">Game</label>
+        <select class="form-control" name="game" id="game">
+            {{#select game}}
+            <option value="">N/A</option>
+            <option value="Arma 3">Arma 3</option>
+            <option value="DH">Darkest Hour</option>
+            <option value="RS">Rising Storm</option>
+            {{/select}}
+        </select>
+        <p class="help-block error-msg"></p>
+      </div>
+
+      <div class="form-group">
+        <label for="timezone">Timezone</label>
+        <select class="form-control" name="timezone" id="timezone">
+            {{#select timezone}}
+            <option value="">N/A</option>
+            <option value="EST">EST</option>
+            <option value="GMT">GMT</option>
+            {{/select}}
+        </select>
+        <p class="help-block error-msg"></p>
+      </div>
+
+      <div class="form-group">
+        <label for="class">Class</label>
+        <select class="form-control" name="class" id="class">
+            {{#select class}}
+            <option value="Combat">Combat</option>
+            <option value="Staff">Staff</option>
+            <option value="Training">Training</option>
+            {{/select}}
+        </select>
+        <p class="help-block error-msg"></p>
+      </div>
+
+    <div class="form-group">
+        <label for="aar_template">Steam ID</label>
+        <textarea class="form-control" rows="25" name="aar_template" id="aar_template">{{ aar_template }}</textarea>
+    </div>
+    
+
+
+
+
+
+
+
+
+    
+    
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+  </form>
+
+
+  </div>
+</div>

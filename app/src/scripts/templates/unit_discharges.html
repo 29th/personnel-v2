@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+	<div class="panel-heading"><h2>Discharges</h2></div>
+	<div class="panel-body">
+        <ol>    
+        {{#each discharges}}
+                <li>
+                    <a href="#members/{{this.member.id}}">{{member.short_name}}</a> was <a href="#discharges/{{this.id}}">
+                    {{#is this.type "===" 'Honorable'}}Honorably{{/is}}
+                    {{#is this.type "===" 'Dishonorable'}}Dishonorably{{/is}}
+                    {{#is this.type "===" 'General'}}Generally{{/is}}
+                     Discharged</a>
+                    {{#if this.topic_url}}
+                        <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                    {{/if}} on <b>{{date}}</b>.
+                </li>
+        {{/each }}
+        </ol>
+	</div>
+</div>

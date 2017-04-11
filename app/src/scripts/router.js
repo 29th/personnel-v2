@@ -98,10 +98,12 @@ var $ = require("jquery"),
   ServiceRecordView = require("./views/service_record"),
   UnitActivityView = require("./views/unit_activity"),
   UnitAlertsView = require("./views/unit_alerts"),
+  UnitEditView = require("./views/unit_edit"),
   UnitStatsView = require("./views/unit_stats"),
   UnitAttendanceView = require("./views/unit_attendance"),
   UnitAwolsView = require("./views/unit_awols"),
   UnitRecruitsView = require("./views/unit_recruits"),
+  UnitDischargesView = require("./views/unit_discharges"),
   UnitView = require("./views/unit");
 require("./helpers/custom");
 require("bootstrap");
@@ -1327,6 +1329,12 @@ require("./validation.config");
                   perc: percentages
               }));
           }
+          // Editing unit
+          else if (path == "edit") {
+              columnViews.push(new UnitEditView({
+                  model: units
+              }));
+          }
           // AWOLs
           else if (path == "awols") {
               unitLayout.setHighlight("awols");
@@ -1379,6 +1387,21 @@ require("./validation.config");
 
               columnViews.push(new UnitRecruitsView({
                   collection: unitRecruits
+              }));
+          }
+          // Discharges
+          else if (path == "discharges") {
+              unitLayout.setHighlight("discharges");
+              
+              var unitDischarges = new Discharges(null, {
+                  from:"2000",
+                  to: "today",
+                  unit_id: filter //|| "Bn"
+              });
+              promises.push(unitDischarges.fetch());
+
+              columnViews.push(new UnitDischargesView({
+                  collection: unitDischarges
               }));
           }
           // Roster
