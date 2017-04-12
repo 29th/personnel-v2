@@ -295,7 +295,7 @@ class Units extends MY_Controller {
 					{
 						if (!$val['readiness']['Armor']) $val['readiness']['Armor'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
 					}
-					elseif ( strpos( $badge['name'], ': Bazooka (' )  )
+					elseif ( strpos( $badge['name'], ': Combat Engineer (' )  )
 					{
 						if (!$val['readiness']['Combat Engineer']) $val['readiness']['Combat Engineer'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
 					}
