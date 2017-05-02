@@ -153,6 +153,8 @@ class Enlistments extends MY_Controller {
             $enlistment_data['member_id'] = $member_id;
             $enlistment_data['status'] = 'Pending';
             $enlistment_data['date'] = format_date('now', 'mysqldate');
+            
+            $enlistment_data['units'] = json_encode($this->post('units'));
         
 			// Only use first letter of middle_name
 			if(isset($enlistment_data['middle_name']) && $enlistment_data['middle_name']) $enlistment_data['middle_name'] = substr($enlistment_data['middle_name'], 0, 1);
