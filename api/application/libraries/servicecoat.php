@@ -27,7 +27,7 @@ class ServiceCoat {
 			'e:rifle:a3','e:bar:a3','e:zook:a3','e:mg:a3','e:sniper:a3','e:armor:a3','e:smg:a3','e:grenadier:a3'
 			);
 		private $scAllARibbons = array('french','dsc','dsm','sstar','lom','sm','bstar','pheart','dms','msm','arcom','aach','mpsm','gcon','arcam','adef','acamp','eamc','ww2v','aocc','afem','afsm','movsm','anpdr','ww1v');
-		private $scAllURibbons = array('dh','dod','trenches','battlegrounds','muc','suc','rs','arma');
+		private $scAllURibbons = array('dh','dod','trenches','battlegrounds','muc','suc','rs','arma','rs2','sq');
 		private $scAllTRBadges = array('eib','cib','cib1','cib2','cib3','cib4','cab','cab1','cab2','cab3','cab4');
 		private $scAllTLBadges = array('rd','m:pilot:a3','s:pilot:a3','e:pilot:a3');
 		private $scAllBLBadges = array('drillsergeant');
@@ -1107,7 +1107,9 @@ class ServiceCoat {
 				'muc' => 0,
 				'suc' => 0,
 				'rs' => 0,
-				'arma' => 0
+				'arma' => 0,
+				'rs2' => 0,
+				'sq' => 0
 				);
 			foreach($this->scURibbons as $ribbon)
 			{
@@ -1261,6 +1263,16 @@ class ServiceCoat {
 					}
 					switch($ribbon)
 					{
+					    case 'sq':
+							$this->scURib = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RibbonsCUC/sq.png');
+							imagecopy($this->scImage, $this->scURib, $scCurrentURibX, $scCurrentURibY, 0, 0, $scURibbonSize['x'], $scURibbonSize['y']);
+							imagedestroy($this->scURib);
+						break;
+						case 'rs2':
+							$this->scURib = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RibbonsCUC/rs2.png');
+							imagecopy($this->scImage, $this->scURib, $scCurrentURibX, $scCurrentURibY, 0, 0, $scURibbonSize['x'], $scURibbonSize['y']);
+							imagedestroy($this->scURib);
+					    break;
 					    case 'arma':
 							$this->scURib = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'RibbonsCUC/arma.png');
 							imagecopy($this->scImage, $this->scURib, $scCurrentURibX, $scCurrentURibY, 0, 0, $scURibbonSize['x'], $scURibbonSize['y']);
