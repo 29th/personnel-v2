@@ -594,3 +594,8 @@ nav.navbar {
 .member-profile-table th {
     width:200px;
 }
+
+.qualifications li img{
+    height: 198px;   
+    width: 198px;
+}
