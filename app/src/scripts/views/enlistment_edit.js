@@ -58,6 +58,8 @@ require("backbone.validation");
 '                            <option value="RO">Red Orchestra</option>'+
 '                            <option value="RO2">Red Orchestra 2</option>'+
 '                            <option value="RS">Rising Storm</option>'+
+'                            <option value="RS2">Rising Storm 2: Vietnam</option>'+
+'                            <option value="SQ">Squad</option>'+
 '                        </select>'+
 '                    </td>'+
 '                    <td><input type="text" class="form-control" name="units['+indexVal+'][name]" id="units[name]" value=""></td>'+
