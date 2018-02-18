@@ -16,8 +16,10 @@ var $ = require("jquery"),
               required: true
           },
           end_date: {
-              required: true
+              required: true,
+              fn: 'geStartDate'
           },
+          geStartDate: function(val, attr, computed) {return 'xxx';},
           reason: {
               required: true,
           },

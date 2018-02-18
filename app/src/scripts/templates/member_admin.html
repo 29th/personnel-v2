@@ -27,6 +27,9 @@
         {{#if allowedTo.addNote }}
             <li><a href="#members/{{ member_id }}/notes/add">Add Note</a></li>
         {{/if}}
+        {{#if allowedTo.addPass }}
+            <li><a href="#members/{{ member_id }}/passes/add">Add Weapon Pass</a></li>
+        {{/if}}
     </ul>
 </div>
 {{/if}}

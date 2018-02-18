@@ -62,6 +62,7 @@ var $ = require("jquery"),
   CalendarView = require("./views/calendar"),
   DemeritEditView = require("./views/demerit_edit"),
   DemeritView = require("./views/demerit"),
+  PassEditView = require("./views/pass_edit"),
   DischargeView = require("./views/discharge"),
   ELOAsView = require("./views/eloas"),
   MemberSearchView = require("./views/membersearch"),
@@ -142,6 +143,7 @@ require("./validation.config");
           "members/:id/assign": "assignment_add",
           "members/:id/demerit": "demerit_add",
           "members/:id/notes/add": "note_add",
+          "members/:id/passes/add": "pass_add",
           "members/:id/promote": "promotion_add",
           "members/:id/*path": "member",
           "members/:id": "member",
@@ -425,6 +427,55 @@ require("./validation.config");
               self.showView(calendarView);
           });
       },
+      pass_add: function (member_id) {
+          this.pass_edit(null, member_id);
+      },
+      pass_edit: function (id, member_id) {
+          var self = this,
+              promises = [],
+              pass = new Pass(),
+              units = new Units(null, {
+                  children: true,
+                  members: true,
+                  flat: true
+              }),
+              recruits = new Recruits(null, {
+                  member_id: member_id,
+                  from: "2000",
+                  to: "today"
+              }),
+              view = new PassEditView({
+                  permissions: this.permissions,
+                  units: units,
+                  recruits: recruits,
+                  model: pass
+              });
+
+          this.app.navRegion.currentView.setHighlight("roster");
+          promises.push(units.fetch(),recruits.fetch());
+          
+          if(id) {
+              pass.id = id;
+              promises.push(pass.fetch());
+          }
+          else {
+              view.passes = new Passes(null, {
+                  member_id: member_id,
+                  current: true
+              });
+              promises.push(view.passes.fetch());
+          }
+          if(member_id) {
+//              promises.push(subject_member.fetch());
+              pass.set("member", {id: member_id});
+          }
+
+          $.when.apply($, promises).done(function () {
+              self.showView(view);
+          });
+      },
+
+
       demerit: function(id) {
           var self = this,
               promises = [],
