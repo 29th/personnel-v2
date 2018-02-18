@@ -26,6 +26,7 @@ var Marionette = require("backbone.marionette");
                   discharge: memberPermissions.indexOf("discharge_add") !== -1 || permissions.indexOf("discharge_add_any") !== -1,
                   promote: memberPermissions.indexOf("promotion_add") !== -1 || permissions.indexOf("promotion_add_any") !== -1,
                   demerit: memberPermissions.indexOf("demerit_add") !== -1 || permissions.indexOf("demerit_add_any") !== -1,
+                  addPass: memberPermissions.indexOf("pass_add") !== -1 || permissions.indexOf("pass_add_any") !== -1,
                   addNote: ( permissions.indexOf("note_view_all") !== -1 || permissions.indexOf("note_view_mp") !== -1 || permissions.indexOf("note_view_lh") !== -1 || permissions.indexOf("note_view_co") !== -1 || permissions.indexOf("note_view_pl") !== -1 || permissions.indexOf("note_view_sq") !== -1 )
               };
           allowedTo.admin = allowedTo.modifyProfile || allowedTo.assign || allowedTo.discharge || allowedTo.addELOA || allowedTo.addNote;
