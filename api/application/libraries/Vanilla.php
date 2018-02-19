@@ -102,14 +102,30 @@ class Vanilla {
         
         // Get member info
         $member = nest($this->member_model->get_by_id($member_id));
-        
+
         // If no forum_member_id, there's nothing to do
         if( ! $member['forum_member_id']) {
             //$this->response(array('status' => false, 'error' => 'Member does not have a corresponding forum user id'), 400);
             return FALSE;
         }
         
-        return $this->forums_db->query('UPDATE GDN_User SET `Name` = ? WHERE UserID = ?', array(str_replace("/","",$member['short_name']), $member['forum_member_id']));
+        if ( $member["unit"]["id"]) 
+            $newMemberName = str_replace("/","",$member['short_name']);
+        else 
+        {
+            $this->load->model('discharge_model');
+            $this->discharge_model->where('discharges.member_id',$member_id);
+                
+            $disc = $this->discharge_model->get()->result_array();
+            if ( $disc && $disc[0]['type'] == "Honorable")
+                $newMemberName = str_replace("/","",$member['short_name']) . " [Ret.]";
+            else
+                $newMemberName = str_replace("/","",$member['rank']['name'] . " " . $member['full_name']);
+            
+            
+        }
+        
+        return $this->forums_db->query('UPDATE GDN_User SET `Name` = ? WHERE UserID = ?', array($newMemberName, $member['forum_member_id']));
     }
     
     public function get_role_list() {
