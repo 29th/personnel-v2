@@ -53,6 +53,18 @@ class Discharges extends MY_Controller {
 			$data['date'] = format_date('now', 'mysqldate');
 			
             $insert_id = $this->discharge_model->save(NULL, $data);
+
+            // Update username
+            $this->load->library('vanilla');
+            $this->vanilla->update_username($data['member_id']);
+            
+            // Update service coat if not honorable discharge
+            if ( $data['type'] <> 'Honorable' )
+            {
+                $this->load->library('servicecoat');
+                $this->servicecoat->update($data['member_id']);
+            }
+
             $this->response(array('status' => $insert_id ? true : false, 'discharge' => $insert_id ? nest($this->discharge_model->get_by_id($insert_id)) : null));
         }
     }
@@ -80,6 +92,13 @@ class Discharges extends MY_Controller {
 			
             $result = $this->discharge_model->save($discharge_id, $data);
             $this->response(array('status' => $result ? true : false, 'discharge' => nest($this->discharge_model->get_by_id($discharge_id))));
+
+            // Update username
+            $this->load->library('vanilla');
+            $this->vanilla->update_username($data['member_id']);
+            // Update service coat
+            $this->load->library('servicecoat');
+            $this->servicecoat->update($data['member_id']);
         }
     }
     
