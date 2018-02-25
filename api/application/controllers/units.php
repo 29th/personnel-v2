@@ -93,7 +93,7 @@ class Units extends MY_Controller {
 		foreach( $tempTab as $key => $rec ) 
 		{
 			$tempTab[$key] = $this->db->query("SELECT `abbr`,`name` FROM `units` WHERE id =" . $tempTab[$key] )->result_array();
-			$retTab[] = array( 'id' => str_replace(array('Co. HQ',' HQ'), array('',''), $tempTab[$key][0]['abbr']), 'name' => str_replace(', ', '', substr( $tempTab[$key][0]['name'], strrpos( $tempTab[$key][0]['name'], ', ' ) ) ) );
+			$retTab[] = array( 'id' => trim(str_replace(array('Co. HQ',' HQ'), array('',''), $tempTab[$key][0]['abbr'])), 'name' => str_replace(', ', '', substr( $tempTab[$key][0]['name'], strrpos( $tempTab[$key][0]['name'], ', ' ) ) ) );
 		}
 		return $retTab;
 	}
@@ -260,7 +260,7 @@ class Units extends MY_Controller {
 			$res = ( $this->db->get("(SELECT DISTINCT `weapon` FROM `standards` WHERE game='" . $unit['game'] . "' ) wl")->result_array() );
 			$wpn_list = array( 'EIB' => '', 'SLT' => '' );
 			foreach ( $res as $row )
-				$wpn_list[ str_replace( array('RS','ARMA'), array('',''), $row['weapon'] ) ] = '';
+				$wpn_list[ str_replace( array('RS','ARMA','Pilot','Armor'), array('','','Crewman','Crewman'), $row['weapon'] ) ] = '';
 
 			foreach ( $stats1 as $val  ) {
 				//getting data about badges and tics
@@ -291,10 +291,10 @@ class Units extends MY_Controller {
 					{
 						if (!$val['readiness']['Machine Gun']) $val['readiness']['Machine Gun'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
 					}
-					elseif ( strpos( $badge['name'], ': Armor (' )  )
-					{
-						if (!$val['readiness']['Armor']) $val['readiness']['Armor'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
-					}
+//					elseif ( strpos( $badge['name'], ': Armor (' )  )
+//					{
+//						if (!$val['readiness']['Armor']) $val['readiness']['Armor'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
+//					}
 					elseif ( strpos( $badge['name'], ': Combat Engineer (' )  )
 					{
 						if (!$val['readiness']['Combat Engineer']) $val['readiness']['Combat Engineer'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
@@ -311,9 +311,13 @@ class Units extends MY_Controller {
 					{
 						if (!$val['readiness']['Mortar']) $val['readiness']['Mortar'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
 					}
-					elseif ( strpos( $badge['name'], ': Pilot (' )  )
+//					elseif ( strpos( $badge['name'], ': Pilot (' )  )
+//					{
+//						if (!$val['readiness']['Pilot']) $val['readiness']['Pilot'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
+//					}
+					elseif ( strpos( $badge['name'], ': Pilot (' ) || strpos( $badge['name'], ': Armor (' )   )
 					{
-						if (!$val['readiness']['Pilot']) $val['readiness']['Pilot'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
+						if (!$val['readiness']['Crewman']) $val['readiness']['Crewman'] = substr( $badge['name'], 0, strpos( $badge['name'], ' ') );
 					}
 					elseif ( strpos( $badge['name'], ': Grenadier (' )  )
 					{
@@ -323,7 +327,7 @@ class Units extends MY_Controller {
 				
 				foreach ( $readiness['tics'] as $tic )
 				{
-					$wpn = str_replace( array('RS','ARMA'), array('',''), $tic['weapon'] );
+					$wpn = str_replace( array('RS','ARMA','Pilot','Armor'), array('','','Crewman','Crewman'), $tic['weapon'] );
 					if (!$val['readiness'][$wpn])
 						$val['readiness'][$wpn] = strval( round(($tic['licz']/$tic['suma'])*100) . '%' );
 					elseif ( $this->badge_order( $val['readiness'][$wpn], $tic['badge'] ) )
