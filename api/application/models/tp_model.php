@@ -23,7 +23,7 @@ class Tp_model extends MY_Model {
     }
     
     public function default_order_by() {
-        $this->db->order_by('units.name DESC');
+        $this->db->order_by('units.order DESC, units.abbr DESC');
     }
 
     public function only_future_tps() {
