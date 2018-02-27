@@ -227,7 +227,13 @@ class Enlistments extends MY_Controller {
             
             // Second, deal with assignment if unit_id specified
             if(isset($data['unit_id']) && $data['unit_id']) {
-                $assignment = $this->assignment_model->where('assignments.member_id', $enlistment['member_id'])->where('assignments.unit_id', $data['unit_id'])->where('assignments.end_date IS NULL', NULL, FALSE)->get()->row_array();
+//                $assignment = $this->assignment_model->where('assignments.member_id', $enlistment['member_id'])->where('assignments.unit_id', $data['unit_id'])->where('assignments.end_date IS NULL', NULL, FALSE)->get()->row_array();
+                $assignment = $this->assignment_model->where('assignments.member_id', $enlistment['member_id'])->where('assignments.start_date >= ', $enlistment['date'] )->where('assignments.end_date IS NULL', NULL, FALSE)->get()->row_array();
+                // If accepted and already has an assignment we remove it to add later
+                if($data['status'] == 'Accepted' && $assignment && ($assignment['unit_id'] != $enlistment['unit_id'])) {
+                    $this->assignment_model->delete($assignment['id']);
+                    $assignment = $this->assignment_model->where('assignments.member_id', $enlistment['member_id'])->where('assignments.unit_id', $data['unit_id'])->where('assignments.end_date IS NULL', NULL, FALSE)->get()->row_array();
+                }
                 // If accepted and no assignment exists, create one
                 if($data['status'] == 'Accepted' && ! $assignment) {
                     $this->assignment_model->save(NULL, array(
@@ -246,7 +252,11 @@ class Enlistments extends MY_Controller {
                     $this->assignment_model->delete($assignment['id']);
                 }
             }
-            $this->response(array('status' => true, 'enlistment' => $enlistment));
+            // Update username
+            $this->load->library('vanilla');
+            $this->vanilla->update_username($enlistment['member_id']);
+
+            $this->response(array('status' => false, 'enlistment' => $enlistment));
         }
     }
     
