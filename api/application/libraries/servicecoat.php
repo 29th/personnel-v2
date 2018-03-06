@@ -13,18 +13,24 @@ class ServiceCoat {
 	//Arrays of codes supported
 		private $scAllRanks = array('pvt','pfc','t5','cpl','t4','sgt','t3','ssgt','tsgt','msgt','fsgt','wo1','cw2','cw3','cw4','cw5','2lt','1lt','cpt','maj','lt col');
 		private	$scAllAQBadges = array(
-			'm:rifle:dod','m:bar:dod','m:zook:dod','m:mg:dod','m:armor:dod','m:smg:dod','m:sniper:dod','m:mortar:dod',
-			's:rifle:dod','s:bar:dod','s:zook:dod','s:mg:dod','s:armor:dod','s:smg:dod','s:sniper:dod','s:mortar:dod',
-			'e:rifle:dod','e:bar:dod','e:zook:dod','e:mg:dod','e:armor:dod','e:smg:dod','e:sniper:dod','e:mortar:dod',
-			'm:rifle:dh','m:bar:dh','m:zook:dh','m:mg:dh','m:armor:dh','m:smg:dh','m:sniper:dh','m:mortar:dh',
-			's:rifle:dh','s:bar:dh','s:zook:dh','s:mg:dh','s:armor:dh','s:smg:dh','s:sniper:dh','s:mortar:dh',
-			'e:rifle:dh','e:bar:dh','e:zook:dh','e:mg:dh','e:armor:dh','e:smg:dh','e:sniper:dh','e:mortar:dh',
-			'm:rifle:ro2','m:bar:ro2','m:zook:ro2','m:mg:ro2','m:smg:ro2','m:sniper:ro2','m:armor:ro2',
-			's:rifle:ro2','s:bar:ro2','s:zook:ro2','s:mg:ro2','s:smg:ro2','s:sniper:ro2','s:armor:ro2',
-			'e:rifle:ro2','e:bar:ro2','e:zook:ro2','e:mg:ro2','e:smg:ro2','e:sniper:ro2','e:armor:ro2',
-			'm:rifle:a3','m:bar:a3','m:zook:a3','m:mg:a3','m:sniper:a3','m:armor:a3','m:smg:a3','m:grenadier:a3',
-			's:rifle:a3','s:bar:a3','s:zook:a3','s:mg:a3','s:sniper:a3','s:armor:a3','s:smg:a3','s:grenadier:a3',
-			'e:rifle:a3','e:bar:a3','e:zook:a3','e:mg:a3','e:sniper:a3','e:armor:a3','e:smg:a3','e:grenadier:a3'
+			'm:rifle:dod','m:bar:dod','m:zook:dod','m:mg:dod','m:armor:dod','m:smg:dod','m:sniper:dod','m:mortar:dod'
+			,'s:rifle:dod','s:bar:dod','s:zook:dod','s:mg:dod','s:armor:dod','s:smg:dod','s:sniper:dod','s:mortar:dod'
+			,'e:rifle:dod','e:bar:dod','e:zook:dod','e:mg:dod','e:armor:dod','e:smg:dod','e:sniper:dod','e:mortar:dod'
+			,'m:rifle:dh','m:bar:dh','m:zook:dh','m:mg:dh','m:armor:dh','m:smg:dh','m:sniper:dh','m:mortar:dh'
+			,'s:rifle:dh','s:bar:dh','s:zook:dh','s:mg:dh','s:armor:dh','s:smg:dh','s:sniper:dh','s:mortar:dh'
+			,'e:rifle:dh','e:bar:dh','e:zook:dh','e:mg:dh','e:armor:dh','e:smg:dh','e:sniper:dh','e:mortar:dh'
+			,'m:rifle:ro2','m:bar:ro2','m:zook:ro2','m:mg:ro2','m:smg:ro2','m:sniper:ro2','m:armor:ro2'
+			,'s:rifle:ro2','s:bar:ro2','s:zook:ro2','s:mg:ro2','s:smg:ro2','s:sniper:ro2','s:armor:ro2'
+			,'e:rifle:ro2','e:bar:ro2','e:zook:ro2','e:mg:ro2','e:smg:ro2','e:sniper:ro2','e:armor:ro2'
+			,'m:rifle:a3','m:bar:a3','m:zook:a3','m:mg:a3','m:sniper:a3','m:armor:a3','m:smg:a3','m:grenadier:a3'
+			,'s:rifle:a3','s:bar:a3','s:zook:a3','s:mg:a3','s:sniper:a3','s:armor:a3','s:smg:a3','s:grenadier:a3'
+			,'e:rifle:a3','e:bar:a3','e:zook:a3','e:mg:a3','e:sniper:a3','e:armor:a3','e:smg:a3','e:grenadier:a3'
+			,'m:rifle:rs2'
+			,'s:rifle:rs2'
+			,'e:rifle:rs2'
+			,'m:rifle:sq'
+			,'s:rifle:sq'
+			,'e:rifle:sq'
 			);
 		private $scAllARibbons = array('french','dsc','dsm','sstar','lom','sm','bstar','pheart','dms','msm','arcom','aach','mpsm','gcon','arcam','adef','acamp','eamc','ww2v','aocc','afem','afsm','movsm','anpdr','ww1v');
 		private $scAllURibbons = array('muc','suc','dh','dod','trenches','battlegrounds','rs','arma','rs2','sq');
