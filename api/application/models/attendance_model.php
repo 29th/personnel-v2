@@ -164,7 +164,8 @@ class Attendance_model extends MY_Model {
           $cSql .= "AND a.`member_id` = " . $this->db->escape($filter_value);
         }
         if ( $days ) {
-          $cSql .= "AND (e.datetime BETWEEN CURDATE() - INTERVAL $days DAY AND CURDATE())";
+          $cSql .= "AND DATEDIFF( NOW( ) , e.datetime ) < $days ";
+//          $cSql .= "AND (e.datetime BETWEEN CURDATE() - INTERVAL $days DAY AND CURDATE())";
         }
         //To cut off attendance before GD
         $cSql .= " AND e.datetime > '$from_date'";
