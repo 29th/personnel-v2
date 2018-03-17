@@ -70,10 +70,11 @@ class Enlistments extends MY_Controller {
                 $enlistment['forum_steam_id'] = ( $temp ? $temp['Value'] : '' );
 
                 $ips =  $this->vanilla->get_user_ip($enlistment['member']['forum_member_id']);
-                $enlistment['ips'] = $ips; //( $ips ? explode( ',', $ips ) : [] );
+                $enlistment['ips'] = $ips; 
 
                 $bday =  $this->vanilla->get_user_bday($enlistment['member']['forum_member_id']);
-                $enlistment['bday'] = $bday; //( $ips ? explode( ',', $ips ) : [] );
+                $enlistment['bday'] = $bday; 
+                $enlistment['forums_age'] = floor((strtotime(date("Y-m-d")) - strtotime($bday))/(365.25*24*60*60));
 
                 $email =  $this->vanilla->get_user_email($enlistment['member']['forum_member_id']);
                 $enlistment['email'] = ( $email ? $email : '' );
