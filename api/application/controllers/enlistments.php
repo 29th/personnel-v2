@@ -72,6 +72,9 @@ class Enlistments extends MY_Controller {
                 $ips =  $this->vanilla->get_user_ip($enlistment['member']['forum_member_id']);
                 $enlistment['ips'] = $ips; //( $ips ? explode( ',', $ips ) : [] );
 
+                $bday =  $this->vanilla->get_user_bday($enlistment['member']['forum_member_id']);
+                $enlistment['bday'] = $bday; //( $ips ? explode( ',', $ips ) : [] );
+
                 $email =  $this->vanilla->get_user_email($enlistment['member']['forum_member_id']);
                 $enlistment['email'] = ( $email ? $email : '' );
                 
