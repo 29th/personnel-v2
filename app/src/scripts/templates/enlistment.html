@@ -134,6 +134,14 @@
                 </td>
             </tr>
 {{/if}}
+{{#if this.bday}}
+            <tr>
+                <th>Birthday</th>
+                <td>
+                {{ dateFormat this.bday format="Do MMMM YYYY"}} (age: {{ age }})
+                </td>
+            </tr>
+{{/if}}
 {{#if this.ips}}
             <tr>
                 <th>IPs</th>
