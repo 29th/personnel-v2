@@ -24,6 +24,8 @@ class Vanilla {
         $this->load->model('assignment_model');
         $this->load->model('unit_role_model');
         $this->load->model('class_role_model');
+        $this->load->model('discharge_model');
+
         $roles = array();
         
         // Get member info
@@ -50,11 +52,19 @@ class Vanilla {
             }
         }
         
-        
         // Get forum roles for classes that member is a part of
         $class_roles = $this->class_role_model->by_classes($classes)->get()->result_array();
         if( ! empty($class_roles)) {
             $roles = array_merge($roles, pluck('role_id', $class_roles));
+        }
+        
+        //If not assigned anywhere let's check if member had been HDed
+        if (empty($roles) || $roles[0] == '8')
+        {
+            $this->discharge_model->where('discharges.member_id',$member_id);
+            $discharge = $this->discharge_model->get()->result_array();
+            if ( $discharge && $discharge[0]['type'] == "Honorable")
+                $roles[] = '80';
         }
         
         //Adding for officers
@@ -63,7 +73,7 @@ class Vanilla {
         {
             $roles[] = '73';//$this->get_commisioned_officer_role_id();
         }
-        
+
         // Eliminate duplicates
         $roles = array_values(array_unique($roles));
         
@@ -93,10 +103,6 @@ class Vanilla {
     /**
      * Find the steam id associated with the forum member account if it exists
      */
-    public function get_steam_id($user_id) {
-        return $this->forums_db->query('SELECT `Value` FROM `GDN_UserMeta` WHERE `Name` = \'Plugin.steamprofile.SteamID64\' AND `UserID` = ' . (int) $user_id)->row_array();
-    }
-    
     public function update_username($member_id) {
         $this->load->model('member_model');
         
@@ -128,6 +134,10 @@ class Vanilla {
         return $this->forums_db->query('UPDATE GDN_User SET `Name` = ? WHERE UserID = ?', array($newMemberName, $member['forum_member_id']));
     }
     
+    public function get_steam_id($user_id) {
+        return $this->forums_db->query('SELECT `Value` FROM `GDN_UserMeta` WHERE `Name` = \'Plugin.steamprofile.SteamID64\' AND `UserID` = ' . (int) $user_id)->row_array();
+    }
+    
     public function get_role_list() {
         return $this->forums_db->query('SELECT `RoleID`, `Name` FROM GDN_Role ORDER BY `Sort`')->result_array();
     }
@@ -139,7 +149,7 @@ class Vanilla {
     public function get_user_ip($member_id) {
         $res = $this->forums_db->query('SELECT `AllIPAddresses` FROM GDN_User WHERE `UserID` = ' . (int) $member_id)->row_array();
         
-        $arr = ( $res['AllIPAddresses'] ? explode( ',', $res['AllIPAddresses'] ) : [] );
+        $arr = ( isset( $res['AllIPAddresses'] ) ? explode( ',', $res['AllIPAddresses'] ) : [] );
         $arr2 = [];
         foreach( $arr as $ip )
         {
@@ -155,6 +165,11 @@ class Vanilla {
     public function get_user_email($member_id) {
         $res = $this->forums_db->query('SELECT `Email` FROM GDN_User WHERE `UserID` = ' . (int) $member_id)->row_array();
         return ( $res ? $res['Email'] : '' );
+    }
+
+    public function get_user_bday($member_id) {
+        $res = $this->forums_db->query('SELECT `DateOfBirth` FROM GDN_User WHERE `UserID` = ' . (int) $member_id)->row_array();
+        return ( $res ? $res['DateOfBirth'] : '' );
     }
 
     public function get_ban_disputes( $roid ) {
