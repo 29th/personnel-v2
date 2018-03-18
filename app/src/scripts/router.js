@@ -260,12 +260,16 @@ require("./validation.config");
                   members: true,
                   flat: true
               }),
+               subject = new Member({
+                  id: member_id
+              }),
               positions = new Positions(null, {
                   order: "name"
               }),
               view = new AssignmentEditView({
                   model: assignment,
                   units: units,
+                  subject: subject,
                   positions: positions
               });
 
@@ -284,6 +288,7 @@ require("./validation.config");
               promises.push(view.assignments.fetch());
           }
           if(member_id) {
+              promises.push(view.subject.fetch());
               assignment.set("member", {id: member_id});
           }
 
