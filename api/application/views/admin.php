@@ -23,6 +23,7 @@ $pages = array(
     'promotions' => 'Promotions',
     'qualifications' => 'Qualifications',
     'ranks' => 'Ranks',
+    'restricted_names' => 'Restricted Names',
     'schedules' => 'Schedules',
     'servers' => 'Servers',
     'standards' => 'Standards',
