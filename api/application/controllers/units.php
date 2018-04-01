@@ -267,6 +267,7 @@ class Units extends MY_Controller {
 //				$readiness = array('badges' => array(), 'tics' => array());  //for tests
 				$readiness = $this->get_readiness( $val['member']['id'], $val['unit']['id'], $unit['game'] );
 				$val['readiness'] = $wpn_list;
+				$val['member']['last_name'] .= 'son';
 				//now we fill in the array with appropriate data
 
 				foreach ( $readiness['badges'] as $badge )
@@ -453,7 +454,10 @@ class Units extends MY_Controller {
         foreach($parents as &$parent) $parent[$array_name] = array();
         
         // Put each member in the appropriate parent
-        foreach($members as $member) {
+        foreach($members as $member) 
+        {
+            $member['member']['short_name'] .= 'son';
+            $member['member']['full_name'] .= 'son';
             foreach($parents as &$parent) {
                 if($parent[$parent_key] == $member[$member_key]) {
                     unset($member[$member_key]); // Redundant

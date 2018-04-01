@@ -439,6 +439,17 @@ class Admin extends CI_Controller {
         $this->output($output, 'ranks');
 	}
 	
+	public function restricted_names()
+	{
+	    $this->grocery_crud->set_table('restricted_names')
+	        ->columns('name','member_id')
+	        ->required_fields('member_id')
+	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member');
+        $output = $this->grocery_crud->render();
+ 
+        $this->output($output, 'restricted_names');
+	}
+	
 	public function schedules()
 	{
 	    $this->grocery_crud->set_table('schedules')

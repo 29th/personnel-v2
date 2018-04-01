@@ -63,6 +63,9 @@ class Members extends MY_Controller {
                 if ( curl_getinfo($ch, CURLINFO_HTTP_CODE) == '200' )
                     $member['sig'] = "http://www.29th.org/sigs/" . $member['steam_id'] . ".png";
             }
+            $member['last_name'] .= 'son';
+            $member['short_name'] .= 'son';
+            $member['full_name'] .= 'son';
             $this->load->library('vanilla');
             if ($member['forum_member_id'])
                 $member['forum_steam_id'] = $this->vanilla->get_steam_id($member['forum_member_id']);
