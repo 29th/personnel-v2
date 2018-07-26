@@ -14,7 +14,7 @@ class Enlistment_model extends MY_Model {
             )
             ,array(
                 'field' => 'last_name'
-                ,'rules' => 'required|max_length[40]'
+                ,'rules' => 'required|max_length[40]|callback_check_restricted_names'
             )
             ,array(
                 'field' => 'age'
