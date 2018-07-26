@@ -138,7 +138,7 @@
             <tr>
                 <th>Birthday</th>
                 <td>
-                {{ dateFormat this.bday format="Do MMMM YYYY"}} (age: {{ forums_age }})
+                {{ dateFormat this.bday format="Do MMMM YYYY"}} (age: {{ forums_age }}) {{#is (multiply (subtract forums_age age) (subtract forums_age age)) ">" "1"}} <span class='label label-danger'>Warning! Age missmatch</span> {{/is}}
                 </td>
             </tr>
 {{/if}}
