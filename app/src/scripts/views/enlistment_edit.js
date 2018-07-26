@@ -82,7 +82,10 @@ require("backbone.validation");
                       trigger: true
                   });
               },
-              error: function() {console.log("ERROR!!!")}
+              error: function(model, response, options) {
+                  alert(Object.values(response.responseJSON.error));
+                  console.log( "Error 12.1" );
+              }
           });
       }
   });

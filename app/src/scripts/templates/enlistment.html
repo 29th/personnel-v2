@@ -126,6 +126,13 @@
     </div>
     <div class="panel-body">
         <table class="table table-horizontal">
+{{#if this.is_restricted}}
+            <tr colspan='2'>
+                <td>
+                <center><div class='label label-danger'>This last name is on <b>Historic Names List</b> and can not be used!</div></center>
+                </td>
+            </tr>
+{{/if}}
 {{#if this.email}}
             <tr>
                 <th>E-Mail</th>
