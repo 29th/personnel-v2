@@ -33,5 +33,16 @@ class Tp_model extends MY_Model {
     public function only_active() {
         $this->filter_where("`units`.`active`",1);
     }
+
+    public function by_game($game) {
+        $this->filter_where('`units`.`game`', $game);
+        return $this;
+    }
+    
+    public function by_timezone($timezone) {
+        $this->filter_where('units.timezone = \'' . $timezone . '\'');
+        return $this;
+    }
+    
     
 }

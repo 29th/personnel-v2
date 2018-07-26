@@ -31,6 +31,8 @@ class Tps extends MY_Controller {
 		// View record(s)
 		else {
 		    $skip = $this->input->get('skip') ? $this->input->get('skip', TRUE) : 0;
+            $game = $this->input->get('game', TRUE);
+            $timezone = $this->input->get('timezone', TRUE);
 		    $tps = $this->tp_model;
 		    if ( $this->input->get('future') ) 
 		    {
@@ -40,6 +42,12 @@ class Tps extends MY_Controller {
 		    {
 		        $tps->only_active();
 		    }
+            if($game) {
+                $tps->by_game($game);
+            }
+            if($timezone) {
+                $tps->by_timezone($timezone);
+            }
 		    $records = nest( $tps->paginate('', $skip)->result_array() );
 		    foreach ( $records as $key => $rec )
 		    {
