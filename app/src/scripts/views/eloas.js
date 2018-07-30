@@ -34,7 +34,8 @@ var Marionette = require("backbone.marionette");
           _.bindAll(this, "onClickMore");
       },
       events: {
-          "click .more": "onClickMore"
+          "click .more": "onClickMore",
+          "click .btn-group .btn": "onClickBtnGroup"
       },
       onRender: function () {
           this.checkMoreButton();
@@ -57,5 +58,21 @@ var Marionette = require("backbone.marionette");
       },
       checkMoreButton: function () {
           this.$(".more").toggle(this.collection.more);
+      },
+      onClickBtnGroup: function (e) {
+          var btn = $(e.currentTarget),
+              self = this,
+              status = btn.data("status")
+          if (status) $(".btn-group .btn-status").removeClass("active");
+          btn.addClass("active");
+          this.collection.resetPage();
+          this.collection
+            .setFilter( "status", status || $(".btn-group .btn-status.active").data('status') )
+            .fetch({
+              success: function () {
+                  self.checkMoreButton();
+              }
+              // TODO: Add error handling, loading indicator?
+          })
       }
   });
