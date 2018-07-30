@@ -30,11 +30,13 @@ var $ = require("jquery"),
           url += "/tps";
 
           var params = [];
-          if(this.status) params.push("active=true");
+          if(this.status && this.status != 'all') params.push("active=true");
           if(this.future) params.push("future=" + this.future);
           if(this.skip) params.push("skip=" + this.skip);
           if(this.from) params.push("from=" + this.from);
           if(this.to) params.push("to=" + this.to);
+          if (this.game) params.push("game=" + this.game);
+          if (this.timezone) params.push("timezone=" + this.timezone);
           if(params.length) url += "?" + params.join("&");
           
           return url;
