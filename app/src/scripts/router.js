@@ -28,6 +28,7 @@ var $ = require("jquery"),
   Demerits = require("./collections/demerits"),
   Discharges = require("./collections/discharges"),
   ELOAs = require("./collections/eloas"),
+  HallOfFame = require("./collections/halloffame"),
   MemberSearch = require("./collections/membersearch"),
   Enlistments = require("./collections/enlistments"),
   Events = require("./collections/events"),
@@ -65,6 +66,7 @@ var $ = require("jquery"),
   PassEditView = require("./views/pass_edit"),
   DischargeView = require("./views/discharge"),
   ELOAsView = require("./views/eloas"),
+  HallOfFameView = require("./views/halloffame"),
   MemberSearchView = require("./views/membersearch"),
   EnlistmentEditView = require("./views/enlistment_edit"),
   EnlistmentProcessView = require("./views/enlistment_process"),
@@ -140,6 +142,7 @@ require("./validation.config");
           "events/:id": "event",
           "events/:id/aar": "aar",
           "finances": "finances",
+          "halloffame": "halloffame",
           "members/:id/assign": "assignment_add",
           "members/:id/demerit": "demerit_add",
           "members/:id/notes/add": "note_add",
@@ -592,6 +595,20 @@ require("./validation.config");
 
           $.when.apply($, promises).done(function () {
               self.showView(notesView);
+          });
+      },
+      halloffame: function () {
+          var self = this,
+              promises = [],
+              halloffame = new HallOfFame(),
+              hallOfFameView = new HallOfFameView({
+                  collection: halloffame
+              });
+
+          promises.push(halloffame.fetch());
+
+          $.when.apply($, promises).done(function () {
+              self.showView(hallOfFameView);
           });
       },
       membersearch: function() {
