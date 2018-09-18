@@ -41,7 +41,13 @@ class ELOA_model extends MY_Model {
     public function active($date = FALSE) {
         if($date == FALSE) $date = format_date('now', 'mysqldate');
         $this->filter_where('eloas.start_date <=', $date);
-        $this->filter_where('eloas.end_date >=', $date);
+        $this->filter_where('eloas.end_date >', $date);
+        return $this;
+    }
+
+    public function future($date = FALSE) {
+        if($date == FALSE) $date = format_date('now', 'mysqldate');
+        $this->filter_where('eloas.start_date >', $date);
         return $this;
     }
 

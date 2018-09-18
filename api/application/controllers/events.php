@@ -99,7 +99,8 @@ class Events extends MY_Controller {
     	COUNT(COALESCE(attended,0)) - SUM(COALESCE(attended,0)) AS absent, 
 		SUM(IF(attended = 0, IF(excused = 1, 1, 0), 0)) AS excused, 
     	event_id
-        FROM attendance 
+        FROM attendance
+        WHERE attended IS NOT NULL
         GROUP BY event_id ) AS `a` ','events.id = a.event_id','left');
         $this->event_model->filter_select('a.attended, a.absent, a.excused');
 

@@ -68,6 +68,8 @@ class Enlistments extends MY_Controller {
                 $this->load->library('vanilla');
                 $temp = $this->vanilla->get_steam_id($enlistment['member']['forum_member_id']);
                 $enlistment['forum_steam_id'] = ( $temp ? $temp['Value'] : '' );
+                
+                $enlistment['is_restricted'] = $this->is_it_a_restricted_name( $enlistment['last_name'], $enlistment['member_id'] );
 
                 $ips =  $this->vanilla->get_user_ip($enlistment['member']['forum_member_id']);
                 $enlistment['ips'] = $ips; 
@@ -126,10 +128,15 @@ class Enlistments extends MY_Controller {
      * TODO: Prevent enlistment of current members
      */
     public function index_post() {
+        $this->load->model('restricted_names_model');
         // Must be logged in
         if( ! ($forum_member_id = $this->user->logged_in())) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
+        // Form validation for restricted names
+//        else if($this->restricted_names_model->run_validation('validation_rules_add') === FALSE) {
+//            $this->response(array('status' => false, 'error' => $this->restricted_names_model->validation_errors), 400);
+//        }
         // Form validation for both models
         else if($this->enlistment_model->run_validation('validation_rules_add') === FALSE) {
             $this->response(array('status' => false, 'error' => $this->enlistment_model->validation_errors), 400);
@@ -283,4 +290,26 @@ class Enlistments extends MY_Controller {
             $this->response(array('status' => true));
         }
     }
+    
+    public function check_restricted_names($cName)
+    {
+        
+        
+        if ( is_it_a_restricted_name($cName) )
+            return true;
+        else
+        {
+            $this->form_validation->set_message('check_restricted_names', 'Last name ' . $cName . ' is restricted. Please choose different one.');
+            return false;
+        }
+    }
+
+    public function is_it_a_restricted_name( $cName, $nMemberId = 0 )
+    {
+        //if called from validate $nMemberId is 0 so it finds the correct one
+        $cSql = "SELECT COUNT(1) AS cnt FROM `restricted_names` WHERE `name` ='$cName' AND member_id <> $nMemberId ";
+        $res = $this->db->query( $cSql)->result_array();
+        return ( $res[0]['cnt'] <> "0" );
+    }
+
 }

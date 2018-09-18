@@ -116,10 +116,15 @@ $route['eloas/(:num)'] = 'eloas/view/$1';
 
 // Weapon Passes
 $route['passes'] = 'passes/index'; // Filtered
+$route['passes/add'] = 'passes/add'; 
+$route['passes/(:num)'] = 'passes/view/$1';
 
 // TPs / Lighthouse
 $route['tps'] = 'tps/index'; // Filtered
 $route['tps/(:any)'] = 'tps/view/$1'; // Filtered
+
+// List of Historic Last Names
+$route['halloffame'] = 'restricted_names/index';
 
 // Admin
 $route['admin'] = 'admin/home';

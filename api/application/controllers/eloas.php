@@ -17,6 +17,30 @@ class ELOAs extends MY_Controller {
      * INDEX
      * Handled by index_filter_get in MY_Controller
      */
+    public function index_get($filter_key = FALSE, $filter_value = FALSE) {
+		// Must have permission to view any member's profile
+		if( ! $this->user->permission('profile_view_any')) {
+			$this->response(array('status' => false, 'error' => 'Permission denied'), 403);
+		}
+		// View record(s)
+		else {
+		    $eloas = $this->eloa_model;
+		    $skip = $this->input->get('skip') ? $this->input->get('skip', TRUE) : 0;
+            $eloas->select_member(); // include members
+
+		    if ( $this->input->get('status') ) 
+		    {
+		        if ( $this->input->get('status') == 'active' )
+		            $eloas->active();
+		        elseif ( $this->input->get('status') == 'future' )
+		            $eloas->future();
+		    }
+		    $records = nest( $eloas->paginate('', $skip)->result_array() );
+		    $count = $eloas->total_rows;
+			$this->response(array( 'status' => true, 'count' => $count, 'skip' => $skip, 'eloas' => $records ));
+		}
+    }//index_get
+
     
     /**
      * VIEW
