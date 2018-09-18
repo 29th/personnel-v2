@@ -26,8 +26,13 @@ class ELOAs extends MY_Controller {
 		else {
 		    $eloas = $this->eloa_model;
 		    $skip = $this->input->get('skip') ? $this->input->get('skip', TRUE) : 0;
-            if ( $filter_key = 'member' && is_numeric( $filter_value ) )
-                $eloas->by_member($filter_value); // include members
+            if ( $filter_key == 'member' && is_numeric( $filter_value ) )
+                $eloas->by_member($filter_value); 
+            elseif ( $filter_key == 'unit' ) 
+            {
+                $eloas->by_unit($filter_value); // include members
+                $eloas->select_member();
+            }
             else
                 $eloas->select_member();
 
