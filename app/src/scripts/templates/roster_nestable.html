@@ -15,7 +15,7 @@
             {{#if this.rank.filename}}<img src="images/ranks/16x16/{{ this.rank.filename }}.png" title="{{ this.rank.name }}">{{/if}}
             &nbsp;<img src={{#if country.abbr}}"images/countries/{{ toLowerCase this.country.abbr }}.png" title="{{ this.country.name }}"{{else}}"images/countries/___.png" {{/if}}>&nbsp;
             <a href="#members/{{ this.member.id }}">{{ this.member.short_name }}</a> 
-            <span class="roster-unit">{{#is eloa "!==" "0" }} (ELOA) {{/is}}{{#is pass "!==" "0" }} <b>(Weapon Pass)</b> {{/is}}</span><br>
+            <span class="roster-unit">{{#is eloa ">" "0" }} (ELOA) {{/is}}{{#is pass "!==" "0" }} <b>(Weapon Pass)</b> {{/is}}</span><br>
         </div>
     {{/each}}
     </li>
@@ -37,7 +37,7 @@
             {{#if this.rank.filename}}<img src="images/ranks/16x16/{{ this.rank.filename }}.png" title="{{ this.rank.name }}">{{/if}}
             &nbsp;<img src={{#if country.abbr}}"images/countries/{{ toLowerCase this.country.abbr }}.png" title="{{ this.country.name }}"{{else}}"images/countries/___.png" {{/if}}>&nbsp;
             <a href="#members/{{ this.member.id }}">{{ this.member.short_name }}</a> 
-            <span class="roster-unit">{{#is eloa "!==" "0" }} (ELOA) {{/is}}{{#is pass "!==" "0" }} <b>(Weapon Pass)</b> {{/is}}{{ position.name }}</span>
+            <span class="roster-unit">{{#is eloa ">" "0" }} (ELOA) {{/is}}{{#is pass "!==" "0" }} <b>(Weapon Pass)</b> {{/is}}{{ position.name }}</span>
         {{/if}}
     </li>
     {{/each}}

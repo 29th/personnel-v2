@@ -3,8 +3,21 @@
         <h2>Training Platoons</h2>
         <div class="panel-ctrls">
             <div class="btn-group" id="filter-status">
-                <button type="button" class="btn btn-default" data-status="">All</button>
-                <button type="button" class="btn btn-default active" data-status="activated">Active</button>
+                <button type="button" class="btn btn-default btn-status" data-status="all">All</button>
+                <button type="button" class="btn btn-default btn-status active" data-status="activated">Active</button>
+            </div>
+            <div class="btn-group" id="filter-game">
+                <button type="button" class="btn btn-default btn-game active" data-game="">All</button>
+                <button type="button" class="btn btn-default btn-game" data-game="RS">RS</button>
+                <button type="button" class="btn btn-default btn-game" data-game="DH">DH</button>
+                <button type="button" class="btn btn-default btn-game" data-game="Arma 3">A3</button>
+                <button type="button" class="btn btn-default btn-game" data-game="RS2">RS2</button>
+                <button type="button" class="btn btn-default btn-game" data-game="Squad">SQ</button>
+            </div>
+            <div class="btn-group" id="filter-timezone">
+                <button type="button" class="btn btn-default btn-timezone active" data-timezone="">Both</button>
+                <button type="button" class="btn btn-default btn-timezone" data-timezone="EST">EST</button>
+                <button type="button" class="btn btn-default btn-timezone" data-timezone="GMT">GMT</button>
             </div>
         </div>
         

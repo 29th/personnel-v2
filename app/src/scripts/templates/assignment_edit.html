@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-     <h2>Add/Edit assignment</h2>
+     <h2>{{#if subject.id}}Add assignment for <strong>{{subject.rank.name}} {{subject.full_name}}{{else}}Edit assignment of <strong>{{member.short_name}}{{/if}}</strong></h2>
   </div>
   <div class="panel-body">
   <form role="form">

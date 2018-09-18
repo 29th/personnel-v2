@@ -14,6 +14,7 @@ var $ = require("jquery"),
           this.member_id = options.member_id || null;
           this.unit_id = options.unit_id || null;
           this.skip = 0;
+          this.status = options.status || null;
           this.from = options.from || null;
           this.to = options.to || null;
       },
@@ -28,6 +29,7 @@ var $ = require("jquery"),
           url += "/eloas";
 
           var params = [];
+          if(this.status) params.push("status=" + this.status);
           if(this.skip) params.push("skip=" + this.skip);
           if(this.from) params.push("from=" + this.from);
           if(this.to) params.push("to=" + this.to);
@@ -35,8 +37,20 @@ var $ = require("jquery"),
           
           return url;
       },
+      setFilter: function (key, val) {
+          this[key] = val; // unsecure
+          return this;
+      },
       nextPage: function () {
           this.skip += this.settings.limit;
+          return this;
+      },
+      resetPage: function() {
+          var model;
+          this.skip = 0;
+          while (model = this.first()) {
+            model.destroy();
+          }
           return this;
       },
       parse: function (response, options) {

@@ -16,6 +16,7 @@ require("bootstrap-datepicker");
       initialize: function (options) {
           options = options || {};
           this.units = options.units || {};
+          this.subject = options.subject || {};
           this.positions = options.positions || {};
           _.bindAll(this, "onSubmitForm");
           Backbone.Validation.bind(this);
@@ -24,6 +25,7 @@ require("bootstrap-datepicker");
           return $.extend({
               units: this.units.length ? this.units.toJSON() : {},
               positions: this.positions.length ? this.positions.toJSON() : {},
+              subject: this.subject.toJSON(),
               assignments: this.assignments !== undefined && this.assignments.length ? this.assignments.toJSON() : null
           }, this.model.toJSON());
       },

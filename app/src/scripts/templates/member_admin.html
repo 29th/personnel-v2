@@ -30,6 +30,9 @@
         {{#if allowedTo.addPass }}
             <li><a href="#members/{{ member_id }}/passes/add">Add Weapon Pass</a></li>
         {{/if}}
+        {{#if allowedTo.addAwarding }}
+            <li><a href="#members/{{ member_id }}/awarding/add">Add Award</a></li>
+        {{/if}}
     </ul>
 </div>
 {{/if}}
