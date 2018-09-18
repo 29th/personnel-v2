@@ -26,8 +26,10 @@ class ELOAs extends MY_Controller {
 		else {
 		    $eloas = $this->eloa_model;
 		    $skip = $this->input->get('skip') ? $this->input->get('skip', TRUE) : 0;
-            if ( $filter_key = 'member' )
+            if ( $filter_key = 'member' && is_numeric( $filter_value ) )
                 $eloas->by_member($filter_value); // include members
+            else
+                $eloas->select_member();
 
 		    if ( $this->input->get('status') ) 
 		    {
@@ -38,7 +40,7 @@ class ELOAs extends MY_Controller {
 		    }
 		    $records = nest( $eloas->paginate('', $skip)->result_array() );
 		    $count = $eloas->total_rows;
-			$this->response(array( 'status' => true, 'count' => $filter_key, 'skip' => $skip, 'eloas' => $records ));
+			$this->response(array( 'status' => true, 'count' => $count, 'skip' => $skip, 'eloas' => $records ));
 		}
     }//index_get
 
