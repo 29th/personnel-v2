@@ -293,14 +293,14 @@ class Enlistments extends MY_Controller {
     
     public function check_restricted_names($cName)
     {
-        
-        
-        if ( is_it_a_restricted_name($cName) )
-            return true;
-        else
+        if ( $this->is_it_a_restricted_name($cName) )
         {
             $this->form_validation->set_message('check_restricted_names', 'Last name ' . $cName . ' is restricted. Please choose different one.');
             return false;
+        }
+        else
+        {
+            return true;
         }
     }
 
@@ -309,7 +309,7 @@ class Enlistments extends MY_Controller {
         //if called from validate $nMemberId is 0 so it finds the correct one
         $cSql = "SELECT COUNT(1) AS cnt FROM `restricted_names` WHERE `name` ='$cName' AND member_id <> $nMemberId ";
         $res = $this->db->query( $cSql)->result_array();
-        return ( $res[0]['cnt'] <> "0" );
+        return ( $res[0]['cnt'] <> '0' );
     }
 
 }
