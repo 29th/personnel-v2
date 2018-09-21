@@ -28,7 +28,7 @@ class ELOA_model extends MY_Model {
     }
     
     public function default_select() {
-        $this->db->select('SQL_CALC_FOUND_ROWS eloas.id, eloas.start_date, eloas.end_date, eloas.posting_date, eloas.reason, eloas.availability', FALSE);
+        $this->db->select('SQL_CALC_FOUND_ROWS eloas.id, eloas.start_date, eloas.end_date, eloas.posting_date, eloas.reason, eloas.availability, eloas.forum_id, eloas.topic_id', FALSE);
     }
     
     public function default_join() {
