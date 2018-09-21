@@ -15,6 +15,7 @@
           Posted: <b>{{dateFormat this.posting_date format="ll"}}</b> <br>
           Reason: <i>{{this.reason}}</i> <br>
           Availability: <i>{{this.availability}}</i> <br>
+          {{#if topic_url}} <a href='{{topic_url}}'>Forums post</a><br>{{/if}}
           
         
         {{/each}}
