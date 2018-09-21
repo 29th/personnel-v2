@@ -223,8 +223,9 @@ class Admin extends CI_Controller {
 	{
 	    $this->grocery_crud->set_table('eloas')
 	    	->columns('member_id', 'start_date', 'end_date', 'reason', 'availability')
-	    	->fields('member_id', 'start_date', 'end_date', 'posting_date', 'reason', 'availability')
+	    	->fields('member_id', 'start_date', 'end_date', 'posting_date', 'reason', 'availability', 'forum_id', 'topic_id')
 	    	->required_fields('member_id', 'start_date', 'end_date', 'posting_date')
+	        ->display_as('forum_id', 'Forum')
 	    	->order_by('posting_date', 'desc')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member');
         $output = $this->grocery_crud->render();
