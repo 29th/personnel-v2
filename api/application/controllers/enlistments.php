@@ -67,7 +67,7 @@ class Enlistments extends MY_Controller {
             {
                 $this->load->library('vanilla');
                 $temp = $this->vanilla->get_steam_id($enlistment['member']['forum_member_id']);
-                $enlistment['forum_steam_id'] = ( $temp ? $temp['Value'] : '' );
+                $enlistment['forum_steam_id'] = str_replace( 'https://steamcommunity.com/openid/id/', '', ( $temp ? $temp['Value'] : '' ) );
                 
                 $enlistment['is_restricted'] = $this->is_it_a_restricted_name( $enlistment['last_name'], $enlistment['member_id'] );
 
