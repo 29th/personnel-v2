@@ -135,7 +135,7 @@ class Vanilla {
     }
     
     public function get_steam_id($user_id) {
-        return $this->forums_db->query('SELECT `Value` FROM `GDN_UserMeta` WHERE `Name` = \'Plugin.steamprofile.SteamID64\' AND `UserID` = ' . (int) $user_id)->row_array();
+        return str_replace( 'https://steamcommunity.com/openid/id/', '', $this->forums_db->query('SELECT `Value` FROM `GDN_UserMeta` WHERE `Name` = \'Plugin.steamprofile.SteamID64\' AND `UserID` = ' . (int) $user_id)->row_array());
     }
     
     public function get_role_list() {
