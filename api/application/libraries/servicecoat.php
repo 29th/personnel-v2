@@ -87,15 +87,15 @@ class ServiceCoat {
             $gdDate = $this->find_GD( $member_id );
             $member = nest($this->member_model->get_by_id($member_id));
             $rank = str_replace( '/', '', str_replace('.', '', $member['rank']['abbr']) );
-            $unit = '29th';
+            $unit = $member['unit']['key'] ; //'29th'
             //Checking for GD or DD to remove previous awards
             if( $gdDate )
             	$awardings = $this->awarding_model->where(array('awardings.member_id' => $member_id, 'awardings.date >' => $gdDate ))->get()->result_array();
             else
             	$awardings = $this->awarding_model->where('awardings.member_id', $member_id)->get()->result_array();
+
             $awardings_abbr = pluck('award|abbr', $awardings);
             $this->update_servicecoatC($member['last_name'], $member['steam_id'], $rank, $unit, $awardings_abbr);
-//            $this->update_servicecoatC( $this->find_GD( $member_id ), $member['steam_id'], $rank, $unit, $awardings_abbr);
             
             return array(
                 'name' =>  $member['last_name']
@@ -106,7 +106,7 @@ class ServiceCoat {
             );
 	    }
 	}
-	
+
 	public function find_GD( $member_id ) {
         $this->load->model('discharge_model');
         $this->discharge_model->where('type !=','Honorable');
@@ -208,7 +208,8 @@ class ServiceCoat {
 		imagecopy($this->scImage, $this->scLapelCover, 0, 0, 0, 0, $this->scImgSize['x'], $this->scImgSize['y']);
 		imagedestroy($this->scLapelCover);
 		$this->scInsignia = strtolower($this->scInsignia);
-		if($this->scInsignia == "747th"){
+//		if($this->scInsignia == "747th"){
+		if( preg_match( "/^747th/", $this->scInsignia ) ){
 			$this->scArmorOfficer = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'InsigniaBranch/armor_officer.png');
 			imagecopy($this->scImage, $this->scArmorOfficer, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 			imagedestroy($this->scArmorOfficer);
@@ -228,7 +229,8 @@ class ServiceCoat {
 		imagecopy($this->scImage, $this->scLapelCover, 0, 0, 0, 0, $this->scImgSize['x'], $this->scImgSize['y']);
 		imagedestroy($this->scLapelCover);
 		$this->scInsignia = strtolower($this->scInsignia);
-		if($this->scInsignia == "747th"){
+//		if($this->scInsignia == "747th"){
+		if( preg_match( "/^747th/", $this->scInsignia ) ){
 			$this->scArmorEnlisted = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'InsigniaBranch/armor_enlisted.png');
 			imagecopy($this->scImage, $this->scArmorEnlisted, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 			imagedestroy($this->scArmorEnlisted);
@@ -1529,6 +1531,18 @@ class ServiceCoat {
 		}
 	}
 
+	private function handleServiceStripes() //Done
+	{
+		$nYearsinService = floor( $this->aoccCnt / 2 ) ;
+		
+		if ( $nYearsinService )
+		{
+			$this->ServiceStripes = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'ServiceStripes/'. $nYearsinService .'service.png');
+			imagecopy($this->scImage, $this->ServiceStripes, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
+			imagedestroy($this->ServiceStripes);	
+		}
+	}
+		
 	private function checkAccess()
 	{
 		global $root;
@@ -1566,6 +1580,7 @@ class ServiceCoat {
 			$this->handleRank();
 			$this->handlePatchs();
 			$this->handleMarksmanBadges();
+			$this->handleServiceStripes();
 			//$this->checkAccess();
 		//Handle Saving and Croping
 			//$name_String = $root . "coats/";
@@ -1678,10 +1693,14 @@ class ServiceCoat {
 		$this->scID = $id;
 		$this->scRank = $rank;
 		$this->scInsignia = $unit;
+		$this->aoccCnt = 0;
 		if($awards != NULL)
 		{
 			foreach($awards as $awardarray => $award)
 			{
+				//to get the number of aoccs
+				if ( $award == 'aocc' ) $this->aoccCnt++;
+				//continuing...
 				switch($award)
 				{
 					case (in_array($award, $this->scAllAQBadges)): array_push($this->scAQBadges, $award); break;
