@@ -19,7 +19,8 @@ class Recruits_model extends MY_Model
             ->select("mem2.last_name AS `recruiter|last_name` ")
             ->select("enlistments.status AS `enl|status` ")
             ->select("u1.abbr AS `tp|tp` ")
-            ->select("u1.id AS `tp|id` ");
+            ->select("u1.id AS `tp|id` ")
+            ->select("u1.active AS `tp|active` ");
     }
     
     public function default_join() 
