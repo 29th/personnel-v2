@@ -22,7 +22,7 @@ class Alerts_model extends MY_Model {
         $this->filter_join('(SELECT member_id, GROUP_CONCAT(date) AS aocc_list FROM awardings WHERE awardings.award_id = 10 GROUP BY awardings.member_id) AS aocc_awardings', 'aocc_awardings.member_id = members.id', 'left');
         $this->filter_join('(SELECT member_id, GROUP_CONCAT(date) AS ww1v_list FROM awardings WHERE awardings.award_id = 61 GROUP BY awardings.member_id) AS ww1v_awardings', 'ww1v_awardings.member_id = members.id', 'left');
         $this->filter_join('(SELECT member_id, Max(award_id)-27 AS cab_lvl FROM awardings WHERE awardings.award_id IN (28,29,30,31,32) GROUP BY awardings.member_id) AS cabs_awardings', 'cabs_awardings.member_id = members.id', 'left');
-        $this->filter_join('(SELECT recruiter_member_id AS id, Count(1) as rec_cnt, Max(date) AS last_enl_date FROM enlistments WHERE status="Accepted" AND recruiter_member_id IS NOT NULL GROUP BY recruiter_member_id) AS recuits', 'recuits.id = members.id', 'left');
+        $this->filter_join('(SELECT e.recruiter_member_id AS id, Count(1) as rec_cnt, Max(e.date) AS last_enl_date FROM enlistments AS e LEFT JOIN units AS ue ON ue.id=e.unit_id WHERE e.status="Accepted" AND e.recruiter_member_id IS NOT NULL AND (ue.active=0 OR ue.class<>"Training" OR e.unit_id IS NULL) GROUP BY e.recruiter_member_id) AS recuits', 'recuits.id = members.id', 'left');
     }
 
     public function default_order_by($member_id = FALSE) {

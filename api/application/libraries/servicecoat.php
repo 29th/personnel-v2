@@ -1537,7 +1537,7 @@ class ServiceCoat {
 		
 		if ( $nYearsinService )
 		{
-			$this->ServiceStripes = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'ServiceStripes/'. $nYearsinService .'service.png');
+			$this->ServiceStripes = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'ServiceStripes'.($this->getIsOfficer($this->scRank)?'Officer':'Enlisted').'/'. $nYearsinService .'service.png');
 			imagecopy($this->scImage, $this->ServiceStripes, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 			imagedestroy($this->ServiceStripes);	
 		}
