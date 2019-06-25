@@ -47,6 +47,10 @@ class MY_Controller extends REST_Controller {
                 //&& (round((strtotime($this->input->get('to')) - strtotime($this->input->get('from')))/60/60/24, 1) <= 45)) {
                 $model->by_date($this->input->get('from'), $this->input->get('to'))->get();
             }
+            // If type
+            elseif($this->input->get('type')) {
+                $model->by_type($this->input->get('type'))->get();
+            }
             // Otherwise paginate
             elseif($this->paginate) {
                 $model->paginate('', $skip);

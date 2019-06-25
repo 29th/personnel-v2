@@ -79,4 +79,9 @@ class MY_Model extends CRUD_Model {
         if($end) $this->filter_where($date_field . ' <=', format_date($end, 'mysqldate'));
         return $this;
     }
+
+    public function by_type($type = '') {
+        $this->filter_where('type', $type);
+        return $this;
+    }
 }
