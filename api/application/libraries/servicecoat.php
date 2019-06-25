@@ -1348,9 +1348,13 @@ class ServiceCoat {
 						imagecopy($this->scImage, $this->scTLrupduck, $scRupturedDuckX, $scRupturedDuckY, 0, 0, $scRupturedDuckSizeX, $scRupturedDuckSizeY);
 						imagedestroy($this->scTLrupduck);
 					break;
+/*
 					case 'e:pilot:a3':
 					case 's:pilot:a3':
 					case 'm:pilot:a3':
+					case 'e:pilot:rs2':
+					case 's:pilot:rs2':
+					case 'm:pilot:rs2':
 						$scTLRibbonRows = $scURibRows;
 						if($scURibRemain > 0 && $scURibRemain < 3)
 						{
@@ -1371,8 +1375,32 @@ class ServiceCoat {
 						$scPilotY = $scURibMidPos['y'] - ($scTLRibbonRows * $scURibbonSize['y'] + $scPilotSizeY) - $this->scFourthInch;
 						imagecopy($this->scImage, $this->scTLpilot, $scPilotX, $scPilotY, 0, 0, $scPilotSizeX, $scPilotSizeY);
 						imagedestroy($this->scTLpilot);
+*/
 					break;
 					default:
+					  if (explode(":",$badge)[1] == 'pilot')
+					  {
+						$scTLRibbonRows = $scURibRows;
+						if($scURibRemain > 0 && $scURibRemain < 3)
+						{
+							$scTLRibbonRows = $scURibRows + 1;
+						}
+						switch(substr( $badge, 0, 1 ) ) 
+						{
+							case 'e':
+								$this->scTLpilot = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesPilot/Expert.png'); break;
+							case 's':
+								$this->scTLpilot = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesPilot/Sharps.png'); break;
+							case 'm':
+								$this->scTLpilot = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'BadgesPilot/Marks.png'); break;
+						}
+						$scPilotSizeX = imagesx($this->scTLpilot);
+						$scPilotSizeY = imagesy($this->scTLpilot);
+						$scPilotX = ($scURibMidPos['x'] - ($scPilotSizeX / 2) - 20);
+						$scPilotY = $scURibMidPos['y'] - ($scTLRibbonRows * $scURibbonSize['y'] + $scPilotSizeY) - $this->scFourthInch;
+						imagecopy($this->scImage, $this->scTLpilot, $scPilotX, $scPilotY, 0, 0, $scPilotSizeX, $scPilotSizeY);
+						imagedestroy($this->scTLpilot);
+					  }
 					break;
 				}
 			}
