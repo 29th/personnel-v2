@@ -35,7 +35,7 @@ class ServiceCoat {
 		private $scAllARibbons = array('french','dsc','dsm','sstar','lom','sm','bstar','pheart','dms','msm','arcom','aach','mpsm','gcon','arcam','adef','acamp','eamc','ww2v','aocc','afem','afsm','movsm','anpdr','ww1v');
 		private $scAllURibbons = array('muc','suc','dh','dod','trenches','battlegrounds','rs','arma','rs2','sq');
 		private $scAllTRBadges = array('eib','cib','cib1','cib2','cib3','cib4','cab','cab1','cab2','cab3','cab4');
-		private $scAllTLBadges = array('rd','m:pilot:a3','s:pilot:a3','e:pilot:a3');
+		private $scAllTLBadges = array('rd','m:pilot:a3','s:pilot:a3','e:pilot:a3','m:pilot:rs2','s:pilot:rs2','e:pilot:rs2');
 		private $scAllBLBadges = array('drillsergeant');
 		private $scAllBRBadges = array('mp','recruiter','recruiter2','recruiter3','recruiter4','recruiter5');
 	//SC Positions
