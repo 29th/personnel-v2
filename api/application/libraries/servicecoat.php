@@ -25,12 +25,12 @@ class ServiceCoat {
 			,'m:rifle:a3','m:bar:a3','m:zook:a3','m:mg:a3','m:sniper:a3','m:armor:a3','m:smg:a3','m:grenadier:a3'
 			,'s:rifle:a3','s:bar:a3','s:zook:a3','s:mg:a3','s:sniper:a3','s:armor:a3','s:smg:a3','s:grenadier:a3'
 			,'e:rifle:a3','e:bar:a3','e:zook:a3','e:mg:a3','e:sniper:a3','e:armor:a3','e:smg:a3','e:grenadier:a3'
-			,'m:rifle:rs2','m:grenadier:rs2','m:mg:rs2','m:smg:rs2','m:sniper:rs2','m:zook:rs2'
-			,'s:rifle:rs2','s:grenadier:rs2','s:mg:rs2','s:smg:rs2','s:sniper:rs2','s:zook:rs2'
-			,'e:rifle:rs2','e:grenadier:rs2','e:mg:rs2','e:smg:rs2','e:sniper:rs2','e:zook:rs2'
-			,'m:rifle:sq','m:bar:sq','m:grenadier:sq','m:sniper:sq','m:zook:sq'
-			,'s:rifle:sq','s:bar:sq','s:grenadier:sq','s:sniper:sq','s:zook:sq'
-			,'e:rifle:sq','e:bar:sq','e:grenadier:sq','e:sniper:sq','e:zook:sq'
+			,'m:rifle:rs2','m:grenadier:rs2','m:mg:rs2','m:smg:rs2','m:sniper:rs2','m:zook:rs2','m:armor:rs2'
+			,'s:rifle:rs2','s:grenadier:rs2','s:mg:rs2','s:smg:rs2','s:sniper:rs2','s:zook:rs2','s:armor:rs2'
+			,'e:rifle:rs2','e:grenadier:rs2','e:mg:rs2','e:smg:rs2','e:sniper:rs2','e:zook:rs2','e:armor:rs2'
+			,'m:rifle:sq','m:bar:sq','m:grenadier:sq','m:sniper:sq','m:zook:sq','m:armor:sq'
+			,'s:rifle:sq','s:bar:sq','s:grenadier:sq','s:sniper:sq','s:zook:sq','s:armor:sq'
+			,'e:rifle:sq','e:bar:sq','e:grenadier:sq','e:sniper:sq','e:zook:sq','e:armor:sq'
 			);
 		private $scAllARibbons = array('french','dsc','dsm','sstar','lom','sm','bstar','pheart','dms','msm','arcom','aach','mpsm','gcon','arcam','adef','acamp','eamc','ww2v','aocc','afem','afsm','movsm','anpdr','ww1v');
 		private $scAllURibbons = array('muc','suc','dh','dod','trenches','battlegrounds','rs','arma','rs2','sq');
