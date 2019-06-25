@@ -252,7 +252,7 @@ class Admin extends CI_Controller {
 	{
 	    $this->grocery_crud->set_table('events')
 	        ->columns('datetime', 'unit_id', 'type', 'mandatory', 'server_id')
-	        ->fields('datetime', 'unit_id', 'type', 'mandatory', 'server_id', 'report', 'reporter_member_id')
+	        ->fields('datetime', 'unit_id', 'type', 'title', 'mandatory', 'server_id', 'report', 'reporter_member_id')
 	        ->display_as('datetime', 'Date/time')
 	        ->required_fields('datetime', 'unit_id', 'type')
 	        ->set_relation('unit_id', 'units', 'abbr')->display_as('unit_id', 'Unit')
