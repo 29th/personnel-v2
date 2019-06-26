@@ -38,6 +38,7 @@ class ServiceCoat {
 		private $scAllTLBadges = array('rd','m:pilot:a3','s:pilot:a3','e:pilot:a3','m:pilot:rs2','s:pilot:rs2','e:pilot:rs2');
 		private $scAllBLBadges = array('drillsergeant');
 		private $scAllBRBadges = array('mp','recruiter','recruiter2','recruiter3','recruiter4','recruiter5');
+		private $scAllCords    = array('bicord');
 	//SC Positions
 		private $scMidMarksPos = array('x' => '545', 'y' => '316');
 		private $scMidRibPos = array('x' => '543', 'y' => '306');
@@ -73,6 +74,7 @@ class ServiceCoat {
 			$this->scPiBadges = array();
 			$this->scBLBadges = array();
 			$this->scBRBadges = array();
+			$this->scCords    = array();
 			$this->scInsignia = null;	
 		//Other Variables
 			$this->scFourthInch = 7; //approx size of 1/4 an inch on the jacket
@@ -83,9 +85,11 @@ class ServiceCoat {
 	    if(file_exists(getenv('DIR_COAT_RESOURCES'))) {
     	    $this->load->model('member_model');
     	    $this->load->model('awarding_model');
+    	    $this->load->model('finance_model');
     	    
             $gdDate = $this->find_GD( $member_id );
             $member = nest($this->member_model->get_by_id($member_id));
+            $balance = 0;
             $rank = str_replace( '/', '', str_replace('.', '', $member['rank']['abbr']) );
             $unit = $member['unit']['key'] ; //'29th'
             //Checking for GD or DD to remove previous awards
@@ -95,7 +99,11 @@ class ServiceCoat {
             	$awardings = $this->awarding_model->where('awardings.member_id', $member_id)->get()->result_array();
 
             $awardings_abbr = pluck('award|abbr', $awardings);
-            $this->update_servicecoatC($member['last_name'], $member['steam_id'], $rank, $unit, $awardings_abbr);
+            
+            $finances = $this->finance_model->by_member($member_id)->get()->result_array();
+            foreach( $finances as $fin_record )	$balance += $fin_record['amount_received'];	
+            
+            $this->update_servicecoatC($member['last_name'], $member['steam_id'], $rank, $unit, $awardings_abbr,$balance);
             
             return array(
                 'name' =>  $member['last_name']
@@ -103,6 +111,7 @@ class ServiceCoat {
                 ,'rank' => $rank
                 ,'unit' => $unit
                 ,'awardings' => $awardings_abbr
+                ,'fin' => $finances
             );
 	    }
 	}
@@ -1571,6 +1580,41 @@ class ServiceCoat {
 		}
 	}
 		
+	private function handleScrimBars() //WiP
+	{
+		
+	}
+
+	private function handleCords() //WiP
+	{
+	//For right hand side cords - currently assigned to recurring donations
+		if(count($this->scCords) > 0)
+		{
+			$this->RightCord = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Cords/Infantry.png');
+			imagecopy($this->scImage, $this->RightCord, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
+			imagedestroy($this->RightCord);	
+		}
+	//For left hand side cords - currently for lifetime donations
+		if ( $this->scBalance > 1000 ) 
+		{
+			$this->LefCord = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Cords/Aiguillette.png');
+			imagecopy($this->scImage, $this->LefCord, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
+			imagedestroy($this->LefCord);	
+		}
+		elseif ( $this->scBalance > 500 ) 
+		{
+			$this->LefCord = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Cords/Belgian.png');
+			imagecopy($this->scImage, $this->LefCord, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
+			imagedestroy($this->LefCord);	
+		}	
+		elseif ( $this->scBalance > 250 ) 
+		{
+			$this->LefCord = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Cords/French.png');
+			imagecopy($this->scImage, $this->LefCord, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
+			imagedestroy($this->LefCord);	
+		}
+	}
+
 	private function checkAccess()
 	{
 		global $root;
@@ -1609,6 +1653,8 @@ class ServiceCoat {
 			$this->handlePatchs();
 			$this->handleMarksmanBadges();
 			$this->handleServiceStripes();
+			$this->handleScrimBars();
+			$this->handleCords();
 			//$this->checkAccess();
 		//Handle Saving and Croping
 			//$name_String = $root . "coats/";
@@ -1713,7 +1759,7 @@ class ServiceCoat {
 	{
 		return $this->scID;
 	}
-	public function update_servicecoatC($name=0, $id=0, $rank='pvt', $unit='29th', $awards=array())
+	public function update_servicecoatC($name=0, $id=0, $rank='pvt', $unit='29th', $awards=array(), $balance=0)
 	{
 	    $this->prepare(); // used to be __construct() but does things that shouldn't be in construct
 		$awards = $this->arraytolower($awards);
@@ -1722,6 +1768,7 @@ class ServiceCoat {
 		$this->scRank = $rank;
 		$this->scInsignia = $unit;
 		$this->aoccCnt = 0;
+		$this->scBalance = $balance;
 		if($awards != NULL)
 		{
 			foreach($awards as $awardarray => $award)
@@ -1738,6 +1785,7 @@ class ServiceCoat {
 					case (in_array($award, $this->scAllTLBadges)): array_push($this->scTLBadges, $award); break;
 					case (in_array($award, $this->scAllBLBadges)): array_push($this->scBLBadges, $award); break;
 					case (in_array($award, $this->scAllBRBadges)): array_push($this->scBRBadges, $award); break;
+					case (in_array($award, $this->scAllCords)):    array_push($this->scCords, $award); break;
 				}
 			}
 		}

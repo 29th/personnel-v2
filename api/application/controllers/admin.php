@@ -271,11 +271,32 @@ class Admin extends CI_Controller {
 	        /*->field_type('forum_id', 'dropdown', array('1' => 'PHPBB', '2' => 'SMF', '3' => 'Vanilla'))*/->display_as('forum_id', 'Forum')
 	        ->field_type('topic_id','integer')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member');
+        $this->grocery_crud->callback_after_insert(array($this, '_callback_finances_after_change'));
+	    $this->grocery_crud->callback_after_update(array($this, '_callback_finances_after_change'));
+	    $this->grocery_crud->callback_before_delete(array($this, '_callback_finances_before_delete'));
         $output = $this->grocery_crud->render();
  
         $this->output($output, 'finances');
 	}
     
+	public function _callback_finances_after_change($data, $id = null) {
+        $this->load->library('servicecoat');
+        // Update cords
+        $this->servicecoat->update($data['member_id']);
+	}
+	
+	function _callback_finances_before_delete($id) {
+/**/
+        $this->load->model('finance_model');
+        $this->load->library('servicecoat');
+        
+	    $data = (array) nest($this->finance_model->get_by_id($id));
+        
+        // Update coat
+        $this->load->library('servicecoat');
+        $this->servicecoat->update($data['member_id']);
+	}
+
     public function members()
 	{
         $crud = new grocery_CRUD();
