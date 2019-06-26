@@ -1595,19 +1595,19 @@ class ServiceCoat {
 			imagedestroy($this->RightCord);	
 		}
 	//For left hand side cords - currently for lifetime donations
-		if ( $this->scBalance > 1000 ) 
+		if ( $this->scBalance >= 1000 ) 
 		{
 			$this->LefCord = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Cords/Aiguillette.png');
 			imagecopy($this->scImage, $this->LefCord, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 			imagedestroy($this->LefCord);	
 		}
-		elseif ( $this->scBalance > 500 ) 
+		elseif ( $this->scBalance >= 500 ) 
 		{
 			$this->LefCord = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Cords/Belgian.png');
 			imagecopy($this->scImage, $this->LefCord, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
 			imagedestroy($this->LefCord);	
 		}	
-		elseif ( $this->scBalance > 250 ) 
+		elseif ( $this->scBalance >= 250 ) 
 		{
 			$this->LefCord = imagecreatefrompng(getenv('DIR_COAT_RESOURCES') . 'Cords/French.png');
 			imagecopy($this->scImage, $this->LefCord, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
