@@ -12,6 +12,9 @@ RUN curl --silent --show-error https://getcomposer.org/download/1.8.6/composer.p
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf \
   && a2enmod rewrite
 
+# Configure php.ini
+RUN echo "date.timezone = \"America/New_York\"" > "$PHP_INI_DIR/conf.d/docker.ini"
+
 # Enable php mysql extension
 RUN docker-php-ext-install mysqli
 
