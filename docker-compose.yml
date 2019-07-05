@@ -1,0 +1,92 @@
+version: '3'
+services:
+  app:
+    build: ./app
+    ports:
+      - "8080:8080"
+    command: npm run dev
+    volumes:
+      - ./app/src:/home/node/app/src
+    environment:
+      BASE_URL: http://localhost:8080
+      API_HOST: http://localhost:8081
+      COAT_DIR: http://localhost:8081/coats
+      FORUM_VANILLA_BASE_URL: http://localhost:8082
+      FORUM_SMF_BASE_URL: http://29th.org/forums
+      WIKI_URL: http://29th.org/wiki
+
+  api:
+    build: ./api
+    ports:
+      - "8081:80"
+    volumes:
+      - ./api/application:/var/www/html/application
+    environment:
+      DB_DEFAULT_DATABASE: personnel_v2
+      DB_DEFAULT_HOSTNAME: db-personnel
+      DB_DEFAULT_USERNAME: root
+      DB_DEFAULT_PASSWORD: pwd
+      DB_DEFAULT_PORT: 3306
+      DB_FORUMS_DATABASE: vanilla
+      DB_FORUMS_HOSTNAME: db-vanilla
+      DB_FORUMS_USERNAME: root
+      DB_FORUMS_PASSWORD: pwd
+      DB_FORUMS_PORT: 3307
+      ENCRYPTION_KEY: dev
+      CORS_HOST: http://localhost:8080
+      VANILLA_COOKIE_NAME: Vanilla
+      VANILLA_COOKIE_DOMAIN: http://localhost:8082
+      VANILLA_COOKIE_PATH: /
+      VANILLA_COOKIE_HASH_METHOD: md5
+      VANILLA_COOKIE_SALT: dev
+      ENVIRONMENT: development
+      # DIR_COAT_RESOURCES: 
+      # DIR_COAT_PUBLIC: 
+
+  vanilla:
+    build: ./vanilla
+    ports:
+      - "8082:80"
+    volumes:
+      # Don't mount conf dir because then there won't be a config.php
+      - ./vanilla/plugins:/var/www/html/plugins
+      - ./vanilla/themes:/var/www/html/themes
+      - ./vanilla/uploads:/var/www/html/uploads
+    environment:
+      DB_HOSTNAME: db-vanilla
+      DB_DATABASE: vanilla
+      DB_USERNAME: root
+      DB_PASSWORD: pwd
+      ENVIRONMENT: development
+      VANILLA_COOKIE_SALT: dev
+      APP_URL: http://localhost:8080
+
+  db-personnel:
+    image: mysql:5.6
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/personnel.sql:/docker-entrypoint-initdb.d/personnel.sql
+      - db-personnel-persistence:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: personnel_v2
+      MYSQL_ROOT_PASSWORD: pwd
+
+  db-vanilla:
+    image: mysql:5.6
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./db/vanilla.sql:/docker-entrypoint-initdb.d/vanilla.sql
+      - db-vanilla-persistence:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: vanilla
+      MYSQL_ROOT_PASSWORD: pwd
+
+volumes:
+  db-personnel-persistence:
+  db-vanilla-persistence:
