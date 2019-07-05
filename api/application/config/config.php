@@ -380,6 +380,8 @@ $config['third_party_cookie'] = 'SMFCookie10';
 */
 $config['pagination_limit'] = 30;
 
+/* timezone */
+date_default_timezone_set('America/New_York');
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
