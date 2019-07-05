@@ -5,7 +5,7 @@ Create a directory called `personnel` and clone the three relevant repositories 
 ```bash
 git clone git@github.com:29th/personnel-api.git
 git clone git@github.com:29th/personnel-app.git
-git clone --recursive -b 29th-extensions-2.2.1 git@github.com:29th/vanilla.git
+git clone --recursive -b 29th-extensions-2.1.11 git@github.com:29th/vanilla.git
 ```
 > Note the `vanilla` repo is cloned recursively to include the theme and plugins, which are
 > linked repositories, and checks out our latest custom branch.
