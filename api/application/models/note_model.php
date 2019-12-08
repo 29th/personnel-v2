@@ -16,9 +16,9 @@ class Note_model extends MY_Model {
     public function default_select() {
         $this->db->select('SQL_CALC_FOUND_ROWS notes.*', FALSE)
             ->select('authors.id AS `author|id`', FALSE)
-            ->select('CONCAT(a_ranks.`abbr`, " ", IF(authors.`name_prefix` != "", CONCAT(authors.`name_prefix`, " "), ""), authors.`last_name`) AS `author|short_name`', FALSE)
+            ->select("CONCAT(a_ranks.`abbr`, ' ', IF(authors.`name_prefix` != '', CONCAT(authors.`name_prefix`, ' '), ''), authors.`last_name`) AS `author|short_name`", FALSE)
             ->select('subjects.id AS `object|id`',FALSE)
-            ->select('CONCAT(s_ranks.`abbr`, " ", IF(subjects.`name_prefix` != "", CONCAT(subjects.`name_prefix`, " "), ""), subjects.`last_name`) AS `object|short_name`', FALSE)
+            ->select("CONCAT(s_ranks.`abbr`, ' ', IF(subjects.`name_prefix` != '', CONCAT(subjects.`name_prefix`, ' '), ''), subjects.`last_name`) AS `object|short_name`", FALSE)
         ;
     }
 

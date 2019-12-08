@@ -19,7 +19,7 @@ class Tp_model extends MY_Model {
     }
     
     public function default_where() {
-        $this->filter_where('units.class = "Training" AND units.id <> 43');
+        $this->filter_where("units.class = 'Training' AND units.id <> 43");
     }
     
     public function default_order_by() {

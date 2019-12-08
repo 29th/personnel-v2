@@ -108,9 +108,9 @@ class Event_model extends MY_Model {
 
     public function by_unit($unit_id) {
         if(is_numeric($unit_id)) {
-            $this->filter_where('(units.id = ' . $unit_id . ' OR units.path LIKE "%/' . $unit_id . '/%")');
+            $this->filter_where('(units.id = ' . $unit_id . " OR units.path LIKE '%/" . $unit_id . "/%')");
         } elseif($lookup = $this->getByUnitKey($unit_id)) {
-            $this->filter_where('(units.id = ' . $lookup['id'] . ' OR (units.path LIKE "%/' . $lookup['id'] . '/%"))');
+            $this->filter_where('(units.id = ' . $lookup['id'] . " OR (units.path LIKE '%/" . $lookup['id'] . "/%'))");
         }
         $this->filter_group_by($this->primary_key);
         return $this;

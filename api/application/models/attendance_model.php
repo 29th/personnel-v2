@@ -45,12 +45,12 @@ class Attendance_model extends MY_Model {
         $this->filter_select('SUM(attendance.attended) AS attended, COUNT(attendance.attended) - SUM(attendance.attended) AS absent, SUM(IF(attendance.attended = 0, IF(attendance.excused = 1, 1, 0), 0)) AS excused, IF(events.reporter_member_id IS NULL, 0, 1) as is_aar ', FALSE);
 
         if(is_numeric($unit_id)) {
-            $this->filter_where('(units.id = ' . $unit_id . ' OR units.path LIKE "%/' . $unit_id . '/%")');
+            $this->filter_where('(units.id = ' . $unit_id . " OR units.path LIKE '%/" . $unit_id . "/%')");
         } elseif($lookup = $this->getByUnitKey($unit_id)) {
-            $this->filter_where('(units.id = ' . $lookup['id'] . ' OR (units.path LIKE "%/' . $lookup['id'] . '/%"))');
+            $this->filter_where('(units.id = ' . $lookup['id'] . " OR (units.path LIKE '%/" . $lookup['id'] . "/%'))");
         }
 
-        $this->filter_where('(events.reporter_member_id IS NOT NULL OR units.class="Training")');
+        $this->filter_where("(events.reporter_member_id IS NOT NULL OR units.class='Training')");
         $this->filter_group_by('attendance.event_id');
         $this->filter_order_by('events.datetime DESC');
         return $this;
@@ -107,8 +107,8 @@ class Attendance_model extends MY_Model {
         $this->filter_where('events.datetime >= DATE_SUB(NOW(), INTERVAL ' . (int) $days . ' DAY)');
         $this->filter_where('events.datetime < DATE_SUB(NOW(), INTERVAL 24 HOUR)'); // Not considered AWOL until 24 hours after the event
         $this->filter_where('events.mandatory', 1);
-        $this->filter_where('(units.id = ' . $unit_id . ' OR units.path LIKE "%/' . $unit_id . '/%")');
-        $this->filter_where('(assignmentUnits.id = ' . $unit_id . ' OR assignmentUnits.path LIKE "%/' . $unit_id . '/%")');
+        $this->filter_where('(units.id = ' . $unit_id . " OR units.path LIKE '%/" . $unit_id . "/%')");
+        $this->filter_where('(assignmentUnits.id = ' . $unit_id . " OR assignmentUnits.path LIKE '%/" . $unit_id . "/%')");
         $this->filter_where('assignments.end_date IS NULL'); // Only include current members
         $this->filter_order_by('events.datetime');
         //$this->filter_group_by('`member|id`, `event|date`'); // Add this to limit AWOLs to one per day
@@ -155,9 +155,9 @@ class Attendance_model extends MY_Model {
         
         if ( $filter_key == 'unit' ) {
              if(is_numeric($filter_value)) {
-                 $cSql .= 'AND (e.unit_id = ' . (int) $filter_value . ' OR u.path LIKE "%/' . (int) $filter_value . '/%")';
+                 $cSql .= 'AND (e.unit_id = ' . (int) $filter_value . " OR u.path LIKE '%/" . (int) $filter_value . "/%')";
              } elseif($lookup = $this->getByUnitKey($filter_value)) {
-                 $cSql .= 'AND (e.unit_id = ' . $lookup['id'] . ' OR (u.path LIKE "%/' . $lookup['id'] . '/%"))';
+                 $cSql .= 'AND (e.unit_id = ' . $lookup['id'] . " OR (u.path LIKE '%/" . $lookup['id'] . "/%'))";
              }
         }
         else {

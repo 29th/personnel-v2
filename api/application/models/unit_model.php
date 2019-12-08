@@ -91,7 +91,7 @@ class Unit_model extends MY_Model {
         if(is_numeric($filter)) {
             // If getting children, search by path and id
             if($children !== FALSE) {
-                $this->filter_where('(units.id = ' . $filter . ' OR (' . ( ! $inactive ? 'units.active = 1 AND ' : '') . 'units.path LIKE "%/' . $filter . '/%"))');
+                $this->filter_where('(units.id = ' . $filter . ' OR (' . ( ! $inactive ? 'units.active = 1 AND ' : '') . "units.path LIKE '%/" . $filter . "/%'))");
             }
             // Otherwise just get the individual record by id
             else {
@@ -102,7 +102,7 @@ class Unit_model extends MY_Model {
         else if($filter) {
             // If looking up by unit_key and we want children, we need to get the unit's id with a separate query
             if($children !== FALSE && $lookup = $this->getByUnitKey($filter)) {
-                $this->filter_where('(units.id = ' . $lookup['id'] . ' OR (' . ( ! $inactive ? 'units.active = 1 AND ' : '') . 'units.path LIKE "%/' . $lookup['id'] . '/%"))');
+                $this->filter_where('(units.id = ' . $lookup['id'] . ' OR (' . ( ! $inactive ? 'units.active = 1 AND ' : '') . "units.path LIKE '%/" . $lookup['id'] . "/%'))");
             }
             else {
                 $this->filter_where($this->virtual_fields['unit_key'] . ' = ' . $this->db->escape($filter));

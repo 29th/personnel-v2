@@ -51,9 +51,9 @@ class Recruits_model extends MY_Model
 
     public function by_unit($unit_id) {
         if(is_numeric($unit_id)) {
-            $this->filter_where('enlistments.recruiter_member_id IN ( SELECT member_id FROM `assignments` WHERE end_date IS NULL AND unit_id IN ( SELECT id FROM `units` WHERE (units.id = ' . $unit_id . ' OR units.path LIKE "%/' . $unit_id . '/%") ) )');
+            $this->filter_where('enlistments.recruiter_member_id IN ( SELECT member_id FROM `assignments` WHERE end_date IS NULL AND unit_id IN ( SELECT id FROM `units` WHERE (units.id = ' . $unit_id . " OR units.path LIKE '%/" . $unit_id . "/%') ) )");
         } elseif($lookup = $this->getByUnitKey($unit_id)) {
-            $this->filter_where('enlistments.recruiter_member_id IN ( SELECT member_id FROM `assignments` WHERE end_date IS NULL AND unit_id IN ( SELECT id FROM `units` WHERE (units.id = ' . $lookup['id'] . ' OR units.path LIKE "%/' . $lookup['id'] . '/%") ) )');
+            $this->filter_where('enlistments.recruiter_member_id IN ( SELECT member_id FROM `assignments` WHERE end_date IS NULL AND unit_id IN ( SELECT id FROM `units` WHERE (units.id = ' . $lookup['id'] . " OR units.path LIKE '%/" . $lookup['id'] . "/%') ) )");
         }
         return $this;
     }

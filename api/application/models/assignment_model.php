@@ -131,8 +131,8 @@ class Assignment_model extends MY_Model {
      */
     public function by_date($date = 'now') {
         $date = format_date($date, 'mysqldate'); // Format date string for MySQL
-        $this->filter_where('(assignments.start_date <= "' . $date . '")');
-        $this->filter_where('(assignments.end_date > "' . $date . '" OR assignments.end_date IS NULL)');
+        $this->filter_where("(assignments.start_date <= '" . $date . "')");
+        $this->filter_where("(assignments.end_date > '" . $date . "' OR assignments.end_date IS NULL)");
         return $this;
     }
     
@@ -158,7 +158,7 @@ class Assignment_model extends MY_Model {
         
         // If seeking members of child units, look for $unit_id in path or id
         if($children !== FALSE) {
-            $this->filter_where('(assignments.unit_id = ' . $unit_id . ' OR units.path LIKE "%/' . $unit_id . '/%")');
+            $this->filter_where('(assignments.unit_id = ' . $unit_id . " OR units.path LIKE '%/" . $unit_id . "/%')");
         } else {
             $this->filter_where('assignments.unit_id', $unit_id);
         }
@@ -214,7 +214,7 @@ class Assignment_model extends MY_Model {
     public function discharge($member_id, $date = 'now') {
         $date = format_date($date, 'mysqldate'); // Format date string for MySQL
         $this->db->where('assignments.member_id', $member_id)
-            ->where('(assignments.end_date IS NULL OR assignments.end_date > "' . $date . '")', NULL, FALSE)
+            ->where("(assignments.end_date IS NULL OR assignments.end_date > '" . $date . "')", NULL, FALSE)
             ->update($this->table, array('assignments.end_date' => $date));
     }
 }
