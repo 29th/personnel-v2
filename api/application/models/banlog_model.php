@@ -36,7 +36,7 @@ class Banlog_model extends MY_Model {
         $this->filter_select('banlog.id_admin AS `admin|id`');
         $this->filter_select($this->virtual_fields['short_name'] . ' AS `admin|short_name`', FALSE);
         $this->filter_select('banlog.id_poster AS `poster|id`');
-        $this->filter_select('CONCAT(p_ranks.abbr," ",p_members.last_name) AS `poster|short_name`', FALSE);
+        $this->filter_select("CONCAT(p_ranks.abbr,' ',p_members.last_name) AS `poster|short_name`", FALSE);
         $this->filter_join('members', 'members.id = banlog.id_admin','left');
         $this->filter_join('ranks', 'ranks.id = members.rank_id','left');
         $this->filter_join('members AS p_members', 'p_members.id = banlog.id_poster','left');

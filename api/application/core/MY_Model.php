@@ -5,11 +5,11 @@ if( ! class_exists('CRUD_Model')) {
 
 class MY_Model extends CRUD_Model {
     protected $virtual_fields = array(
-        'depth' => 'LENGTH(units.`path`) - (LENGTH(REPLACE(units.`path`, "/", "")))',
-        'parent_id' => 'NULLIF(SUBSTRING_INDEX(SUBSTRING_INDEX(units.`path`, "/", -2), "/", 1), "")',
-        'unit_key' => 'REPLACE(REPLACE(REPLACE(REPLACE(units.`abbr`, " HQ", ""), " Co", ""), ".", ""), " ", "")',
-        'short_name' => 'CONCAT(ranks.`abbr`, " ", IF(members.`name_prefix` != "", CONCAT(members.`name_prefix`, ". "), ""), members.`last_name`)',
-        'full_name' => 'CONCAT(members.`first_name`, " ", IF(members.`middle_name` != "", CONCAT(LEFT(members.`middle_name`, 1), ". "), ""), members.`last_name`)',
+        'depth' => "LENGTH(units.`path`) - (LENGTH(REPLACE(units.`path`, '/', '')))",
+        'parent_id' => "NULLIF(SUBSTRING_INDEX(SUBSTRING_INDEX(units.`path`, '/', -2), '/', 1), '')",
+        'unit_key' => "REPLACE(REPLACE(REPLACE(REPLACE(units.`abbr`, ' HQ', ''), ' Co', ''), '.', ''), ' ', '')",
+        'short_name' => "CONCAT(ranks.`abbr`, ' ', IF(members.`name_prefix` != '', CONCAT(members.`name_prefix`, '. '), ''), members.`last_name`)",
+        'full_name' => "CONCAT(members.`first_name`, ' ', IF(members.`middle_name` != '', CONCAT(LEFT(members.`middle_name`, 1), '. '), ''), members.`last_name`)",
     );
     
     public function select_member($join_type = 'left') {
@@ -30,9 +30,9 @@ class MY_Model extends CRUD_Model {
         $this->filter_join('units', 'units.id = assignments.unit_id');
 
         if(is_numeric($unit_id)) {
-            $this->filter_where('(units.id = ' . $unit_id . ' OR units.path LIKE "%/' . $unit_id . '/%")');
+            $this->filter_where('(units.id = ' . $unit_id . " OR units.path LIKE '%/" . $unit_id . "/%')");
         } elseif($lookup = $this->getByUnitKey($unit_id)) {
-            $this->filter_where('(units.id = ' . $lookup['id'] . ' OR (units.path LIKE "%/' . $lookup['id'] . '/%"))');
+            $this->filter_where('(units.id = ' . $lookup['id'] . " OR (units.path LIKE '%/" . $lookup['id'] . "/%'))");
         }
         $this->filter_where('assignments.end_date IS NULL'); // Only include current members
         $this->filter_group_by($this->primary_key);
@@ -55,9 +55,9 @@ class MY_Model extends CRUD_Model {
         $this->filter_join('units', 'units.id = assignments.unit_id');
 */
         if(is_numeric($unit_id)) {
-            $_where_clause .= ' AND (units.id = ' . $unit_id . ' OR units.path LIKE "%/' . $unit_id . '/%")';
+            $_where_clause .= ' AND (units.id = ' . $unit_id . " OR units.path LIKE '%/" . $unit_id . "/%')";
         } elseif($lookup = $this->getByUnitKey($unit_id)) {
-            $_where_clause .= ' AND (units.id = ' . $lookup['id'] . ' OR (units.path LIKE "%/' . $lookup['id'] . '/%"))';
+            $_where_clause .= ' AND (units.id = ' . $lookup['id'] . " OR (units.path LIKE '%/" . $lookup['id'] . "/%'))";
         }
 /*
         $this->filter_where('assignments.end_date IS NULL'); // Only include current members

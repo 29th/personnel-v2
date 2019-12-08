@@ -47,11 +47,11 @@ class Pass_model extends MY_Model {
 
     public function select_member() {
         $this->filter_select('passes.member_id AS `member|id`');
-        $this->filter_select('CONCAT(ranks.abbr," ",members.last_name) AS `member|short_name`', FALSE);
+        $this->filter_select("CONCAT(ranks.abbr,' ',members.last_name) AS `member|short_name`", FALSE);
         $this->filter_select('passes.author_id AS `author|id`');
-        $this->filter_select('CONCAT(a_ranks.abbr," ",a_members.last_name) AS `poster|short_name`', FALSE);
+        $this->filter_select("CONCAT(a_ranks.abbr,' ',a_members.last_name) AS `poster|short_name`", FALSE);
         $this->filter_select('passes.recruit_id AS `recruit|id`');
-        $this->filter_select('CONCAT(r_ranks.abbr," ",r_members.last_name) AS `recruit|short_name`', FALSE);
+        $this->filter_select("CONCAT(r_ranks.abbr,' ',r_members.last_name) AS `recruit|short_name`", FALSE);
         $this->filter_join('members', 'members.id = passes.member_id','left');
         $this->filter_join('ranks', 'ranks.id = members.rank_id','left');
         $this->filter_join('members AS a_members', 'a_members.id = passes.author_id','left');

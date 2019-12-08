@@ -39,7 +39,7 @@ class Demerit_model extends MY_Model {
             
             // Author
             ->select('demerits.author_member_id AS `author|id`')
-            ->select('CONCAT(a_ranks.`abbr`, " ", IF(a_members.`name_prefix` != "", CONCAT(a_members.`name_prefix`, " "), ""), a_members.`last_name`) AS `author|short_name`', FALSE);
+            ->select("CONCAT(a_ranks.`abbr`, ' ', IF(a_members.`name_prefix` != '', CONCAT(a_members.`name_prefix`, ' '), ''), a_members.`last_name`) AS `author|short_name`", FALSE);
     }
     
     public function default_join() {

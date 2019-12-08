@@ -88,7 +88,7 @@ class User {
     public function authenticate($user_id, $password) {
         return true; // DEBUG
         $forums_db = $this->load->database('forums', TRUE);
-        $query = $forums_db->query('SELECT id_member FROM smf_members WHERE id_member = ' . $user_id . ' AND SHA1(CONCAT(passwd, password_salt)) = "' . $password . '"');
+        $query = $forums_db->query('SELECT id_member FROM smf_members WHERE id_member = ' . $user_id . " AND SHA1(CONCAT(passwd, password_salt)) = '" . $password . "'");
         $num_rows = $query->num_rows();
         $forums_db->close();
         return $num_rows ? true : false;
