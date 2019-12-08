@@ -380,6 +380,5 @@ $config['third_party_cookie'] = 'SMFCookie10';
 */
 $config['pagination_limit'] = 30;
 
-
 /* End of file config.php */
 /* Location: ./application/config/config.php */
