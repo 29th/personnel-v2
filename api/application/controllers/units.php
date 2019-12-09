@@ -229,7 +229,7 @@ class Units extends MY_Controller {
 		// View records
 		else {
 			$cSql = 
-			"(SELECT DISTINCT m.id AS `member|id`, r.abbr AS `member|rank`, m.last_name AS `member|last_name`" .
+			"SELECT DISTINCT m.id AS `member|id`, r.abbr AS `member|rank`, m.last_name AS `member|last_name`" .
 			", p.id AS `position|id`, p.name AS `position|name`, p.ait AS `position|ait`".
 			", u.id AS `unit|id`, u.abbr AS `unit|abbr`, u.name AS `unit|name`, u.path AS `unit|path`, u.order AS `unit|order`, u.class AS `unit|class`" .
 			", (SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id AND e.mandatory = 1 AND DATEDIFF( NOW( ) , e.datetime ) <30 ) as `percentage|d30`" .
@@ -245,9 +245,9 @@ class Units extends MY_Controller {
 			"LEFT JOIN awardings AS aw ON aw.member_id = m.id AND aw.award_id = 22 " .
 			"WHERE a.end_date IS NULL AND a.unit_id IN (SELECT id FROM units AS u WHERE u.active=1 AND (u.id = $unit_id OR u.path LIKE '%/$unit_id/%') ) ".
 			"ORDER BY `u`.`class`,".
-				" (CASE WHEN `u`.`abbr` = 'Bn. Hq' THEN '00001' WHEN `u`.`abbr` = 'Rsrv S1' THEN '00002' ELSE `u`.`abbr` END), `p`.`order` DESC, `m`.`rank_id` DESC, `a`.`start_date` ASC ) as `aaa` ";
+				" (CASE WHEN `u`.`abbr` = 'Bn. Hq' THEN '00001' WHEN `u`.`abbr` = 'Rsrv S1' THEN '00002' ELSE `u`.`abbr` END), `p`.`order` DESC, `m`.`rank_id` DESC, `a`.`start_date` ASC ";
 			
-			$stats1 = nest( $this->db->get($cSql)->result_array() );
+			$stats1 = nest( $this->db->query($cSql)->result_array() );
 			$stats = array();
 			
 			switch ($unit['game']) {
@@ -257,7 +257,7 @@ class Units extends MY_Controller {
 				default: $aFillter = 'xx'; break;
 			}
 
-			$res = ( $this->db->get("(SELECT DISTINCT `weapon` FROM `standards` WHERE game='" . $unit['game'] . "' ) wl")->result_array() );
+			$res = ( $this->db->query("SELECT DISTINCT `weapon` FROM `standards` WHERE game='" . $unit['game'] . "' ")->result_array() );
 			$wpn_list = array( 'EIB' => '', 'SLT' => '' );
 			foreach ( $res as $row )
 				$wpn_list[ str_replace( array('RS','ARMA','Pilot','Armor'), array('','','Crewman','Crewman'), $row['weapon'] ) ] = '';
@@ -360,17 +360,17 @@ class Units extends MY_Controller {
 		$gdDate = ( sizeof($gdDate) ? $gdDate[0]['date'] : null );
 
     	$bSQL = "
-    		(SELECT a.id AS `id`, a.title AS `name`,  a.code AS `code`, a.game AS `game`
+    		SELECT a.id AS `id`, a.title AS `name`,  a.code AS `code`, a.game AS `game`
     		FROM `awardings` AS aw
     		LEFT JOIN `awards` AS a ON aw.award_id = a.id
     		WHERE aw.member_id = $member_id
 				AND (a.game = '$aFillter' OR a.id = 22 OR a.id = 111 )" . ( $gdDate ? " AND aw.date > '$gdDate' "  : '') . "
 			ORDER BY a.game, aw.date DESC
-    	) AS bb";
-    	$badges = $this->db->get($bSQL)->result_array();
+    	";
+    	$badges = $this->db->query($bSQL)->result_array();
 
     	$qSQL = "
-    		(SELECT 
+    		SELECT 
     			COUNT(1) AS `licz`, 
     			(SELECT COUNT(1) FROM `standards` AS `s1` WHERE `s1`.`game`=`s`.`game` AND `s1`.`weapon`=`s`.`weapon` AND `s1`.`badge` = `s`.`badge`) AS `suma`, 
     			`game`, 
@@ -379,8 +379,8 @@ class Units extends MY_Controller {
 			LEFT JOIN `standards` AS `s` ON `q`.`standard_id` = `s`.`id`
 			WHERE `q`.`member_id` = $member_id
 				AND (`s`.`game` = '$aFillter' OR `s`.`weapon` = 'EIB' OR `s`.`weapon` = 'SLT')
-			GROUP BY `game`, `weapon`, `badge` ORDER BY `game`, `weapon`, `badge`) qq`"; //Yes, "qq" should have apostrophy in front but framework is dumb
-    	$qualifications = $this->db->get($qSQL)->result_array();
+			GROUP BY `game`, `weapon`, `badge` ORDER BY `game`, `weapon`, `badge` "; //Yes, "qq" should have apostrophy in front but framework is dumb
+    	$qualifications = $this->db->query($qSQL)->result_array();
 
     	return array( 'badges' => $badges, 'tics' => $qualifications );	
     }
