@@ -72,6 +72,7 @@ $db['default'] = array(
 
 $db['forums'] = array(
     'hostname' => getenv('DB_FORUMS_HOSTNAME'),
+    'port'     => getenv('DB_FORUMS_PORT'),
     'username' => getenv('DB_FORUMS_USERNAME'),
     'password' => getenv('DB_FORUMS_PASSWORD'),
     'database' => getenv('DB_FORUMS_DATABASE'),
