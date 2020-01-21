@@ -9,3 +9,5 @@ RUN npm install
 
 COPY gulpfile.js .
 COPY src ./src
+
+CMD ["npm", "run", "prod"]
