@@ -14,7 +14,6 @@ services:
     container_name: app
     image: 29th/personnel-app:latest
     restart: always
-    command: npm run dev
     environment:
       BASE_URL: http://personnel.29th.xyz
       API_HOST: http://api.29th.xyz

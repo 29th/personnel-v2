@@ -14,7 +14,7 @@ services:
     container_name: app
     command: npm run dev
     volumes:
-      - ./app/src:/home/node/app/src
+      - ./personnel-app/src:/home/node/app/src
     environment:
       BASE_URL: http://personnel.29th.local
       API_HOST: http://api.29th.local
@@ -27,7 +27,7 @@ services:
     build: ./personnel-api
     container_name: api
     volumes:
-      - ./api/application:/var/www/html/application
+      - ./personnel-api/application:/var/www/html/application
     environment:
       DB_DEFAULT_DATABASE: personnel_v2
       DB_DEFAULT_HOSTNAME: db-personnel
