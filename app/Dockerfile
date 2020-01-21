@@ -8,4 +8,4 @@ COPY package.json .
 RUN npm install
 
 COPY gulpfile.js .
-COPY src .
+COPY src ./src
