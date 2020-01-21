@@ -1,0 +1,66 @@
+version: '3'
+services:
+  reverse-proxy:
+    container_name: reverse-proxy
+    image: nginx:1.17.7
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+
+  app:
+    container_name: app
+    image: 29th/personnel-app:latest
+    restart: always
+    command: npm run dev
+    environment:
+      BASE_URL: http://personnel.29th.xyz
+      API_HOST: http://api.29th.xyz
+      COAT_DIR: http://api.29th.xyz/coats
+      FORUM_VANILLA_BASE_URL: http://forums.29th.xyz
+      FORUM_SMF_BASE_URL: https://29th.org/forums
+      WIKI_URL: http://29th.xyz/wiki
+
+  # TODO: Add coats volume
+  api:
+    container_name: api
+    image: 29th/personnel-api:latest
+    restart: always
+    environment:
+      DB_DEFAULT_DATABASE: $PERSONNEL_DB_DATABASE
+      DB_DEFAULT_HOSTNAME: $PERSONNEL_DB_HOSTNAME
+      DB_DEFAULT_USERNAME: $PERSONNEL_DB_USERNAME
+      DB_DEFAULT_PASSWORD: $PERSONNEL_DB_PASSWORD
+      DB_DEFAULT_PORT: $PERSONNEL_DB_PORT
+      DB_FORUMS_DATABASE: $FORUMS_DB_DATABASE
+      DB_FORUMS_HOSTNAME: $FORUMS_DB_HOSTNAME
+      DB_FORUMS_USERNAME: $FORUMS_DB_USERNAME
+      DB_FORUMS_PASSWORD: $FORUMS_DB_PASSWORD
+      DB_FORUMS_PORT: $FORUMS_DB_PORT
+      ENCRYPTION_KEY: $PERSONNEL_ENCRYPTION_KEY
+      CORS_HOST: http://personnel.29th.xyz
+      VANILLA_COOKIE_NAME: Vanilla
+      VANILLA_COOKIE_DOMAIN: .29th.xyz
+      VANILLA_COOKIE_PATH: /
+      VANILLA_COOKIE_HASH_METHOD: md5
+      VANILLA_COOKIE_SALT: $FORUMS_COOKIE_SALT
+      ENVIRONMENT: production
+      # DIR_COAT_RESOURCES: 
+      # DIR_COAT_PUBLIC: 
+
+  forums:
+    container_name: forums
+    image: 29th/forums:latest
+    restart: always
+    volumes:
+      - ./uploads:/var/www/html/uploads
+    environment:
+      DB_HOSTNAME: $FORUMS_DB_HOSTNAME:$FORUMS_DB_PORT
+      DB_DATABASE: $FORUMS_DB_DATABASE
+      DB_USERNAME: $FORUMS_DB_USERNAME
+      DB_PASSWORD: $FORUMS_DB_PASSWORD
+      COOKIE_SALT: $FORUMS_COOKIE_SALT
+      UPDATE_TOKEN: $FORUMS_UPDATE_TOKEN
+      DEBUG: 0

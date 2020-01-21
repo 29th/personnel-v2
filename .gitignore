@@ -1,4 +1,7 @@
 db
-api
-app
+personnel-api
+personnel-app
 vanilla
+forums
+.env*
+!.env.sample

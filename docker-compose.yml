@@ -1,24 +1,31 @@
 version: '3'
 services:
-  app:
-    build: ./app
+  reverse-proxy:
+    image: nginx:1.17.7
+    container_name: reverse-proxy
     ports:
-      - "8080:8080"
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+
+  app:
+    build: ./personnel-app
+    container_name: app
     command: npm run dev
     volumes:
       - ./app/src:/home/node/app/src
     environment:
-      BASE_URL: http://localhost:8080
-      API_HOST: http://localhost:8081
-      COAT_DIR: http://localhost:8081/coats
-      FORUM_VANILLA_BASE_URL: http://localhost:8082
+      BASE_URL: http://personnel.29th.local
+      API_HOST: http://api.29th.local
+      COAT_DIR: http://api.29th.local/coats
+      FORUM_VANILLA_BASE_URL: http://forums.29th.local
       FORUM_SMF_BASE_URL: http://29th.org/forums
-      WIKI_URL: http://29th.org/wiki
+      WIKI_URL: https://29th.org/wiki
 
   api:
-    build: ./api
-    ports:
-      - "8081:80"
+    build: ./personnel-api
+    container_name: api
     volumes:
       - ./api/application:/var/www/html/application
     environment:
@@ -33,9 +40,9 @@ services:
       DB_FORUMS_PASSWORD: pwd
       DB_FORUMS_PORT: 3307
       ENCRYPTION_KEY: dev
-      CORS_HOST: http://localhost:8080
+      CORS_HOST: http://personnel.29th.local
       VANILLA_COOKIE_NAME: Vanilla
-      VANILLA_COOKIE_DOMAIN: http://localhost:8082
+      VANILLA_COOKIE_DOMAIN: .29th.local
       VANILLA_COOKIE_PATH: /
       VANILLA_COOKIE_HASH_METHOD: md5
       VANILLA_COOKIE_SALT: dev
@@ -43,26 +50,23 @@ services:
       # DIR_COAT_RESOURCES: 
       # DIR_COAT_PUBLIC: 
 
-  vanilla:
-    build: ./vanilla
-    ports:
-      - "8082:80"
+  forums:
+    build: ./forums
+    container_name: forums
     volumes:
-      # Don't mount conf dir because then there won't be a config.php
-      - ./vanilla/plugins:/var/www/html/plugins
-      - ./vanilla/themes:/var/www/html/themes
-      - ./vanilla/uploads:/var/www/html/uploads
+      - ./forums/uploads:/var/www/html/uploads
     environment:
       DB_HOSTNAME: db-vanilla
       DB_DATABASE: vanilla
       DB_USERNAME: root
       DB_PASSWORD: pwd
-      ENVIRONMENT: development
-      VANILLA_COOKIE_SALT: dev
-      APP_URL: http://localhost:8080
+      COOKIE_SALT: dev
+      UPDATE_TOKEN: dev
+      DEBUG: 1
 
   db-personnel:
     image: mysql:8
+    container_name: db-personnel
     command: [
         '--default_authentication_plugin=mysql_native_password',
         '--sql-mode=ALLOW_INVALID_DATES',
@@ -81,6 +85,7 @@ services:
 
   db-vanilla:
     image: mysql:8
+    container_name: db-forums
     command: [
         '--default_authentication_plugin=mysql_native_password',
         '--sql-mode=ALLOW_INVALID_DATES',
