@@ -11,3 +11,4 @@ COPY gulpfile.js .
 COPY src ./src
 
 CMD ["npm", "run", "prod"]
+EXPOSE 8080
