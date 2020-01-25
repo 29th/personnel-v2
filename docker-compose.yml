@@ -1,13 +1,22 @@
 version: '3'
 services:
   reverse-proxy:
-    image: nginx:1.17.7
+    image: jwilder/nginx-proxy
     container_name: reverse-proxy
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs
+
+  homepage:
+    image: nginx:1.17.7
+    container_name: homepage
+    volumes:
+      - ./homepage.conf:/etc/nginx/nginx.conf
+    environment:
+      VIRTUAL_HOST: www.29th.local
 
   app:
     build: ./personnel-app
@@ -16,11 +25,12 @@ services:
     volumes:
       - ./personnel-app/src:/home/node/app/src
     environment:
-      BASE_URL: http://personnel.29th.local
-      API_HOST: http://api.29th.local
-      COAT_DIR: http://api.29th.local/coats
-      FORUM_VANILLA_BASE_URL: http://forums.29th.local
-      FORUM_SMF_BASE_URL: http://29th.org/forums
+      VIRTUAL_HOST: personnel.29th.local
+      BASE_URL: https://personnel.29th.local
+      API_HOST: https://api.29th.local
+      COAT_DIR: https://api.29th.local/coats
+      FORUM_VANILLA_BASE_URL: https://forums.29th.local
+      FORUM_SMF_BASE_URL: https://29th.org/forums
       WIKI_URL: https://29th.org/wiki
 
   api:
@@ -29,18 +39,19 @@ services:
     volumes:
       - ./personnel-api/application:/var/www/html/application
     environment:
+      VIRTUAL_HOST: api.29th.local
       DB_DEFAULT_DATABASE: personnel_v2
       DB_DEFAULT_HOSTNAME: db-personnel
       DB_DEFAULT_USERNAME: root
       DB_DEFAULT_PASSWORD: pwd
       DB_DEFAULT_PORT: 3306
       DB_FORUMS_DATABASE: vanilla
-      DB_FORUMS_HOSTNAME: db-vanilla
+      DB_FORUMS_HOSTNAME: db-forums
       DB_FORUMS_USERNAME: root
       DB_FORUMS_PASSWORD: pwd
-      DB_FORUMS_PORT: 3307
+      DB_FORUMS_PORT: 3306
       ENCRYPTION_KEY: dev
-      CORS_HOST: http://personnel.29th.local
+      CORS_HOST: https://personnel.29th.local
       VANILLA_COOKIE_NAME: Vanilla
       VANILLA_COOKIE_DOMAIN: .29th.local
       VANILLA_COOKIE_PATH: /
@@ -56,7 +67,8 @@ services:
     volumes:
       - ./forums/uploads:/var/www/html/uploads
     environment:
-      DB_HOSTNAME: db-vanilla
+      VIRTUAL_HOST: forums.29th.local
+      DB_HOSTNAME: db-forums
       DB_DATABASE: vanilla
       DB_USERNAME: root
       DB_PASSWORD: pwd
@@ -83,7 +95,7 @@ services:
       MYSQL_DATABASE: personnel_v2
       MYSQL_ROOT_PASSWORD: pwd
 
-  db-vanilla:
+  db-forums:
     image: mysql:8
     container_name: db-forums
     command: [

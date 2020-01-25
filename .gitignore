@@ -5,3 +5,4 @@ vanilla
 forums
 .env*
 !.env.sample
+certs
