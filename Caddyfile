@@ -8,9 +8,13 @@ http:// {
   redir https://{host}{uri} permanent
 }
 
+29th.local {
+  tls /etc/caddy/certs/29th.local.crt /etc/caddy/certs/29th.local.key
+  redir https://www.{host}{uri} permanent
+}
+
 www.29th.local {
   tls /etc/caddy/certs/29th.local.crt /etc/caddy/certs/29th.local.key
-
   reverse_proxy homepage:80
 }
 
