@@ -21,13 +21,7 @@ personnel.29th.local {
 
 api.29th.local {
   tls /etc/caddy/certs/29th.local.crt /etc/caddy/certs/29th.local.key
-  reverse_proxy api:80 {
-    header_up Host {http.request.remote.host}
-    header_up X-Real-IP {http.request.remote.host}
-    header_up X-Forwarded-For {http.request.remote.host}
-    header_up X-Forwarded-Port {http.request.port}
-    header_up X-Forwarded-Proto {http.request.scheme}
-  }
+  reverse_proxy api:80
 }
 
 forums.29th.local {
