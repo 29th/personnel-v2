@@ -51,11 +51,11 @@ services:
       ENCRYPTION_KEY: dev
       CORS_HOST: https://personnel.29th.local
       VANILLA_COOKIE_NAME: Vanilla
-      VANILLA_COOKIE_DOMAIN: .29th.local
+      VANILLA_COOKIE_DOMAIN: 29th.local
       VANILLA_COOKIE_PATH: /
       VANILLA_COOKIE_HASH_METHOD: md5
       VANILLA_COOKIE_SALT: dev
-      ENVIRONMENT: development
+      ENVIRONMENT: production
       # DIR_COAT_RESOURCES: 
       # DIR_COAT_PUBLIC: 
 
@@ -70,7 +70,7 @@ services:
       DB_USERNAME: root
       DB_PASSWORD: pwd
       COOKIE_SALT: dev
-      COOKIE_DOMAIN: .29th.local
+      COOKIE_DOMAIN: 29th.local
       UPDATE_TOKEN: dev
       DEBUG: 1
 

@@ -1,5 +1,4 @@
 {
-  email wilson@29th.org
   acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
 }
 
