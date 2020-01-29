@@ -1,9 +1,11 @@
-FROM php:5.5.38-apache
+FROM php:7.4.1-apache
 
 # Install composer (and fix package manager per https://superuser.com/a/1423685)
-RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb-src http://archive.debian.org/debian/ jessie main\ndeb http://security.debian.org jessie/updates main\ndeb-src http://security.debian.org jessie/updates main" > /etc/apt/sources.list \
-  && apt-get update \
-  && apt-get install -y --no-install-recommends zlib1g-dev \
+# RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb-src http://archive.debian.org/debian/ jessie main\ndeb http://security.debian.org jessie/updates main\ndeb-src http://security.debian.org jessie/updates main" > /etc/apt/sources.list \
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    libzip-dev \
+    zlib1g-dev \
   && docker-php-ext-install zip
 RUN curl --silent --show-error https://getcomposer.org/download/1.8.6/composer.phar > /usr/local/bin/composer \
   && chmod 755 /usr/local/bin/composer
