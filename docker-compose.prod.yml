@@ -2,25 +2,33 @@ version: '3'
 services:
   reverse-proxy:
     container_name: reverse-proxy
-    image: nginx:1.17.7
+    image: caddy/caddy:alpine
     restart: always
     ports:
       - "80:80"
       - "443:443"
+    user: root
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./.caddy:/root/.caddy
+
+  homepage:
+    container_name: homepage
+    image: nginx:1.17.7
+    volumes:
+      - ./homepage.conf:/etc/nginx/nginx.conf
 
   app:
     container_name: app
     image: 29th/personnel-app:latest
     restart: always
     environment:
-      BASE_URL: http://personnel.29th.xyz
-      API_HOST: http://api.29th.xyz
-      COAT_DIR: http://api.29th.xyz/coats
-      FORUM_VANILLA_BASE_URL: http://forums.29th.xyz
+      BASE_URL: https://personnel.29th.xyz
+      API_HOST: https://api.29th.xyz
+      COAT_DIR: https://api.29th.xyz/coats
+      FORUM_VANILLA_BASE_URL: https://forums.29th.xyz
       FORUM_SMF_BASE_URL: https://29th.org/forums
-      WIKI_URL: http://29th.xyz/wiki
+      WIKI_URL: https://29th.xyz/wiki
 
   # TODO: Add coats volume
   api:
@@ -39,7 +47,7 @@ services:
       DB_FORUMS_PASSWORD: $FORUMS_DB_PASSWORD
       DB_FORUMS_PORT: $FORUMS_DB_PORT
       ENCRYPTION_KEY: $PERSONNEL_ENCRYPTION_KEY
-      CORS_HOST: http://personnel.29th.xyz
+      CORS_HOST: https://personnel.29th.xyz
       VANILLA_COOKIE_NAME: Vanilla
       VANILLA_COOKIE_DOMAIN: .29th.xyz
       VANILLA_COOKIE_PATH: /
@@ -61,5 +69,15 @@ services:
       DB_USERNAME: $FORUMS_DB_USERNAME
       DB_PASSWORD: $FORUMS_DB_PASSWORD
       COOKIE_SALT: $FORUMS_COOKIE_SALT
+      COOKIE_DOMAIN: .29th.xyz
       UPDATE_TOKEN: $FORUMS_UPDATE_TOKEN
+      MAIL_FROM_NAME: 29th ID
+      MAIL_FROM_ADDRESS: noreply@29th.org
+      MAIL_SMTP_HOSTNAME: $FORUMS_MAIL_SMTP_HOSTNAME
+      MAIL_SMTP_USERNAME: $FORUMS_MAIL_SMTP_USERNAME
+      MAIL_SMTP_PASSWORD: $FORUMS_MAIL_SMTP_PASSWORD
+      MAIL_SMTP_PORT: $FORUMS_MAIL_SMTP_PORT
+      MAIL_SMTP_SECURITY: $FORUMS_MAIL_SMTP_SECURITY
+      CAPTCHA_PRIVATE_KEY: $FORUMS_CAPTCHA_PRIVATE_KEY
+      CAPTCHA_PUBLIC_KEY: $FORUMS_CAPTCHA_PUBLIC_KEY
       DEBUG: 0

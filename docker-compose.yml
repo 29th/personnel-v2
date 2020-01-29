@@ -1,22 +1,22 @@
 version: '3'
 services:
   reverse-proxy:
-    image: jwilder/nginx-proxy
+    image: caddy/caddy:alpine
     container_name: reverse-proxy
     ports:
       - "80:80"
       - "443:443"
+    user: root
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./certs:/etc/nginx/certs
+      # - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./certs:/etc/caddy/certs
 
   homepage:
     image: nginx:1.17.7
     container_name: homepage
     volumes:
       - ./homepage.conf:/etc/nginx/nginx.conf
-    environment:
-      VIRTUAL_HOST: www.29th.local
 
   app:
     build: ./personnel-app
@@ -25,7 +25,6 @@ services:
     volumes:
       - ./personnel-app/src:/home/node/app/src
     environment:
-      VIRTUAL_HOST: personnel.29th.local
       BASE_URL: https://personnel.29th.local
       API_HOST: https://api.29th.local
       COAT_DIR: https://api.29th.local/coats
@@ -39,7 +38,6 @@ services:
     volumes:
       - ./personnel-api/application:/var/www/html/application
     environment:
-      VIRTUAL_HOST: api.29th.local
       DB_DEFAULT_DATABASE: personnel_v2
       DB_DEFAULT_HOSTNAME: db-personnel
       DB_DEFAULT_USERNAME: root
@@ -67,12 +65,12 @@ services:
     volumes:
       - ./forums/uploads:/var/www/html/uploads
     environment:
-      VIRTUAL_HOST: forums.29th.local
       DB_HOSTNAME: db-forums
       DB_DATABASE: vanilla
       DB_USERNAME: root
       DB_PASSWORD: pwd
       COOKIE_SALT: dev
+      COOKIE_DOMAIN: .29th.local
       UPDATE_TOKEN: dev
       DEBUG: 1
 
