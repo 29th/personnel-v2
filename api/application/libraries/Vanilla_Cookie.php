@@ -507,12 +507,12 @@ class Vanilla_Cookie {
                     $result = (array)$payload;
                 }
             } catch (Exception $e) {
-                Logger::event(
-                    'cookie_jwt_error',
-                    Logger::ERROR,
-                    $e->getMessage(),
-                    ['jwt' => $jwt]
-                );
+               //  Logger::event(
+               //      'cookie_jwt_error',
+               //      Logger::ERROR,
+               //      $e->getMessage(),
+               //      ['jwt' => $jwt]
+               //  );
             }
         }
 
@@ -536,19 +536,19 @@ class Vanilla_Cookie {
      * @param int $expiry
      * @return string
      */
-    public function setJWTPayload($name, $payload, $expiry) {
-        $jwt = JWT::encode($payload, $this->CookieSalt, self::JWT_ALGORITHM);
+   //  public function setJWTPayload($name, $payload, $expiry) {
+   //      $jwt = JWT::encode($payload, $this->CookieSalt, self::JWT_ALGORITHM);
 
-        setValue('exp', $payload, $expiry);
+   //      setValue('exp', $payload, $expiry);
 
-        // Send the updated cookie to the browser.
-        safeCookie($name, $jwt, $expiry, $this->CookiePath, $this->CookieDomain, null, true);
+   //      // Send the updated cookie to the browser.
+   //      safeCookie($name, $jwt, $expiry, $this->CookiePath, $this->CookieDomain, null, true);
 
-        // Update the cookie for the current request.
-        $_COOKIE[$this->CookieName] = $jwt;
+   //      // Update the cookie for the current request.
+   //      $_COOKIE[$this->CookieName] = $jwt;
 
-        return $jwt;
-    }
+   //      return $jwt;
+   //  }
 
     /**
      * Remove a cookie.
@@ -644,5 +644,69 @@ if (!function_exists('stringEndsWith')) {
             }
             return $result;
         }
+    }
+}
+
+if (!function_exists('safeCookie')) {
+    /**
+     * Context-aware call to setcookie().
+     *
+     * This method is context-aware and will avoid setting cookies if the request
+     * context is not HTTP.
+     *
+     * @param string $name
+     * @param string $value
+     * @param integer $expire
+     * @param string $path
+     * @param string $domain
+     * @param boolean|null $secure
+     * @param boolean $httponly
+     */
+    function safeCookie($name, $value = null, $expire = 0, $path = null, $domain = null, $secure = null, $httponly = false) {
+        static $context = null;
+        if (is_null($context)) {
+            $context = requestContext();
+        }
+
+        if ($context == 'http') {
+            // if ($secure === null && c('Garden.ForceSSL') && Gdn::request()->scheme() === 'https') {
+            $forceSSL = true;
+            $scheme = $_SERVER['REQUEST_SCHEME'];
+            if ($secure === null && $forceSSL && $scheme === 'https') {
+                $secure = true;
+            }
+
+            setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
+        }
+    }
+}
+
+if (!function_exists('requestContext')) {
+    /**
+     * Get request context.
+     *
+     * This method determines if current request is operating within HTTP, or
+     * elsewhere such as the command line.
+     *
+     * @staticvar string $context
+     * @return string
+     */
+    function requestContext() {
+        static $context = null;
+        if (is_null($context)) {
+            // $context = c('Garden.RequestContext', null);
+            if (is_null($context)) {
+                $protocol = val('SERVER_PROTOCOL', $_SERVER);
+                if (preg_match('`^HTTP/`', $protocol)) {
+                    $context = 'http';
+                } else {
+                    $context = $protocol;
+                }
+            }
+            if (is_null($context)) {
+                $context = 'unknown';
+            }
+        }
+        return $context;
     }
 }
