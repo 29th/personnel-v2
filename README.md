@@ -89,6 +89,8 @@ You can access the application at the hostnames you setup:
 * https://personnel.29th.local
 * https://forums.29th.local
 
+> Note that if you've used a database dump from an older version of the forums (at the time of this writing, the production forums are older than vanilla 3.3), you'll need to run vanilla's update utility to upgrade the database. Just go to https://forums.29th.local/utility/update
+
 You can edit application files in the `personnel-api` and `personnel-app` directories locally and you should see the changes reflected in the containers. If you need to execute something in the containers, you can SSH in using:
 
 ```
