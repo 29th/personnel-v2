@@ -10,7 +10,8 @@ services:
     user: root
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
-      - ./.caddy:/root/.caddy
+      - caddy-config:/root/.config/caddy
+      - caddy-data:/root/.local/share/caddy
 
   homepage:
     container_name: homepage
@@ -81,3 +82,7 @@ services:
       CAPTCHA_PRIVATE_KEY: $FORUMS_CAPTCHA_PRIVATE_KEY
       CAPTCHA_PUBLIC_KEY: $FORUMS_CAPTCHA_PUBLIC_KEY
       DEBUG: 0
+
+volumes:
+  caddy-config:
+  caddy-data:
