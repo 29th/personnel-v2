@@ -16,6 +16,7 @@ services:
   homepage:
     container_name: homepage
     image: nginx:1.17.7
+    restart: always
     volumes:
       - ./homepage.conf:/etc/nginx/nginx.conf
 
@@ -50,7 +51,7 @@ services:
       ENCRYPTION_KEY: $PERSONNEL_ENCRYPTION_KEY
       CORS_HOST: https://personnel.29th.xyz
       VANILLA_COOKIE_NAME: Vanilla
-      VANILLA_COOKIE_DOMAIN: .29th.xyz
+      VANILLA_COOKIE_DOMAIN: 29th.xyz
       VANILLA_COOKIE_PATH: /
       VANILLA_COOKIE_HASH_METHOD: md5
       VANILLA_COOKIE_SALT: $FORUMS_COOKIE_SALT
@@ -70,7 +71,7 @@ services:
       DB_USERNAME: $FORUMS_DB_USERNAME
       DB_PASSWORD: $FORUMS_DB_PASSWORD
       COOKIE_SALT: $FORUMS_COOKIE_SALT
-      COOKIE_DOMAIN: .29th.xyz
+      COOKIE_DOMAIN: 29th.xyz
       UPDATE_TOKEN: $FORUMS_UPDATE_TOKEN
       MAIL_FROM_NAME: 29th ID
       MAIL_FROM_ADDRESS: noreply@29th.org
