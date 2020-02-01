@@ -1,8 +1,11 @@
-db
+db/*
+!db/.gitkeep
 personnel-api
 personnel-app
 vanilla
 forums
 .env*
 !.env.sample
-certs
+certs/*
+!certs/.gitkeep
+uploads

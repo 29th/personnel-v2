@@ -8,7 +8,6 @@ services:
       - "443:443"
     user: root
     volumes:
-      # - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./Caddyfile:/etc/caddy/Caddyfile
       - ./certs:/etc/caddy/certs
 
@@ -63,7 +62,7 @@ services:
     build: ./forums
     container_name: forums
     volumes:
-      - ./forums/uploads:/var/www/html/uploads
+      - ./uploads:/var/www/html/uploads
     environment:
       DB_HOSTNAME: db-forums
       DB_DATABASE: vanilla
