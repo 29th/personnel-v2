@@ -19,7 +19,9 @@ api.29th.xyz {
 }
 
 forums.29th.xyz {
-  reverse_proxy forums:80
+  reverse_proxy forums:80 {
+    header_up X-Forwarded-Proto {http.request.scheme}
+  }
 }
 
 portainer.29th.xyz {

@@ -29,7 +29,10 @@ api.29th.local {
 
 forums.29th.local {
   tls /etc/caddy/certs/29th.local.crt /etc/caddy/certs/29th.local.key
-  reverse_proxy forums:80
+  reverse_proxy forums:80 {
+    # Forward protocol so vanilla knows it's HTTPS (fixes webpack asset path bug)
+    header_up X-Forwarded-Proto {http.request.scheme}
+  }
 }
 
 portainer.29th.local {
