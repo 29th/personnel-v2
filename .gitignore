@@ -9,3 +9,4 @@ forums
 certs/*
 !certs/.gitkeep
 uploads
+coats

@@ -32,11 +32,12 @@ services:
       FORUM_SMF_BASE_URL: https://29th.org/forums
       WIKI_URL: https://29th.xyz/wiki
 
-  # TODO: Add coats volume
   api:
     container_name: api
     image: 29th/personnel-api:latest
     restart: always
+    volumes:
+      - ./coats:/var/www/html/coats
     environment:
       DB_DEFAULT_DATABASE: $PERSONNEL_DB_DATABASE
       DB_DEFAULT_HOSTNAME: $PERSONNEL_DB_HOSTNAME
@@ -56,8 +57,7 @@ services:
       VANILLA_COOKIE_HASH_METHOD: md5
       VANILLA_COOKIE_SALT: $FORUMS_COOKIE_SALT
       ENVIRONMENT: production
-      # DIR_COAT_RESOURCES: 
-      # DIR_COAT_PUBLIC: 
+      DIR_COAT_PUBLIC: /var/www/html/coats/
 
   forums:
     container_name: forums
