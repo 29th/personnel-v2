@@ -3,7 +3,7 @@
     "require": {
         "rogeriopradoj/codeigniter": "2.1.4",
         "firebase/php-jwt": "~5.0",
-        "vlucas/phpdotenv": "~1.1"
+        "vlucas/phpdotenv": "~4.1"
     },
     "authors": [
         {
