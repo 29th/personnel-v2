@@ -31,3 +31,8 @@ forums.29th.local {
   tls /etc/caddy/certs/29th.local.crt /etc/caddy/certs/29th.local.key
   reverse_proxy forums:80
 }
+
+portainer.29th.local {
+  tls /etc/caddy/certs/29th.local.crt /etc/caddy/certs/29th.local.key
+  reverse_proxy portainer:9000
+}
