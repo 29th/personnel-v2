@@ -2,7 +2,7 @@
     "name": "29th/personnel-api",
     "require": {
         "rogeriopradoj/codeigniter": "2.1.4",
-        "vlucas/phpdotenv": "~1.1"
+        "vlucas/phpdotenv": "~4.1"
     },
     "authors": [
         {
