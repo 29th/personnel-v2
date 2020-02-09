@@ -37,7 +37,7 @@ services:
     image: 29th/personnel-api:latest
     restart: always
     volumes:
-      - ./coats:/var/www/html/coats
+      - /mnt/user_images/coats:/var/www/html/coats
     environment:
       DB_DEFAULT_DATABASE: $PERSONNEL_DB_DATABASE
       DB_DEFAULT_HOSTNAME: $PERSONNEL_DB_HOSTNAME
@@ -64,7 +64,7 @@ services:
     image: 29th/forums:latest
     restart: always
     volumes:
-      - ./uploads:/var/www/html/uploads
+      - /mnt/user_images/uploads:/var/www/html/uploads
     environment:
       DB_HOSTNAME: $FORUMS_DB_HOSTNAME:$FORUMS_DB_PORT
       DB_DATABASE: $FORUMS_DB_DATABASE
