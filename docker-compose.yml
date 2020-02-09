@@ -64,6 +64,9 @@ services:
     container_name: forums
     volumes:
       - ./uploads:/var/www/html/uploads
+      - ./forums/config.php:/var/www/html/conf/config.php
+      - ./forums/plugins/PersonnelFiles:/var/www/html/plugins/PersonnelFiles
+      - ./forums/plugins/UnreadOnIndex:/var/www/html/plugins/UnreadOnIndex
     environment:
       DB_HOSTNAME: db-forums
       DB_DATABASE: vanilla
@@ -72,6 +75,7 @@ services:
       COOKIE_SALT: dev
       COOKIE_DOMAIN: 29th.local
       UPDATE_TOKEN: dev
+      PERSONNEL_HOST_NAME: personnel.29th.local
       DEBUG: 1
 
   db-personnel:

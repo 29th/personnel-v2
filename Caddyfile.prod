@@ -1,29 +1,30 @@
 {
+  email admin@29th.org
   # acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
 }
 
-29th.xyz {
+29th.org {
   redir https://www.{host}{uri} permanent
 }
 
-www.29th.xyz {
+www.29th.org {
   reverse_proxy homepage:80
 }
 
-personnel.29th.xyz {
+personnel.29th.org {
   reverse_proxy app:8080
 }
 
-api.29th.xyz {
+api.29th.org {
   reverse_proxy api:80
 }
 
-forums.29th.xyz {
+forums.29th.org {
   reverse_proxy forums:80 {
     header_up X-Forwarded-Proto {http.request.scheme}
   }
 }
 
-portainer.29th.xyz {
+portainer.29th.org {
   reverse_proxy portainer:9000
 }
