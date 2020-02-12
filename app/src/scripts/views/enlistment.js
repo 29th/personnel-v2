@@ -30,7 +30,7 @@ var Marionette = require("backbone.marionette");
               vanilla_identifier: "enlistment-" + this.model.get('id'),
               vanilla_url: config.baseUrl + "/%23" + Backbone.history.fragment,
               vanilla_category_id: config.vanillaCategoryEnlistments,
-              title: encodeURIComponent("Enlistment - " + this.model.get("member").short_name)
+              title: "Enlistment - " + this.model.get("member").short_name
           });
               
           return $.extend({
