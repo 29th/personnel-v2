@@ -24,16 +24,10 @@ Navigate inside the directory that's created and clone the individual applicatio
 
 ```
 cd personnel
-git clone -b vanilla-3.3 https://github.com/29th/personnel-api.git
+git clone https://github.com/29th/personnel-api.git
 git clone https://github.com/29th/personnel-app.git
 git clone https://github.com/29th/forums.git
 ```
-
-> Note that these instructions are for using Vanilla 3.3, which is not yet in production at the time of this writing. To use the version that's in production, use the `vanilla` repository isntead of `forums`, with special flags when cloning.
-> 
-> ```
-> git clone --recursive -b 29th-extensions-2.1.11 https://github.com/29th/vanilla.git forums
-> ```
 
 Place the 2 database dump files in the `db` directory. They should be named `personnel.sql` and `vanilla.sql`.
 
@@ -89,7 +83,7 @@ You can access the application at the hostnames you setup:
 * https://personnel.29th.local
 * https://forums.29th.local
 
-> Note that if you've used a database dump from an older version of the forums (at the time of this writing, the production forums are older than vanilla 3.3), you'll need to run vanilla's update utility to upgrade the database. Just go to https://forums.29th.local/utility/update
+> Note that if you've used a database dump from an older version of the forums, you'll need to run vanilla's update utility to upgrade the database. Just go to https://forums.29th.local/utility/update
 
 You can edit application files in the `personnel-api` and `personnel-app` directories locally and you should see the changes reflected in the containers. If you need to execute something in the containers, you can SSH in using:
 
