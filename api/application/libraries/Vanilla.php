@@ -126,7 +126,13 @@ class Vanilla {
             
         }
         
-        return $this->forums_db->query('UPDATE GDN_User SET `Name` = ? WHERE UserID = ?', array($newMemberName, $member['forum_member_id']));
+        $path = 'users/' . $member['forum_member_id'];
+        $data = [ 'name' => $newMemberName ];
+        $response = $this->client->patch($path, [ 'json' => $data ]);
+        if ($response->getStatusCode() != 200) {
+            return FALSE;
+        }
+        return TRUE;
     }
     
     public function get_steam_id($user_id) {
