@@ -140,11 +140,8 @@ class Vanilla {
     }
     
     public function get_role_list() {
-        return $this->forums_db->query('SELECT `RoleID`, `Name` FROM GDN_Role ORDER BY `Sort`')->result_array();
-    }
-
-    public function get_commisioned_officer_role_id() {
-        return $this->forums_db->query('SELECT `RoleID` FROM GDN_Role WHERE `name` = \'Commissioned Officer\'')->row_array()[0];
+        $response = $this->client->get('roles');
+        return json_decode($response->getBody(), true);
     }
 
     public function get_user_ip($member_id) {
@@ -164,8 +161,9 @@ class Vanilla {
     }
 
     public function get_user_email($member_id) {
-        $res = $this->forums_db->query('SELECT `Email` FROM GDN_User WHERE `UserID` = ' . (int) $member_id)->row_array();
-        return ( $res ? $res['Email'] : '' );
+        $response = $this->client->get('users/' . $member_id);
+        $data = json_decode($response->getBody(), true);
+        return $data['email'];
     }
 
     public function get_user_bday($member_id) {
