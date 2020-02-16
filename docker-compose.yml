@@ -51,6 +51,8 @@ services:
       ENCRYPTION_KEY: dev
       BASE_URL: https://api.29th.local
       CORS_HOST: https://personnel.29th.local
+      VANILLA_BASE_URL: http://forums
+      VANILLA_ACCESS_TOKEN: $FORUMS_PERSONAL_ACCESS_TOKEN
       VANILLA_COOKIE_NAME: Vanilla
       VANILLA_COOKIE_DOMAIN: 29th.local
       VANILLA_COOKIE_PATH: /
