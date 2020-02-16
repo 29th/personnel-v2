@@ -1,11 +1,18 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+use GuzzleHttp\Client;
+
 class Vanilla {
     
     private $forums_db;
     
     public function __construct() {
         $this->forums_db = $this->load->database('forums', TRUE);
+        $access_token = getenv('VANILLA_ACCESS_TOKEN');
+        $this->client = new Client([
+            'base_uri' => getenv('VANILLA_BASE_URL') . '/api/v2/',
+            'headers' => [ 'Authorization' => 'Bearer ' . $access_token ]
+        ]);
     }
     
     /**
@@ -77,27 +84,15 @@ class Vanilla {
         // Eliminate duplicates
         $roles = array_values(array_unique($roles));
         
-        // Delete all of the user's roles from forums database ** by forum_member_id NOT member_id
-        if( ! $this->forums_db->query('DELETE FROM `GDN_UserRole` WHERE `UserID` = ?', $member['forum_member_id'])) 
-        {
-            //$this->response(array('status' => false, 'error' => 'There was an issue deleting the user\'s old roles'));
-            return FALSE;
-        } 
-        else 
-        {
-            
-            // Insert new roles if there are any (there wouldn't be if member was discharged)
-            if( ! empty($roles)) {
-                $values = '(' . $member['forum_member_id'] . ', ' . implode('), (' . $member['forum_member_id'] . ', ', $roles) . ')';
-                //die($values);
-                if( ! $this->forums_db->query('INSERT INTO `GDN_UserRole` (`UserID`, `RoleID`) VALUES ' . $values)) {
-                    //$this->response(array('status' => false, 'error' => 'There was an issue adding the user\'s roles'));
-                    return FALSE;
-                }
+        if( ! empty($roles)) {
+            $path = 'users/' . $member['forum_member_id'];
+            $data = [ 'roleID' => $roles ];
+            $response = $this->client->patch($path, [ 'json' => $data ]);
+            if ($response->getStatusCode() != 200) {
+                return FALSE;
             }
-            //$this->response(array('status' => true, 'roles' => $roles));
-            return $roles; // Won't arrive here if insert failed. Should also arrive here if no roles to add (ie. discharged)
         }
+        return $roles;
     }
     
     /**
