@@ -25,12 +25,12 @@ services:
     image: 29th/personnel-app:latest
     restart: always
     environment:
-      BASE_URL: https://personnel.29th.xyz
-      API_HOST: https://api.29th.xyz
-      COAT_DIR: https://api.29th.xyz/coats
-      FORUM_VANILLA_BASE_URL: https://forums.29th.xyz
+      BASE_URL: https://personnel.29th.org
+      API_HOST: https://api.29th.org
+      COAT_DIR: https://api.29th.org/coats
+      FORUM_VANILLA_BASE_URL: https://forums.29th.org
       FORUM_SMF_BASE_URL: https://29th.org/forums
-      WIKI_URL: https://29th.xyz/wiki
+      WIKI_URL: https://29th.org/wiki
 
   api:
     container_name: api
@@ -50,12 +50,12 @@ services:
       DB_FORUMS_PASSWORD: $FORUMS_DB_PASSWORD
       DB_FORUMS_PORT: $FORUMS_DB_PORT
       ENCRYPTION_KEY: $PERSONNEL_ENCRYPTION_KEY
-      BASE_URL: https://api.29th.xyz
-      CORS_HOST: https://personnel.29th.xyz
-      VANILLA_BASE_URL: https://forums.29th.xyz
+      BASE_URL: https://api.29th.org
+      CORS_HOST: https://personnel.29th.org
+      VANILLA_BASE_URL: https://forums.29th.org
       VANILLA_ACCESS_TOKEN: $FORUMS_PERSONAL_ACCESS_TOKEN
       VANILLA_COOKIE_NAME: Vanilla
-      VANILLA_COOKIE_DOMAIN: 29th.xyz
+      VANILLA_COOKIE_DOMAIN: 29th.org
       VANILLA_COOKIE_PATH: /
       VANILLA_COOKIE_HASH_METHOD: md5
       VANILLA_COOKIE_SALT: $FORUMS_COOKIE_SALT
@@ -74,7 +74,7 @@ services:
       DB_USERNAME: $FORUMS_DB_USERNAME
       DB_PASSWORD: $FORUMS_DB_PASSWORD
       COOKIE_SALT: $FORUMS_COOKIE_SALT
-      COOKIE_DOMAIN: 29th.xyz
+      COOKIE_DOMAIN: 29th.org
       UPDATE_TOKEN: $FORUMS_UPDATE_TOKEN
       MAIL_FROM_NAME: 29th ID
       MAIL_FROM_ADDRESS: noreply@29th.org
