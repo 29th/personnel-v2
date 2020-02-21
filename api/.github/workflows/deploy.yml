@@ -26,16 +26,11 @@ jobs:
 
     - name: Pull latest image to server and recreate container
       uses: appleboy/ssh-action@v0.0.7
-      env:
-        WORK_DIR: ${{ secrets.SSH_WORK_DIR }}
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        env: WORK_DIR
         script: |
-          echo $WORK_DIR
-          cd $WORK_DIR
-          pwd
+          cd /usr/local/src
           docker-compose pull
           docker-compose up -d
