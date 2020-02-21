@@ -22,7 +22,7 @@ services:
 
   app:
     container_name: app
-    image: 29th/personnel-app:latest
+    image: 29th/personnel-app:${APP_IMAGE_TAG:-latest}
     restart: always
     environment:
       BASE_URL: https://personnel.29th.org
@@ -34,7 +34,7 @@ services:
 
   api:
     container_name: api
-    image: 29th/personnel-api:latest
+    image: 29th/personnel-api:${API_IMAGE_TAG:-latest}
     restart: always
     volumes:
       - /mnt/user_images/coats:/var/www/html/coats
@@ -64,7 +64,7 @@ services:
 
   forums:
     container_name: forums
-    image: 29th/forums:latest
+    image: 29th/forums:${FORUMS_IMAGE_TAG:-latest}
     restart: always
     volumes:
       - /mnt/user_images/uploads:/var/www/html/uploads
