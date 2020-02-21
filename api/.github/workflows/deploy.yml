@@ -33,6 +33,6 @@ jobs:
         envs: GITHUB_SHA
         script: |
           cd /usr/local/src
-          echo "hash: $GITHUB_SHA"
+          export PERSONNEL_API_HASH=$(echo $GITHUB_SHA | head -c7)
           docker-compose pull api
           docker-compose up -d api
