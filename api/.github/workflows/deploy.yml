@@ -13,7 +13,7 @@ jobs:
       uses: actions/checkout@v2
       
     - name: Build container image
-      run: docker build -t $GITHUB_REPOSITORY:$(echo $GITHUB_SHA | head -c7) .
+      run: docker build -t $GITHUB_REPOSITORY:latest -t $GITHUB_REPOSITORY:$(echo $GITHUB_SHA | head -c7) .
 
     - name: Login to docker hub
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
@@ -30,7 +30,9 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
+        envs: GITHUB_SHA
         script: |
           cd /usr/local/src
+          echo "hash: $GITHUB_SHA"
           docker-compose pull api
           docker-compose up -d api
