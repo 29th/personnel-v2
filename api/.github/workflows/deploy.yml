@@ -32,8 +32,10 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        envs: WORK_DIR
+        env: WORK_DIR
         script: |
+          echo $WORK_DIR
           cd $WORK_DIR
+          pwd
           docker-compose pull
           docker-compose up -d

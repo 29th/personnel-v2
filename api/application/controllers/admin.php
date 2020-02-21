@@ -180,7 +180,7 @@ class Admin extends CI_Controller {
 	private function role_list_to_dropdown($roles) {
         $dropdown = array();
         foreach($roles as $role) {
-            $dropdown[$role['RoleID']] = $role['Name'];
+            $dropdown[$role['roleID']] = $role['name'];
         }
         return $dropdown;
 	}
