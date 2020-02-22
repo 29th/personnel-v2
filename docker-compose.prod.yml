@@ -9,7 +9,7 @@ services:
       - "443:443"
     user: root
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./Caddyfile.prod:/etc/caddy/Caddyfile
       - caddy-config:/root/.config/caddy
       - caddy-data:/root/.local/share/caddy
 
