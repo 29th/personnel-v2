@@ -1,4 +1,4 @@
-name: Deploy reverse proxy
+name: Deploy docker compose
 
 on:
   push:
