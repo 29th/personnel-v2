@@ -1,4 +1,4 @@
-name: deploy
+name: Deploy
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repo
@@ -33,6 +33,6 @@ jobs:
         envs: GITHUB_SHA
         script: |
           cd /usr/local/src
-          export PERSONNEL_API_HASH=$(echo $GITHUB_SHA | head -c7)
+          export API_IMAGE_TAG=$(echo $GITHUB_SHA | head -c7)
           docker-compose pull api
           docker-compose up -d api
