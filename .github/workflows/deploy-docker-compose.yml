@@ -1,0 +1,32 @@
+name: Deploy reverse proxy
+
+on:
+  push:
+    paths:
+      - 'docker-compose.prod.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Copy docker-compose.prod.yml to server
+        uses: appleboy/scp-action@v0.0.6
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: docker-compose.prod.yml
+          target: /usr/local/src/docker-compose.yml
+
+      - name: Reload docker containers
+        uses: appleboy/ssh-action@v0.0.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /usr/local/src
+            docker-compose up -d

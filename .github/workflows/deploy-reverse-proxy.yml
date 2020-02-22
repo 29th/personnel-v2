@@ -1,0 +1,32 @@
+name: Deploy reverse proxy
+
+on:
+  push:
+    paths:
+      - 'Caddyfile.prod'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Copy Caddyfile.prod to server
+        uses: appleboy/scp-action@v0.0.6
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: Caddyfile.prod
+          target: /usr/local/src/Caddyfile
+
+      - name: Reload caddy
+        uses: appleboy/ssh-action@v0.0.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /usr/local/src
+            docker-compose exec reverse-proxy caddy reload --config=/etc/caddy/Caddyfile

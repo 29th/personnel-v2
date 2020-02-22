@@ -1,0 +1,32 @@
+name: Deploy reverse proxy
+
+on:
+  push:
+    paths:
+      - 'homepage.conf'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Copy homepage.conf to server
+        uses: appleboy/scp-action@v0.0.6
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: homepage.conf
+          target: /usr/local/src/homepage.conf
+
+      - name: Reload nginx
+        uses: appleboy/ssh-action@v0.0.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /usr/local/src
+            docker-compose exec homepage service nginx reload
