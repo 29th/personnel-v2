@@ -66,9 +66,6 @@ services:
     container_name: forums
     volumes:
       - ./uploads:/var/www/html/uploads
-      - ./forums/config.php:/var/www/html/conf/config.php
-      - ./forums/plugins/PersonnelFiles:/var/www/html/plugins/PersonnelFiles
-      - ./forums/plugins/UnreadOnIndex:/var/www/html/plugins/UnreadOnIndex
     environment:
       DB_HOSTNAME: db-forums
       DB_DATABASE: vanilla
