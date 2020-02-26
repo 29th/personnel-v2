@@ -125,6 +125,7 @@ services:
     image: bitnami/discourse:2
     networks:
       - discourse
+      - default
     depends_on:
       - discourse-db
       - discourse-redis
