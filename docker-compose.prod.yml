@@ -149,7 +149,7 @@ services:
     networks:
       - discourse
     volumes:
-      - db-discourse-data:/bitnami/postgresql
+      - discourse-db-data:/bitnami/postgresql
     environment:
       POSTGRESQL_DATABASE: $DISCOURSE_DB_DATABASE
       POSTGRESQL_USERNAME: $DISCOURSE_DB_USERNAME
@@ -160,7 +160,7 @@ services:
     networks:
       - discourse
     volumes:
-      - redis-discourse-data:/bitnami
+      - discourse-redis-data:/bitnami
     environment:
       REDIS_PASSWORD: $DISCOURSE_REDIS_PASSWORD
 
