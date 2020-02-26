@@ -13,7 +13,7 @@ jobs:
       uses: actions/checkout@v2
       
     - name: Build container image
-      run: docker build -t $GITHUB_REPOSITORY:latest -t $GITHUB_REPOSITORY:$(echo $GITHUB_SHA | head -c7) .
+      run: docker build -t $GITHUB_REPOSITORY:latest .
 
     - name: Login to docker hub
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
@@ -33,6 +33,5 @@ jobs:
         envs: GITHUB_SHA
         script: |
           cd /usr/local/src
-          export APP_IMAGE_TAG=$(echo $GITHUB_SHA | head -c7)
           docker-compose pull app
           docker-compose up -d app
