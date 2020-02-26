@@ -166,7 +166,7 @@ services:
     depends_on:
       - discourse-app
     volumes:
-      discourse-sidekiq-data:/bitnami
+      - discourse-sidekiq-data:/bitnami
     command: nami start --foreground discourse-sidekiq
     environment:
       DISCOURSE_POSTGRESQL_NAME: $DISCOURSE_DB_DATABASE
