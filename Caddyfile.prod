@@ -36,7 +36,3 @@ bitwarden.29th.org {
   reverse_proxy /notifications/hub bitwarden:3012
   reverse_proxy bitwarden:80
 }
-
-discourse.29th.org {
-  reverse_proxy discourse-app:3000
-}
