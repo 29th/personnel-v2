@@ -119,7 +119,68 @@ services:
       SMTP_FROM: noreply@29th.org
       SMTP_EXPLICIT_TLS: 'true'
 
+
+  # Discourse services, for temporary use
+  discourse-app:
+    image: bitnami:discourse:2
+    network: discourse
+    depends_on:
+      - discourse-db
+      - discourse-redis
+    volumes:
+      - discourse-app-data:/bitnami
+    environment:
+      POSTGRESQL_HOST: discourse-db
+      DISCOURSE_POSTGRESQL_NAME: $DISCOURSE_DB_DATABASE
+      DISCOURSE_POSTGRESQL_USERNAME: $DISCOURSE_DB_USERNAME
+      DISCOURSE_POSTGRESQL_PASSWORD: $DISCOURSE_DB_PASSWORD
+      DISCOURSE_HOSTNAME: discourse.29th.org
+      DISCOURSE_SITENAME: 29th Infantry Division
+      REDIS_HOST: discourse-redis
+      REDIS_PASSWORD: $DISCOURSE_REDIS_PASSWORD
+      SMTP_HOST: $FORUMS_MAIL_SMTP_HOSTNAME
+      SMTP_USER: $FORUMS_MAIL_SMTP_USERNAME
+      SMTP_PASSWORD: $FORUMS_MAIL_SMTP_PASSWORD
+      SMTP_PORT: $FORUMS_MAIL_SMTP_PORT
+
+  discourse-db:
+    image: bitnami/postgresql:11
+    network: discourse
+    volumes:
+      - db-discourse-data:/bitnami/postgresql
+    environment:
+      POSTGRESQL_DATABASE: $DISCOURSE_DB_DATABASE
+      POSTGRESQL_USERNAME: $DISCOURSE_DB_USERNAME
+      POSTGRESQL_PASSWORD: $DISCOURSE_DB_PASSWORD
+
+  discourse-redis:
+    image: bitnami/redis:5.0
+    network: discourse
+    volumes:
+      - redis-discourse-data:/bitnami
+    environment:
+      REDIS_PASSWORD: $DISCOURSE_REDIS_PASSWORD
+
+  discourse-sidekiq:
+    image: bitnami/discourse:2
+    depends_on:
+      - discourse-app
+    volumes:
+      discourse-sidekiq-data:/bitnami
+    command: nami start --foreground discourse-sidekiq
+    environment:
+      DISCOURSE_POSTGRESQL_NAME: $DISCOURSE_DB_DATABASE
+      DISCOURSE_POSTGRESQL_USERNAME: $DISCOURSE_DB_USERNAME
+      DISCOURSE_POSTGRESQL_PASSWORD: $DISCOURSE_DB_PASSWORD
+      DISCOURSE_HOST: discourse-app
+      DISCOURSE_PORT: 3000
+      DISCOURSE_HOSTNAME: discourse.29th.org
+
 volumes:
   caddy-config:
   caddy-data:
   portainer-data:
+  discourse-app-data:
+  discourse-db-data:
+  discourse-redis-data:
+  discourse-sidekiq-data:
