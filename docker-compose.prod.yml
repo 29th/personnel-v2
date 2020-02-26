@@ -122,7 +122,7 @@ services:
 
   # Discourse services, for temporary use
   discourse-app:
-    image: bitnami:discourse:2
+    image: bitnami/discourse:2
     networks:
       - discourse
     depends_on:
