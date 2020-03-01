@@ -39,3 +39,10 @@ portainer.29th.local {
   tls /etc/caddy/certs/29th.local.crt /etc/caddy/certs/29th.local.key
   reverse_proxy portainer:9000
 }
+
+phpmyadmin.29th.local {
+  tls /etc/caddy/certs/29th.local.crt /etc/caddy/certs/29th.local.key
+  reverse_proxy phpmyadmin:80 {
+    header_up X-Forwarded-Proto {http.request.scheme}
+  }
+}

@@ -122,6 +122,14 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer-data:/data
 
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOSTS: db-forums,db-personnel
+      PMA_USER: root
+      PMA_PASSWORD: pwd
+
 volumes:
   db-personnel-persistence:
   db-vanilla-persistence:

@@ -59,7 +59,7 @@ personnel
 Modify your hosts file so our desired hostnames point to your local machine. Add this line to it:
 
 ```
-127.0.0.1 29th.local www.29th.local api.29th.local personnel.29th.local forums.29th.local
+127.0.0.1 29th.local www.29th.local api.29th.local personnel.29th.local forums.29th.local phpmyadmin.29th.local
 ```
 
 ### Usage
