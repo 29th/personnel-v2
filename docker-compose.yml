@@ -115,13 +115,6 @@ services:
       MYSQL_DATABASE: vanilla
       MYSQL_ROOT_PASSWORD: pwd
 
-  portainer:
-    container_name: portainer
-    image: portainer/portainer
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer-data:/data
-
   phpmyadmin:
     container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin
@@ -133,4 +126,3 @@ services:
 volumes:
   db-personnel-persistence:
   db-vanilla-persistence:
-  portainer-data:
