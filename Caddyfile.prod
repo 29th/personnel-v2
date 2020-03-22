@@ -1,6 +1,7 @@
 {
   email admin@29th.org
   # acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+  default_sni 29th.org
 }
 
 29th.org {
