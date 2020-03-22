@@ -10,8 +10,8 @@ services:
     user: root
     volumes:
       - ./Caddyfile.prod:/etc/caddy/Caddyfile
-      - caddy-config:/root/.config/caddy
-      - caddy-data:/root/.local/share/caddy
+      - caddy-config:/config
+      - caddy-data:/data
 
   homepage:
     container_name: homepage
