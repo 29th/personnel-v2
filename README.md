@@ -27,6 +27,7 @@ cd personnel
 git clone https://github.com/29th/personnel-api.git
 git clone https://github.com/29th/personnel-app.git
 git clone https://github.com/29th/forums.git
+git clone https://github.com/29th/personnel-v3.git
 ```
 
 Place the 2 database dump files in the `db` directory. They should be named `personnel.sql` and `vanilla.sql`.

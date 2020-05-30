@@ -77,6 +77,15 @@ services:
       PERSONNEL_HOST_NAME: personnel.29th.local
       DEBUG: 1
 
+  v3:
+    build: ./personnel-v3
+    container_name: v3
+    volumes:
+      - ./personnel-v3:/usr/src/app
+    environment:
+      DATABASE_URL: mysql2://root:pwd@db-personnel/personnel_v2
+      STEAM_WEB_API_KEY: $STEAM_WEB_API_KEY
+
   db-personnel:
     image: mysql:8
     container_name: db-personnel

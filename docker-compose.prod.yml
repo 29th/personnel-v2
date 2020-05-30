@@ -88,6 +88,15 @@ services:
       PERSONNEL_HOST_NAME: personnel.29th.org
       DEBUG: 0
 
+  v3:
+    container_name: v3
+    image: 29th/personnel-v3:latest
+    restart: always
+    environment:
+      RAILS_ENV: production
+      DATABASE_URL: mysql2://$PERSONNEL_DB_USERNAME:$PERSONNEL_DB_PASSWORD@$PERSONNEL_DB_HOSTNAME:$PERSONNEL_DB_PORT/$PERSONNEL_DB_DATABASE
+      STEAM_WEB_API_KEY: $STEAM_WEB_API_KEY
+
   portainer:
     container_name: portainer
     image: portainer/portainer

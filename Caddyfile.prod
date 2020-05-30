@@ -37,3 +37,7 @@ bitwarden.29th.org {
   reverse_proxy /notifications/hub bitwarden:3012
   reverse_proxy bitwarden:80
 }
+
+v3.29th.org {
+  reverse_proxy v3:3000
+}
