@@ -2,6 +2,7 @@ db/*
 !db/.gitkeep
 personnel-api
 personnel-app
+personnel-v3
 vanilla
 forums
 .env*
