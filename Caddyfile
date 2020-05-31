@@ -44,5 +44,7 @@ phpmyadmin.29th.local {
 
 v3.29th.local {
   tls /etc/caddy/certs/29th.local.crt /etc/caddy/certs/29th.local.key
-  reverse_proxy v3:3000
+  reverse_proxy v3:3000 {
+    header_up X-Forwarded-Proto {scheme}
+  }
 }

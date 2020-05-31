@@ -39,5 +39,7 @@ bitwarden.29th.org {
 }
 
 v3.29th.org {
-  reverse_proxy v3:3000
+  reverse_proxy v3:3000 {
+    header_up X-Forwarded-Proto {scheme}
+  }
 }
