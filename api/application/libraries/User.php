@@ -80,6 +80,10 @@ class User {
         }
         
     }
+
+    public function has_admin_key() {
+        return $this->input->server('HTTP_X_ADMIN_API_KEY') == config_item('admin_api_key');
+    }
     
     /**
      * Verify user_id and password against forums db

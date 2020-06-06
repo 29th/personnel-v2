@@ -194,6 +194,13 @@ $config['rest_ip_blacklist'] = '';
 $config['rest_database_group'] = 'default';
 
 /*
+|----------------
+| Custom (29th) Admin API Key
+|----------------
+*/
+$config['admin_api_key'] = getenv('ADMIN_API_KEY');
+
+/*
 |--------------------------------------------------------------------------
 | REST API Keys Table Name
 |--------------------------------------------------------------------------
