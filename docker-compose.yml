@@ -49,6 +49,7 @@ services:
       DB_FORUMS_PASSWORD: pwd
       DB_FORUMS_PORT: 3306
       ENCRYPTION_KEY: dev
+      ADMIN_API_KEY: dev
       BASE_URL: https://api.29th.local
       CORS_HOST: https://personnel.29th.local
       VANILLA_BASE_URL: http://forums
@@ -85,6 +86,8 @@ services:
     environment:
       DATABASE_URL: mysql2://root:pwd@db-personnel/personnel_v2
       STEAM_WEB_API_KEY: $STEAM_WEB_API_KEY
+      V2_ADMIN_API_KEY: dev
+      V2_API_BASE_URL: api
 
   db-personnel:
     image: mysql:8
