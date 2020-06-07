@@ -50,6 +50,7 @@ services:
       DB_FORUMS_PASSWORD: $FORUMS_DB_PASSWORD
       DB_FORUMS_PORT: $FORUMS_DB_PORT
       ENCRYPTION_KEY: $PERSONNEL_ENCRYPTION_KEY
+      ADMIN_API_KEY: $PERSONNEL_ADMIN_API_KEY
       BASE_URL: https://api.29th.org
       CORS_HOST: https://personnel.29th.org
       VANILLA_BASE_URL: https://forums.29th.org
@@ -99,6 +100,8 @@ services:
       DATABASE_URL: $PERSONNEL_DB_URL
       STEAM_WEB_API_KEY: $STEAM_WEB_API_KEY
       SECRET_KEY_BASE: $SECRET_KEY_BASE
+      V2_ADMIN_API_KEY: $PERSONNEL_ADMIN_API_KEY
+      V2_API_BASE_URL: https://api.29th.org
 
   portainer:
     container_name: portainer
