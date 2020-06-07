@@ -434,7 +434,8 @@ class Members extends MY_Controller {
         // Must have permission to modify profile, add promotion, or add awarding for this member or for any member, as these actions require a service coat updated
         if( ! $this->user->permission('profile_edit', array('member' => $member_id)) && ! $this->user->permission('profile_edit_any')
         &&  ! $this->user->permission('promotion_add', array('member' => $member_id)) && ! $this->user->permission('promotion_add_any')
-        &&  ! $this->user->permission('awarding_add', array('member' => $member_id)) && ! $this->user->permission('awarding_add_any')) {
+        &&  ! $this->user->permission('awarding_add', array('member' => $member_id)) && ! $this->user->permission('awarding_add_any')
+        &&  ! $this->user->has_admin_key()) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
         }
         // Execute
