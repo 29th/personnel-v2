@@ -88,6 +88,8 @@ services:
       STEAM_WEB_API_KEY: $STEAM_WEB_API_KEY
       V2_ADMIN_API_KEY: dev
       V2_API_BASE_URL: api
+      VANILLA_COOKIE_NAME: Vanilla
+      VANILLA_COOKIE_SALT: dev
 
   db-personnel:
     image: mysql:8
