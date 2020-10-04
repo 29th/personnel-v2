@@ -8,7 +8,7 @@
 </div>
     {{#each members}}
     <div class="row">
-        <div class="col-xs-2 col-sm-1">{{#if this.rank.filename}}<img src="images/ranks/16x16/{{ this.rank.filename }}.png" title="{{ this.rank.name }}">{{/if}}</div>
+        <div class="col-xs-2 col-sm-1">{{#if this.rank.filename}}<img src="images/ranks/16x16/{{ this.rank.filename }}" title="{{ this.rank.name }}">{{/if}}</div>
         <div class="col-xs-10 col-sm-3"><a href="#members/{{ this.id }}">{{ this.short_name }}</a></div>
         <div class="col-xs-12 col-sm-7">{{ this.position.name }}</div>
         <div class="hidden-xs col-sm-1">{{#if this.country.abbr}}<img src="images/countries/{{ toLowerCase this.country.abbr }}.png" title="{{ this.country.name }}">{{/if}}</div>
