@@ -1,5 +1,5 @@
 <div class="row header">
-    {{#if rank.filename}}<div class="col-sm-1"><img src="images/ranks/60x60/{{ rank.filename }}.png" title="{{ rank.name }}"> </div>{{/if}}
+    {{#if rank.filename}}<div class="col-sm-1"><img src="images/ranks/60x60/{{ rank.filename }}" title="{{ rank.name }}"> </div>{{/if}}
     <div class="col-sm-{{#if rank.filename}}9{{else}}10{{/if}}">
         <div class="title">{{ rank.name }} {{ full_name }} <abbr>{{#is eloa ">" "0"}}(ELOA){{/is}}{{#is pass ">" "0"}}(Weapon Pass){{/is}}</abbr></div>
         <ul class="assignments">
