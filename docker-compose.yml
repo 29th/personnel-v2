@@ -83,7 +83,7 @@ services:
     volumes:
       - ./personnel-v3:/usr/src/app
     environment:
-      DATABASE_URL: mysql2://root:pwd@db-personnel/personnel_v2
+      DATABASE_URL: mysql2://root:pwd@db-personnel
       STEAM_WEB_API_KEY: $STEAM_WEB_API_KEY
       V2_ADMIN_API_KEY: dev
       V2_API_BASE_URL: api
