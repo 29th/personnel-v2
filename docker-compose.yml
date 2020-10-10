@@ -82,6 +82,8 @@ services:
     container_name: v3
     volumes:
       - ./personnel-v3:/usr/src/app
+    tmpfs: /usr/src/app/tmp
+    user: root
     environment:
       DATABASE_URL: mysql2://root:pwd@db-personnel
       STEAM_WEB_API_KEY: $STEAM_WEB_API_KEY

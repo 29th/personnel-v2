@@ -92,6 +92,8 @@ services:
     container_name: v3
     image: 29th/personnel-v3:latest
     restart: always
+    tmpfs: /usr/src/app/tmp
+    user: root
     environment:
       RAILS_ENV: production
       RAILS_SERVE_STATIC_FILES: 'true'
