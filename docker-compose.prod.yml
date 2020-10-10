@@ -104,15 +104,6 @@ services:
       VANILLA_COOKIE_NAME: Vanilla
       VANILLA_COOKIE_SALT: $FORUMS_COOKIE_SALT
 
-  portainer:
-    container_name: portainer
-    image: portainer/portainer
-    restart: always
-    command: --admin-password=$PORTAINER_ADMIN_PASSWORD
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer-data:/data
-
   bitwarden:
     container_name: bitwarden
     image: bitwardenrs/server-mysql
@@ -138,4 +129,3 @@ services:
 volumes:
   caddy-config:
   caddy-data:
-  portainer-data:
