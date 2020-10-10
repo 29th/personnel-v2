@@ -1,12 +1,11 @@
 version: '3'
 services:
   reverse-proxy:
-    image: caddy/caddy:2.1.1-alpine
+    image: caddy:2.2.0
     container_name: reverse-proxy
     ports:
       - "80:80"
       - "443:443"
-    user: root
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - ./certs:/etc/caddy/certs
