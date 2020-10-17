@@ -1,14 +1,14 @@
 version: '3'
 services:
   reverse-proxy:
-    image: caddy:2.2.0
+    image: nginx:1.19.3
     container_name: reverse-proxy
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - ./certs:/etc/caddy/certs
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./certs:/etc/nginx/certs
 
   homepage:
     image: nginx:1.17.7
