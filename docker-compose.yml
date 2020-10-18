@@ -7,9 +7,10 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./certs/29th.local.crt:/etc/nginx/certs/29th.org/fullchain.pem
-      - ./certs/29th.local.key:/etc/nginx/certs/29th.org/privkey.pem
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/empty:/etc/nginx/ssl-options.conf
+      - ./certs/29th.local.crt:/etc/nginx/certs/fullchain.pem:ro
+      - ./certs/29th.local.key:/etc/nginx/certs/privkey.pem:ro
 
   homepage:
     image: nginx:1.17.7
