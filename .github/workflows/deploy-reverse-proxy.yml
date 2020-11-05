@@ -1,15 +1,15 @@
-name: Deploy reverse proxy
+name: Deploy homepage
 
 on:
   push:
     paths:
-      - 'Caddyfile.prod'
+      - 'nginx/*.conf'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Pull repo in server and reload caddy
+      - name: Pull repo in server and reload nginx
         uses: appleboy/ssh-action@v0.0.7
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -18,4 +18,4 @@ jobs:
           script: |
             cd /usr/local/src
             git pull origin master
-            docker-compose exec -T reverse-proxy caddy reload --config=/etc/caddy/Caddyfile
+            docker-compose exec -T reverse-proxy nginx -s reload
