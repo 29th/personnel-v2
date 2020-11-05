@@ -8,19 +8,13 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/ssl-options.conf:/etc/nginx/ssl-options.conf
-      - ./nginx/dhparam:/etc/nginx/dhparam
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/homepage-exceptions.conf:/etc/nginx/homepage-exceptions.conf:ro
+      - ./nginx/ssl-options.conf:/etc/nginx/ssl-options.conf:ro
+      - ./nginx/dhparam:/etc/nginx/dhparam:ro
       - /etc/letsencrypt/live/29th.org/fullchain.pem:/etc/nginx/certs/fullchain.pem:ro
       - /etc/letsencrypt/live/29th.org/privkey.pem:/etc/nginx/certs/privkey.pem:ro
       - /etc/letsencrypt/live/29th.org/chain.pem:/etc/nginx/certs/chain.pem:ro
-
-  homepage:
-    container_name: homepage
-    image: nginx:1.17.7
-    restart: always
-    volumes:
-      - ./homepage.conf:/etc/nginx/nginx.conf
 
   app:
     container_name: app

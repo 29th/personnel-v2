@@ -6,17 +6,13 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    command: [nginx-debug, '-g', 'daemon off;']
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/empty:/etc/nginx/ssl-options.conf
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/homepage-exceptions.conf:/etc/nginx/homepage-exceptions.conf:ro
+      - ./nginx/empty:/etc/nginx/ssl-options.conf:ro
       - ./certs/29th.local.crt:/etc/nginx/certs/fullchain.pem:ro
       - ./certs/29th.local.key:/etc/nginx/certs/privkey.pem:ro
-
-  homepage:
-    image: nginx:1.17.7
-    container_name: homepage
-    volumes:
-      - ./homepage.conf:/etc/nginx/nginx.conf
 
   app:
     build: ./personnel-app
