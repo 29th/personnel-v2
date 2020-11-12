@@ -84,7 +84,7 @@ services:
     user: root
     environment:
       DATABASE_URL: mysql2://root:pwd@db-personnel
-      STEAM_WEB_API_KEY: $STEAM_WEB_API_KEY
+      FORUMS_BASE_URL: https://forums.29th.local
       V2_ADMIN_API_KEY: dev
       V2_API_BASE_URL: api
       VANILLA_COOKIE_NAME: Vanilla

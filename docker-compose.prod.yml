@@ -96,7 +96,7 @@ services:
       RAILS_SERVE_STATIC_FILES: 'true'
       RAILS_LOG_TO_STDOUT: 'true'
       DATABASE_URL: $PERSONNEL_DB_URL
-      STEAM_WEB_API_KEY: $STEAM_WEB_API_KEY
+      FORUMS_BASE_URL: https://forums.29th.org
       SECRET_KEY_BASE: $SECRET_KEY_BASE
       V2_ADMIN_API_KEY: $PERSONNEL_ADMIN_API_KEY
       V2_API_BASE_URL: https://api.29th.org
