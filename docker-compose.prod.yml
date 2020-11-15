@@ -49,13 +49,11 @@ services:
       ADMIN_API_KEY: $PERSONNEL_ADMIN_API_KEY
       BASE_URL: https://api.29th.org
       CORS_HOST: https://personnel.29th.org
-      VANILLA_BASE_URL: https://forums.29th.org
-      VANILLA_ACCESS_TOKEN: $FORUMS_PERSONAL_ACCESS_TOKEN
-      VANILLA_COOKIE_NAME: Vanilla
-      VANILLA_COOKIE_DOMAIN: 29th.org
-      VANILLA_COOKIE_PATH: /
-      VANILLA_COOKIE_HASH_METHOD: md5
-      VANILLA_COOKIE_SALT: $FORUMS_COOKIE_SALT
+      FORUMS_BASE_URL: https://forums.29th.org
+      FORUMS_ACCESS_TOKEN: $FORUMS_PERSONAL_ACCESS_TOKEN
+      FORUMS_COOKIE_NAME: Vanilla
+      FORUMS_SECRET_KEY: $FORUMS_COOKIE_SALT
+      FORUM_LIBRARY_CLASS: vanilla
       ENVIRONMENT: production
       DIR_COAT_PUBLIC: /var/www/html/coats/
 
