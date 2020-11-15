@@ -138,9 +138,8 @@ class Assignments extends MY_Controller {
             $insert_id = $this->assignment_model->save(NULL, $data);
             
             // Update roles
-            $this->load->library('vanilla');
-            $roles = $this->vanilla->update_roles($data['member_id']);
-            $this->vanilla->update_username($data['member_id']);
+            $roles = $this->forums->update_roles($data['member_id']);
+            $this->forums->update_username($data['member_id']);
             
             $this->response(array('status' => $insert_id ? true : false, 'assignment' => $insert_id ? nest($this->assignment_model->select_member()->get_by_id($insert_id)) : null));
         }
@@ -176,8 +175,7 @@ class Assignments extends MY_Controller {
             $result = $this->assignment_model->save($assignment_id, $data);
             
             // Update roles
-            $this->load->library('vanilla');
-            $roles = $this->vanilla->update_roles($assignment['member']['id']);
+            $roles = $this->forums->update_roles($assignment['member']['id']);
             
             $this->response(array('status' => $result ? true : false, 'assignment' => nest($this->assignment_model->select_member()->get_by_id($assignment_id))));
         }
@@ -202,8 +200,7 @@ class Assignments extends MY_Controller {
             $this->assignment_model->delete($assignment_id);
             
             // Update roles
-            $this->load->library('vanilla');
-            $roles = $this->vanilla->update_roles($assignment['member']['id']);
+            $roles = $this->forums->update_roles($assignment['member']['id']);
             
             $this->response(array('status' => true));
         }

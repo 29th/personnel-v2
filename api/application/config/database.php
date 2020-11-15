@@ -70,7 +70,7 @@ $db['default'] = array(
     'stricton' => ''
 );
 
-$db['forums'] = array(
+$db['vanilla'] = array(
     'hostname' => getenv('DB_FORUMS_HOSTNAME'),
     'port'     => getenv('DB_FORUMS_PORT'),
     'username' => getenv('DB_FORUMS_USERNAME'),

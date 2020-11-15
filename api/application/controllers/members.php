@@ -63,9 +63,8 @@ class Members extends MY_Controller {
                 if ( curl_getinfo($ch, CURLINFO_HTTP_CODE) == '200' )
                     $member['sig'] = "https://www.29th.org/sigs/" . $member['steam_id'] . ".png";
             }
-            $this->load->library('vanilla');
             if ($member['forum_member_id'])
-                $member['forum_steam_id'] = $this->vanilla->get_steam_id($member['forum_member_id']);
+                $member['forum_steam_id'] = $this->forums->get_steam_id($member['forum_member_id']);
             $this->response(array('status' => true, 'member' => $member ));
         }
     }
@@ -102,8 +101,7 @@ class Members extends MY_Controller {
             $this->servicecoat->update($member_id);
             
             // Update username
-            $this->load->library('vanilla');
-            $this->vanilla->update_username($member_id);
+            $this->forums->update_username($member_id);
             
             $this->response(array('status' => $result ? true : false, 'member' => $this->member_model->get_by_id($member_id)));
         }
@@ -420,8 +418,7 @@ class Members extends MY_Controller {
             $result = $this->assignment_model->discharge($member_id);
             
             // Update roles
-            $this->load->library('vanilla');
-            $roles = $this->vanilla->update_roles($member_id);
+            $roles = $this->forums->update_roles($member_id);
             
             $this->response(array('status' => $result ? true : false));
         }
@@ -457,8 +454,7 @@ class Members extends MY_Controller {
         // Execute
         else {
             $this->usertracking->track_this();
-            $this->load->library('vanilla');
-            if($roles = $this->vanilla->update_roles($member_id)) {
+            if($roles = $this->forums->update_roles($member_id)) {
                 $this->response(array('status' => true, 'roles' => $roles));
             } else {
                 $this->response(array('status' => false, 'error' => 'There was an issue updating the user\'s roles'));

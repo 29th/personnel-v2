@@ -59,8 +59,7 @@ class Admin extends CI_Controller {
 	
     // Update roles after change
 	function _callback_assignments_after_change($data, $id = null) {
-        $this->load->library('vanilla');
-        $roles = $this->vanilla->update_roles($data['member_id']);
+		$roles = $this->forums->update_roles($data['member_id']);
 	}
 	
 	// This one has to be done before because after, the promotion record doesn't exist so we don't know which member to update...ugh
@@ -73,8 +72,7 @@ class Admin extends CI_Controller {
 	    
 	    // Update roles
 	    if($data['member']['id']) {
-            $this->load->library('vanilla');
-            $roles = $this->vanilla->update_roles($data['member']['id']);
+            $roles = $this->forums->update_roles($data['member']['id']);
 	    }
 	}
 	
@@ -167,8 +165,7 @@ class Admin extends CI_Controller {
 	    $this->grocery_crud->set_table('class_roles')
 	        ->required_fields('role_id');
 	    
-        $this->load->library('vanilla');
-        $roles = $this->role_list_to_dropdown($this->vanilla->get_role_list());
+		$roles = $this->role_list_to_dropdown($this->forums->get_role_list());
         
         $this->grocery_crud->field_type('role_id', 'dropdown', $roles)->display_as('role_id', 'Role');
         
@@ -337,10 +334,8 @@ class Admin extends CI_Controller {
 	}
 	
 	public function _callback_members_after_update($data, $id = null) {
-        $this->load->library('vanilla');
-	    
         // Update username
-        $this->vanilla->update_username($id);
+        $this->forums->update_username($id);
 	}
 	
 	/**
@@ -400,7 +395,6 @@ class Admin extends CI_Controller {
 	function _callback_promotions_after_change($data, $id = null) {
         $this->load->model('member_model');
         $this->load->model('promotion_model');
-        $this->load->library('vanilla');
         
 	    // Update member's rank to last one TODO: What about when the user has no promotions? (PFC demoted to Pvt)
         if($newest = nest($this->promotion_model->where('promotions.member_id', $data['member_id'])->limit(1)->get()->row_array())) {
@@ -408,7 +402,7 @@ class Admin extends CI_Controller {
                 $this->member_model->save($data['member_id'], array('rank_id' => $newest['new_rank']['id']));
             
                 // Update username
-                $this->vanilla->update_username($data['member_id']);
+                $this->forums->update_username($data['member_id']);
                 
                 // Update coat
                 $this->load->library('servicecoat');
@@ -421,7 +415,6 @@ class Admin extends CI_Controller {
 	function _callback_promotions_before_delete($id) {
         $this->load->model('member_model');
         $this->load->model('promotion_model');
-        $this->load->library('vanilla');
         
 	    $data = (array) $this->promotion_model->get_by_id($id);
         
@@ -431,7 +424,7 @@ class Admin extends CI_Controller {
                 $this->member_model->save($data['member_id'], array('rank_id' => $newest['new_rank']['id']));
             
                 // Update username
-                $this->vanilla->update_username($data['member_id']);
+                $this->forums->update_username($data['member_id']);
                 
                 // Update coat
                 $this->load->library('servicecoat');
@@ -547,8 +540,7 @@ class Admin extends CI_Controller {
 	        ->set_relation('unit_id', 'units', 'abbr')->display_as('unit_id', 'Unit')
 	        ->field_type('access_level', 'dropdown', array('0' => 'Default', '5' => 'Elevated', '10' => 'Leadership'));
 	    
-        $this->load->library('vanilla');
-        $roles = $this->role_list_to_dropdown($this->vanilla->get_role_list());
+        $roles = $this->role_list_to_dropdown($this->forums->get_role_list());
         
         $this->grocery_crud->field_type('role_id', 'dropdown', $roles)->display_as('role_id', 'Role');
         

@@ -14,7 +14,7 @@ class User {
     
     public function __construct($params) {
         //if(isset($params['cookie'])) $this->cookie = $params['cookie'];
-        $this->load->library('Vanilla_Cookie');
+        $this->load->library('Forums_Cookie');
     }
     
     /**
@@ -72,7 +72,7 @@ class User {
             // No cookie set
             return FALSE;
         }*/
-        if($user_id = $this->vanilla_cookie->GetIdentity()) {
+        if($user_id = $this->forums_cookie->getForumsUserId()) {
             $this->forum_member_id = $user_id;
             return $this->forum_member_id;
         } else {
@@ -83,19 +83,6 @@ class User {
 
     public function has_admin_key() {
         return $this->input->server('HTTP_X_ADMIN_API_KEY') == config_item('admin_api_key');
-    }
-    
-    /**
-     * Verify user_id and password against forums db
-     * As seen in SMF's Load.php line 366
-     */
-    public function authenticate($user_id, $password) {
-        return true; // DEBUG
-        $forums_db = $this->load->database('forums', TRUE);
-        $query = $forums_db->query('SELECT id_member FROM smf_members WHERE id_member = ' . $user_id . " AND SHA1(CONCAT(passwd, password_salt)) = '" . $password . "'");
-        $num_rows = $query->num_rows();
-        $forums_db->close();
-        return $num_rows ? true : false;
     }
     
     /*public function permissions0($member_id = FALSE, $unit_id = FALSE) {
