@@ -49,8 +49,7 @@ class Banlogs extends MY_Controller {
 		{
             $banlogs = nest( $this->banlog_model->select_member()->get_by_id($banlog_id) );
             
-            $this->load->library('vanilla');
-            $discussions_list = $this->vanilla->get_ban_disputes($banlogs['roid']);
+            $discussions_list = $this->forum->get_ban_disputes($banlogs['roid']);
             if ( $discussions_list )
                 $banlogs['forum_discussions'] = $discussions_list;
             
