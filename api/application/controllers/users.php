@@ -24,7 +24,7 @@ class Users extends MY_Controller {
         if($this->user->logged_in()) 
         {
             $member = $this->user->member();
-            $member['forum_steam_id'] = $this->forum->get_steam_id($member['forum_member_id']);
+            $member['forum_steam_id'] = $this->forums->get_steam_id($member['forum_member_id']);
             $this->response(array('status' => true, 'user' => $member));
         } 
         else 
@@ -65,7 +65,7 @@ class Users extends MY_Controller {
             $this->response(array('status' => false, 'error' => 'Not logged in to forums'));
         } else {
             // Find user's Steam ID in forum database
-            $result = $this->forum->get_steam_id($user_id);
+            $result = $this->forums->get_steam_id($user_id);
             // If no Steam ID found
             if( empty($result) || ! is_numeric($result['Value'])) {
                 $this->response(array('status' => false, 'error' => 'No Steam ID found in forum profile'));
@@ -80,10 +80,10 @@ class Users extends MY_Controller {
                     $result = $this->member_model->save($member['id'], array('forum_member_id' => $user_id));
             
                     // Update username
-                    $this->forum->update_username($member['id']);
+                    $this->forums->update_username($member['id']);
                     
                     // Update forum roles
-                    if($roles = $this->forum->update_roles($member['id'])) {
+                    if($roles = $this->forums->update_roles($member['id'])) {
                         $this->response(array('status' => true, 'roles' => $roles));
                     } else {
                         $this->response(array('status' => false, 'error' => 'There was an issue updating the user\'s roles'));

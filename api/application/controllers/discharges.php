@@ -55,7 +55,7 @@ class Discharges extends MY_Controller {
             $insert_id = $this->discharge_model->save(NULL, $data);
 
             // Update username
-            $this->forum->update_username($data['member_id']);
+            $this->forums->update_username($data['member_id']);
             
             // Update service coat if not honorable discharge
             if ( $data['type'] <> 'Honorable' )
@@ -93,7 +93,7 @@ class Discharges extends MY_Controller {
             $this->response(array('status' => $result ? true : false, 'discharge' => nest($this->discharge_model->get_by_id($discharge_id))));
 
             // Update username
-            $this->forum->update_username($data['member_id']);
+            $this->forums->update_username($data['member_id']);
             // Update service coat
             $this->load->library('servicecoat');
             $this->servicecoat->update($data['member_id']);

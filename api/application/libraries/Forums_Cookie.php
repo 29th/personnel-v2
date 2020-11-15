@@ -2,38 +2,38 @@
 
 use Firebase\JWT\JWT;
 
-class Forum_Cookie {
+class Forums_Cookie {
   const ALGORITHM = 'HS256';
 
   private $CookieName;
   private $SecretKey;
-  private $ForumUserId;
+  private $ForumsUserId;
 
   public function __construct() {
-    $this->CookieName = getenv('FORUM_COOKIE_NAME');
-    $this->SecretKey = getenv('FORUM_SECRET_KEY');
+    $this->CookieName = getenv('FORUMS_COOKIE_NAME');
+    $this->SecretKey = getenv('FORUMS_SECRET_KEY');
 
     if (empty($this->CookieName)) {
-      throw new Exception('Forum cookie name is empty.', 500);
+      throw new Exception('Forums cookie name is empty.', 500);
     } else if (empty($this->SecretKey)) {
-      throw new Exception('Forum secret key is empty.', 500);
+      throw new Exception('Forums secret key is empty.', 500);
     }
   }
 
-  public function getForumUserId() {
-    if (!is_null($this->ForumUserId)) {
-      return $this->ForumUserId;
+  public function getForumsUserId() {
+    if (!is_null($this->ForumsUserId)) {
+      return $this->ForumsUserId;
     }
 
     if (array_key_exists($this->CookieName, $_COOKIE)) {
       $token = $_COOKIE[$this->CookieName];
       $decoded = $this->decode($token);
       if (array_key_exists('sub', $decoded)) {
-        $this->ForumUserId = $decoded['sub'];
+        $this->ForumsUserId = $decoded['sub'];
       }
     }
 
-    return $this->ForumUserId;
+    return $this->ForumsUserId;
   }
 
   private function decode($token) {

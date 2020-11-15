@@ -65,19 +65,19 @@ class Enlistments extends MY_Controller {
             if ( $enlistment['member']['forum_member_id']
                 && ( $this->user->permission('enlistment_edit', array('member' => $enlistment['member']['id'])) || $this->user->permission('enlistment_edit_any') ) )
             {
-                $temp = $this->forum->get_steam_id($enlistment['member']['forum_member_id']);
+                $temp = $this->forums->get_steam_id($enlistment['member']['forum_member_id']);
                 $enlistment['forum_steam_id'] = str_replace( 'https://steamcommunity.com/openid/id/', '', ( $temp ? $temp['Value'] : '' ) );
                 
                 $enlistment['is_restricted'] = $this->is_it_a_restricted_name( $enlistment['last_name'], $enlistment['member_id'] );
 
-                $ips =  $this->forum->get_user_ip($enlistment['member']['forum_member_id']);
+                $ips =  $this->forums->get_user_ip($enlistment['member']['forum_member_id']);
                 $enlistment['ips'] = $ips; 
 
-                $bday =  $this->forum->get_user_bday($enlistment['member']['forum_member_id']);
+                $bday =  $this->forums->get_user_bday($enlistment['member']['forum_member_id']);
                 $enlistment['bday'] = $bday; 
                 $enlistment['forums_age'] = floor((strtotime(date("Y-m-d")) - strtotime($bday))/(365.25*24*60*60));
 
-                $email =  $this->forum->get_user_email($enlistment['member']['forum_member_id']);
+                $email =  $this->forums->get_user_email($enlistment['member']['forum_member_id']);
                 $enlistment['email'] = ( $email ? $email : '' );
                 
                 //Adding banlogs entries
@@ -263,7 +263,7 @@ class Enlistments extends MY_Controller {
                 }
             }
             // Update username
-            $this->forum->update_username($enlistment['member_id']);
+            $this->forums->update_username($enlistment['member_id']);
 
             $this->response(array('status' => false, 'enlistment' => $enlistment));
         }

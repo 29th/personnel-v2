@@ -16,7 +16,7 @@ class MY_Controller extends REST_Controller {
         // Load user library and pass it third-party (forum) cookie
         $this->load->library('user', array('cookie' => $this->input->cookie(config_item('third_party_cookie'))));
 
-        $this->load->library(getenv('FORUM_CLASS') ?: 'vanilla', '', 'forum');
+        $this->load->library(getenv('FORUMS_LIBRARY_CLASS') ?: 'vanilla', '', 'forums');
     }
 
     // Standard GET index allowing filtering by member and unit. Common across many controllers.

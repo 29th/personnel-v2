@@ -8,9 +8,9 @@ class Vanilla {
     
     public function __construct() {
         $this->vanilla_db = $this->load->database('vanilla', TRUE);
-        $access_token = getenv('FORUM_ACCESS_TOKEN');
+        $access_token = getenv('FORUMS_ACCESS_TOKEN');
         $this->client = new Client([
-            'base_uri' => getenv('FORUM_BASE_URL') . '/api/v2/',
+            'base_uri' => getenv('FORUMS_BASE_URL') . '/api/v2/',
             'headers' => [ 'Authorization' => 'Bearer ' . $access_token ]
         ]);
     }

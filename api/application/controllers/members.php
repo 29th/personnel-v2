@@ -64,7 +64,7 @@ class Members extends MY_Controller {
                     $member['sig'] = "https://www.29th.org/sigs/" . $member['steam_id'] . ".png";
             }
             if ($member['forum_member_id'])
-                $member['forum_steam_id'] = $this->forum->get_steam_id($member['forum_member_id']);
+                $member['forum_steam_id'] = $this->forums->get_steam_id($member['forum_member_id']);
             $this->response(array('status' => true, 'member' => $member ));
         }
     }
@@ -101,7 +101,7 @@ class Members extends MY_Controller {
             $this->servicecoat->update($member_id);
             
             // Update username
-            $this->forum->update_username($member_id);
+            $this->forums->update_username($member_id);
             
             $this->response(array('status' => $result ? true : false, 'member' => $this->member_model->get_by_id($member_id)));
         }
@@ -418,7 +418,7 @@ class Members extends MY_Controller {
             $result = $this->assignment_model->discharge($member_id);
             
             // Update roles
-            $roles = $this->forum->update_roles($member_id);
+            $roles = $this->forums->update_roles($member_id);
             
             $this->response(array('status' => $result ? true : false));
         }
@@ -454,7 +454,7 @@ class Members extends MY_Controller {
         // Execute
         else {
             $this->usertracking->track_this();
-            if($roles = $this->forum->update_roles($member_id)) {
+            if($roles = $this->forums->update_roles($member_id)) {
                 $this->response(array('status' => true, 'roles' => $roles));
             } else {
                 $this->response(array('status' => false, 'error' => 'There was an issue updating the user\'s roles'));

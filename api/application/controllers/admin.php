@@ -59,7 +59,7 @@ class Admin extends CI_Controller {
 	
     // Update roles after change
 	function _callback_assignments_after_change($data, $id = null) {
-		$roles = $this->forum->update_roles($data['member_id']);
+		$roles = $this->forums->update_roles($data['member_id']);
 	}
 	
 	// This one has to be done before because after, the promotion record doesn't exist so we don't know which member to update...ugh
@@ -72,7 +72,7 @@ class Admin extends CI_Controller {
 	    
 	    // Update roles
 	    if($data['member']['id']) {
-            $roles = $this->forum->update_roles($data['member']['id']);
+            $roles = $this->forums->update_roles($data['member']['id']);
 	    }
 	}
 	
@@ -165,7 +165,7 @@ class Admin extends CI_Controller {
 	    $this->grocery_crud->set_table('class_roles')
 	        ->required_fields('role_id');
 	    
-		$roles = $this->role_list_to_dropdown($this->forum->get_role_list());
+		$roles = $this->role_list_to_dropdown($this->forums->get_role_list());
         
         $this->grocery_crud->field_type('role_id', 'dropdown', $roles)->display_as('role_id', 'Role');
         
@@ -335,7 +335,7 @@ class Admin extends CI_Controller {
 	
 	public function _callback_members_after_update($data, $id = null) {
         // Update username
-        $this->forum->update_username($id);
+        $this->forums->update_username($id);
 	}
 	
 	/**
@@ -402,7 +402,7 @@ class Admin extends CI_Controller {
                 $this->member_model->save($data['member_id'], array('rank_id' => $newest['new_rank']['id']));
             
                 // Update username
-                $this->forum->update_username($data['member_id']);
+                $this->forums->update_username($data['member_id']);
                 
                 // Update coat
                 $this->load->library('servicecoat');
@@ -424,7 +424,7 @@ class Admin extends CI_Controller {
                 $this->member_model->save($data['member_id'], array('rank_id' => $newest['new_rank']['id']));
             
                 // Update username
-                $this->forum->update_username($data['member_id']);
+                $this->forums->update_username($data['member_id']);
                 
                 // Update coat
                 $this->load->library('servicecoat');
@@ -540,7 +540,7 @@ class Admin extends CI_Controller {
 	        ->set_relation('unit_id', 'units', 'abbr')->display_as('unit_id', 'Unit')
 	        ->field_type('access_level', 'dropdown', array('0' => 'Default', '5' => 'Elevated', '10' => 'Leadership'));
 	    
-        $roles = $this->role_list_to_dropdown($this->forum->get_role_list());
+        $roles = $this->role_list_to_dropdown($this->forums->get_role_list());
         
         $this->grocery_crud->field_type('role_id', 'dropdown', $roles)->display_as('role_id', 'Role');
         
