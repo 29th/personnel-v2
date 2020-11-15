@@ -98,8 +98,8 @@ services:
       SECRET_KEY_BASE: $SECRET_KEY_BASE
       V2_ADMIN_API_KEY: $PERSONNEL_ADMIN_API_KEY
       V2_API_BASE_URL: https://api.29th.org
-      VANILLA_COOKIE_NAME: Vanilla
-      VANILLA_COOKIE_SALT: $FORUMS_COOKIE_SALT
+      FORUMS_COOKIE_NAME: Vanilla
+      FORUMS_COOKIE_SALT: $FORUMS_COOKIE_SALT
 
   bitwarden:
     container_name: bitwarden

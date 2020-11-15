@@ -85,8 +85,8 @@ services:
       FORUMS_BASE_URL: https://forums.29th.local
       V2_ADMIN_API_KEY: dev
       V2_API_BASE_URL: api
-      VANILLA_COOKIE_NAME: Vanilla
-      VANILLA_COOKIE_SALT: dev
+      FORUMS_COOKIE_NAME: Vanilla
+      FORUMS_COOKIE_SALT: dev
 
   db-personnel:
     image: mysql:8
