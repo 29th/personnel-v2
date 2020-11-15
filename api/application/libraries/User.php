@@ -14,7 +14,7 @@ class User {
     
     public function __construct($params) {
         //if(isset($params['cookie'])) $this->cookie = $params['cookie'];
-        $this->load->library('Vanilla_Cookie');
+        $this->load->library('Forum_Cookie');
     }
     
     /**
@@ -72,7 +72,7 @@ class User {
             // No cookie set
             return FALSE;
         }*/
-        if($user_id = $this->vanilla_cookie->GetIdentity()) {
+        if($user_id = $this->forum_cookie->getForumUserId()) {
             $this->forum_member_id = $user_id;
             return $this->forum_member_id;
         } else {
