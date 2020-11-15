@@ -86,7 +86,7 @@ services:
       V2_ADMIN_API_KEY: dev
       V2_API_BASE_URL: api
       FORUMS_COOKIE_NAME: Vanilla
-      FORUMS_COOKIE_SALT: dev
+      FORUMS_SECRET_KEY: dev
 
   db-personnel:
     image: mysql:8
