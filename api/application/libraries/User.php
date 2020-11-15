@@ -85,19 +85,6 @@ class User {
         return $this->input->server('HTTP_X_ADMIN_API_KEY') == config_item('admin_api_key');
     }
     
-    /**
-     * Verify user_id and password against forums db
-     * As seen in SMF's Load.php line 366
-     */
-    public function authenticate($user_id, $password) {
-        return true; // DEBUG
-        $forums_db = $this->load->database('forums', TRUE);
-        $query = $forums_db->query('SELECT id_member FROM smf_members WHERE id_member = ' . $user_id . " AND SHA1(CONCAT(passwd, password_salt)) = '" . $password . "'");
-        $num_rows = $query->num_rows();
-        $forums_db->close();
-        return $num_rows ? true : false;
-    }
-    
     /*public function permissions0($member_id = FALSE, $unit_id = FALSE) {
         $permissions = array(
             'class_permissions' => $this->get_class_permissions()
