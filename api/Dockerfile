@@ -27,7 +27,8 @@ RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/Allo
   && a2enmod rewrite
 
 # Configure php.ini
-RUN echo "date.timezone = \"America/New_York\"" > "$PHP_INI_DIR/conf.d/docker.ini"
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
+  && sed -i -e "s%;date.timezone =%date.timezone = \"America/New_York\"%g" "$PHP_INI_DIR/php.ini"
 
 # Enable php mysql extension
 RUN docker-php-ext-install mysqli
