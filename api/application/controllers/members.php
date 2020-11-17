@@ -101,7 +101,7 @@ class Members extends MY_Controller {
             $this->servicecoat->update($member_id);
             
             // Update username
-            $this->forums->update_username($member_id);
+            $this->forums->update_display_name($member_id);
             
             $this->response(array('status' => $result ? true : false, 'member' => $this->member_model->get_by_id($member_id)));
         }

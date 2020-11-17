@@ -98,7 +98,7 @@ class Vanilla {
     /**
      * Find the steam id associated with the forum member account if it exists
      */
-    public function update_username($member_id) {
+    public function update_display_name($member_id) {
         $this->load->model('member_model');
         
         // Get member info

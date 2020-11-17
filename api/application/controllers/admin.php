@@ -335,7 +335,7 @@ class Admin extends CI_Controller {
 	
 	public function _callback_members_after_update($data, $id = null) {
         // Update username
-        $this->forums->update_username($id);
+        $this->forums->update_display_name($id);
 	}
 	
 	/**
@@ -402,7 +402,7 @@ class Admin extends CI_Controller {
                 $this->member_model->save($data['member_id'], array('rank_id' => $newest['new_rank']['id']));
             
                 // Update username
-                $this->forums->update_username($data['member_id']);
+                $this->forums->update_display_name($data['member_id']);
                 
                 // Update coat
                 $this->load->library('servicecoat');
@@ -424,7 +424,7 @@ class Admin extends CI_Controller {
                 $this->member_model->save($data['member_id'], array('rank_id' => $newest['new_rank']['id']));
             
                 // Update username
-                $this->forums->update_username($data['member_id']);
+                $this->forums->update_display_name($data['member_id']);
                 
                 // Update coat
                 $this->load->library('servicecoat');

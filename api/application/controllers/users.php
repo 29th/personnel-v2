@@ -80,7 +80,7 @@ class Users extends MY_Controller {
                     $result = $this->member_model->save($member['id'], array('forum_member_id' => $user_id));
             
                     // Update username
-                    $this->forums->update_username($member['id']);
+                    $this->forums->update_display_name($member['id']);
                     
                     // Update forum roles
                     if($roles = $this->forums->update_roles($member['id'])) {
