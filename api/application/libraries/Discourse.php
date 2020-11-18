@@ -40,6 +40,18 @@ class Discourse {
     }
   }
 
+  public function get_role_list() {
+    $response = $this->client->get('groups.json');
+    $body = json_decode($response->getBody(), true);
+
+    // Match key names of vanilla API
+    return array_map(function ($row) {
+      $row['roleID'] = $row['id'];
+      unset($row['id']);
+      return $row;
+    }, $body['groups']);
+  }
+
   private function get_member($member_id) {
     if ($this->member) return $this->member;
 

@@ -8,6 +8,7 @@ class Admin extends CI_Controller {
         // Load user library and pass it third-party (forum) cookie
         // Normally done by MY_Controller, but this is not a sub-class of that
         $this->load->library('user', array('cookie' => $this->input->cookie(config_item('third_party_cookie'))));
+        $this->load->library(getenv('FORUMS_LIBRARY_CLASS') ?: 'vanilla', '', 'forums');
         
         if( ! $this->user->permission('admin') && ! $this->user->permission('admin-' . $this->router->method)) {
             die('Permission denied');
