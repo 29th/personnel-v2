@@ -3,6 +3,9 @@
 use GuzzleHttp\Client;
 
 class Vanilla {
+    const PUBLIC_MEMBER_GROUP = 8; // These are vanilla IDs
+    const COMMISSIONED_OFFICER_GROUP = 73;
+    const HONORABLY_DISCHARGED_GROUP = 80;
     
     private $vanilla_db;
     
@@ -66,19 +69,19 @@ class Vanilla {
         }
         
         //If not assigned anywhere let's check if member had been HDed
-        if (empty($roles) || $roles[0] == '8')
+        if (empty($roles) || $roles[0] == self::PUBLIC_MEMBER_GROUP)
         {
             $this->discharge_model->where('discharges.member_id',$member_id);
             $discharge = $this->discharge_model->get()->result_array();
             if ( $discharge && $discharge[0]['type'] == "Honorable")
-                $roles[] = '80';
+                $roles[] = self::HONORABLY_DISCHARGED_GROUP;
         }
         
         //Adding for officers
         $rank = $member['rank']['abbr'];
         if( $rank == '2Lt.' || $rank == '1Lt.' || $rank == 'Cpt.' || $rank == 'Maj.' || $rank == 'Lt. Col.' || $rank == 'Col.' )
         {
-            $roles[] = '73';//$this->get_commisioned_officer_role_id();
+            $roles[] = self::COMMISSIONED_OFFICER_GROUP;//$this->get_commisioned_officer_role_id();
         }
 
         // Eliminate duplicates

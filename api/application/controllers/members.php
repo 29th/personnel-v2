@@ -458,10 +458,11 @@ class Members extends MY_Controller {
         // Execute
         else {
             $this->usertracking->track_this();
-            if($roles = $this->forums->update_roles($member_id)) {
+            try {
+                $roles = $this->forums->update_roles($member_id);
                 $this->response(array('status' => true, 'roles' => $roles));
-            } else {
-                $this->response(array('status' => false, 'error' => 'There was an issue updating the user\'s roles'));
+            } catch (Exception $e) {
+                $this->response(array('status' => false, 'error' => $e->getMessage()));
             }
         }
     }
