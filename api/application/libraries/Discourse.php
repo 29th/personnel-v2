@@ -1,17 +1,15 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+require_once('Forum.php');
 use GuzzleHttp\Client;
 
-class Discourse {
-  const COMMISSIONED_OFFICER_GROUP = 73; // TODO: These are vanilla IDs
-  const HONORABLY_DISCHARGED_GROUP = 80;
-
+class Discourse extends Forum {
   private $client;
   private $username;
 
   public function __construct() {
-    $base_uri = getenv('FORUMS_BASE_URL');
-    $api_key = getenv('FORUMS_ACCESS_TOKEN');
+    $base_uri = getenv('DISCOURSE_BASE_URL');
+    $api_key = getenv('DISCOURSE_API_KEY');
     $api_username = 'system';
 
     $this->client = new Client([
@@ -22,11 +20,6 @@ class Discourse {
       ],
       'http_errors' => false
     ]);
-  }
-
-  // Enables the use of CI super-global without having to define an extra variable
-  public function __get($var) {
-      return get_instance()->$var;
   }
 
   public function update_display_name($member_id) {
@@ -56,7 +49,7 @@ class Discourse {
 
   public function update_roles($member_id) {
     $member = $this->get_member($member_id);
-    $expected_roles = $this->get_expected_roles($member_id);
+    $expected_roles = $this->get_expected_roles($member_id, 'discourse');
     $current_roles = $this->get_current_roles($member_id);
 
     $roles_to_delete = array_diff($current_roles, $expected_roles);
@@ -72,25 +65,6 @@ class Discourse {
       'roles_to_delete' => $roles_to_delete,
       'roles_to_add' => $roles_to_add
     ];
-  }
-
-  private function get_expected_roles($member_id) {
-    $assignments = $this->get_assignments($member_id);
-    $class_roles = $this->get_class_roles_for_assignments($assignments);
-    $unit_roles = $this->get_unit_roles_for_assignments($assignments);
-    $expected_roles = array_filter(array_merge($class_roles, $unit_roles));
-
-    // TODO: Check whether this logic still makes sense in Discourse
-    // (is there a public member group?)
-    if (empty($assignments) && $this->is_honorably_discharged($member_id)) {
-        $expected_roles[] = self::HONORABLY_DISCHARGED_GROUP;
-    }
-
-    if (strpos($member['rank']['grade'], 0, 2) == 'O-') {
-      $expected_roles[] = self::COMMISSIONED_OFFICER_GROUP;
-    }
-
-    return $expected_roles;
   }
 
   private function get_current_roles($member_id) {
@@ -123,65 +97,6 @@ class Discourse {
     if ($response->getStatusCode() != 200) {
       throw new Exception("Failed to add role {$role} to member {$member_id}");
     }
-  }
-
-  private function get_assignments($member_id) {
-    $this->load->model('assignment_model');
-
-    return nest($this->assignment_model
-      ->where('assignments.member_id', $member_id)
-      ->order_by('priority')
-      ->by_date()
-      ->get()
-      ->result_array());
-  }
-
-  private function get_class_roles_for_assignments($assignments) {
-    $this->load->model('class_role_model');
-
-    $classes = array_unique(array_map(function($row) {
-      return $row['unit']['class'];
-    }, $assignments));
-
-    return pluck('role_id', $this->class_role_model
-      ->by_classes($classes)
-      ->get()
-      ->result_array());
-  }
-
-  private function get_unit_roles_for_assignments($assignments) {
-    $this->load->model('unit_role_model');
-
-    $roles = [];
-    foreach($assignments as $assignment) {
-      $assignment_roles = pluck('role_id', $this->unit_role_model
-        ->by_unit($assignment['unit']['id'], $assignment['position']['access_level'])
-        ->get()
-        ->result_array());
-      if ( ! empty($assignment_roles)) {
-        $roles = array_merge($roles, $assignment_roles);
-      }
-    }
-    return $roles;
-  }
-
-  private function is_honorably_discharged($member_id) {
-    $this->load->model('discharge_model');
-
-    $discharges = $this->discharge_model->get()->result_array(); // sorted by date desc by default
-    return ($discharges && $discharge[0]['type'] == 'Honorable');
-  }
-
-  private function get_member($member_id) {
-    if ($this->member) return $this->member;
-
-    $this->load->model('member_model');
-    $this->member = nest($this->member_model->get_by_id($member_id));
-    if ( ! $this->member['forum_member_id']) {
-      throw new Exception('Member has no forum_member_id');
-    }
-
-    return $this->member;
   }
 
   private function get_forum_user($forum_member_id) {

@@ -1,8 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+require_once('Forum.php');
 use GuzzleHttp\Client;
 
-class Vanilla {
+class Vanilla extends Forum {
     const PUBLIC_MEMBER_GROUP = 8; // These are vanilla IDs
     const COMMISSIONED_OFFICER_GROUP = 73;
     const HONORABLY_DISCHARGED_GROUP = 80;
@@ -11,91 +12,31 @@ class Vanilla {
     
     public function __construct() {
         $this->vanilla_db = $this->load->database('vanilla', TRUE);
-        $access_token = getenv('FORUMS_ACCESS_TOKEN');
+        $access_token = getenv('VANILLA_API_KEY');
         $this->client = new Client([
-            'base_uri' => getenv('FORUMS_BASE_URL') . '/api/v2/',
-            'headers' => [ 'Authorization' => 'Bearer ' . $access_token ]
+            'base_uri' => getenv('VANILLA_BASE_URL') . '/api/v2/',
+            'headers' => [ 'Authorization' => "Bearer {$access_token}" ]
         ]);
     }
     
-    /**
-     * Enables the use of CI super-global without having to define an extra variable
-     */
-    public function __get($var) {
-        return get_instance()->$var;
-    }
-
-    /**
-     * Update Member Roles
-     * For each active assignment, fetches the forum roles and sets them in the forum, erasing any other roles
-     */
     public function update_roles($member_id) {
-        $this->load->model('member_model');
-        $this->load->model('assignment_model');
-        $this->load->model('unit_role_model');
-        $this->load->model('class_role_model');
-        $this->load->model('discharge_model');
+        $member = $this->get_member($member_id);
+        $expected_roles = $this->get_expected_roles($member_id, 'vanilla');
 
-        $roles = array();
-        
-        // Get member info
-        $member = nest($this->member_model->get_by_id($member_id));
-        
-        // If no forum_member_id, there's nothing to do
-        if( ! $member['forum_member_id']) {
-            //$this->response(array('status' => false, 'error' => 'Member does not have a corresponding forum user id'), 400);
-            return FALSE;
-        }
-        
-        // Get all of the member's assignments
-        $assignments = nest($this->assignment_model->where('assignments.member_id', $member_id)->order_by('priority')->by_date()->get()->result_array());
-        
-        $classes = array_unique(array_map(function($row) {
-            return $row['unit']['class'];
-        }, $assignments));
-        
-        // For each assignment, get the corresponding forum roles for the assignment's access level
-        foreach($assignments as $assignment) {
-            $assignment_roles = $this->unit_role_model->by_unit($assignment['unit']['id'], $assignment['position']['access_level'])->get()->result_array();
-            if( ! empty($assignment_roles)) {
-                $roles = array_merge($roles, pluck('role_id', $assignment_roles));
-            }
-        }
-        
-        // Get forum roles for classes that member is a part of
-        $class_roles = $this->class_role_model->by_classes($classes)->get()->result_array();
-        if( ! empty($class_roles)) {
-            $roles = array_merge($roles, pluck('role_id', $class_roles));
-        }
-        
-        //If not assigned anywhere let's check if member had been HDed
-        if (empty($roles) || $roles[0] == self::PUBLIC_MEMBER_GROUP)
-        {
-            $this->discharge_model->where('discharges.member_id',$member_id);
-            $discharge = $this->discharge_model->get()->result_array();
-            if ( $discharge && $discharge[0]['type'] == "Honorable")
-                $roles[] = self::HONORABLY_DISCHARGED_GROUP;
-        }
-        
-        //Adding for officers
-        $rank = $member['rank']['abbr'];
-        if( $rank == '2Lt.' || $rank == '1Lt.' || $rank == 'Cpt.' || $rank == 'Maj.' || $rank == 'Lt. Col.' || $rank == 'Col.' )
-        {
-            $roles[] = self::COMMISSIONED_OFFICER_GROUP;//$this->get_commisioned_officer_role_id();
-        }
+        if (!empty($expected_roles)) {
+            $path = "users/{$member['forum_member_id']}";
+            $payload = ['roleID' => $expected_roles];
+            $response = $this->client->patch($path, ['json' => $payload]);
 
-        // Eliminate duplicates
-        $roles = array_values(array_unique($roles));
-        
-        if( ! empty($roles)) {
-            $path = 'users/' . $member['forum_member_id'];
-            $data = [ 'roleID' => $roles ];
-            $response = $this->client->patch($path, [ 'json' => $data ]);
             if ($response->getStatusCode() != 200) {
-                return FALSE;
+                throw new Exception("Failed to update member roles");
             }
         }
-        return $roles;
+
+        return [
+            'forum_member_id' => $member['forum_member_id'],
+            'expected_roles' => $expected_roles
+        ];
     }
     
     /**
