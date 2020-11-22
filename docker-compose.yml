@@ -50,11 +50,11 @@ services:
       BASE_URL: https://api.29th.local
       CORS_HOST: https://personnel.29th.local
       FORUMS_BASE_URL: http://forums
-      FORUMS_ACCESS_TOKEN: $FORUMS_PERSONAL_ACCESS_TOKEN
       FORUMS_COOKIE_NAME: Vanilla
       FORUMS_SECRET_KEY: dev
       FORUM_LIBRARY_CLASS: vanilla
       ENVIRONMENT: production
+      FORUMS_ACCESS_TOKEN: $VANILLA_API_KEY
       DIR_COAT_PUBLIC: /var/www/html/coats/
 
   forums:
@@ -82,7 +82,10 @@ services:
     user: root
     environment:
       DATABASE_URL: mysql2://root:pwd@db-personnel
-      FORUMS_BASE_URL: https://forums.29th.local
+      VANILLA_BASE_URL: http://forums
+      VANILLA_API_KEY: $VANILLA_PERSONAL_ACCESS_TOKEN
+      DISCOURSE_BASE_URL: http://host.docker.internal:3000
+      DISCOURSE_API_KEY: $DISCOURSE_API_KEY
       V2_ADMIN_API_KEY: dev
       V2_API_BASE_URL: api
       FORUMS_COOKIE_NAME: Vanilla

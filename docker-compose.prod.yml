@@ -50,7 +50,7 @@ services:
       BASE_URL: https://api.29th.org
       CORS_HOST: https://personnel.29th.org
       FORUMS_BASE_URL: https://forums.29th.org
-      FORUMS_ACCESS_TOKEN: $FORUMS_PERSONAL_ACCESS_TOKEN
+      FORUMS_ACCESS_TOKEN: $VANILLA_API_KEY
       FORUMS_COOKIE_NAME: Vanilla
       FORUMS_SECRET_KEY: $FORUMS_COOKIE_SALT
       FORUM_LIBRARY_CLASS: vanilla
@@ -94,8 +94,11 @@ services:
       RAILS_SERVE_STATIC_FILES: 'true'
       RAILS_LOG_TO_STDOUT: 'true'
       DATABASE_URL: $PERSONNEL_DB_URL
-      FORUMS_BASE_URL: https://forums.29th.org
       SECRET_KEY_BASE: $SECRET_KEY_BASE
+      VANILLA_BASE_URL: https://forums.29th.org
+      VANILLA_API_KEY: $VANILLA_API_KEY
+      DISCOURSE_BASE_URL: https://discourse.29th.org
+      DISCOURSE_API_KEY: $DISCOURSE_API_KEY
       V2_ADMIN_API_KEY: $PERSONNEL_ADMIN_API_KEY
       V2_API_BASE_URL: https://api.29th.org
       FORUMS_COOKIE_NAME: Vanilla
