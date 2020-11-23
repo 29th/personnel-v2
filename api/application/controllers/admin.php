@@ -8,6 +8,7 @@ class Admin extends CI_Controller {
         // Load user library and pass it third-party (forum) cookie
         // Normally done by MY_Controller, but this is not a sub-class of that
         $this->load->library('user', array('cookie' => $this->input->cookie(config_item('third_party_cookie'))));
+        $this->load->library(getenv('FORUMS_LIBRARY_CLASS') ?: 'vanilla', '', 'forums');
         
         if( ! $this->user->permission('admin') && ! $this->user->permission('admin-' . $this->router->method)) {
             die('Permission denied');
@@ -335,7 +336,7 @@ class Admin extends CI_Controller {
 	
 	public function _callback_members_after_update($data, $id = null) {
         // Update username
-        $this->forums->update_username($id);
+        $this->forums->update_display_name($id);
 	}
 	
 	/**
@@ -402,7 +403,7 @@ class Admin extends CI_Controller {
                 $this->member_model->save($data['member_id'], array('rank_id' => $newest['new_rank']['id']));
             
                 // Update username
-                $this->forums->update_username($data['member_id']);
+                $this->forums->update_display_name($data['member_id']);
                 
                 // Update coat
                 $this->load->library('servicecoat');
@@ -424,7 +425,7 @@ class Admin extends CI_Controller {
                 $this->member_model->save($data['member_id'], array('rank_id' => $newest['new_rank']['id']));
             
                 // Update username
-                $this->forums->update_username($data['member_id']);
+                $this->forums->update_display_name($data['member_id']);
                 
                 // Update coat
                 $this->load->library('servicecoat');

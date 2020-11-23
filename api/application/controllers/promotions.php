@@ -68,7 +68,7 @@ class Promotions extends MY_Controller {
             $this->servicecoat->update($data['member_id']);
             
             // Update username
-            $this->forums->update_username($data['member_id']);
+            $this->forums->update_display_name($data['member_id']);
             $this->forums->update_roles($data['member_id']);
            
             $this->response(array( 'status' => $insert_id ? true : false, 'promotions' => $insert_id ? $this->promotion_model->get_by_id($insert_id) : null));
@@ -108,7 +108,7 @@ class Promotions extends MY_Controller {
             $this->servicecoat->update($member_id);
             
             // Update username
-            $this->forums->update_username($member_id);
+            $this->forums->update_display_name($member_id);
             $this->forums->update_roles($member_id);
             
             $this->response(array('status' => $result ? true : false, 'promotion' => $this->promotion_model->get_by_id($promotion_id)));
@@ -139,7 +139,7 @@ class Promotions extends MY_Controller {
             $this->servicecoat->update($member_id);
             
             // Update username
-            $this->forums->update_username($member_id);
+            $this->forums->update_display_name($member_id);
             $this->forums->update_roles($member_id);
             
             $this->response(array('status' => true));

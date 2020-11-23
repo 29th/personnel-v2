@@ -263,7 +263,7 @@ class Enlistments extends MY_Controller {
                 }
             }
             // Update username
-            $this->forums->update_username($enlistment['member_id']);
+            $this->forums->update_display_name($enlistment['member_id']);
 
             $this->response(array('status' => false, 'enlistment' => $enlistment));
         }

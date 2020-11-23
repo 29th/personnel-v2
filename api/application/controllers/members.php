@@ -101,7 +101,11 @@ class Members extends MY_Controller {
             $this->servicecoat->update($member_id);
             
             // Update username
-            $this->forums->update_username($member_id);
+            try {
+                $this->forums->update_display_name($member_id);
+            } catch (Exception $e) {
+                error_log($e->getMessage());
+            }
             
             $this->response(array('status' => $result ? true : false, 'member' => $this->member_model->get_by_id($member_id)));
         }
@@ -454,10 +458,11 @@ class Members extends MY_Controller {
         // Execute
         else {
             $this->usertracking->track_this();
-            if($roles = $this->forums->update_roles($member_id)) {
+            try {
+                $roles = $this->forums->update_roles($member_id);
                 $this->response(array('status' => true, 'roles' => $roles));
-            } else {
-                $this->response(array('status' => false, 'error' => 'There was an issue updating the user\'s roles'));
+            } catch (Exception $e) {
+                $this->response(array('status' => false, 'error' => $e->getMessage()));
             }
         }
     }

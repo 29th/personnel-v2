@@ -139,7 +139,7 @@ class Assignments extends MY_Controller {
             
             // Update roles
             $roles = $this->forums->update_roles($data['member_id']);
-            $this->forums->update_username($data['member_id']);
+            $this->forums->update_display_name($data['member_id']);
             
             $this->response(array('status' => $insert_id ? true : false, 'assignment' => $insert_id ? nest($this->assignment_model->select_member()->get_by_id($insert_id)) : null));
         }
