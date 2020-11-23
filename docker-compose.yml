@@ -49,12 +49,14 @@ services:
       ADMIN_API_KEY: dev
       BASE_URL: https://api.29th.local
       CORS_HOST: https://personnel.29th.local
-      FORUMS_BASE_URL: http://forums
       FORUMS_COOKIE_NAME: Vanilla
       FORUMS_SECRET_KEY: dev
       FORUM_LIBRARY_CLASS: vanilla
-      ENVIRONMENT: production
-      FORUMS_ACCESS_TOKEN: $VANILLA_API_KEY
+      DISCOURSE_BASE_URL: http://host.docker.internal:3000
+      DISCOURSE_API_KEY: $DISCOURSE_API_KEY
+      VANILLA_BASE_URL: http://forums
+      VANILLA_API_KEY: $VANILLA_API_KEY
+      ENVIRONMENT: development
       DIR_COAT_PUBLIC: /var/www/html/coats/
 
   forums:
