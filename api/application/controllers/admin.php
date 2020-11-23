@@ -163,6 +163,8 @@ class Admin extends CI_Controller {
 	
 	public function class_roles()
 	{
+			header("Location: https://www.29th.org/admin/special_forum_roles");
+
 	    $this->grocery_crud->set_table('class_roles')
 	        ->required_fields('role_id');
 	    
@@ -536,6 +538,8 @@ class Admin extends CI_Controller {
 	
 	public function unit_roles()
 	{
+			header("Location: https://www.29th.org/admin/unit_forum_roles");
+
 	    $this->grocery_crud->set_table('unit_roles')
 	        ->required_fields('unit_id', 'access_level', 'role_id')
 	        ->set_relation('unit_id', 'units', 'abbr')->display_as('unit_id', 'Unit')
