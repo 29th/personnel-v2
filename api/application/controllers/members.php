@@ -64,7 +64,7 @@ class Members extends MY_Controller {
                     $member['sig'] = "https://www.29th.org/sigs/" . $member['steam_id'] . ".png";
             }
             if ($member['forum_member_id'])
-                $member['forum_steam_id'] = $this->forums->get_steam_id($member['forum_member_id']);
+                $member['forum_steam_id'] = $this->forums->get_steam_id($member_id);
             $this->response(array('status' => true, 'member' => $member ));
         }
     }

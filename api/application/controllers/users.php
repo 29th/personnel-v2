@@ -24,7 +24,7 @@ class Users extends MY_Controller {
         if($this->user->logged_in()) 
         {
             $member = $this->user->member();
-            $member['forum_steam_id'] = $this->forums->get_steam_id($member['forum_member_id']);
+            $member['forum_steam_id'] = $this->forums->get_steam_id($member['id']);
             $this->response(array('status' => true, 'user' => $member));
         } 
         else 
@@ -55,41 +55,6 @@ class Users extends MY_Controller {
             $this->response(array('status' => true, 'assignments' => $assignments));
         } else {
             $this->response(array('status' => false, 'error' => 'Not logged in'));
-        }
-    }
-    
-    public function associate_get() {
-        $this->load->model('member_model');
-        // Ensure user is logged into forums
-        if( ! ($user_id = $this->user->logged_in())) {
-            $this->response(array('status' => false, 'error' => 'Not logged in to forums'));
-        } else {
-            // Find user's Steam ID in forum database
-            $result = $this->forums->get_steam_id($user_id);
-            // If no Steam ID found
-            if( empty($result) || ! is_numeric($result['Value'])) {
-                $this->response(array('status' => false, 'error' => 'No Steam ID found in forum profile'));
-            } else {
-                // Update personnel members table with Steam ID
-                $member = $this->member_model->where('steam_id', $result['Value'])->get()->row_array();
-                // If no personnel member record found
-                if(empty($member)) {
-                    $this->response(array('status' => false, 'error' => 'No personnel member record with that Steam ID found'));
-                } else {
-                    //$this->usertracking->track_this();
-                    $result = $this->member_model->save($member['id'], array('forum_member_id' => $user_id));
-            
-                    // Update username
-                    $this->forums->update_display_name($member['id']);
-                    
-                    // Update forum roles
-                    if($roles = $this->forums->update_roles($member['id'])) {
-                        $this->response(array('status' => true, 'roles' => $roles));
-                    } else {
-                        $this->response(array('status' => false, 'error' => 'There was an issue updating the user\'s roles'));
-                    }
-                }
-            }
         }
     }
 }

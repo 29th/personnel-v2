@@ -4,10 +4,6 @@ require_once('Forum.php');
 use GuzzleHttp\Client;
 
 class Vanilla extends Forum {
-    const PUBLIC_MEMBER_GROUP = 8; // These are vanilla IDs
-    const COMMISSIONED_OFFICER_GROUP = 73;
-    const HONORABLY_DISCHARGED_GROUP = 80;
-    
     private $vanilla_db;
     
     public function __construct() {
@@ -79,7 +75,9 @@ class Vanilla extends Forum {
         return TRUE;
     }
     
-    public function get_steam_id($user_id) {
+    public function get_steam_id($member_id) {
+        $member = $this->get_member($member_id);
+        $user_id = $member['forum_member_id'];
         return str_replace( 'https://steamcommunity.com/openid/id/', '', $this->vanilla_db->query('SELECT `Value` FROM `GDN_UserMeta` WHERE `Name` = \'Plugin.steamprofile.SteamID64\' AND `UserID` = ' . (int) $user_id)->row_array());
     }
     
@@ -89,7 +87,9 @@ class Vanilla extends Forum {
     }
 
     public function get_user_ip($member_id) {
-        $res = $this->vanilla_db->query('SELECT `AllIPAddresses` FROM GDN_User WHERE `UserID` = ' . (int) $member_id)->row_array();
+        $member = $this->get_member($member_id);
+        $forum_member_id = $member['forum_member_id'];
+        $res = $this->vanilla_db->query('SELECT `AllIPAddresses` FROM GDN_User WHERE `UserID` = ' . (int) $forum_member_id)->row_array();
         
         $arr = ( isset( $res['AllIPAddresses'] ) ? explode( ',', $res['AllIPAddresses'] ) : [] );
         $arr2 = [];
@@ -97,7 +97,7 @@ class Vanilla extends Forum {
         {
             if ( strpos( $ip, '0.0.0') === false && substr_count( $ip, '.')==3 )
             {
-                $res2 = $this->vanilla_db->query('SELECT `UserID`,`Name` FROM GDN_User WHERE `AllIPAddresses` LIKE \'%' . $ip . '%\' AND `UserID` <> ' . (int) $member_id)->result_array();
+                $res2 = $this->vanilla_db->query('SELECT `UserID`,`Name` FROM GDN_User WHERE `AllIPAddresses` LIKE \'%' . $ip . '%\' AND `UserID` <> ' . (int) $forum_member_id)->result_array();
                 $arr2[] = array('ip' => $ip,'users' => $res2);
             }
         }
@@ -105,13 +105,17 @@ class Vanilla extends Forum {
     }
 
     public function get_user_email($member_id) {
-        $response = $this->client->get('users/' . $member_id);
+        $member = $this->get_member($member_id);
+        $forum_member_id = $member['forum_member_id'];
+        $response = $this->client->get('users/' . $forum_member_id);
         $data = json_decode($response->getBody(), true);
         return $data['email'];
     }
 
     public function get_user_bday($member_id) {
-        $res = $this->vanilla_db->query('SELECT `DateOfBirth` FROM GDN_User WHERE `UserID` = ' . (int) $member_id)->row_array();
+        $member = $this->get_member($member_id);
+        $forum_member_id = $member['forum_member_id'];
+        $res = $this->vanilla_db->query('SELECT `DateOfBirth` FROM GDN_User WHERE `UserID` = ' . (int) $forum_member_id)->row_array();
         return ( $res ? $res['DateOfBirth'] : '' );
     }
 

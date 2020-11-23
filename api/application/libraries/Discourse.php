@@ -67,6 +67,70 @@ class Discourse extends Forum {
     ];
   }
 
+  public function get_steam_id($forum_member_id) {
+    // noop
+    return;
+  }
+
+  public function get_user_ip($member_id) {
+    $member = $this->get_member($member_id);
+    $forum_user = $this->get_forum_user($member['forum_member_id']);
+
+    $ips = array_filter([
+      $forum_user['registration_ip_address'],
+      $forum_user['ip_address']
+    ]);
+
+    $formatted_ips = array_map(function ($ip) {
+      $users = $this->get_users_by_ip($ip);
+      return ['ip' => $ip, 'users' => $users];
+    }, $ips);
+
+    return $formatted_ips;
+  }
+
+  public function get_user_bday($member_id) {
+    // noop
+    return;
+  }
+
+  public function get_user_email($member_id) {
+    $member = $this->get_member($member_id);
+    $forum_user = $this->get_forum_user($member['forum_member_id']);
+
+    $path = "/u/{$forum_user['username']}/emails.json";
+    $response = $this->client->get($path);
+
+    if ($response->getStatusCode() != 200) {
+      throw new Exception("Failed to get email for forum member {$forum_member_id}");
+    }
+
+    $body = json_decode($response->getBody(), true);
+
+    return $body['email'];
+  }
+
+  public function get_ban_disputes($roid) {
+    return;
+  }
+
+  private function get_users_by_ip($ip) {
+    $path = "/admin/users/list.json";
+    $response = $this->client->get($path, ['query' => ['ip' => $ip]]);
+
+    if ($response->getStatusCode() != 200) {
+      return; // not important enough to throw
+    }
+
+    $body = json_decode($response->getBody(), true);
+
+    $ips_in_vanilla_format = array_map(function ($user) {
+      return ['UserID' => $user['id'], 'Name' => $user['username']];
+    }, $body);
+
+    return $ips_in_vanilla_format;
+  }
+
   private function get_current_roles($member_id) {
     $member = $this->get_member($member_id);
     $forum_user = $this->get_forum_user($member['forum_member_id']);
@@ -79,23 +143,23 @@ class Discourse extends Forum {
     return pluck('id', array_filter($forum_user['groups'], is_custom_role));
   }
 
-  private function delete_role($role, $index, $member_id) {
-    error_log("Deleting role {$role} from member {$member_id}");
-    $path = "/admin/users/{$member_id}/groups/{$role}";
+  private function delete_role($role, $index, $forum_member_id) {
+    error_log("Deleting role {$role} from member {$forum_member_id}");
+    $path = "/admin/users/{$forum_member_id}/groups/{$role}";
     $response = $this->client->delete($path);
 
     if ($response->getStatusCode() != 200) {
-      throw new Exception("Failed to delete role {$role} from member {$member_id}");
+      throw new Exception("Failed to delete role {$role} from forum member {$forum_member_id}");
     }
   }
 
-  private function add_role($role, $index, $member_id) {
-    $path = "/admin/users/{$member_id}/groups";
+  private function add_role($role, $index, $forum_member_id) {
+    $path = "/admin/users/{$forum_member_id}/groups";
     $payload = ['group_id' => $role];
     $response = $this->client->post($path, ['json' => $payload]);
 
     if ($response->getStatusCode() != 200) {
-      throw new Exception("Failed to add role {$role} to member {$member_id}");
+      throw new Exception("Failed to add role {$role} to forum member {$forum_member_id}");
     }
   }
 
@@ -105,7 +169,7 @@ class Discourse extends Forum {
     $path = "/admin/users/{$forum_member_id}.json";
     $response = $this->client->get($path);
     if ($response->getStatusCode() != 200) {
-      throw new Exception('Failed to get username');
+      throw new Exception("Failed to get username for user {$forum_member_id}");
     }
 
     $this->forum_user = json_decode($response->getBody(), true);

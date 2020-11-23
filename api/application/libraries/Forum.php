@@ -105,7 +105,7 @@ class Forum {
     $this->load->model('member_model');
     $this->member = nest($this->member_model->get_by_id($member_id));
     if ( ! $this->member['forum_member_id']) {
-      throw new Exception('Member has no forum_member_id');
+      throw new Exception("Member {$member_id} has no forum_member_id");
     }
 
     return $this->member;
