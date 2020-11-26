@@ -26,6 +26,7 @@ services:
       COAT_DIR: https://api.29th.org/coats
       FORUM_VANILLA_BASE_URL: https://forums.29th.org
       FORUM_SMF_BASE_URL: https://29th.org/forums
+      FORUM_DISCOURSE_BASE_URL: https://discourse.29th.org
       WIKI_URL: https://29th.org/wiki
 
   api:
