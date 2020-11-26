@@ -7,7 +7,7 @@ class Forums_Cookie {
 
   private $CookieName;
   private $SecretKey;
-  private $ForumsUserId;
+  private $ForumsUser;
 
   public function __construct() {
     $this->CookieName = getenv('FORUMS_COOKIE_NAME');
@@ -20,20 +20,23 @@ class Forums_Cookie {
     }
   }
 
-  public function getForumsUserId() {
-    if (!is_null($this->ForumsUserId)) {
-      return $this->ForumsUserId;
+  public function getForumsUser() {
+    if (!is_null($this->ForumsUser)) {
+      return $this->ForumsUser;
     }
 
     if (array_key_exists($this->CookieName, $_COOKIE)) {
       $token = $_COOKIE[$this->CookieName];
       $decoded = $this->decode($token);
       if (array_key_exists('sub', $decoded)) {
-        $this->ForumsUserId = $decoded['sub'];
+        $this->ForumsUser = [
+          'id' => $decoded['sub'],
+          'email' => $decoded['name']
+        ];
       }
     }
 
-    return $this->ForumsUserId;
+    return $this->ForumsUser;
   }
 
   private function decode($token) {
@@ -41,7 +44,7 @@ class Forums_Cookie {
       $payload = JWT::decode($token, $this->SecretKey, [self::ALGORITHM]);
       return (array) $payload;
     } catch (Exception $e) {
-      // log error
+      error_log("JWT error: " . $e->getMessage());
     }
   }
 }

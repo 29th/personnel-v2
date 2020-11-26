@@ -39,6 +39,7 @@ class User {
             
             $this->_member['events'] = $this->add_user_events();
             $this->_member['forum_member_id'] = $this->forum_member_id; // In case the member wasn't found
+            $this->_member['forum_email'] = $this->forum_email;
             $this->_member['classes'] = isset($this->_member['id']) ? $this->assignment_model->get_classes($this->_member['id']) : array();
         }
         return $key !== FALSE ? (isset($this->_member[$key]) ? $this->_member[$key] : null) : $this->_member;
@@ -72,8 +73,9 @@ class User {
             // No cookie set
             return FALSE;
         }*/
-        if($user_id = $this->forums_cookie->getForumsUserId()) {
-            $this->forum_member_id = $user_id;
+        if($user = $this->forums_cookie->getForumsUser()) {
+            $this->forum_member_id = $user['id'];
+            $this->forum_email = $user['email'];
             return $this->forum_member_id;
         } else {
             return FALSE;
