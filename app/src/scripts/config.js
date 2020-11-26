@@ -14,6 +14,10 @@ module.exports = {
       "SMF": {
           "baseUrl": process.env.FORUM_SMF_BASE_URL,
           "topicPath": "/?topic=%s.0"
+      },
+      "Discourse": {
+          "baseUrl": process.env.FORUM_DISCOURSE_BASE_URL,
+          "signInPath": "/login"
       }
     },
     sigUrl: process.env.SIG_URL,

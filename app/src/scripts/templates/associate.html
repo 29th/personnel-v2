@@ -6,12 +6,12 @@
         <button id="btn-associate" class="btn btn-large">Associate</button>
         {{#is response.status "!==" undefined}}
             {{#is response.status "===" true}}
-                <div class="alert alert-success" role="alert">Your account has been successfully associated and you have been added to {{length response.roles}} forum groups. Please note that your forum username has been automatically changed and will change any time your rank changes - It is therefore advised that you login with your email address instead.</div>
+                <div class="alert alert-success" role="alert">Your account has been successfully associated and you have been added to forum groups.</div>
             {{else}}
                 <div class="alert alert-danger" role="alert">{{ response.error }}</div>
             {{/is}}
         {{/is}}
     {{else}}
-        You need to <a href="{{ forum.Vanilla.baseUrl }}{{ forum.Vanilla.signInPath }}">login</a> first, then return to this page.
+        You need to <a href="{{ forum.Discourse.baseUrl }}{{ forum.Discourse.signInPath }}">login</a> first, then return to this page.
     {{/if}}
 {{/if}}

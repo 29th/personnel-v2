@@ -31,7 +31,7 @@ var Marionette = require("backbone.marionette");
               self = this;
               
           button.button("loading");
-          $.getJSON(config.apiHost + "/user/associate", function(response) {
+          $.post(config.apiHost + "/user/associate", function(response) {
               button.button("reset");
               self.response = response;
               self.render();
