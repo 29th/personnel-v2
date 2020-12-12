@@ -59,7 +59,7 @@ class Users extends MY_Controller {
 
     public function associate_post() {
         if( ! $forum_member_id = $this->user->logged_in()) {
-            $this->response(array('status' => false, 'error' => 'Not logged in'));
+            $this->response(array('status' => false, 'error' => 'Not logged in'), 401);
         } elseif ($this->user->member('id')) {
             $this->response(array('status' => false, 'error' => 'Already associated'));
         } else {
@@ -67,9 +67,9 @@ class Users extends MY_Controller {
             $forum_email = $this->user->member('forum_email');
             $matches = $this->member_model->where('email', $forum_email)->get()->result_array();
             if (empty($matches)) {
-                $this->response(array('status' => false, 'error' => "No member found with email {$forum_email}"));
+                $this->response(array('status' => false, 'error' => "No member found with email {$forum_email}"), 404);
             } else if (sizeof($matches) > 1) {
-                $this->response(array('status' => false, 'error' => "Multiple members found"));
+                $this->response(array('status' => false, 'error' => "Multiple members found"), 409);
             } else {
                 $member = $matches[0];
                 $this->member_model->save($member['id'], array('forum_member_id' => $forum_member_id));
