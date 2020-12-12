@@ -70,6 +70,8 @@ class Users extends MY_Controller {
                 $this->response(array('status' => false, 'error' => "No member found with email {$forum_email}"), 404);
             } else if (sizeof($matches) > 1) {
                 $this->response(array('status' => false, 'error' => "Multiple members found"), 409);
+            } else if ($matches[0]['forum_member_id'] != NULL) {
+                $this->response(array('status' => false, 'error' => "Member with email {$forum_email} is already associated with a forum user"), 409);
             } else {
                 $member = $matches[0];
                 $this->member_model->save($member['id'], array('forum_member_id' => $forum_member_id));
