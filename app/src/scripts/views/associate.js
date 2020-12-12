@@ -35,6 +35,10 @@ var Marionette = require("backbone.marionette");
               button.button("reset");
               self.response = response;
               self.render();
+          }).fail(function(xhr, status, error) {
+              button.button("reset");
+              self.response = xhr.responseJSON;
+              self.render();
           });
       }
   });
