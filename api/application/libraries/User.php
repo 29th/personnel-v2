@@ -14,7 +14,12 @@ class User {
     
     public function __construct($params) {
         //if(isset($params['cookie'])) $this->cookie = $params['cookie'];
-        $this->load->library('Forums_Cookie');
+
+        $vanilla_params = [
+            'cookie_name' => getenv('VANILLA_COOKIE_NAME'),
+            'secret_key' => getenv('VANILLA_SECRET_KEY')
+        ];
+        $this->load->library('Forums_Cookie', $vanilla_params);
     }
     
     /**
