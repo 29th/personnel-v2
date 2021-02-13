@@ -53,26 +53,6 @@ class User {
         // If we've already done this, return the user id
         if(isset($this->forum_member_id)) return $this->forum_member_id;
         
-        // Otherwise, check if third-party (forum) cookie is set
-        /*if($this->cookie) {
-            // Parse cookie
-            list($user_id, $password) = unserialize($this->cookie);
-            //$user_id = 6804; // DEBUG
-            //$user_id = 81683; // DEBUG Non-existent member id
-            //$user_id = 6; // Retired member
-            // Verify user_id & password from cookie against forum DB
-            if($this->authenticate($user_id, $password)) {
-                // Verified - save the user_id of the user
-                $this->forum_member_id = $user_id;
-                return $this->forum_member_id;
-            } else {
-                // Didn't verify
-                return FALSE;
-            }
-        } else {
-            // No cookie set
-            return FALSE;
-        }*/
         if($user = $this->forums_cookie->getForumsUser()) {
             $this->forum_member_id = $user['id'];
             $this->forum_email = $user['email'];
