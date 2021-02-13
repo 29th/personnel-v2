@@ -4,6 +4,8 @@ require_once('Forum.php');
 use GuzzleHttp\Client;
 
 class Vanilla extends Forum {
+    public $member_id_key = 'forum_member_id';
+
     private $vanilla_db;
     
     public function __construct() {
@@ -20,7 +22,7 @@ class Vanilla extends Forum {
         $expected_roles = $this->get_expected_roles($member_id, 'vanilla');
 
         if (!empty($expected_roles)) {
-            $path = "users/{$member['forum_member_id']}";
+            $path = "users/{$member[$this->member_id_key]}";
             $payload = ['roleID' => $expected_roles];
             $response = $this->client->patch($path, ['json' => $payload]);
 
@@ -30,7 +32,7 @@ class Vanilla extends Forum {
         }
 
         return [
-            'forum_member_id' => $member['forum_member_id'],
+            'forum_member_id' => $member[$this->member_id_key],
             'expected_roles' => $expected_roles
         ];
     }
@@ -45,7 +47,7 @@ class Vanilla extends Forum {
         $member = nest($this->member_model->get_by_id($member_id));
 
         // If no forum_member_id, there's nothing to do
-        if( ! $member['forum_member_id']) {
+        if( ! $member[$this->member_id_key]) {
             //$this->response(array('status' => false, 'error' => 'Member does not have a corresponding forum user id'), 400);
             return FALSE;
         }
@@ -66,7 +68,7 @@ class Vanilla extends Forum {
             
         }
         
-        $path = 'users/' . $member['forum_member_id'];
+        $path = 'users/' . $member[$this->member_id_key];
         $data = [ 'name' => $newMemberName ];
         $response = $this->client->patch($path, [ 'json' => $data ]);
         if ($response->getStatusCode() != 200) {
@@ -77,7 +79,7 @@ class Vanilla extends Forum {
     
     public function get_steam_id($member_id) {
         $member = $this->get_member($member_id);
-        $user_id = $member['forum_member_id'];
+        $user_id = $member[$this->member_id_key];
         return str_replace( 'https://steamcommunity.com/openid/id/', '', $this->vanilla_db->query('SELECT `Value` FROM `GDN_UserMeta` WHERE `Name` = \'Plugin.steamprofile.SteamID64\' AND `UserID` = ' . (int) $user_id)->row_array());
     }
     
@@ -88,7 +90,7 @@ class Vanilla extends Forum {
 
     public function get_user_ip($member_id) {
         $member = $this->get_member($member_id);
-        $forum_member_id = $member['forum_member_id'];
+        $forum_member_id = $member[$this->member_id_key];
         $res = $this->vanilla_db->query('SELECT `AllIPAddresses` FROM GDN_User WHERE `UserID` = ' . (int) $forum_member_id)->row_array();
         
         $arr = ( isset( $res['AllIPAddresses'] ) ? explode( ',', $res['AllIPAddresses'] ) : [] );
@@ -106,7 +108,7 @@ class Vanilla extends Forum {
 
     public function get_user_email($member_id) {
         $member = $this->get_member($member_id);
-        $forum_member_id = $member['forum_member_id'];
+        $forum_member_id = $member[$this->member_id_key];
         $response = $this->client->get('users/' . $forum_member_id);
         $data = json_decode($response->getBody(), true);
         return $data['email'];
@@ -114,7 +116,7 @@ class Vanilla extends Forum {
 
     public function get_user_bday($member_id) {
         $member = $this->get_member($member_id);
-        $forum_member_id = $member['forum_member_id'];
+        $forum_member_id = $member[$this->member_id_key];
         $res = $this->vanilla_db->query('SELECT `DateOfBirth` FROM GDN_User WHERE `UserID` = ' . (int) $forum_member_id)->row_array();
         return ( $res ? $res['DateOfBirth'] : '' );
     }

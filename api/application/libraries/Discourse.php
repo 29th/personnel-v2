@@ -4,6 +4,8 @@ require_once('Forum.php');
 use GuzzleHttp\Client;
 
 class Discourse extends Forum {
+  public $member_id_key = 'discourse_forum_member_id';
+
   private $client;
   private $username;
 
@@ -24,7 +26,7 @@ class Discourse extends Forum {
 
   public function update_display_name($member_id) {
     $member = $this->get_member($member_id);
-    $forum_user = $this->get_forum_user($member['forum_member_id']);
+    $forum_user = $this->get_forum_user($member[$this->member_id_key]);
 
     $path = "u/{$forum_user['username']}";
     $payload = ['name' => $member['short_name']];
@@ -53,13 +55,13 @@ class Discourse extends Forum {
     $current_roles = $this->get_current_roles($member_id);
 
     $roles_to_delete = array_diff($current_roles, $expected_roles);
-    array_walk($roles_to_delete, [$this, 'delete_role'], $member['forum_member_id']);
+    array_walk($roles_to_delete, [$this, 'delete_role'], $member[$this->member_id_key]);
 
     $roles_to_add = array_diff($expected_roles, $current_roles);
-    array_walk($roles_to_add, [$this, 'add_role'], $member['forum_member_id']);
+    array_walk($roles_to_add, [$this, 'add_role'], $member[$this->member_id_key]);
 
     return [
-      'forum_member_id' => $member['forum_member_id'],
+      'forum_member_id' => $member[$this->member_id_key],
       'expected_roles' => $expected_roles,
       'current_roles' => $current_roles,
       'roles_to_delete' => $roles_to_delete,
@@ -74,7 +76,7 @@ class Discourse extends Forum {
 
   public function get_user_ip($member_id) {
     $member = $this->get_member($member_id);
-    $forum_user = $this->get_forum_user($member['forum_member_id']);
+    $forum_user = $this->get_forum_user($member[$this->member_id_key]);
 
     $ips = array_filter([
       $forum_user['registration_ip_address'],
@@ -96,13 +98,13 @@ class Discourse extends Forum {
 
   public function get_user_email($member_id) {
     $member = $this->get_member($member_id);
-    $forum_user = $this->get_forum_user($member['forum_member_id']);
+    $forum_user = $this->get_forum_user($member[$this->member_id_key]);
 
     $path = "/u/{$forum_user['username']}/emails.json";
     $response = $this->client->get($path);
 
     if ($response->getStatusCode() != 200) {
-      throw new Exception("Failed to get email for forum member {$forum_member_id}");
+      throw new Exception("Failed to get email for forum member {$member[$this->member_id_key]}");
     }
 
     $body = json_decode($response->getBody(), true);
@@ -133,7 +135,7 @@ class Discourse extends Forum {
 
   private function get_current_roles($member_id) {
     $member = $this->get_member($member_id);
-    $forum_user = $this->get_forum_user($member['forum_member_id']);
+    $forum_user = $this->get_forum_user($member[$this->member_id_key]);
 
     // Omits automatic roles, e.g. trust groups
     function is_custom_role($role) {
