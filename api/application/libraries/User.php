@@ -14,12 +14,17 @@ class User {
     
     public function __construct($params) {
         //if(isset($params['cookie'])) $this->cookie = $params['cookie'];
-
         $vanilla_params = [
             'cookie_name' => getenv('VANILLA_COOKIE_NAME'),
             'secret_key' => getenv('VANILLA_SECRET_KEY')
         ];
         $this->load->library('Forums_Cookie', $vanilla_params);
+
+        $discourse_params = [
+            'cookie_name' => getenv('DISCOURSE_COOKIE_NAME'),
+            'secret_key' => getenv('DISCOURSE_SECRET_KEY')
+        ];
+        $this->load->library('Forums_Cookie', $discourse_params, 'discourse_cookie');
     }
     
     /**
@@ -66,6 +71,14 @@ class User {
             return FALSE;
         }
         
+    }
+
+    public function get_discourse_session() {
+        if( ! isset($this->discourse_session)) {
+            $this->discourse_session = $this->discourse_cookie->getForumsUser();
+        }
+        
+        return $this->discourse_session;
     }
 
     public function has_admin_key() {
