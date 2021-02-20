@@ -1,5 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+class NoLinkedForumAccountException extends Exception {}
+
 class Forum {
   // Enables the use of CI super-global without having to define an extra variable
   public function __get($var) {
@@ -104,8 +106,8 @@ class Forum {
 
     $this->load->model('member_model');
     $this->member = nest($this->member_model->get_by_id($member_id));
-    if ( ! $this->member['forum_member_id']) {
-      throw new Exception("Member {$member_id} has no forum_member_id");
+    if ( ! $this->member[$this->member_id_key]) {
+      throw new NoLinkedForumAccountException("Member {$member_id} has no {$this->member_id_key}");
     }
 
     return $this->member;

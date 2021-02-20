@@ -85,7 +85,6 @@ class Users extends MY_Controller {
         }
     }*/
 
-    // TODO: enforce unique constraint on members.discourse_member_id if not already
     public function associate_post() {
         $discourse_session = $this->user->get_discourse_session();
 

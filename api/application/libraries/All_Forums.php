@@ -9,12 +9,20 @@ class All_Forums extends Vanilla {
   }
 
   public function update_display_name($member_id) {
-    $this->discourse->update_display_name($member_id);
+    try {
+      $this->discourse->update_display_name($member_id);
+    } catch (NoLinkedForumAccountException $e) {
+      error_log($e->getMessage());
+    } 
     return parent::update_display_name($member_id);
   }
 
   public function update_roles($member_id) {
-    $this->discourse->update_roles($member_id);
+    try {
+      $this->discourse->update_roles($member_id);
+    } catch (NoLinkedForumAccountException $e) {
+      error_log($e->getMessage());
+    }
     return parent::update_roles($member_id);
   }
 }
