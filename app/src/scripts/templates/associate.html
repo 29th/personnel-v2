@@ -1,17 +1,13 @@
 <h1>Associate Your Account</h1>
-{{#if id}}
-<div class="alert alert-info" role="alert">Your account is associated</div>
-{{else}}
-    {{#if forum_member_id}}
-        <button id="btn-associate" class="btn btn-large">Associate</button>
-        {{#is response.status "!==" undefined}}
-            {{#is response.status "===" true}}
-                <div class="alert alert-success" role="alert">Your account has been successfully associated and you have been added to forum groups.</div>
-            {{else}}
-                <div class="alert alert-danger" role="alert">{{ response.error }}</div>
-            {{/is}}
+{{#if forum_member_id}}
+    <button id="btn-associate" class="btn btn-large">Associate</button>
+    {{#is response.status "!==" undefined}}
+        {{#is response.status "===" true}}
+            <div class="alert alert-success" role="alert">Your account has been successfully associated and you have been added to forum groups.</div>
+        {{else}}
+            <div class="alert alert-danger" role="alert">{{ response.error }}</div>
         {{/is}}
-    {{else}}
-        You need to <a href="{{ forum.Discourse.baseUrl }}{{ forum.Discourse.signInPath }}">login</a> first, then return to this page.
-    {{/if}}
+    {{/is}}
+{{else}}
+    You need to <a href="{{ forum.Discourse.baseUrl }}{{ forum.Discourse.signInPath }}">login</a> first, then return to this page.
 {{/if}}
