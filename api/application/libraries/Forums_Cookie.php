@@ -9,9 +9,9 @@ class Forums_Cookie {
   private $SecretKey;
   private $ForumsUser;
 
-  public function __construct() {
-    $this->CookieName = getenv('FORUMS_COOKIE_NAME');
-    $this->SecretKey = getenv('FORUMS_SECRET_KEY');
+  public function __construct($params) {
+    $this->CookieName = $params['cookie_name'];
+    $this->SecretKey = $params['secret_key'];
 
     if (empty($this->CookieName)) {
       throw new Exception('Forums cookie name is empty.', 500);
