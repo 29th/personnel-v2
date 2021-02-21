@@ -52,11 +52,12 @@ services:
       CORS_HOST: https://personnel.29th.org
       VANILLA_BASE_URL: https://forums.29th.org
       VANILLA_API_KEY: $VANILLA_API_KEY
+      VANILLA_COOKIE_NAME: Vanilla
+      VANILLA_SECRET_KEY: $FORUMS_COOKIE_SALT
       DISCOURSE_BASE_URL: https://discourse.29th.org
       DISCOURSE_API_KEY: $DISCOURSE_API_KEY
-      FORUMS_COOKIE_NAME: Vanilla
-      FORUMS_SECRET_KEY: $FORUMS_COOKIE_SALT
-      FORUM_LIBRARY_CLASS: vanilla
+      DISCOURSE_COOKIE_NAME: discourse_jwt
+      DISCOURSE_SECRET_KEY: $DISCOURSE_SECRET_KEY
       ENVIRONMENT: production
       DIR_COAT_PUBLIC: /var/www/html/coats/
 

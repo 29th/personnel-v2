@@ -50,13 +50,14 @@ services:
       ADMIN_API_KEY: dev
       BASE_URL: https://api.29th.local
       CORS_HOST: https://personnel.29th.local
-      FORUMS_COOKIE_NAME: Vanilla
-      FORUMS_SECRET_KEY: dev
-      FORUM_LIBRARY_CLASS: vanilla
-      DISCOURSE_BASE_URL: http://host.docker.internal:3000
-      DISCOURSE_API_KEY: $DISCOURSE_API_KEY
       VANILLA_BASE_URL: http://forums
       VANILLA_API_KEY: $VANILLA_API_KEY
+      VANILLA_COOKIE_NAME: Vanilla
+      VANILLA_SECRET_KEY: dev
+      DISCOURSE_BASE_URL: http://host.docker.internal:3000
+      DISCOURSE_API_KEY: $DISCOURSE_API_KEY
+      DISCOURSE_COOKIE_NAME: discourse_jwt
+      DISCOURSE_SECRET_KEY: $DISCOURSE_SECRET_KEY
       ENVIRONMENT: development
       DIR_COAT_PUBLIC: /var/www/html/coats/
 
