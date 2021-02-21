@@ -450,7 +450,7 @@ class Members extends MY_Controller {
     /**
      * UPDATE FORUM ROLES
      */
-    public function roles_post($member_id) {
+    public function roles_get($member_id) {
         // Must have permission to modify assignments for this member or for any member
         if( ! $this->user->permission('assignment_add', array('member' => $member_id)) && ! $this->user->permission('assignment_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
