@@ -149,27 +149,14 @@ class Enlistments extends MY_Controller {
             $member_id = $this->user->member('id');
             // If no member record
             if( ! $member_id) {
-                // Look for existing user by email (perhaps from previous forum)
-                $forum_email = $this->user->member('forum_email');
-                $matches = $this->member_model->where('email', $forum_email)->get()->result_array();
-                if (sizeof($matches) > 1) {
-                    $this->response(array('status' => false, 'error' => 'Multiple members found with that email address'), 409);
-                } else if (sizeof($matches) == 1 && $matches[0]['forum_member_id'] != NULL) {
-                    $this->response(array('status' => false, 'error' => 'Another member already has this email address'), 409);
-                } else if (sizeof($matches) == 1) {
-                    // Associate member record with forum user
-                    $member_id = $matches[0]['id'];
-                    $this->member_model->save($member_id, array('forum_member_id' => $forum_member_id));
-                } else {
-                    $member_data = whitelist($this->post(), array('last_name', 'first_name', 'middle_name', 'country_id')); // steam_id?
-                    $member_data['forum_member_id'] = $forum_member_id;
-            
-                    // Only use first letter of middle_name
-                    if(isset($member_data['middle_name']) && $member_data['middle_name']) $member_data['middle_name'] = substr($member_data['middle_name'], 0, 1);
-                    
-                    // Create member record
-                    $member_id = $this->member_model->save(NULL, $member_data);
-                }
+                $member_data = whitelist($this->post(), array('last_name', 'first_name', 'middle_name', 'country_id')); // steam_id?
+                $member_data['forum_member_id'] = $forum_member_id;
+        
+                // Only use first letter of middle_name
+                if(isset($member_data['middle_name']) && $member_data['middle_name']) $member_data['middle_name'] = substr($member_data['middle_name'], 0, 1);
+                
+                // Create member record
+                $member_id = $this->member_model->save(NULL, $member_data);
             }
             // Create enlistment record using member_id
             $enlistment_data = whitelist($this->post(), array('first_name', 'middle_name', 'last_name', 'age', 'country_id', 'timezone', 'game', 'ingame_name', 'steam_name', 'steam_id', 'experience', 'recruiter', 'comments'));
