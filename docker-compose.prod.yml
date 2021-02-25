@@ -107,6 +107,12 @@ services:
       V2_API_BASE_URL: https://api.29th.org
       FORUMS_COOKIE_NAME: Vanilla
       FORUMS_SECRET_KEY: $FORUMS_COOKIE_SALT
+      STORAGE_ENDPOINT: https://nyc3.digitaloceanspaces.com
+      STORAGE_BUCKET: 29th-uploads
+      STORAGE_REGION: nyc3
+      STORAGE_ACCESS_KEY_ID: $STORAGE_ACCESS_KEY_ID
+      STORAGE_SECRET_ACCESS_KEY: $STORAGE_SECRET_ACCESS_KEY
+      STORAGE_PUBLIC_HOST: https://uploads.29th.org
 
   bitwarden:
     container_name: bitwarden
