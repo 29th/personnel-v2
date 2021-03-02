@@ -116,7 +116,7 @@ services:
 
   bitwarden:
     container_name: bitwarden
-    image: bitwardenrs/server-mysql
+    image: bitwardenrs/server:1.17.0
     restart: always
     volumes:
       - /mnt/user_images/bitwarden-data/:/data/
