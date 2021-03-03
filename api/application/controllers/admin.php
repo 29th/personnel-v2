@@ -504,7 +504,7 @@ class Admin extends CI_Controller {
 	        ->columns('name', 'abbr', 'path', 'order', 'game', 'timezone', 'class', 'active')
 	        ->fields('id', 'name', 'abbr', 'path', 'order', 'game', 'timezone', 'class', 'active', 'steam_group_abbr', 'slogan', 'nickname','logo' )
 	        ->required_fields('name', 'abbr', 'path', 'class')
-	        ->field_type('timezone', 'enum', array('EST', 'GMT'))
+	        ->field_type('timezone', 'enum', array('EST', 'PST', 'GMT'))
 	        ->field_type('order','integer')
 	        ->display_as('abbr', 'Abbreviation')
 	        ->display_as('steam_group_abbr', 'Steam Group')
