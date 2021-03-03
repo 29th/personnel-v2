@@ -511,6 +511,8 @@ class Admin extends CI_Controller {
 	        ->display_as('slogan', 'Motto')
 	        ->callback_after_update(array($this, '_callback_units_after_update'));
         $output = $this->grocery_crud->render();
+
+				$output->replacement_url = 'https://www.29th.org/admin/units';
  
         $this->output($output, 'units');
 	}
@@ -566,6 +568,8 @@ class Admin extends CI_Controller {
 	        ->set_relation('author_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('author_id', 'Author')
 	        ->set_relation('recruit_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('recruit_id', 'Recruit');
         $output = $this->grocery_crud->render();
+
+				$output->replacement_url = 'https://www.29th.org/admin/passes';
  
         $this->output($output, 'weapon_passes');
 	}

@@ -82,6 +82,13 @@ a.list-group-item:hover, a.list-group-item:focus { background-color:#96A68C; }
         	    </div>
     	    </div>
             <div class="col-md-9">
+            <?php if(isset($replacement_url)): ?>
+                <div class="alert alert-danger">
+                    <b>Notice:</b>
+                    The <?= $pages[$method] ?> section of this system has been deprecated.
+                    Please use the <a href="<?= $replacement_url ?>">new system</a>.
+                </div>
+            <?php endif; ?>
     		<?php if(isset($output)) echo $output; ?>
             </div>
         </div>
