@@ -5,6 +5,7 @@ use GuzzleHttp\Client;
 
 class Discourse extends Forum {
   public $member_id_key = 'discourse_forum_member_id';
+  public $linked_user_field = '1';
 
   private $client;
   private $username;
@@ -34,6 +35,19 @@ class Discourse extends Forum {
 
     if ($response->getStatusCode() != 200) {
       throw new Exception('Failed to update display name');
+    }
+  }
+
+  public function link_to_personnel_user($member_id) {
+    $member = $this->get_member($member_id);
+    $forum_user = $this->get_forum_user($member[$this->member_id_key]);
+
+    $path = "u/{$forum_user['username']}";
+    $payload = ['user_fields' => [$this->linked_user_field => $member_id]];
+    $response = $this->client->put($path, ['json' => $payload]);
+
+    if ($response->getStatusCode() != 200) {
+      throw new Exception('Failed to link forum account to personnel user');
     }
   }
 

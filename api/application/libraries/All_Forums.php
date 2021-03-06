@@ -25,4 +25,13 @@ class All_Forums extends Vanilla {
     }
     return parent::update_roles($member_id);
   }
+
+  public function link_to_personnel_user($member_id) {
+    try {
+      $this->discourse->link_to_personnel_user($member_id);
+    } catch (NoLinkedForumAccountException $e) {
+      error_log($e->getMessage());
+    }
+    // no vanilla equivalent
+  }
 }

@@ -101,6 +101,7 @@ class Users extends MY_Controller {
             $this->member_model->save($personnel_member_id, array('discourse_forum_member_id' => $discourse_member_id));
 
             // update both forums
+            $this->forums->link_to_personnel_user($personnel_member_id);
             $this->forums->update_display_name($personnel_member_id);
             $this->forums->update_roles($personnel_member_id);
 
