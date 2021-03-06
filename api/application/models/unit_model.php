@@ -27,7 +27,7 @@ class Unit_model extends MY_Model {
                 ,'rules' => 'max_length[3]'
             )
 			,array(
-                'field' => 'class'
+                'field' => 'classification'
                 ,'rules' => 'required'
             )
             ,array(
@@ -60,7 +60,7 @@ class Unit_model extends MY_Model {
                 ,'rules' => 'max_length[3]'
             )
 			,array(
-                'field' => 'class'
+                'field' => 'classification'
                 ,'rules' => 'min_length[1]'
             )
             ,array(

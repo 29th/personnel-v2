@@ -73,7 +73,7 @@ class Forum {
     $assignments = $this->get_assignments($member_id);
 
     $assignment_classes = array_map(function($assignment) {
-      return $assignment['unit']['class'];
+      return $assignment['unit']['classification'];
     }, $assignments);
 
     return in_array('Combat', $assignment_classes)

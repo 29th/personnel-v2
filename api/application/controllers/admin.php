@@ -501,9 +501,9 @@ class Admin extends CI_Controller {
 	public function units()
 	{
 	    $this->grocery_crud->set_table('units')
-	        ->columns('name', 'abbr', 'path', 'order', 'game', 'timezone', 'class', 'active')
-	        ->fields('id', 'name', 'abbr', 'path', 'order', 'game', 'timezone', 'class', 'active', 'steam_group_abbr', 'slogan', 'nickname','logo' )
-	        ->required_fields('name', 'abbr', 'path', 'class')
+	        ->columns('name', 'abbr', 'path', 'order', 'game', 'timezone', 'classification', 'active')
+	        ->fields('id', 'name', 'abbr', 'path', 'order', 'game', 'timezone', 'classification', 'active', 'steam_group_abbr', 'slogan', 'nickname','logo' )
+	        ->required_fields('name', 'abbr', 'path', 'classification')
 	        ->field_type('timezone', 'enum', array('EST', 'PST', 'GMT'))
 	        ->field_type('order','integer')
 	        ->display_as('abbr', 'Abbreviation')

@@ -50,7 +50,7 @@ class Attendance_model extends MY_Model {
             $this->filter_where('(units.id = ' . $lookup['id'] . " OR (units.path LIKE '%/" . $lookup['id'] . "/%'))");
         }
 
-        $this->filter_where("(events.reporter_member_id IS NOT NULL OR units.class='Training')");
+        $this->filter_where("(events.reporter_member_id IS NOT NULL OR units.classification='Training')");
         $this->filter_group_by('attendance.event_id');
         $this->filter_order_by('events.datetime DESC');
         return $this;
@@ -88,7 +88,7 @@ class Attendance_model extends MY_Model {
         $this->filter_where('events.datetime < DATE_SUB(NOW(), INTERVAL 24 HOUR)'); // Not considered AWOL until 24 hours after the event
         $this->filter_where('events.mandatory', 1);
         if ($dont_take_bct) //To exclude AWOLs from BCT
-            $this->filter_where("events.unit_id IN (SELECT id FROM units WHERE class = 'Combat')");
+            $this->filter_where("events.unit_id IN (SELECT id FROM units WHERE classification = 'Combat')");
         $this->filter_order_by('events.datetime');
         return $this;
     }

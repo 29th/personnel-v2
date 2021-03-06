@@ -111,7 +111,7 @@ class Assignment_model extends MY_Model {
     public function default_select() {
         $this->db->select('assignments.id, assignments.start_date, assignments.end_date, assignments.unit_id') // Leave `unit_id` for tree sorting
             ->select('assignments.member_id AS `member|id`')
-            ->select('units.id AS `unit|id`, units.abbr AS `unit|abbr`, units.name AS `unit|name`, ' . $this->virtual_fields['unit_key'] . ' AS `unit|key`, units.class AS `unit|class`, units.path AS `unit|path`, ' . $this->virtual_fields['depth'] . ' AS `unit|depth`', FALSE)
+            ->select('units.id AS `unit|id`, units.abbr AS `unit|abbr`, units.name AS `unit|name`, ' . $this->virtual_fields['unit_key'] . ' AS `unit|key`, units.classification AS `unit|classification`, units.path AS `unit|path`, ' . $this->virtual_fields['depth'] . ' AS `unit|depth`', FALSE)
             ->select('positions.id AS `position|id`, positions.name AS `position|name`, positions.order AS `position|order`, positions.access_level AS `position|access_level`')
             ->select('(SELECT id FROM `eloas` WHERE `eloas`.`member_id` = assignments.member_id AND NOW() BETWEEN eloas.start_date AND eloas.end_date LIMIT 1 ) as eloa')
             ->select('(SELECT COUNT(1)>0 FROM `passes` WHERE `passes`.`member_id` = assignments.member_id AND NOW() BETWEEN passes.start_date AND passes.end_date  ) as pass');
@@ -179,7 +179,7 @@ class Assignment_model extends MY_Model {
     public function order_by($by = FALSE) {
         switch($by) {
             case 'priority':
-                $this->filter_order_by('units.class, `unit|depth`, positions.order DESC'); break;
+                $this->filter_order_by('units.classification, `unit|depth`, positions.order DESC'); break;
             case 'name':
                 $this->filter_order_by('members.last_name'); break;
             default:
@@ -199,16 +199,16 @@ class Assignment_model extends MY_Model {
     }*/
     
     public function get_classes($member_id) {
-        $this->db->select('units.class')
+        $this->db->select('units.classification')
             ->from('assignments')
             ->join('units', 'units.id = assignments.unit_id')
             ->where('assignments.member_id', $member_id)
             ->where('(assignments.start_date <= CURDATE() OR assignments.start_date IS NULL)')
             ->where('(assignments.end_date > CURDATE() OR assignments.end_date IS NULL)')
-            ->group_by('units.class');
+            ->group_by('units.classification');
         $query = $this->db->get();
         $result = $query->result_array();
-        return pluck('class', $result);
+        return pluck('classification', $result);
     }
     
     public function discharge($member_id, $date = 'now') {
