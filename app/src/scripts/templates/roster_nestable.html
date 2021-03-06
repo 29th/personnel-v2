@@ -1,5 +1,5 @@
 <div class="dd-handle dd-nodrag">
-    <a href="#units/{{ key }}">{{ name }}</a> {{#is class "===" "Training" }}{{#is key "!==" "TPs" }}&nbsp;&nbsp;<span class='tp-info'> <b>{{game}}</b> / <b>{{timezone}}</b> ({{days}}) </span>{{/is}}{{/is}}
+    <a href="#units/{{ key }}">{{ name }}</a> {{#is classification "===" "Training" }}{{#is key "!==" "TPs" }}&nbsp;&nbsp;<span class='tp-info'> <b>{{game}}</b> / <b>{{timezone}}</b> ({{days}}) </span>{{/is}}{{/is}}
     {{#if members.length}}
     <span class="badge badge-info pull-right">{{ members.length }}</span>
     {{/if}}

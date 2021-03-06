@@ -20,12 +20,12 @@
                 <div class="pull-left"><i class="fa fa-exchange"></i></div>
                 <div class="pull-right">
                     Assigned to <a href="#/units/{{ this.unit.key }}" title="{{this.unit.name}}">
-                    {{#is this.unit.class "===" "Staff" }}
+                    {{#is this.unit.classification "===" "Staff" }}
                         {{ this.unit.name}}
                     {{else}}
                         {{ this.unit.abbr }}
                     {{/is}}</a> as a {{ this.position.name }}
-                    {{#is this.unit.class "===" "Staff" }}
+                    {{#is this.unit.classification "===" "Staff" }}
                         {{#if this.end_date}} 
                             (until {{dateFormat this.end_date}})
                         {{/if}}

@@ -6,7 +6,7 @@
    <div class="row header">
     <div class="col-md-8">
         <h1>{{ type }}</h1>
-        <h1><small><a href="#units/{{ unit.key }}">{{ unit.name }}</a> {{#is unit.class "===" "Training" }}&nbsp;&nbsp;<span class='tp-info'> <b>{{unit.game}}</b> / <b>{{unit.timezone}}</b></span>{{/is}}</small></h1>
+        <h1><small><a href="#units/{{ unit.key }}">{{ unit.name }}</a> {{#is unit.classification "===" "Training" }}&nbsp;&nbsp;<span class='tp-info'> <b>{{unit.game}}</b> / <b>{{unit.timezone}}</b></span>{{/is}}</small></h1>
         <h2>{{dateFormat (time_conv this.datetime) format="YYYY-MM-DD HH:mm"}} <small>{{#if mandatory}} Mandatory {{else}} Non-Mandatory {{/if}}</small></h2>
         <h3>{{#if server.name}}{{ server.name }}{{/if}}</h3>
     </div>

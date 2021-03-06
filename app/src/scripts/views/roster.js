@@ -40,7 +40,7 @@ require("jquery-nestable");
               });
           }
           //View for staff units
-          if ( this.model.toJSON().class == 'Staff' )
+          if ( this.model.toJSON().classification == 'Staff' )
           {
             var items=[],
             positions = _.groupBy( this.model.get("members") , function (member) {
