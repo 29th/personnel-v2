@@ -11,7 +11,7 @@
           <tr>
               <td class="unit_logo" rowspan="3">{{#if this.logo}}<img src='images/units/{{ logo }}' />{{/if}}</td>
               <td class="unit_title">
-                  {{ name }} <abbr>({{ abbr }})</abbr> {{#is class "===" "Training" }}&nbsp;&nbsp;<span class='tp-info'> <b>{{game}}</b> / <b>{{timezone}}</b></span>{{/is}}
+                  {{ name }} <abbr>({{ abbr }})</abbr> {{#is classification "===" "Training" }}&nbsp;&nbsp;<span class='tp-info'> <b>{{game}}</b> / <b>{{timezone}}</b></span>{{/is}}
                   {{#if this.steam_group_abbr}}<a href="http://steamcommunity.com/groups/{{steam_group_abbr}}" taget="_blank"><img src="images/other/steam.gif"></a>{{/if}}<br>
                   {{#if this.active }}{{else}}<span class="unit_not_active">Unit is not active</span> {{/if}}</td>
           </tr>
