@@ -178,7 +178,7 @@ class Alerts extends MY_Controller {
         $gdDate = ( sizeof($gdDate) ? $gdDate[0]['date'] : null );
         foreach($assignments as $assignment) 
         {
-          if ( !($assignment['unit']['class'] == 'Training') ) 
+          if ( !($assignment['unit']['classification'] == 'Training') ) 
           {  
             $start_date = strtotime($assignment['start_date']);
             $end_date = strtotime($assignment['end_date'] ?: format_date('now', 'mysqldate'));

@@ -59,7 +59,7 @@ class Units extends MY_Controller {
 						$members = $members->distinct_members();
 					if($this->input->get('position'))
 						$members = $members->by_position( $this->input->get('position') );
-					$members = $members->order_by($this->input->get('order') ? $this->input->get('order') : ( $units[0]['class'] == 'Training' ? 'name'  : 'rank' ) );
+					$members = $members->order_by($this->input->get('order') ? $this->input->get('order') : ( $units[0]['classification'] == 'Training' ? 'name'  : 'rank' ) );
 					$members = nest($members->get()->result_array()); // Get members of this unit, including members of this unit's children, who are current
 					$units = $this->members_in_parents($members, $units, 'unit_id', 'id', 'members', $this->input->get("flat") ? TRUE : FALSE);
 					
@@ -117,7 +117,7 @@ class Units extends MY_Controller {
 		// Create record
 		else {
 		    $this->usertracking->track_this();
-			$data = whitelist($this->post(), array('name', 'abbr', 'path', 'order', 'timezone', 'class', 'active'));
+			$data = whitelist($this->post(), array('name', 'abbr', 'path', 'order', 'timezone', 'classification', 'active'));
 			$insert_id = $this->unit_model->save(NULL, $data);
 			$this->response(array('status' => $insert_id ? true : false, 'unit' => $insert_id ? $this->unit_model->get_by_id($insert_id) : null));
 		}
@@ -150,7 +150,7 @@ class Units extends MY_Controller {
 		// Update record
 		else {
 		    $this->usertracking->track_this();
-			$data = whitelist($this->post(), array('name', 'abbr', 'path', 'order', 'timezone', 'class', 'active'));
+			$data = whitelist($this->post(), array('name', 'abbr', 'path', 'order', 'timezone', 'classification', 'active'));
 			$result = $this->unit_model->save($unit_id, $data);
 			$this->response(array('status' => $result ? true : false, 'unit' => $this->unit_model->get_by_id($unit_id)));
 		}
@@ -231,7 +231,7 @@ class Units extends MY_Controller {
 			$cSql = 
 			"SELECT DISTINCT m.id AS `member|id`, r.abbr AS `member|rank`, m.last_name AS `member|last_name`" .
 			", p.id AS `position|id`, p.name AS `position|name`, p.ait AS `position|ait`".
-			", u.id AS `unit|id`, u.abbr AS `unit|abbr`, u.name AS `unit|name`, u.path AS `unit|path`, u.order AS `unit|order`, u.class AS `unit|class`" .
+			", u.id AS `unit|id`, u.abbr AS `unit|abbr`, u.name AS `unit|name`, u.path AS `unit|path`, u.order AS `unit|order`, u.classification AS `unit|classification`" .
 			", (SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id AND e.mandatory = 1 AND DATEDIFF( NOW( ) , e.datetime ) <30 ) as `percentage|d30`" .
 			", (SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id AND e.mandatory = 1 AND DATEDIFF( NOW( ) , e.datetime ) <60 ) as `percentage|d60`" .
 			", (SELECT Round( ( SUM(attended) / COUNT(1) )*100 ) FROM attendance AS a LEFT JOIN events AS e ON a.event_id = e.id WHERE a.member_id = m.id AND e.mandatory = 1 AND DATEDIFF( NOW( ) , e.datetime ) <90 ) as `percentage|d90`" .
@@ -244,7 +244,7 @@ class Units extends MY_Controller {
 			"LEFT JOIN units AS u ON a.unit_id = u.id " .
 			"LEFT JOIN awardings AS aw ON aw.member_id = m.id AND aw.award_id = 22 " .
 			"WHERE a.end_date IS NULL AND a.unit_id IN (SELECT id FROM units AS u WHERE u.active=1 AND (u.id = $unit_id OR u.path LIKE '%/$unit_id/%') ) ".
-			"ORDER BY `u`.`class`,".
+			"ORDER BY `u`.`classification`,".
 				" (CASE WHEN `u`.`abbr` = 'Bn. Hq' THEN '00001' WHEN `u`.`abbr` = 'Rsrv S1' THEN '00002' ELSE `u`.`abbr` END), `p`.`order` DESC, `m`.`rank_id` DESC, `a`.`start_date` ASC ";
 			
 			$stats1 = nest( $this->db->query($cSql)->result_array() );
