@@ -147,6 +147,8 @@ class Admin extends CI_Controller {
 	        ->set_relation('id_admin', 'members', '{last_name}, {first_name} {middle_name}')->display_as('id_admin', 'Admin')
 	        ->set_relation('id_poster', 'members', '{last_name}, {first_name} {middle_name}')->display_as('id_poster', 'Poster');
         $output = $this->grocery_crud->render();
+
+				$output->replacement_url = 'https://www.29th.org/admin/ban_logs/';
  
         $this->output($output, 'banlog');
 	}
