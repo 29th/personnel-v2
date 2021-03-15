@@ -87,33 +87,6 @@ services:
       PERSONNEL_HOST_NAME: personnel.29th.org
       DEBUG: 0
 
-  v3:
-    container_name: v3
-    image: 29th/personnel-v3:latest
-    restart: always
-    tmpfs: /usr/src/app/tmp
-    user: root
-    environment:
-      RAILS_ENV: production
-      RAILS_SERVE_STATIC_FILES: 'true'
-      RAILS_LOG_TO_STDOUT: 'true'
-      DATABASE_URL: $PERSONNEL_DB_URL
-      SECRET_KEY_BASE: $SECRET_KEY_BASE
-      VANILLA_BASE_URL: https://forums.29th.org
-      VANILLA_API_KEY: $VANILLA_API_KEY
-      DISCOURSE_BASE_URL: https://discourse.29th.org
-      DISCOURSE_API_KEY: $DISCOURSE_API_KEY
-      V2_ADMIN_API_KEY: $PERSONNEL_ADMIN_API_KEY
-      V2_API_BASE_URL: https://api.29th.org
-      FORUMS_COOKIE_NAME: Vanilla
-      FORUMS_SECRET_KEY: $FORUMS_COOKIE_SALT
-      STORAGE_ENDPOINT: https://nyc3.digitaloceanspaces.com
-      STORAGE_BUCKET: 29th-uploads
-      STORAGE_REGION: nyc3
-      STORAGE_ACCESS_KEY_ID: $STORAGE_ACCESS_KEY_ID
-      STORAGE_SECRET_ACCESS_KEY: $STORAGE_SECRET_ACCESS_KEY
-      STORAGE_PUBLIC_HOST: https://uploads.29th.org
-
   bitwarden:
     container_name: bitwarden
     image: bitwardenrs/server:1.17.0
