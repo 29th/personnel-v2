@@ -54,6 +54,8 @@ class Admin extends CI_Controller {
 	    $this->grocery_crud->callback_after_update(array($this, '_callback_assignments_after_change'));
 	    $this->grocery_crud->callback_before_delete(array($this, '_callback_assignments_before_delete'));
         $output = $this->grocery_crud->render();
+
+				$output->replacement_url = 'https://www.29th.org/admin/assignments/';
  
         $this->output($output, 'assignments');
 	}
@@ -99,6 +101,8 @@ class Admin extends CI_Controller {
 	        ->callback_after_update(array($this, '_callback_awardings_after_update'))
 	        ->callback_before_delete(array($this, '_callback_awardings_before_delete'));
         $output = $this->grocery_crud->render();
+
+				$output->replacement_url = 'https://www.29th.org/admin/user_awards/';
  
         $this->output($output, 'awardings');
 	}
@@ -130,6 +134,8 @@ class Admin extends CI_Controller {
 	        ->field_type('order','integer')
 	        ->field_type('active', 'dropdown', array('1' => 'Active','0' => 'Desactivated'));
         $output = $this->grocery_crud->render();
+
+				$output->replacement_url = 'https://www.29th.org/admin/awards/';
  
         $this->output($output, 'awards');
 	}
@@ -159,7 +165,7 @@ class Admin extends CI_Controller {
 	        ->required_fields('ability_id')
 	        ->set_relation('ability_id', 'abilities', 'abbr')->display_as('ability_id', 'Ability');
         $output = $this->grocery_crud->render();
- 
+
         $this->output($output, 'class_permissions');
 	}
 	
@@ -331,6 +337,7 @@ class Admin extends CI_Controller {
 	    $crud->callback_before_delete(array($this->usertracking, 'track_this'));*/
  
         $output = $crud->render();
+				$output->replacement_url = 'https://www.29th.org/admin/users/';
         $this->output($output, 'members');
 	}
 	
@@ -369,6 +376,8 @@ class Admin extends CI_Controller {
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member')
 	        ->set_relation('author_member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('author_member_id', 'Author');
         $output = $this->grocery_crud->render();
+
+				$output->replacement_url = 'https://www.29th.org/admin/notes';
  
         $this->output($output, 'notes');
 	}
@@ -380,6 +389,8 @@ class Admin extends CI_Controller {
 	        ->required_fields('name', 'access_level','AIT')
 	        ->field_type('access_level', 'dropdown', array('0' => 'Default', '5' => 'Elevated', '10' => 'Leadership'));
         $output = $this->grocery_crud->render();
+
+				$output->replacement_url = 'https://www.29th.org/admin/positions';
  
         $this->output($output, 'positions');
 	}
@@ -459,6 +470,8 @@ class Admin extends CI_Controller {
 	    $this->grocery_crud->set_table('ranks')
 	        ->required_fields('name', 'abbr');
         $output = $this->grocery_crud->render();
+
+				$output->replacement_url = 'https://www.29th.org/admin/ranks/';
  
         $this->output($output, 'ranks');
 	}
@@ -490,6 +503,8 @@ class Admin extends CI_Controller {
 	    $this->grocery_crud->set_table('servers')
 	        ->required_fields('name', 'abbr', 'address', 'game');
         $output = $this->grocery_crud->render();
+
+				$output->replacement_url = 'https://www.29th.org/admin/servers/';
  
         $this->output($output, 'servers');
 	}
@@ -540,6 +555,8 @@ class Admin extends CI_Controller {
 	        ->set_relation('ability_id', 'abilities', 'abbr')->display_as('ability_id', 'Ability')
 	        ->field_type('access_level', 'dropdown', array('0' => 'Default', '5' => 'Elevated', '10' => 'Leadership'));
         $output = $this->grocery_crud->render();
+
+				$output->replacement_url = 'https://www.29th.org/admin/permissions/';
  
         $this->output($output, 'unit_permissions');
 	}
@@ -558,6 +575,8 @@ class Admin extends CI_Controller {
         $this->grocery_crud->field_type('role_id', 'dropdown', $roles)->display_as('role_id', 'Role');
         
         $output = $this->grocery_crud->render();
+
+				$output->replacement_url = 'https://www.29th.org/admin/unit_forum_roles/';
  
         $this->output($output, 'unit_roles');
 	}
