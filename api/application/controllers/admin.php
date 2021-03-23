@@ -408,6 +408,8 @@ class Admin extends CI_Controller {
 	    $this->grocery_crud->callback_after_update(array($this, '_callback_promotions_after_change'));
 	    $this->grocery_crud->callback_before_delete(array($this, '_callback_promotions_before_delete'));
         $output = $this->grocery_crud->render();
+
+				$output->replacement_url = 'https://www.29th.org/admin/promotions/';
  
         $this->output($output, 'promotions');
 	}
