@@ -286,7 +286,7 @@ class Admin extends CI_Controller {
 	    $this->grocery_crud->callback_before_delete(array($this, '_callback_finances_before_delete'));
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/finances/';
+				$output->replacement_url = 'https://www.29th.org/admin/finance_records/';
  
         $this->output($output, 'finances');
 	}
