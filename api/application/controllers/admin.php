@@ -225,6 +225,8 @@ class Admin extends CI_Controller {
 	        /*->field_type('forum_id', 'dropdown', array('1' => 'PHPBB', '2' => 'SMF', '3' => 'Vanilla'))*/->display_as('forum_id', 'Forum')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member');
         $output = $this->grocery_crud->render();
+
+				$output->replacement_url = 'https://www.29th.org/admin/discharges/';
  
         $this->output($output, 'discharges');
 	}
