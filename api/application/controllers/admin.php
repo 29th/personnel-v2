@@ -241,6 +241,8 @@ class Admin extends CI_Controller {
 	    	->order_by('posting_date', 'desc')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member');
         $output = $this->grocery_crud->render();
+
+				$output->replacement_url = 'https://www.29th.org/admin/extended_loas/';
  
         $this->output($output, 'eloas');
 	}
