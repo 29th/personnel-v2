@@ -78,24 +78,24 @@ class Units extends MY_Controller {
 				if($filter !== FALSE) {
 					$key = 'unit';
 					$units = $units[0];
-					$units['breadcrumbs'] = $this->addUnitsBreadCrumbs($units['path'] . $units['id'] . '/');
+					$units['breadcrumbs'] = $this->addUnitsBreadCrumbs($units['path'], $units['id']);
 				}
 					
 			}
 			$this->response(array('status' => true, $key => $units));
 		}
     }
-	
-	public function addUnitsBreadCrumbs( $unitPath = FALSE ) {
-		if (!$unitPath || strlen( $unitPath ) <= 3 ) return array();
-		$tempTab = explode( ' ', trim(str_replace( '/', ' ', substr( $unitPath , 2 ) )));
-		$retTab = array();
-		foreach( $tempTab as $key => $rec ) 
-		{
-			$tempTab[$key] = $this->db->query("SELECT `abbr`,`name` FROM `units` WHERE id =" . $tempTab[$key] )->result_array();
-			$retTab[] = array( 'id' => trim(str_replace(array('Co. HQ',' HQ'), array('',''), $tempTab[$key][0]['abbr'])), 'name' => str_replace(', ', '', substr( $tempTab[$key][0]['name'], strrpos( $tempTab[$key][0]['name'], ', ' ) ) ) );
-		}
-		return $retTab;
+
+	public function addUnitsBreadCrumbs( $unit_path, $unit_id ) {
+		if (!$unit_path) return array();
+
+		$unit_ids = explode('/', trim($unit_path, '/'));
+		$unit_ids []= $unit_id;
+
+		return array_map(function ($unit_id) {
+			$unit = nest($this->unit_model->get_by_id($unit_id));
+			return ['id' => $unit_id, 'name' => $unit['name']];
+		}, $unit_ids);
 	}
 
 	/*
