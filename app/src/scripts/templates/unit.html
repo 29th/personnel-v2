@@ -1,10 +1,10 @@
 <div class="row header">
     <div class="col-sm-10">
       <span class="unit_breadcrums">
-      {{#is this.id "!==" "1" }}
-      <a href='#units/Bn'>First Battalion</a>
-      {{#each breadcrumbs}} &#187; <a href='#units/{{this.id}}'>{{this.name}}</a>{{/each}}
-      {{/is}}
+      {{#each breadcrumbs}}
+        {{#unless @first}} &#187; {{/unless}}
+        <a href='#units/{{this.id}}'>{{this.name}}</a>
+      {{/each}}
       </span>
       <br><br>
       <table class="unit_header">
