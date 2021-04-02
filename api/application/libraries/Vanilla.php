@@ -41,10 +41,7 @@ class Vanilla extends Forum {
      * Find the steam id associated with the forum member account if it exists
      */
     public function update_display_name($member_id) {
-        $this->load->model('member_model');
-        
-        // Get member info
-        $member = nest($this->member_model->get_by_id($member_id));
+        $member = $this->get_member($member_id);
 
         // If no forum_member_id, there's nothing to do
         if( ! $member[$this->member_id_key]) {
