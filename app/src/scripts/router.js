@@ -53,7 +53,6 @@ var $ = require("jquery"),
   Units = require("./collections/units"),
   AARView = require("./views/aar"),
   AssignmentEditView = require("./views/assignment_edit"),
-  AssociateView = require("./views/associate"),
   AwardView = require("./views/award"),
   AwardsView = require("./views/awards"),
   BanlogsView = require("./views/banlogs"),
@@ -121,7 +120,6 @@ require("./validation.config");
           "": "roster",
           //"assignments"
           "assignments/:id/edit": "assignment_edit",
-          "associate": "associate",
           "awards": "awards",
           "awards/:id": "award",
           "banlogs/add": "banlog_add",
@@ -298,10 +296,6 @@ require("./validation.config");
           $.when.apply($, promises).done(function () {
               self.showView(view);
           });
-      },
-      associate: function() {
-          var associateView = new AssociateView({model: this.user});
-          this.showView(associateView);
       },
       award: function (id) {
           var self = this,
