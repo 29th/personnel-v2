@@ -84,28 +84,4 @@ class Users extends MY_Controller {
             }
         }
     }*/
-
-    public function associate_post() {
-        $discourse_session = $this->user->get_discourse_session();
-
-        if( ! $discourse_session) {
-            $this->response(array('status' => false, 'error' => 'Not logged in to discourse'), 401);
-        } elseif ( ! $this->user->logged_in()) {
-            $this->response(array('status' => false, 'error' => 'Not logged in to vanilla'), 401);
-        } elseif ($this->user->member('discourse_forum_member_id')) {
-            $this->response(array('status' => false, 'error' => 'Already associated'));
-        } else {
-            $personnel_member_id = $this->user->member('id');
-            $discourse_member_id = $discourse_session['id'];
-
-            $this->member_model->save($personnel_member_id, array('discourse_forum_member_id' => $discourse_member_id));
-
-            // update both forums
-            // $this->forums->link_to_personnel_user($personnel_member_id);
-            $this->forums->update_display_name($personnel_member_id);
-            $this->forums->update_roles($personnel_member_id);
-
-            $this->response(array('status' => true));
-        }
-    }
 }
