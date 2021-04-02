@@ -4,7 +4,7 @@ require_once('Forum.php');
 use GuzzleHttp\Client;
 
 class Vanilla extends Forum {
-    public $member_id_key = 'forum_member_id';
+    public $member_id_key = 'vanilla_forum_member_id';
 
     private $vanilla_db;
     

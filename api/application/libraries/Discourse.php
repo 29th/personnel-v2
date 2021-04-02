@@ -4,7 +4,7 @@ require_once('Forum.php');
 use GuzzleHttp\Client;
 
 class Discourse extends Forum {
-  public $member_id_key = 'discourse_forum_member_id';
+  public $member_id_key = 'forum_member_id';
   public $linked_user_field = '1';
 
   private $client;
