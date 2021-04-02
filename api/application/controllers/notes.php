@@ -66,7 +66,7 @@ class Notes extends MY_Controller {
         else 
         {
             $note_data = whitelist($this->post(), array('member_id', 'access', 'subject', 'content'));
-            $note_data['author_member_id'] = $this->db->query("SELECT id FROM `members` WHERE forum_member_id = " . $this->user->logged_in() )->result_array()[0]['id'];
+            $note_data['author_member_id'] = $this->user->member('id');
             $note_data['date_add'] = Date('Y-m-d');
         
             $insert_id = $this->note_model->save(NULL, $note_data);

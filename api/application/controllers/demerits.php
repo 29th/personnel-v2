@@ -26,7 +26,7 @@ class Demerits extends MY_Controller {
         else 
         {
             $demerit_data = whitelist($this->post(), array('member_id','topic_id', 'date', 'reason'));
-            $demerit_data['author_member_id'] = $this->db->query("SELECT id FROM `members` WHERE forum_member_id = " . $this->user->logged_in() )->result_array()[0]['id'];
+            $demerit_data['author_member_id'] = $this->user->member('id');
             $demerit_data['forum_id'] = 'Vanilla';
         
             $insert_id = $this->demerit_model->save(NULL, $demerit_data);
