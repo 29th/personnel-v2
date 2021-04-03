@@ -23,7 +23,7 @@ module.exports = {
           "baseUrl": process.env.FORUM_DISCOURSE_BASE_URL,
           "signInPath": "/login",
           "topicPath": "/t/%s",
-          "profilePath": "/u/%s",
+          "profilePath": "/user-by-id/%s/summary",
           "groupPath": "/g/%s"
       }
     },
