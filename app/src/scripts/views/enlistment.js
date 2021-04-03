@@ -23,20 +23,11 @@ var Marionette = require("backbone.marionette");
                   modifyProfile: memberPermissions.indexOf("profile_edit") !== -1 || permissions.indexOf("profile_edit_any") !== -1
               };
           allowedTo.admin = allowedTo.processEnlistment || allowedTo.modifyEnlistment || allowedTo.modifyProfile;
-
-          var vanillaForumUrl = config.forum.Vanilla.baseUrl;
-          var querystring = $.param({
-              c: new Date().getTime(), // cache bust
-              vanilla_identifier: "enlistment-" + this.model.get('id'),
-              vanilla_url: config.baseUrl + "/#" + Backbone.history.fragment,
-              vanilla_category_id: config.vanillaCategoryEnlistments,
-              title: "Enlistment - " + this.model.get("member").short_name
-          });
-              
+ 
           return $.extend({
               allowedTo: allowedTo,
               forum: config.forum,              
-              embedUrl: vanillaForumUrl + '/discussion/embed/?' + querystring
+              isForumIdVanilla: (this.model.get('forum_id') === 'Vanilla' || !this.model.get('forum_id'))
           }, this.model.toJSON());
       },
       onRender: function () {

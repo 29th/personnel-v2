@@ -9,7 +9,10 @@ module.exports = {
     		"profilePath": "/profile/%s/%s",
     		"topicPath": "/discussion/%s",
     		"privateMessagePath": "/messages/add",
-    		"apiPath" : "/api"
+            "apiPath" : "/api",
+            "categories": {
+                "enlistments": 62,
+            }
 		  },
       "SMF": {
           "baseUrl": process.env.FORUM_SMF_BASE_URL,
@@ -21,9 +24,5 @@ module.exports = {
       }
     },
     sigUrl: process.env.SIG_URL,
-    wikiUrl: process.env.WIKI_URL,
-    vanillaCategoryAwards: 59,
-    vanillaCategoryEnlistments: 62,
-    vanillaCategoryPromotions: 59,
-    vanillaCategoryTransfers: 58
+    wikiUrl: process.env.WIKI_URL
 };
