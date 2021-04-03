@@ -27,7 +27,7 @@ require("backbone.validation");
               memberId = this.member.get("id"),
               promises = [];
           data.member_id = memberId;
-          data.forum_id = "Vanilla";
+          data.forum_id = "Discourse";
           this.model.set(data);
           
           if(this.model.isValid(true)) {

@@ -2,6 +2,7 @@ module.exports = {
     baseUrl: process.env.BASE_URL,
     apiHost: process.env.API_HOST,
     coatDir: process.env.COAT_DIR,
+    defaultForumId: "Discourse",
     forum: {
     	"Vanilla": {
     		"baseUrl": process.env.FORUM_VANILLA_BASE_URL,
@@ -20,7 +21,10 @@ module.exports = {
       },
       "Discourse": {
           "baseUrl": process.env.FORUM_DISCOURSE_BASE_URL,
-          "signInPath": "/login"
+          "signInPath": "/login",
+          "topicPath": "/t/%s",
+          "profilePath": "/u/%s",
+          "groupPath": "/g/%s"
       }
     },
     sigUrl: process.env.SIG_URL,

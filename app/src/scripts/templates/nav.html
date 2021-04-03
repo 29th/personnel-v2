@@ -1,14 +1,6 @@
 <ul class="nav navbar-nav">
     <li class="active dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Forums <span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="{{ forum.Vanilla.baseUrl }}/categories" class="">Boards</a></li>
-            <li><a href="{{ forum.Vanilla.baseUrl }}/discussions" class="">Discussions</a></li>
-            <li><a href="{{ forum.Vanilla.baseUrl }}/activity" class="">Activity</a></li>
-            <li><a href="{{ forum.Vanilla.baseUrl }}/search" class="">Search</a></li>
-            <li><a href="{{ forum.Vanilla.baseUrl }}/discussions/markallviewed" class="">Mark All Viewed</a></li>
-            <li><a href="{{ forum.Vanilla.baseUrl }}/members" class="">Members list</a></li>
-        </ul>
+        <a href="{{ forum.Discourse.baseUrl }}">Forums</span></a>
     </li>   
     <li class="active dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Personnel <span class="caret"></span></a>
@@ -97,7 +89,7 @@
         </li>
         {{/unless}}
     {{else}}
-        <li><a href="{{ forum.Vanilla.baseUrl }}{{ forum.Vanilla.signInPath }}">Sign In</a></li>
+        <li><a href="{{ forum.Discourse.baseUrl }}{{ forum.Discourse.signInPath }}">Sign In</a></li>
     {{/if}}
     
     {{#if short_name}}
@@ -105,7 +97,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ short_name }} <b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li><a href="#members/{{ id }}">Personnel File</a></li>
-            <li><a href='{{ forum.Vanilla.baseUrl }}{{ sprintf forum.Vanilla.profilePath forum_member_id (str_replace short_name "/" "") }}'>Forum Profile</a></li>
+            <li><a href="{{ forum_profile_url forum_member_id }}">Forum Profile</a></li>
             {{#if unit.id}}
             <li><a href="#units/{{ unit.key }}">{{ unit.abbr }}</a>
             {{/if}}

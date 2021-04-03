@@ -2,7 +2,9 @@ var $ = require("jquery"),
   _ = require("underscore"),
   Handlebars = require("hbsfy/runtime"),
   moment = require("moment"),
-  bbcode = require("bbcode");
+  bbcode = require("bbcode"),
+  util = require("../util"),
+  config = require("../config");
 require("moment-duration-format");
 
 
@@ -319,3 +321,25 @@ Handlebars.registerHelper('debug', function() {
         Array.prototype.slice.call(arguments, 0, -1)
     ));
 });
+
+Handlebars.registerHelper('forum_topic_url', function(topicId, block) {
+    var forumId = block.hash.forum_id || config.defaultForumId;
+    var { baseUrl, topicPath } = config.forum[forumId];
+    var suffix = util.sprintf(topicPath, topicId);
+    return `${baseUrl}${suffix}`;
+});
+
+Handlebars.registerHelper('forum_profile_url', function(forumMemberid, block) {
+    var forumId = block.hash.forum_id || config.defaultForumId;
+    var { baseUrl, profilePath } = config.forum[forumId];
+    var username = encodeURIComponent(block.hash.username);
+    var suffix = util.sprintf(profilePath, forumMemberid, username)
+    return `${baseUrl}${suffix}`;
+});
+
+Handlebars.registerHelper('forum_group_url', function(group, block) {
+    var forumId = block.hash.forum_id || config.defaultForumId;
+    var { baseUrl, groupPath } = config.forum[forumId];
+    var suffix = util.sprintf(groupPath, group)
+    return `${baseUrl}${suffix}`;
+})

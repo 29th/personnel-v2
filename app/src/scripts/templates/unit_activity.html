@@ -4,7 +4,7 @@
     </div>
     <div class="panel-body">
     	<h2><b>{{ members.length }}</b> members</h2>
-    	<a href="{{ forum.Vanilla.baseUrl }}{{ forum.Vanilla.privateMessagePath }}/{{#each members}}{{ str_replace this.member.short_name "/" "" }},{{/each}}" class="btn btn-default">Send a Message</a>
+        <a href="{{ forum_group_url forum_group }}" class="btn btn-default">Send a Message</a>
     </div>
 </div>
 <div class="panel panel-default">

@@ -4,6 +4,6 @@
     </div>
     <div class="panel-body">
     	<h1>{{ members.length }} members</h1>
-    	<a href="{{ forum.baseUrl }}{{ forum.Vanilla.privateMessagePath }}/{{#each members}}{{ str_replace this.member.short_name "/" "" }},{{/each}}" class="btn btn-default">Send a Message</a>
+        <a href="{{ forum_group_url forum_group }}" class="btn btn-default">Send a Message</a>
     </div>
 </div>

@@ -62,7 +62,11 @@ var Marionette = require("backbone.marionette");
           // Get unique list of members
           var  membs = [];
           _.each( this.members.toJSON()[0], function(f,k){membs[k] = f;});
+
+          // Construct likely discourse group name
+          // note: members collection includes parent unit data
+          var forum_group = membs.abbr.replace(' ', '');
           
-          return {items: items, forum: config.forum, members: membs };
+          return {items: items, forum: config.forum, members: membs, forum_group: forum_group };
       }
   });
