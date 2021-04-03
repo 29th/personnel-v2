@@ -130,6 +130,32 @@ class Discourse extends Forum {
     return;
   }
 
+  public function create_post($category_id, $subject, $body, $author_member_id = null) {
+    $path = "/posts.json";
+    $payload = [
+      'category' => $category_id,
+      'title' => $subject,
+      'raw' => $body
+    ];
+
+    $headers = [];
+    if ($author_member_id) {
+      $member = $this->get_member($author_member_id);
+      $forum_user = $this->get_forum_user($member[$this->member_id_key]);
+      $username = $forum_user['username'];
+      $headers = ['Api-Username' => $username];
+    }
+
+    $response = $this->client->post($path, ['json' => $payload, 'headers' => $headers]);
+
+    if ($response->getStatusCode() != 200) {
+      throw new Exception('Failed to create post');
+    }
+
+    $body = json_decode($response->getBody(), true);
+    return $body['topic_id'];
+  }
+
   private function get_users_by_ip($ip) {
     $path = "/admin/users/list.json";
     $response = $this->client->get($path, ['query' => ['ip' => $ip]]);

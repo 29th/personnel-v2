@@ -171,6 +171,17 @@ class Enlistments extends MY_Controller {
 			if(isset($enlistment_data['middle_name']) && $enlistment_data['middle_name']) $enlistment_data['middle_name'] = substr($enlistment_data['middle_name'], 0, 1);
             
             $insert_id = $this->enlistment_model->save(NULL, $enlistment_data);
+
+            // Create forum topic
+            $category_id = getenv('DISCOURSE_ENLISTMENT_CATEGORY_ID');
+            $subject = "Enlistment - Rec. {$enlistment_data['last_name']}";
+            $app_base_url = getenv('CORS_HOST');
+            $body = "Read the enlistment details at: \n\n{$app_base_url}/#enlistments/{$insert_id}";
+            $topic_id = $this->forums->create_post($category_id, $subject, $body, $member_id);
+
+            // Update enlistment record with topic id
+            $this->enlistment_model->save($insert_id, ['forum_id' => 'Discourse', 'topic_id' => $topic_id]);
+
             $new_record = $insert_id ? nest($this->enlistment_model->get_by_id($insert_id)) : null;
             $this->response(array('status' => $insert_id ? true : false, 'enlistment' => $new_record));
         }
