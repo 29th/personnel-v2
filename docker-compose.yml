@@ -57,6 +57,7 @@ services:
       DISCOURSE_API_KEY: $DISCOURSE_API_KEY
       DISCOURSE_COOKIE_NAME: discourse_jwt
       DISCOURSE_SECRET_KEY: $DISCOURSE_SECRET_KEY
+      DISCOURSE_ENLISTMENT_CATEGORY_ID: 5
       ENVIRONMENT: development
       DIR_COAT_PUBLIC: /var/www/html/coats/
 
@@ -86,13 +87,16 @@ services:
     environment:
       DATABASE_URL: mysql2://root:pwd@db-personnel
       VANILLA_BASE_URL: http://forums
-      VANILLA_API_KEY: $VANILLA_PERSONAL_ACCESS_TOKEN
+      VANILLA_API_KEY: $VANILLA_API_KEY
       DISCOURSE_BASE_URL: http://host.docker.internal:3000
       DISCOURSE_API_KEY: $DISCOURSE_API_KEY
+      DISCOURSE_WEBHOOKS_SECRET: developmentsecret
       V2_ADMIN_API_KEY: dev
       V2_API_BASE_URL: api
       FORUMS_COOKIE_NAME: Vanilla
       FORUMS_SECRET_KEY: dev
+      DISCOURSE_COOKIE_NAME: discourse_jwt
+      DISCOURSE_SECRET_KEY: $DISCOURSE_SECRET_KEY
       STORAGE_ENDPOINT: https://nyc3.digitaloceanspaces.com
       STORAGE_BUCKET: 29th-uploads
       STORAGE_REGION: nyc3
