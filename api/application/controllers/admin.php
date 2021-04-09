@@ -521,6 +521,8 @@ class Admin extends CI_Controller {
 	        ->columns('weapon', 'game', 'badge', 'description')
 	        ->required_fields('weapon', 'badge', 'description');
         $output = $this->grocery_crud->render();
+
+				$output->replacement_url = 'https://www.29th.org/admin/ait_standards/';
  
         $this->output($output, 'standards');
 	}
