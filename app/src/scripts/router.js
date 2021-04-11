@@ -1362,7 +1362,7 @@ require("./validation.config");
           var self = this,
               promises = [],
               units = new Units(null, {
-                  filter: filter || "Bn",
+                  filter: filter || "Regt",
                   children: true,
                   members: true
               }),
@@ -1386,7 +1386,7 @@ require("./validation.config");
               // Models & Collections
               ,
               units = new Units(null, {
-                  filter: filter || "Bn"
+                  filter: filter || "Regt"
               })
 
               // Layouts & Views
@@ -1405,13 +1405,13 @@ require("./validation.config");
               unitLayout.setHighlight("attendance");
 
               var attendance = new Attendance(null, {
-                  unit_id: filter || "Bn"
+                  unit_id: filter || "Regt"
               });
               promises.push(attendance.fetch());
 
               // Percentages
               var percentages = new AttendancePercentages(null, {
-                  member_id: filter || "Bn"
+                  member_id: filter || "Regt"
               });
               promises.push(percentages.fetch());
 
@@ -1431,7 +1431,7 @@ require("./validation.config");
               unitLayout.setHighlight("awols");
               
               var unitAwols = new UnitAwols(null, {
-                  filter: filter || "Bn"
+                  filter: filter || "Regt"
               });
               promises.push(unitAwols.fetch());
 
@@ -1444,7 +1444,7 @@ require("./validation.config");
               unitLayout.setHighlight("alerts");
               
               var unitAlerts = new UnitAlerts(null, {
-                  filter: filter || "Bn"
+                  filter: filter || "Regt"
               });
               promises.push(unitAlerts.fetch());
 
@@ -1457,7 +1457,7 @@ require("./validation.config");
               unitLayout.setHighlight("stats");
               
               var unitStats = new UnitStats(null, {
-                  filter: filter || "Bn"
+                  filter: filter || "Regt"
               });
               promises.push(unitStats.fetch());
 
@@ -1472,7 +1472,7 @@ require("./validation.config");
               var unitRecruits = new Recruits(null, {
                   from:"2000",
                   to: "today",
-                  unit_id: filter //|| "Bn"
+                  unit_id: filter //|| "Regt"
               });
               promises.push(unitRecruits.fetch());
 
@@ -1487,7 +1487,7 @@ require("./validation.config");
               var unitDischarges = new Discharges(null, {
                   from:"2000",
                   to: "today",
-                  unit_id: filter //|| "Bn"
+                  unit_id: filter //|| "Regt"
               });
               promises.push(unitDischarges.fetch());
 
@@ -1505,7 +1505,7 @@ require("./validation.config");
 
               // Assignments
               var assignments = new Assignments(null, {
-                  unit_id: filter || "Bn",
+                  unit_id: filter || "Regt",
                   from: "30 days ago",
                   to: "tomorrow"
               });
@@ -1513,7 +1513,7 @@ require("./validation.config");
 
               // Promotions
               var promotions = new Promotions(null, {
-                  unit_id: filter || "Bn",
+                  unit_id: filter || "Regt",
                   from: "30 days ago",
                   to: "tomorrow"
               });
@@ -1521,7 +1521,7 @@ require("./validation.config");
 
               // Awardings
               var awardings = new Awardings(null, {
-                  unit_id: filter || "Bn",
+                  unit_id: filter || "Regt",
                   from: "30 days ago",
                   to: "tomorrow"
               });
@@ -1529,7 +1529,7 @@ require("./validation.config");
 
               // Finances
               var finances = new Finances(null, {
-                  unit_id: filter || "Bn",
+                  unit_id: filter || "Regt",
                   from: "30 days ago",
                   to: "tomorrow"
               });
@@ -1537,7 +1537,7 @@ require("./validation.config");
 
               // Demerits
               var demerits = new Demerits(null, {
-                  unit_id: filter || "Bn",
+                  unit_id: filter || "Regt",
                   from: "30 days ago",
                   to: "tomorrow"
               });
@@ -1545,7 +1545,7 @@ require("./validation.config");
 
               // Extended LOAs
               var eloas = new ELOAs(null, {
-                  unit_id: filter || "Bn",
+                  unit_id: filter || "Regt",
                   from: "30 days ago",
                   to: "tomorrow"
               });
@@ -1553,7 +1553,7 @@ require("./validation.config");
 
               // Discharges
               var discharges = new Discharges(null, {
-                  unit_id: filter || "Bn",
+                  unit_id: filter || "Regt",
                   from: "30 days ago",
                   to: "tomorrow"
               });
@@ -1561,7 +1561,7 @@ require("./validation.config");
 
               // Qualifications
               var qualifications = new Qualifications(null, {
-                  unit_id: filter || "Bn",
+                  unit_id: filter || "Regt",
                   from: "30 days ago",
                   to: "tomorrow"
               });
@@ -1569,7 +1569,7 @@ require("./validation.config");
 
               // Attendance
               var attendance = new Attendance(null, {
-                  unit_id: filter || "Bn",
+                  unit_id: filter || "Regt",
                   from: "30 days ago",
                   to: "tomorrow"
               });
