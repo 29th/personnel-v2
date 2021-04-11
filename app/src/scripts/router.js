@@ -63,6 +63,7 @@ var $ = require("jquery"),
   CalendarView = require("./views/calendar"),
   DemeritEditView = require("./views/demerit_edit"),
   DemeritView = require("./views/demerit"),
+  DeprecationNotice = require("./views/deprecation_notice")
   PassEditView = require("./views/pass_edit"),
   DischargeView = require("./views/discharge"),
   ELOAsView = require("./views/eloas"),
@@ -201,6 +202,10 @@ require("./validation.config");
           document.title = view.title !== undefined && view.title ? view.title : $("title").text();
           util.scrollToTop();
       },
+      showDeprecationNotice: function (url) {
+          var deprecationNotice = new DeprecationNotice({ url: url })
+          this.app.flashRegion.show(deprecationNotice);
+      },
 
       aar: function (id) {
           var self = this,
@@ -297,6 +302,13 @@ require("./validation.config");
 
           $.when.apply($, promises).done(function () {
               self.showView(view);
+
+              var path = `/admin`
+              if (member_id) path += `/users/${member_id}`
+              path += `/assignments`
+              if (id) path += `/${id}`
+
+              self.showDeprecationNotice(`https://www.29th.org${path}`)
           });
       },
       associate: function() {
@@ -406,6 +418,7 @@ require("./validation.config");
           this.app.navRegion.currentView.setHighlight("banlogs");
           promises.push(banlogs.fetch());
 
+          this.showDeprecationNotice('https://www.29th.org/admin/ban_logs');
           //util.loading(true);
           $.when.apply($, promises).done(function () {
               //util.loading(false);
@@ -593,6 +606,7 @@ require("./validation.config");
           this.app.navRegion.currentView.setHighlight("notes");
           promises.push(notes.fetch());
 
+          this.showDeprecationNotice('https://www.29th.org/admin/notes');
           $.when.apply($, promises).done(function () {
               self.showView(notesView);
           });
@@ -1043,6 +1057,7 @@ require("./validation.config");
               } else {
                   // Success - logged in and not already a member
                   self.showView(promotionEditView);
+                  self.showDeprecationNotice(`https://www.29th.org/admin/users/${member_id}/promotions`)
               }
           });
       },
@@ -1292,6 +1307,8 @@ require("./validation.config");
               });
           }
           else if (path == "edit") {
+              this.showDeprecationNotice(`https://www.29th.org/admin/users/${id}`)
+
               memberLayout.setHighlight("profile");
               pageView = new MemberEditView({
                   model: member
@@ -1306,6 +1323,7 @@ require("./validation.config");
               });
           }
           else if (path == "discharge") {
+              this.showDeprecationNotice(`https://www.29th.org/admin/users/${id}/discharges`)
               memberLayout.setHighlight("profile");
               var discharge = new Discharge();
               pageView = new MemberDischargeView({
