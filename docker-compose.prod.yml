@@ -108,3 +108,24 @@ services:
       SMTP_SSL: 'true'
       SMTP_FROM: noreply@29th.org
       SMTP_EXPLICIT_TLS: 'true'
+
+  phpbb:
+    container_name: phpbb
+    image: 29th/phpbb-forums:latest
+    restart: always
+    environment:
+      DB_HOST: $PHPBB_DB_HOST
+      DB_USER: $PHPBB_DB_USER
+      DB_PASS: $PHPBB_DB_PASS
+      DB_NAME: $PHPBB_DB_NAME
+
+  smf:
+    container_name: smf
+    image: 29th/smf-forums:latest
+    restart: always
+    environment:
+      DB_HOST: $SMF_DB_HOST
+      DB_USER: $SMF_DB_USER
+      DB_PASS: $SMF_DB_PASS
+      DB_NAME: $SMF_DB_NAME
+      SITE_URL: https://smf.29th.org
