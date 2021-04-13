@@ -303,12 +303,7 @@ require("./validation.config");
           $.when.apply($, promises).done(function () {
               self.showView(view);
 
-              var path = `/admin`
-              if (member_id) path += `/users/${member_id}`
-              path += `/assignments`
-              if (id) path += `/${id}`
-
-              self.showDeprecationNotice(`https://www.29th.org${path}`)
+              self.showDeprecationNotice(`https://www.29th.org/admin/assignments/${id}`)
           });
       },
       associate: function() {
