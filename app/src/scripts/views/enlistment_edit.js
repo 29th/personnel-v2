@@ -46,9 +46,9 @@ require("backbone.validation");
           var point = $('.units-table').find('tbody'),
               indexVal = this.unitsTableRowCount++,//$(".units-table tbody tr").length,
               newRowContent = "<tr>" +
-'                    <td><input type="text" class="form-control" name="units['+indexVal+'][unit]" id="units[unit]" value=""></td>'+
+'                    <td><input type="text" class="form-control" name="previous_units['+indexVal+'][unit]" id="previous_units[unit]" value=""></td>'+
 '                    <td>'+
-'                        <select class="form-control" name="units['+indexVal+'][game]" id="units[game]">'+
+'                        <select class="form-control" name="previous_units['+indexVal+'][game]" id="previous_units[game]">'+
 '                            <option value="">Select...</option>'+
 '                            <option value="Arma 2">Arma 2</option>'+
 '                            <option value="Arma 3">Arma 3</option>'+
@@ -62,9 +62,9 @@ require("backbone.validation");
 '                            <option value="SQ">Squad</option>'+
 '                        </select>'+
 '                    </td>'+
-'                    <td><input type="text" class="form-control" name="units['+indexVal+'][name]" id="units[name]" value=""></td>'+
-'                    <td><input type="text" class="form-control" name="units['+indexVal+'][rank]" id="units[rank]" value=""></td>'+
-'                    <td><input type="text" class="form-control" name="units['+indexVal+'][reason]" id="units[reason]" value=""></td>'+
+'                    <td><input type="text" class="form-control" name="previous_units['+indexVal+'][name]" id="previous_units[name]" value=""></td>'+
+'                    <td><input type="text" class="form-control" name="previous_units['+indexVal+'][rank]" id="previous_units[rank]" value=""></td>'+
+'                    <td><input type="text" class="form-control" name="previous_units['+indexVal+'][reason]" id="previous_units[reason]" value=""></td>'+
 '                    <td><button type="button" class="btn btn-default btn-remove"> - </button></td>'+
 '                </tr>';
           point.append(newRowContent);
