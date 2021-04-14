@@ -54,8 +54,7 @@ class Enlistments extends MY_Controller {
      */
     public function view_get($enlistment_id) {
         $enlistment = nest($this->enlistment_model->get_by_id($enlistment_id));
-        $enlistment['previous_units'] = json_decode( $enlistment['units'] );
-        unset( $enlistment['units'] );
+        $enlistment['previous_units'] = json_decode( $enlistment['previous_units'] );
         // Must have permission to view this member's profile or any member's profile
         if( ! $this->user->permission('profile_view', array('member' => $enlistment['member']['id'])) && ! $this->user->permission('profile_view_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
@@ -165,7 +164,7 @@ class Enlistments extends MY_Controller {
             $enlistment_data['status'] = 'Pending';
             $enlistment_data['date'] = format_date('now', 'mysqldate');
             
-            $enlistment_data['units'] = json_encode($this->post('units'));
+            $enlistment_data['previous_units'] = json_encode(array_values($this->post('previous_units')));
         
 			// Only use first letter of middle_name
 			if(isset($enlistment_data['middle_name']) && $enlistment_data['middle_name']) $enlistment_data['middle_name'] = substr($enlistment_data['middle_name'], 0, 1);
@@ -193,7 +192,7 @@ class Enlistments extends MY_Controller {
             $this->usertracking->track_this();
             $data = whitelist($this->post(), array('first_name', 'middle_name', 'last_name', 'age', 'country_id', 'timezone', 'game', 'ingame_name', 'steam_name', 'steam_id', 'experience', 'recruiter', 'comments'));
         
-			$data['units'] = json_encode($this->post('units'));
+			$data['previous_units'] = json_encode(array_values($this->post('previous_units')));
 			
 			// Only use first letter of middle_name
 			if(isset($data['middle_name']) && $data['middle_name']) $data['middle_name'] = substr($data['middle_name'], 0, 1);
