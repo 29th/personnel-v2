@@ -193,7 +193,8 @@ class Enlistments extends MY_Controller {
             $this->usertracking->track_this();
             $data = whitelist($this->post(), array('first_name', 'middle_name', 'last_name', 'age', 'country_id', 'timezone', 'game', 'ingame_name', 'steam_name', 'steam_id', 'experience', 'recruiter', 'comments'));
         
-			$data['previous_units'] = json_encode(array_values($this->post('previous_units')));
+            $previous_units = $this->post('previous_units');
+			$data['previous_units'] = $previous_units ? json_encode(array_values($this->post('previous_units'))) : '';
 			
 			// Only use first letter of middle_name
 			if(isset($data['middle_name']) && $data['middle_name']) $data['middle_name'] = substr($data['middle_name'], 0, 1);
