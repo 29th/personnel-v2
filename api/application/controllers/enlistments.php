@@ -165,7 +165,7 @@ class Enlistments extends MY_Controller {
             $enlistment_data['date'] = format_date('now', 'mysqldate');
             
             $previous_units = $this->post('previous_units');
-            $enlistment_data['previous_units'] = $previous_units ? json_encode(array_values($previous_units)) : '';
+            $enlistment_data['previous_units'] = $previous_units ? json_encode(array_values($previous_units)) : NULL;
         
 			// Only use first letter of middle_name
 			if(isset($enlistment_data['middle_name']) && $enlistment_data['middle_name']) $enlistment_data['middle_name'] = substr($enlistment_data['middle_name'], 0, 1);
@@ -194,7 +194,7 @@ class Enlistments extends MY_Controller {
             $data = whitelist($this->post(), array('first_name', 'middle_name', 'last_name', 'age', 'country_id', 'timezone', 'game', 'ingame_name', 'steam_name', 'steam_id', 'experience', 'recruiter', 'comments'));
         
             $previous_units = $this->post('previous_units');
-			$data['previous_units'] = $previous_units ? json_encode(array_values($this->post('previous_units'))) : '';
+			$data['previous_units'] = $previous_units ? json_encode(array_values($this->post('previous_units'))) : NULL;
 			
 			// Only use first letter of middle_name
 			if(isset($data['middle_name']) && $data['middle_name']) $data['middle_name'] = substr($data['middle_name'], 0, 1);
