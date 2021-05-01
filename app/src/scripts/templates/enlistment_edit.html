@@ -112,9 +112,9 @@
             <tbody>
         {{#each previous_units}}
                 <tr>
-                    <td><input type="text" class="form-control" name="units[{{@index}}][unit]" id="units[unit]" value="{{unit}}"></td>
+                    <td><input type="text" class="form-control" name="previous_units[{{@index}}][unit]" id="previous_units[unit]" value="{{unit}}"></td>
                     <td>
-                        <select class="form-control" name="units[{{@index}}][game]" id="units[game]">
+                        <select class="form-control" name="previous_units[{{@index}}][game]" id="previous_units[game]">
                             {{#select game}}
                             <option value="">Select...</option>
                             <option value="Arma 2">Arma 2</option>
@@ -130,9 +130,9 @@
                             {{/select}}
                         </select>
                     </td>
-                    <td><input type="text" class="form-control" name="units[{{@index}}][name]" id="units[name]" value="{{name}}"></td>
-                    <td><input type="text" class="form-control" name="units[{{@index}}][rank]" id="units[rank]" value="{{rank}}"></td>
-                    <td><input type="text" class="form-control" name="units[{{@index}}][reason]" id="units[reason]" value="{{reason}}"></td>
+                    <td><input type="text" class="form-control" name="previous_units[{{@index}}][name]" id="previous_units[name]" value="{{name}}"></td>
+                    <td><input type="text" class="form-control" name="previous_units[{{@index}}][rank]" id="previous_units[rank]" value="{{rank}}"></td>
+                    <td><input type="text" class="form-control" name="previous_units[{{@index}}][reason]" id="previous_units[reason]" value="{{reason}}"></td>
                     <td><button type="button" class="btn btn-default btn-remove"> - </button></td>
                 </tr>
         {{/each}}
