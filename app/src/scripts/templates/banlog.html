@@ -54,7 +54,7 @@
                 <th>Ban Disputes with this ROID</th>
                 <td>
                 {{#each this.forum_discussions}}
-                    <b>{{dateFormat last}}</b> - <a href='{{ ../forum.Vanilla.baseUrl }}/discussion/{{id}}'>{{name}} </a><br>
+                    <b>{{dateFormat last}}</b> - <a href='{{ forum_topic_url this.id }}'>{{name}} </a><br>
                 {{/each}}
                 </td>
             </tr>

@@ -31,11 +31,11 @@
 {{/if}}
             <tr>
                 <th>Forum Profile</th>
-{{#is forum_member_id "!==" "0"}}
-                <td><a href="{{ forum.Vanilla.baseUrl }}{{ sprintf forum.Vanilla.profilePath forum_member_id short_name_url }}">View Profile</a></td>
+{{#if forum_member_id }}
+                <td><a href="{{ forum_profile_url forum_member_id username=short_name_url }}">View Profile</a></td>
 {{else}}
                 <td><i>No forum account</i></td>
-{{/is}}
+{{/if}}
             </tr>
 {{#is this.fin_sum "!==" 0}}
             <tr>

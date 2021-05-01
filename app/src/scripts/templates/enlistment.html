@@ -158,7 +158,7 @@
                     {{#if users}} 
                         used also by:
                         {{#each users}}
-                            [<a href="{{../../../forum.Vanilla.baseUrl }}/profile/{{Name}}" >{{Name}}</a>]
+                            [<a href="{{ forum_profile_url UserID }}">{{Name}}</a>]
                         {{/each}}
                     {{/if}}
                     <br>
@@ -226,10 +226,37 @@
         <h2>Comments</h2>
     </div>
     <div class="panel-body">
-        
-        <div id="vanilla-comments">
-            <div class="iframe-loading"><h2><i class="fa fa-spinner fa-spin"></i> Loading comments</h2></div>
-            <iframe src="{{ embedUrl }}"></iframe>
-        </div>
+
+        {{#if isForumIdVanilla}}
+        <div id="vanilla-comments"></div>
+        <script type="text/javascript">
+            var vanilla_forum_url = "{{ forum.Vanilla.baseUrl }}";
+            var vanilla_identifier = "enlistment-{{ id }}";
+            var vanilla_category_id = {{ forum.Vanilla.categories.enlistments }};
+            {{#if topic_id}}
+            var vanilla_discussion_id = {{ topic_id }};
+            {{/if}}
+
+            (function() {
+                var vanilla = document.createElement('script');
+                vanilla.type = 'text/javascript';
+                var timestamp = new Date().getTime();
+                vanilla.src = vanilla_forum_url + '/js/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(vanilla);
+            })();
+        </script>
+        {{else is forum_id '===' 'Discourse'}}
+        <div id="discourse-comments"></div>
+        <script type="text/javascript">
+            DiscourseEmbed = { discourseUrl: '{{ forum.Discourse.baseUrl }}/',
+                               topicId: {{ topic_id }} };
+          
+            (function() {
+              var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+              d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+            })();
+          </script>
+        {{/if}}
     </div>
 </div>
