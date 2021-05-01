@@ -23,9 +23,9 @@ services:
       BASE_URL: https://personnel.29th.local
       API_HOST: https://api.29th.local
       COAT_DIR: https://api.29th.local/coats
-      FORUM_VANILLA_BASE_URL: https://forums.29th.local
+      FORUM_VANILLA_BASE_URL: https://vanilla.29th.local
       FORUM_SMF_BASE_URL: https://29th.org/forums
-      FORUM_DISCOURSE_BASE_URL: https://discourse.29th.local
+      FORUM_DISCOURSE_BASE_URL: https://forums.29th.local
       WIKI_URL: https://29th.org/wiki
 
   api:
