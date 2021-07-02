@@ -382,6 +382,12 @@ class ServiceCoat {
 				imagedestroy($this->scRankltcol);
 				$this->handleOfficerInsig();	
 			break;
+			case 'col':
+				$this->scRankcol = imagecreatefrompng(DIR_COAT_RESOURCES . 'RanksOfficer/COL.png');
+				imagecopy($this->scImage, $this->scRankcol, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
+				imagedestroy($this->scRankcol);
+				$this->handleOfficerInsig();	
+			break;					
 			default:
 			break;
 			}
