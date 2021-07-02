@@ -322,6 +322,18 @@ class ServiceCoat {
 				imagedestroy($this->scRankfsgt);
 				$this->handleEnlistedInsig();				
 			break;
+			case 'sgm':
+				$this->scRanksgm = imagecreatefrompng(DIR_COAT_RESOURCES . 'RanksEnlisted/SGM.png');
+				imagecopy($this->scImage, $this->scRanksgm, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
+				imagedestroy($this->scRanksgm);
+				$this->handleEnlistedInsig();				
+			break;	
+			case 'csm':
+				$this->scRankcsm = imagecreatefrompng(DIR_COAT_RESOURCES . 'RanksEnlisted/CSM.png');
+				imagecopy($this->scImage, $this->scRankcsm, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
+				imagedestroy($this->scRankcsm);
+				$this->handleEnlistedInsig();				
+			break;						
 			case 'wo1':
 				$this->scRankwo1 = imagecreatefrompng(DIR_COAT_RESOURCES . 'RanksOfficer/WO1.png');
 				imagecopy($this->scImage, $this->scRankwo1, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
