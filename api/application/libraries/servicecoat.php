@@ -12,7 +12,7 @@ class ServiceCoat {
     private $root = __DIR__;
 
 	//Arrays of codes supported
-		private $scAllRanks = array('pvt','pfc','t5','cpl','t4','sgt','t3','ssgt','tsgt','msgt','fsgt','wo1','cw2','cw3','cw4','cw5','2lt','1lt','cpt','maj','lt col');
+		private $scAllRanks = array('pvt','pfc','t5','cpl','t4','sgt','t3','ssgt','tsgt','msgt','fsgt','sgm','csm','wo1','cw2','cw3','cw4','cw5','2lt','1lt','cpt','maj','lt col','col');
 		private	$scAllAQBadges = array(
 			'm:rifle:dod','m:bar:dod','m:zook:dod','m:mg:dod','m:armor:dod','m:smg:dod','m:sniper:dod','m:mortar:dod'
 			,'s:rifle:dod','s:bar:dod','s:zook:dod','s:mg:dod','s:armor:dod','s:smg:dod','s:sniper:dod','s:mortar:dod'
@@ -1761,6 +1761,9 @@ class ServiceCoat {
 				return true;
 			break;
 			case 'lt col':
+				return true;
+			break;
+			case 'col':
 				return true;
 			break;
 			default:
