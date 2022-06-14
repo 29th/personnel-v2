@@ -81,7 +81,8 @@ require("fullcalendar");
                       }));
                   }
 */
-                  if (assignment.get("unit").id === event.unit.id || assignment.get("unit").path.indexOf('/'+event.unit.id+'/') > -1) {
+                  var userUnit = assignment.get("unit")
+                  if (userUnit.id === event.unit.id || (userUnit.path && userUnit.path.indexOf('/'+event.unit.id+'/') > -1)) {
                       expected = true;
                       return true;
                   }
