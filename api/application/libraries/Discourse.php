@@ -126,6 +126,22 @@ class Discourse extends Forum {
     return $body['email'];
   }
 
+  // NOTE: Uses forum_member_id instead of member_id
+  public function get_user_time_zone($forum_member_id) {
+    $forum_user = $this->get_forum_user($forum_member_id);
+
+    $path = "/u/{$forum_user['username']}.json";
+    $response = $this->client->get($path);
+
+    if ($response->getStatusCode() != 200) {
+      throw new Exception("Failed to get time zone for forum member {$member[$this->member_id_key]}");
+    }
+
+    $body = json_decode($response->getBody(), true);
+
+    return $body['user']['user_option']['timezone'];
+  }
+
   public function get_ban_disputes($roid) {
     return;
   }

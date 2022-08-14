@@ -151,6 +151,11 @@ class Enlistments extends MY_Controller {
                 $member_data = whitelist($this->post(), array('last_name', 'first_name', 'middle_name', 'country_id')); // steam_id?
                 $member_data['forum_member_id'] = $forum_member_id;
                 $member_data['email'] = $this->user->member('forum_email');
+                try {
+                    $member_data['time_zone'] = $this->forums->get_user_time_zone($forum_member_id);
+                } catch (Exception $e) {
+                    error_log($e->getMessage());
+                }
         
                 // Only use first letter of middle_name
                 if(isset($member_data['middle_name']) && $member_data['middle_name']) $member_data['middle_name'] = substr($member_data['middle_name'], 0, 1);
