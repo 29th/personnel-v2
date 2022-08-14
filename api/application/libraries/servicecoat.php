@@ -12,7 +12,7 @@ class ServiceCoat {
     private $root = __DIR__;
 
 	//Arrays of codes supported
-		private $scAllRanks = array('pvt','pfc','t5','cpl','t4','sgt','t3','ssgt','tsgt','msgt','fsgt','wo1','cw2','cw3','cw4','cw5','2lt','1lt','cpt','maj','lt col');
+		private $scAllRanks = array('pvt','pfc','t5','cpl','t4','sgt','t3','ssgt','tsgt','msgt','fsgt','sgt maj','csm','wo1','cw2','cw3','cw4','cw5','2lt','1lt','cpt','maj','lt col','col');
 		private	$scAllAQBadges = array(
 			'm:rifle:dod','m:bar:dod','m:zook:dod','m:mg:dod','m:armor:dod','m:smg:dod','m:sniper:dod','m:mortar:dod'
 			,'s:rifle:dod','s:bar:dod','s:zook:dod','s:mg:dod','s:armor:dod','s:smg:dod','s:sniper:dod','s:mortar:dod'
@@ -322,6 +322,18 @@ class ServiceCoat {
 				imagedestroy($this->scRankfsgt);
 				$this->handleEnlistedInsig();				
 			break;
+			case 'sgt maj':
+				$this->scRanksgm = imagecreatefrompng(DIR_COAT_RESOURCES . 'RanksEnlisted/SGM.png');
+				imagecopy($this->scImage, $this->scRanksgm, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
+				imagedestroy($this->scRanksgm);
+				$this->handleEnlistedInsig();				
+			break;	
+			case 'csm':
+				$this->scRankcsm = imagecreatefrompng(DIR_COAT_RESOURCES . 'RanksEnlisted/CSM.png');
+				imagecopy($this->scImage, $this->scRankcsm, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
+				imagedestroy($this->scRankcsm);
+				$this->handleEnlistedInsig();				
+			break;						
 			case 'wo1':
 				$this->scRankwo1 = imagecreatefrompng(DIR_COAT_RESOURCES . 'RanksOfficer/WO1.png');
 				imagecopy($this->scImage, $this->scRankwo1, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
@@ -382,6 +394,12 @@ class ServiceCoat {
 				imagedestroy($this->scRankltcol);
 				$this->handleOfficerInsig();	
 			break;
+			case 'col':
+				$this->scRankcol = imagecreatefrompng(DIR_COAT_RESOURCES . 'RanksOfficer/COL.png');
+				imagecopy($this->scImage, $this->scRankcol, 0, 0, 0, 0, $this->scImgSize['x'],$this->scImgSize['y']);
+				imagedestroy($this->scRankcol);
+				$this->handleOfficerInsig();	
+			break;					
 			default:
 			break;
 			}
@@ -1743,6 +1761,9 @@ class ServiceCoat {
 				return true;
 			break;
 			case 'lt col':
+				return true;
+			break;
+			case 'col':
 				return true;
 			break;
 			default:
