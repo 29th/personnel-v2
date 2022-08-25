@@ -272,6 +272,8 @@ class Admin extends CI_Controller {
 	        ->set_relation('server_id', 'servers', '{name} ({game})')->display_as('server_id', 'Server')
 	        ->set_relation('reporter_member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('reporter_member_id', 'Reporter');
         $output = $this->grocery_crud->render();
+
+				$output->replacement_url = 'https://www.29th.org/admin/events/';
  
         $this->output($output, 'events');
 	}
