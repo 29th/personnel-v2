@@ -912,6 +912,7 @@ require("./validation.config");
           promises.push(servers.fetch(), units.fetch());
               
           $.when.apply($, promises).done(function() {
+              self.showDeprecationNotice(`https://www.29th.org/admin/events`)
               self.showView(eventEditView);
           });
       },
