@@ -270,7 +270,8 @@ class Admin extends CI_Controller {
 	        ->required_fields('datetime', 'unit_id', 'type')
 	        ->set_relation('unit_id', 'units', 'abbr')->display_as('unit_id', 'Unit')
 	        ->set_relation('server_id', 'servers', '{name} ({game})')->display_as('server_id', 'Server')
-	        ->set_relation('reporter_member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('reporter_member_id', 'Reporter');
+	        ->set_relation('reporter_member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('reporter_member_id', 'Reporter')
+	        ->unset_add()->unset_edit()->unset_delete();
         $output = $this->grocery_crud->render();
 
 				$output->replacement_url = 'https://www.29th.org/admin/events/';

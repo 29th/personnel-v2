@@ -51,8 +51,9 @@ class Events extends MY_Controller {
     
     /**
      * CREATE
+     * 2022-09-13: Disabled so as not to conflict with v3 events
      */
-    public function index_post() {
+    /*public function index_post() {
         // Must have permission to create this type of record for this unit or for any unit
         if( ! $this->user->permission('event_add', array('unit' => $this->post('unit_id'))) && ! $this->user->permission('event_add_any')) {
             $this->response(array('status' => false, 'error' => 'Permission denied'), 403);
@@ -83,7 +84,7 @@ class Events extends MY_Controller {
             }
             $this->response(array('status' => sizeof($new_records) ? true : false, 'events' => $new_records));
         }
-    }
+    }*/
     
     /**
      * UPDATE
@@ -113,7 +114,8 @@ class Events extends MY_Controller {
     
     
     
-    public function view_post($event_id) {
+    /* 2022-09-13: Disabled so as not to conflict with v3 events */
+    /*public function view_post($event_id) {
         // Fetch record
         if( ! ($event = nest($this->event_model->get_by_id($event_id)))) {
             $this->response(array('status' => false, 'error' => 'Record not found'), 404);
@@ -137,7 +139,7 @@ class Events extends MY_Controller {
             $this->event_model->save($event_id, $data);
             $this->response(array('status' => true, 'event' => nest($this->event_model->get_by_id($event_id))));
         }
-    }
+    }*/
     
     /**
      * AAR
