@@ -432,6 +432,7 @@ require("./validation.config");
           promises.push(userAssignments.fetch());
 
           //util.loading(true);
+          this.showDeprecationNotice(`https://www.29th.org/events`)
           $.when.apply($, promises).done(function () {
               //util.loading(false);
               self.showView(calendarView);
@@ -694,6 +695,7 @@ require("./validation.config");
 
           promises.push(passes.fetch());
 
+          self.showDeprecationNotice(`https://www.29th.org/passes`)
           $.when.apply($, promises).done(function () {
               self.showView(passesView);
           });

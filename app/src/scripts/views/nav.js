@@ -31,6 +31,7 @@ var Marionette = require("backbone.marionette");
               highlight: this.highlight,
               forum: config.forum,
               wikiUrl: config.wikiUrl,
+              v3Url: config.v3Url,
               permissions: this.permissions.length ? this.permissions.pluck("abbr") : [],
               units: this.units.length ? this.units.toJSON() : []
           }, this.model.toJSON());
