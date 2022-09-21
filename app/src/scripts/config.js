@@ -28,5 +28,6 @@ module.exports = {
       }
     },
     sigUrl: process.env.SIG_URL,
-    wikiUrl: process.env.WIKI_URL
+    wikiUrl: process.env.WIKI_URL,
+    v3Url: process.env.PERSONNEL_V3_URL
 };
