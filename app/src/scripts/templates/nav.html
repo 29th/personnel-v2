@@ -41,7 +41,7 @@
         <ul class="dropdown-menu" role="menu">
           {{#each events}}
             <li>
-                <a href="{{ v2Url }}/events/{{id}}">
+                <a href="{{ v3Url }}/events/{{id}}">
                     {{#if (past this.datetime)}}Past:{{else}}<b>Upcoming:</b>{{/if}} {{this.unit.key}} {{this.type}}<br>
                     <small>
                         {{dateFormat (time_conv this.datetime)  format="ddd, YYYY-MM-DD HH:mm"}}
