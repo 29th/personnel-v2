@@ -891,6 +891,7 @@ require("./validation.config");
               promises = [];
               promises.push(unitPermissions.fetch());
               $.when.apply($, promises).done(function () {
+                  self.showDeprecationNotice(`https://www.29th.org/events/${id}`)
                   //util.loading(false);
                   self.showView(eventView);
               });
