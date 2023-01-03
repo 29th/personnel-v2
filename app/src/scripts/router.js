@@ -1158,6 +1158,7 @@ require("./validation.config");
                   finances: finances,
                   demerits: demerits
               });
+              self.showDeprecationNotice(`https://www.29th.org/members/${id}/service-record`)
           }
           // Attendance
           else if (path == "attendance") {
@@ -1178,6 +1179,7 @@ require("./validation.config");
                   collection: attendance,
                   perc: percentages
               });
+              self.showDeprecationNotice(`https://www.29th.org/members/${id}/attendance`)
           }
           // Recruits
           else if (path == "recruits") {
@@ -1193,6 +1195,7 @@ require("./validation.config");
               pageView = new MemberRecruitsView({
                   collection: recruits
               });
+              self.showDeprecationNotice(`https://www.29th.org/members/${id}/recruits`)
           }
 
           // Notes
@@ -1209,6 +1212,7 @@ require("./validation.config");
                   permissions: this.permissions,
                   collection: notes
               });
+              self.showDeprecationNotice(`https://www.29th.org/admin/users/${id}/notes`)
           }
 
            // Weapon Passes
@@ -1223,6 +1227,7 @@ require("./validation.config");
               pageView = new MemberPassesView({
                   collection: passes
               });
+              self.showDeprecationNotice(`https://www.29th.org/passes?q[user_id_eq]=${id}`)
           }
 
           // ELOAs
@@ -1240,6 +1245,7 @@ require("./validation.config");
                   model: member,
                   collection: eloas
               });
+              self.showDeprecationNotice(`https://www.29th.org/members/${id}/extended-loas`)
           }
 
           // Reprimands
@@ -1265,6 +1271,7 @@ require("./validation.config");
                   demerits: demerits,
                   awols: awols
               });
+              self.showDeprecationNotice(`https://www.29th.org/members/${id}/reprimands`)
           }
 
           // Qualifications
@@ -1298,6 +1305,7 @@ require("./validation.config");
                   permissions: this.permissions,
                   memberPermissions: memberPermissions,
               });
+              self.showDeprecationNotice(`https://www.29th.org/members/${id}/qualifications`)
           }
           else if (path == "edit") {
               this.showDeprecationNotice(`https://www.29th.org/admin/users/${id}`)
@@ -1314,6 +1322,7 @@ require("./validation.config");
                   model: eloa,
                   member: member
               });
+              this.showDeprecationNotice(`https://www.29th.org/admin/users/${id}/extended_loas`)
           }
           else if (path == "discharge") {
               this.showDeprecationNotice(`https://www.29th.org/admin/users/${id}/discharges`)
@@ -1340,6 +1349,7 @@ require("./validation.config");
                   model: member,
                   finances: finances
               });
+              this.showDeprecationNotice(`https://www.29th.org/members/${id}`)
           }
 
           // Rendering
