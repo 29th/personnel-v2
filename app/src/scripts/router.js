@@ -613,6 +613,7 @@ require("./validation.config");
 
           $.when.apply($, promises).done(function () {
               self.showView(hallOfFameView);
+              self.showDeprecationNotice('https://www.29th.org/admin/restricted_names');
           });
       },
       membersearch: function() {
