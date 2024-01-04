@@ -55,7 +55,7 @@ class Admin extends CI_Controller {
 	    $this->grocery_crud->callback_before_delete(array($this, '_callback_assignments_before_delete'));
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/assignments/';
+				$output->replacement_url = 'https://www.29th.org/manage/assignments/';
  
         $this->output($output, 'assignments');
 	}
@@ -102,7 +102,7 @@ class Admin extends CI_Controller {
 	        ->callback_before_delete(array($this, '_callback_awardings_before_delete'));
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/user_awards/';
+				$output->replacement_url = 'https://www.29th.org/manage/user_awards/';
  
         $this->output($output, 'awardings');
 	}
@@ -135,7 +135,7 @@ class Admin extends CI_Controller {
 	        ->field_type('active', 'dropdown', array('1' => 'Active','0' => 'Desactivated'));
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/awards/';
+				$output->replacement_url = 'https://www.29th.org/manage/awards/';
  
         $this->output($output, 'awards');
 	}
@@ -154,7 +154,7 @@ class Admin extends CI_Controller {
 	        ->set_relation('id_poster', 'members', '{last_name}, {first_name} {middle_name}')->display_as('id_poster', 'Poster');
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/ban_logs/';
+				$output->replacement_url = 'https://www.29th.org/manage/ban_logs/';
  
         $this->output($output, 'banlog');
 	}
@@ -171,7 +171,7 @@ class Admin extends CI_Controller {
 	
 	public function class_roles()
 	{
-			header("Location: https://www.29th.org/admin/special_forum_roles");
+			header("Location: https://www.29th.org/manage/special_forum_roles");
 
 	    $this->grocery_crud->set_table('class_roles')
 	        ->required_fields('role_id');
@@ -212,7 +212,7 @@ class Admin extends CI_Controller {
 	        ->set_relation('author_member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('author_member_id', 'Author');
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/demerits/';
+				$output->replacement_url = 'https://www.29th.org/manage/demerits/';
  
         $this->output($output, 'demerits');
 	}
@@ -226,7 +226,7 @@ class Admin extends CI_Controller {
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member');
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/discharges/';
+				$output->replacement_url = 'https://www.29th.org/manage/discharges/';
  
         $this->output($output, 'discharges');
 	}
@@ -241,7 +241,7 @@ class Admin extends CI_Controller {
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member');
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/extended_loas/';
+				$output->replacement_url = 'https://www.29th.org/manage/extended_loas/';
  
         $this->output($output, 'eloas');
 	}
@@ -258,7 +258,7 @@ class Admin extends CI_Controller {
 	        ->set_relation('country_id', 'countries', 'abbr')->display_as('country_id', 'Country');
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/enlistments/';
+				$output->replacement_url = 'https://www.29th.org/manage/enlistments/';
  
         $this->output($output, 'enlistments');
 	}
@@ -276,7 +276,7 @@ class Admin extends CI_Controller {
 	        ->unset_add()->unset_edit()->unset_delete();
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/events/';
+				$output->replacement_url = 'https://www.29th.org/manage/events/';
  
         $this->output($output, 'events');
 	}
@@ -294,7 +294,7 @@ class Admin extends CI_Controller {
 	    $this->grocery_crud->callback_before_delete(array($this, '_callback_finances_before_delete'));
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/finance_records/';
+				$output->replacement_url = 'https://www.29th.org/manage/finance_records/';
  
         $this->output($output, 'finances');
 	}
@@ -345,7 +345,7 @@ class Admin extends CI_Controller {
 	    $crud->callback_before_delete(array($this->usertracking, 'track_this'));*/
  
         $output = $crud->render();
-				$output->replacement_url = 'https://www.29th.org/admin/users/';
+				$output->replacement_url = 'https://www.29th.org/manage/users/';
         $this->output($output, 'members');
 	}
 	
@@ -385,7 +385,7 @@ class Admin extends CI_Controller {
 	        ->set_relation('author_member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('author_member_id', 'Author');
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/notes';
+				$output->replacement_url = 'https://www.29th.org/manage/notes';
  
         $this->output($output, 'notes');
 	}
@@ -398,7 +398,7 @@ class Admin extends CI_Controller {
 	        ->field_type('access_level', 'dropdown', array('0' => 'Default', '5' => 'Elevated', '10' => 'Leadership'));
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/positions';
+				$output->replacement_url = 'https://www.29th.org/manage/positions';
  
         $this->output($output, 'positions');
 	}
@@ -417,7 +417,7 @@ class Admin extends CI_Controller {
 	    $this->grocery_crud->callback_before_delete(array($this, '_callback_promotions_before_delete'));
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/promotions/';
+				$output->replacement_url = 'https://www.29th.org/manage/promotions/';
  
         $this->output($output, 'promotions');
 	}
@@ -481,7 +481,7 @@ class Admin extends CI_Controller {
 	        ->required_fields('name', 'abbr');
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/ranks/';
+				$output->replacement_url = 'https://www.29th.org/manage/ranks/';
  
         $this->output($output, 'ranks');
 	}
@@ -494,7 +494,7 @@ class Admin extends CI_Controller {
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member');
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/restricted_names/';
+				$output->replacement_url = 'https://www.29th.org/manage/restricted_names/';
  
         $this->output($output, 'restricted_names');
 	}
@@ -516,7 +516,7 @@ class Admin extends CI_Controller {
 	        ->required_fields('name', 'abbr', 'address', 'game');
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/servers/';
+				$output->replacement_url = 'https://www.29th.org/manage/servers/';
  
         $this->output($output, 'servers');
 	}
@@ -528,7 +528,7 @@ class Admin extends CI_Controller {
 	        ->required_fields('weapon', 'badge', 'description');
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/ait_standards/';
+				$output->replacement_url = 'https://www.29th.org/manage/ait_standards/';
  
         $this->output($output, 'standards');
 	}
@@ -547,7 +547,7 @@ class Admin extends CI_Controller {
 	        ->callback_after_update(array($this, '_callback_units_after_update'));
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/units';
+				$output->replacement_url = 'https://www.29th.org/manage/units';
  
         $this->output($output, 'units');
 	}
@@ -570,14 +570,14 @@ class Admin extends CI_Controller {
 	        ->field_type('access_level', 'dropdown', array('0' => 'Default', '5' => 'Elevated', '10' => 'Leadership'));
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/permissions/';
+				$output->replacement_url = 'https://www.29th.org/manage/permissions/';
  
         $this->output($output, 'unit_permissions');
 	}
 	
 	public function unit_roles()
 	{
-			header("Location: https://www.29th.org/admin/unit_forum_roles");
+			header("Location: https://www.29th.org/manage/unit_forum_roles");
 
 	    $this->grocery_crud->set_table('unit_roles')
 	        ->required_fields('unit_id', 'access_level', 'role_id')
@@ -590,7 +590,7 @@ class Admin extends CI_Controller {
         
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/unit_forum_roles/';
+				$output->replacement_url = 'https://www.29th.org/manage/unit_forum_roles/';
  
         $this->output($output, 'unit_roles');
 	}
@@ -608,7 +608,7 @@ class Admin extends CI_Controller {
 	        ->set_relation('recruit_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('recruit_id', 'Recruit');
         $output = $this->grocery_crud->render();
 
-				$output->replacement_url = 'https://www.29th.org/admin/passes';
+				$output->replacement_url = 'https://www.29th.org/manage/passes';
  
         $this->output($output, 'weapon_passes');
 	}
