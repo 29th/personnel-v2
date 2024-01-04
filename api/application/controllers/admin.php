@@ -257,6 +257,8 @@ class Admin extends CI_Controller {
 	        ->set_relation('unit_id', 'units', 'abbr')->display_as('unit_id', 'TP')
 	        ->set_relation('country_id', 'countries', 'abbr')->display_as('country_id', 'Country');
         $output = $this->grocery_crud->render();
+
+				$output->replacement_url = 'https://www.29th.org/admin/enlistments/';
  
         $this->output($output, 'enlistments');
 	}
@@ -491,6 +493,8 @@ class Admin extends CI_Controller {
 	        ->required_fields('member_id')
 	        ->set_relation('member_id', 'members', '{last_name}, {first_name} {middle_name}')->display_as('member_id', 'Member');
         $output = $this->grocery_crud->render();
+
+				$output->replacement_url = 'https://www.29th.org/admin/restricted_names/';
  
         $this->output($output, 'restricted_names');
 	}
