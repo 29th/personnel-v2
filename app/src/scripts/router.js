@@ -793,6 +793,7 @@ require("./validation.config");
           this.app.navRegion.currentView.setHighlight("enlistments");
           promises.push(enlistment.fetch());
 
+          self.showDeprecationNotice(`https://www.29th.org/manage/enlistments/${id}`);
           //util.loading(true);
           $.when.apply($, promises).done(function () {
               //util.loading(false);
@@ -843,6 +844,7 @@ require("./validation.config");
           this.app.navRegion.currentView.setHighlight("enlistments");
           promises.push(enlistment.fetch(), tps.fetch(), lh.fetch(), units.fetch());
 
+          self.showDeprecationNotice(`https://www.29th.org/manage/enlistments/${id}`);
           $.when.apply($, promises).done(function () {
               self.showView(enlistmentProcessView);
           });
