@@ -301,7 +301,7 @@ require("./validation.config");
           $.when.apply($, promises).done(function () {
               self.showView(view);
 
-              self.showDeprecationNotice(`https://www.29th.org/admin/assignments/${id}`)
+              self.showDeprecationNotice(`https://www.29th.org/manage/assignments/${id}`)
           });
       },
       award: function (id) {
@@ -407,7 +407,7 @@ require("./validation.config");
           this.app.navRegion.currentView.setHighlight("banlogs");
           promises.push(banlogs.fetch());
 
-          this.showDeprecationNotice('https://www.29th.org/admin/ban_logs');
+          this.showDeprecationNotice('https://www.29th.org/manage/ban_logs');
           //util.loading(true);
           $.when.apply($, promises).done(function () {
               //util.loading(false);
@@ -596,7 +596,7 @@ require("./validation.config");
           this.app.navRegion.currentView.setHighlight("notes");
           promises.push(notes.fetch());
 
-          this.showDeprecationNotice('https://www.29th.org/admin/notes');
+          this.showDeprecationNotice('https://www.29th.org/manage/notes');
           $.when.apply($, promises).done(function () {
               self.showView(notesView);
           });
@@ -613,7 +613,7 @@ require("./validation.config");
 
           $.when.apply($, promises).done(function () {
               self.showView(hallOfFameView);
-              self.showDeprecationNotice('https://www.29th.org/admin/restricted_names');
+              self.showDeprecationNotice('https://www.29th.org/manage/restricted_names');
           });
       },
       membersearch: function() {
@@ -916,7 +916,7 @@ require("./validation.config");
           promises.push(servers.fetch(), units.fetch());
               
           $.when.apply($, promises).done(function() {
-              self.showDeprecationNotice(`https://www.29th.org/admin/events`)
+              self.showDeprecationNotice(`https://www.29th.org/manage/events`)
               self.showView(eventEditView);
           });
       },
@@ -1051,7 +1051,7 @@ require("./validation.config");
               } else {
                   // Success - logged in and not already a member
                   self.showView(promotionEditView);
-                  self.showDeprecationNotice(`https://www.29th.org/admin/users/${member_id}/promotions`)
+                  self.showDeprecationNotice(`https://www.29th.org/manage/users/${member_id}/promotions`)
               }
           });
       },
@@ -1213,7 +1213,7 @@ require("./validation.config");
                   permissions: this.permissions,
                   collection: notes
               });
-              self.showDeprecationNotice(`https://www.29th.org/admin/users/${id}/notes`)
+              self.showDeprecationNotice(`https://www.29th.org/manage/users/${id}/notes`)
           }
 
            // Weapon Passes
@@ -1309,7 +1309,7 @@ require("./validation.config");
               self.showDeprecationNotice(`https://www.29th.org/members/${id}/qualifications`)
           }
           else if (path == "edit") {
-              this.showDeprecationNotice(`https://www.29th.org/admin/users/${id}`)
+              this.showDeprecationNotice(`https://www.29th.org/manage/users/${id}`)
 
               memberLayout.setHighlight("profile");
               pageView = new MemberEditView({
@@ -1323,10 +1323,10 @@ require("./validation.config");
                   model: eloa,
                   member: member
               });
-              this.showDeprecationNotice(`https://www.29th.org/admin/users/${id}/extended_loas`)
+              this.showDeprecationNotice(`https://www.29th.org/manage/users/${id}/extended_loas`)
           }
           else if (path == "discharge") {
-              this.showDeprecationNotice(`https://www.29th.org/admin/users/${id}/discharges`)
+              this.showDeprecationNotice(`https://www.29th.org/manage/users/${id}/discharges`)
               memberLayout.setHighlight("profile");
               var discharge = new Discharge();
               pageView = new MemberDischargeView({
