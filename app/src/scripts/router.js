@@ -239,6 +239,7 @@ require("./validation.config");
           this.app.navRegion.currentView.setHighlight("calendar");
           promises.push(event.fetch());
 
+          self.showDeprecationNotice(`https://www.29th.org/events/${id}`)
           //util.loading(true);
           $.when.apply($, promises).done(function () {
               // Need the event fetch to complete before we know the unit. Now get the expected attendees
@@ -301,7 +302,7 @@ require("./validation.config");
           $.when.apply($, promises).done(function () {
               self.showView(view);
 
-              self.showDeprecationNotice(`https://www.29th.org/manage/assignments/${id}`)
+              self.showDeprecationNotice(`https://www.29th.org/manage/assignments`)
           });
       },
       award: function (id) {
@@ -338,6 +339,7 @@ require("./validation.config");
           this.app.navRegion.currentView.setHighlight("awards");
           promises.push(awards.fetch());
 
+          self.showDeprecationNotice(`https://www.29th.org/about/awards/`)
           //util.loading(true);
           $.when.apply($, promises).done(function () {
               //util.loading(false);
@@ -358,6 +360,7 @@ require("./validation.config");
           this.app.navRegion.currentView.setHighlight("banlogs");
           promises.push(banlog.fetch());
 
+          this.showDeprecationNotice(`https://www.29th.org/manage/ban_logs/${id}`);
           //util.loading(true);
           $.when.apply($, promises).done(function () {
               self.showView(banlogView);
@@ -384,6 +387,7 @@ require("./validation.config");
           
           promises.push(banlog.fetch(),units.fetch());
 
+          this.showDeprecationNotice('https://www.29th.org/manage/ban_logs');
           $.when.apply($, promises).done(function(user) {
               // Must be logged in
               if(self.user.get("forum_member_id") === undefined) {
@@ -481,6 +485,7 @@ require("./validation.config");
               pass.set("member", {id: member_id});
           }
 
+          this.showDeprecationNotice(`https://www.29th.org/manage/passes`)
           $.when.apply($, promises).done(function () {
               self.showView(view);
           });
@@ -548,6 +553,7 @@ require("./validation.config");
               demerit.set("member", {id: member_id});
           }
 
+          this.showDeprecationNotice(`https://www.29th.org/manage/demerits`)
           $.when.apply($, promises).done(function () {
               self.showView(view);
           });
@@ -764,6 +770,7 @@ require("./validation.config");
 
           this.app.navRegion.currentView.setHighlight("enlistments");
           
+          self.showDeprecationNotice(`https://www.29th.org/enlistments/new`);
           // User must be logged in and not already a member
           $.when(this.promises.user).done(function(user) {
               // Must be logged in
@@ -962,6 +969,7 @@ require("./validation.config");
               this.app.navRegion.currentView.setHighlight("roster");
               promises.push(note.fetch());
               
+              self.showDeprecationNotice(`https://www.29th.org/manage/notes/${id}`)
               $.when.apply($, promises).done(function() {
                   self.showView(noteView);
               });
@@ -995,6 +1003,7 @@ require("./validation.config");
               note.member_id = member_id;
           }
 
+          self.showDeprecationNotice(`https://www.29th.org/manage/notes/`)
           $.when.apply($, promises).done(function(user) {
               // Must be logged in
               if(self.user.get("forum_member_id") === undefined) {
