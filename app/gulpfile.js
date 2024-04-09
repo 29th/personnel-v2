@@ -25,7 +25,7 @@ dotenv.load(); // Load environment variables from .env
  * Main execution
  */
 gulp.task("default", ["clean"], function() {
-    gulp.start("scripts", "styles", "images");
+    gulp.start("scripts", "styles", "images", "robots");
 });
 
 /**
@@ -95,6 +95,15 @@ gulp.task("styles", function() {
             css: [minifyCSS({keepSpecialComments: 0}), "concat"]
         }))
         .pipe(minifyHTML())
+        .pipe(gulp.dest(dir.prod));
+});
+
+/**
+ * Robots.txt
+ * Copies file into dist directory
+ */
+gulp.task("robots", function() {
+    return gulp.src(dir.dev + "robots.txt")
         .pipe(gulp.dest(dir.prod));
 });
 
