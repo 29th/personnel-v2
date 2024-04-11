@@ -1,0 +1,22 @@
+<td><a href="#events/{{ this.id }}">{{dateFormat (time_conv this.datetime) format="YYYY-MM-DD HH:mm"}}</a></td>
+<td><a href="#units/{{ this.unit.key }}">{{str_replace this.unit.abbr "HQ" ""}}</a></td>
+<td class="text-center">
+    {{#is this.mandatory "===" "1"}}<span class="label label-info">Mandatory</span>{{else}}<span class="label label-default">Non-Mandatory</span>{{/is}}
+</td>
+<td>
+    {{ this.type }}
+</td>
+{{#is this.reporter.id ">" 0}}
+  <td>{{ attended }} / {{add attended absent}}</td>
+  <td>{{subtract absent excused }}</td>
+{{else}}
+  {{#if (past this.datetime) }}
+    {{#if (within_24_hours this.datetime)}}
+      <td colspan="2" class="event_not_yet" style="text-align: center"> Awaiting AAR </td>
+    {{else}}
+      <td colspan="2" class="event_aar_missing" style="text-align: center;font-weight: bold;color: red;"> Missing AAR! </td>
+    {{/if}}
+  {{else}}
+    <td colspan="2" class="event_not_yet" style="text-align: center"> Event has not yet taken place </td>
+  {{/if}}
+{{/is}}

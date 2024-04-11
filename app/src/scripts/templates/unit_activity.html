@@ -1,0 +1,125 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>Profile</h2>
+    </div>
+    <div class="panel-body">
+    	<h2><b>{{ members.length }}</b> members</h2>
+        <a href="{{ forum_group_url forum_group }}" class="btn btn-default">Send a Message</a>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>Activity</h2>
+    </div>
+    <div class="panel-body">
+    	{{#each items}}
+    	<h3>{{dateFormat this.date}}</h3>
+    	<ul>
+
+        {{#if this.promotions}}
+            {{#each this.promotions}}
+                <li>
+                    <a href="#members/{{this.member.id}}">{{this.member.short_name}}</a>'s rank was changed to {{this.new_rank.name}}
+                    {{#if this.topic_url}}
+                        <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                    {{/if}}
+                </li>
+            {{/each}}
+        {{/if}}
+
+        {{#if this.awardings}}
+            {{#each this.awardings}}
+                <li>
+                    <a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> was awarded the {{this.award.name}}
+                    {{#if this.topic_url}}
+                        <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                    {{/if}}
+                </li>
+            {{/each}}
+        {{/if}}
+        
+        {{#if this.assignments}}
+            {{#each this.assignments}}
+                <li>
+                    <a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> was assigned to <a href="#units/{{this.unit.id}}">{{this.unit.abbr}}</a> as {{this.position.name}}
+                </li>
+            {{/each}}
+        {{/if}}
+
+        {{#if this.finances}}
+            {{#each this.finances}}
+                <li>
+                    <a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> donated ${{this.amount_received}}
+                    {{#if this.topic_url}}
+                        <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                    {{/if}}
+                </li>
+            {{/each}}
+        {{/if}}
+
+        {{#if this.eloas}}
+            {{#each this.eloas}}
+                <li>
+                    <a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> posted an <a href="#eloas">Extended LOA</a> from {{dateFormat this.start_date}} to {{dateFormat this.end_date}}
+                    {{#if this.topic_url}}
+                        <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                    {{/if}}
+                </li>
+            {{/each}}
+        {{/if}}
+
+        {{#if this.discharges}}
+            {{#each this.discharges}}
+                <li>
+                    <a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> was <a href="#discharges/{{this.id}}">
+                    {{#is this.type "===" 'Honorable'}}Honorably{{/is}}
+                    {{#is this.type "===" 'Dishonorable'}}Dishonorably{{/is}}
+                    {{#is this.type "===" 'General'}}Generally{{/is}}
+                     Discharged</a>
+                    {{#if this.topic_url}}
+                        <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                    {{/if}}
+                </li>
+            {{/each}}
+        {{/if}}
+
+        {{#if this.demerits}}
+            {{#each this.demerits}}
+                <li>
+                    <a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> received a <a href="#demerits/{{this.id}}">demerit</a>
+                    {{#if this.topic_url}}
+                        <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                    {{/if}}
+                </li>
+            {{/each}}
+        {{/if}}
+
+        {{#if this.attendance}}
+            {{#each this.attendance}}
+                <li>
+                    <a href="#units/{{ this.unit.key }}">{{str_replace this.unit.abbr " HQ" "" }}</a> {{ this.type }} 
+                    {{#if this.report_posting_date}}
+                      attendance was <a href="#events/{{ this.id }}">{{ this.attended }}/{{add this.attended this.absent}}</a>
+                      ({{subtract this.absent this.excused}} AWOLs)
+                    {{else}}
+                      (AAR not posted yet)
+                    {{/if}}
+                </li>
+            {{/each}}
+        {{/if}}
+
+        {{#if this.qualifications}}
+            {{#each this.qualifications}}
+                <li>
+                    <a href="#members/{{this.member.id}}">{{this.member.short_name}}</a> had their AIT Progress updated by <a href="#members/{{this.author.id}}">{{this.author.short_name}}</a>
+                    {{#if this.topic_url}}
+                        <a href="{{ this.topic_url  }}"><span class="fa fa-comment"></span></a>
+                    {{/if}}
+                </li>
+            {{/each}}
+        {{/if}}
+        
+    	</ul>
+    	{{/each}}
+    </div>
+</div>

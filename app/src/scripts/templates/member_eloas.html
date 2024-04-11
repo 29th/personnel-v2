@@ -1,0 +1,23 @@
+<div class="panel panel-default">
+    <div class="panel-heading"><h2>ELOAs</h2></div>
+        <div class="panel-body">
+        <h3>Total number of Extended Leaves of Absence: <b>{{this.rec_count}}</b></h3>
+        {{#each eloas}}
+          <hr>
+          From <b>{{dateFormat this.start_date format="ll"}}</b> to <b>{{dateFormat this.end_date format="ll"}}</b> 
+  {{#if (between this.start_date this.end_date)}}
+     <span class="active_eloa eloa_label">ELOA ACTIVE</span>
+  {{/if}}
+  {{#if (eloa_future this.start_date)}}
+     <span class="future_eloa eloa_label">UPCOMING ELOA</span>
+  {{/if}}
+          <br /> 
+          Posted: <b>{{dateFormat this.posting_date format="ll"}}</b> <br>
+          Reason: <i>{{this.reason}}</i> <br>
+          Availability: <i>{{this.availability}}</i> <br>
+          {{#if topic_url}} <a href='{{topic_url}}'>Forums post</a><br>{{/if}}
+          
+        
+        {{/each}}
+        </div>
+</div>

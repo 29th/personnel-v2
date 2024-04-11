@@ -1,0 +1,5 @@
+<td nowrap><a href="#banlogs/{{ this.id }}" >{{dateFormat this.date}}</a></td>
+<td>{{ this.handle }}</td>
+<td>{{#if this.roid}} <a href="http://steamcommunity.com/profiles/{{ this.roid }}" target="_blank">{{ this.roid }}</a> {{/if}}</td>
+<td nowrap>{{#if this.admin.id }}<a href="#members/{{ this.admin.id }}">{{ this.admin.short_name}}</a>{{else}}{{ this.admin.short_name}}{{/if}}</td>
+<td>{{ substring reason 0 50 }}</td>

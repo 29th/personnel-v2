@@ -1,0 +1,38 @@
+<div class="row header">
+    {{#if rank.filename}}<div class="col-sm-1"><img src="images/ranks/60x60/{{ rank.filename }}" title="{{ rank.name }}"> </div>{{/if}}
+    <div class="col-sm-{{#if rank.filename}}9{{else}}10{{/if}}">
+        <div class="title">{{ rank.name }} {{ full_name }} <abbr>{{#is eloa ">" "0"}}(ELOA){{/is}}{{#is pass ">" "0"}}(Weapon Pass){{/is}}</abbr></div>
+        <ul class="assignments">
+        {{#if assignments}}
+            {{#each assignments}}
+                <li>{{ this.position.name }}, <a href="#units/{{ this.unit.key }}">{{this.unit.name }}</a></li>
+            {{/each}}
+        {{else}}
+            <li>{{this.member_status}}</li>
+        {{/if}}
+        </ul>
+    </div>
+    <div class="col-sm-2" id="admin"></div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <ul class="nav nav-tabs">
+            <li{{#is highlight "===" "profile"}} class="active"{{/is}} data-highlight="profile"><a href="#members/{{ id }}">Profile</a></li>
+            {{#if allowedTo.viewProfile }}
+            <li{{#is highlight "===" "servicerecord"}} class="active"{{/is}} data-highlight="servicerecord"><a href="#members/{{ id }}/servicerecord">Service Record</a></li>
+            {{/if}}
+            {{#if allowedTo.viewEvents }}
+            <li{{#is highlight "===" "attendance"}} class="active"{{/is}} data-highlight="attendance"><a href="#members/{{ id }}/attendance">Attendance</a></li>
+            <li{{#is highlight "===" "qualifications"}} class="active"{{/is}} data-highlight="qualifications"><a href="#members/{{ id }}/qualifications">Qualifications</a></li>
+            <li{{#is highlight "===" "recruits"}} class="active"{{/is}} data-highlight="recruits"><a href="#members/{{ id }}/recruits">Recruits</a></li>
+            <li{{#is highlight "===" "reprimands"}} class="active"{{/is}} data-highlight="reprimands"><a href="#members/{{ id }}/reprimands">Reprimands</a></li> 
+            <li{{#is highlight "===" "eloas"}} class="active"{{/is}} data-highlight="eloas"><a href="#members/{{ id }}/eloas">ELOAs</a></li> 
+            <li{{#is highlight "===" "notes"}} class="active"{{/is}} data-highlight="notes"><a href="#members/{{ id }}/notes">Notes</a></li> 
+            <li{{#is highlight "===" "passes"}} class="active"{{/is}} data-highlight="passes"><a href="#members/{{ id }}/passes">Weapon Passes</a></li> 
+            {{/if}}
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12" id="page"></div>
+</div>

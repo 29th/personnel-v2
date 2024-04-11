@@ -1,0 +1,15 @@
+<div class="panel panel-default">
+    <div class="panel-body panel-no-padding">
+        <table class="table table-horizontal">
+{{#each awards}}
+            <tr>
+                <th class="award award_title" colspan="2"><a href='#awards/{{id}}'>{{title}}</a></th>
+            </tr>
+            <tr>
+                <td><center><img class="award award_img" src="{{#if image}}{{image}}{{else}}{{bar}}{{/if}}" /></center></td>
+                <td class="award award_description">{{description}}</td>
+            </tr>
+{{/each}}
+        </table>
+    </div>
+</div>

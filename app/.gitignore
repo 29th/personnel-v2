@@ -1,0 +1,9 @@
+.c9revisions
+.c9
+auth.sh
+node_modules
+dist
+src/scripts/templates/.mc.menu
+wrzuc_do_git.sh
+temp
+.env

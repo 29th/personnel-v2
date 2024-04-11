@@ -1,0 +1,53 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+     <h2>After Action Report</h2>
+  </div>
+  <div class="panel-body">
+   <div class="row header">
+    <div class="col-md-8">
+        <h1>{{ type }}</h1>
+        <h1><small><a href="#units/{{ unit.key }}">{{ unit.name }}</a> {{#is unit.classification "===" "Training" }}&nbsp;&nbsp;<span class='tp-info'> <b>{{unit.game}}</b> / <b>{{unit.timezone}}</b></span>{{/is}}</small></h1>
+        <h2>{{dateFormat (time_conv this.datetime) format="YYYY-MM-DD HH:mm"}} <small>{{#if mandatory}} Mandatory {{else}} Non-Mandatory {{/if}}</small></h2>
+        <h3>{{#if server.name}}{{ server.name }}{{/if}}</h3>
+    </div>
+    <div class="col-md-4">
+        {{#if allowedTo.postLoa}}
+            <div id="loa-buttons" class="{{#if user_rsvp.excused}}loa-cancel{{else}}loa-post{{/if}}">
+                <button type="button" class="btn btn-default pull-right" id="loa-cancel"><span class="glyphicon glyphicon-minus-sign"></span> Cancel LOA</button>
+                <button type="button" class="btn btn-default pull-right" id="loa-post"><span class="glyphicon glyphicon-plus-sign"></span> Post LOA</button>
+            </div>
+        {{/if}}
+        {{#if allowedTo.postAar}}
+            {{#if (past this.datetime) }} 
+            <a href="#events/{{ id }}/aar" class="btn btn-default pull-right"><span class="glyphicon glyphicon-list"></span> Post AAR</a>
+            {{/if}}
+        {{/if}}
+    </div>
+  </div>
+{{#if user_expected}}You {{#if (past datetime)}}were{{else}}are{{/if}} expected to attend{{/if}}
+
+  <div class="row">
+    <div class="col-md-4">
+        <ul id="attendance"></ul>
+    </div>
+    <div class="col-md-8">
+        {{#if report}}
+        <div class="well">
+            {{ bbcode report }}
+            {{#if reporter.short_name }}
+                <div class="reporter">
+                    Reported by <a href="#members/{{ reporter.id }}">{{ reporter.short_name }}</a>
+                    {{#if report_posting_date}}
+                    on {{ dateFormat (time_conv report_posting_date) format="YYYY-MM-DD HH:mm" }}
+                    {{/if}}
+                    {{#is report_edit_date "not" report_posting_date}}
+                    updated {{ dateFormat (time_conv report_edit_date) format="YYYY-MM-DD HH:mm" }}
+                    {{/is}}
+                </div>
+            {{/if}}
+        </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div

@@ -1,0 +1,49 @@
+<div class="row header">
+    <div class="col-sm-10">
+      <span class="unit_breadcrums">
+      {{#each breadcrumbs}}
+        {{#unless @first}} &#187; {{/unless}}
+        <a href='#units/{{this.id}}'>{{this.name}}</a>
+      {{/each}}
+      </span>
+      <br><br>
+      <table class="unit_header">
+          <tr>
+              <td class="unit_logo" rowspan="3">{{#if this.logo}}<img src='images/units/{{ logo }}' />{{/if}}</td>
+              <td class="unit_title">
+                  {{ name }} <abbr>({{ abbr }})</abbr> {{#is classification "===" "Training" }}&nbsp;&nbsp;<span class='tp-info'> <b>{{game}}</b> / <b>{{timezone}}</b></span>{{/is}}
+                  {{#if this.steam_group_abbr}}<a href="http://steamcommunity.com/groups/{{steam_group_abbr}}" taget="_blank"><img src="images/other/steam.gif"></a>{{/if}}<br>
+                  {{#if this.active }}{{else}}<span class="unit_not_active">Unit is not active</span> {{/if}}</td>
+          </tr>
+          <tr>
+              <td class="unit_nickname">
+                  {{#if nickname}}a.k.a. "<span>{{ nickname }}</span>"{{/if}}
+              </td>
+          </tr>
+          <tr>
+              <td class="unit_slogan">
+                   {{#if slogan}}"{{ slogan }}"{{/if}}
+              </td>
+          </tr>
+      </table>
+    </div>
+    <div class="col-sm-2" id="admin"></div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <ul class="nav nav-tabs">
+            <li{{#is highlight "===" "roster"}} class="active"{{/is}} data-highlight="roster"><a href="#units/{{ key }}">Roster</a></li>
+            <li{{#is highlight "===" "attendance"}} class="active"{{/is}} data-highlight="attendance"><a href="#units/{{ key }}/attendance">Attendance</a></li>
+            <li{{#is highlight "===" "awols"}} class="active"{{/is}} data-highlight="awols"><a href="#units/{{ key }}/awols">AWOLs</a></li>
+            <li{{#is highlight "===" "alerts"}} class="active"{{/is}} data-highlight="alerts"><a href="#units/{{ key }}/alerts">Alerts</a></li>
+            <li{{#is highlight "===" "stats"}} class="active"{{/is}} data-highlight="stats"><a href="#units/{{ key }}/stats">Stats</a></li>
+            <li{{#is highlight "===" "recruits"}} class="active"{{/is}} data-highlight="recruits"><a href="#units/{{ key }}/recruits">Recruits</a></li>
+            <li{{#is highlight "===" "discharges"}} class="active"{{/is}} data-highlight="discharges"><a href="#units/{{ key }}/discharges">Discharges</a></li>
+        </ul>
+    </div>
+</div>
+<div class="row" id="page">
+    {{#times numColumns}}
+        <div class="col-md-{{ divide 12 ../numColumns }}" id="col{{ this }}"></div>
+    {{/times}}
+</div>

@@ -1,0 +1,82 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+     <h2>Processing enlistment</h2>
+  </div>
+  <div class="panel-body">
+    <form role="form">
+    <div class="form-group">
+        <label for="unit_id">Training Platoon</label>
+        <select class="form-control selectpicker" name="unit_id" id="unit_id" data-live-search="true">
+            {{#select unit_id}}
+            <option value="">Select...</option>
+            {{#each tps}}
+            <option value="{{ this.id }}">
+                {{ this.abbr }}
+                {{#if this.game }}({{ this.game }}){{/if}}
+                {{#if this.timezone }}({{ this.timezone }}){{/if}}
+                {{#if this.days }} - {{ this.days }}{{/if}}
+            </option>
+            {{/each}}
+            {{/select}}
+        </select>
+        <p class="help-block">{{#if this.game}}Applicant wrote: <b>{{ this.game }} / {{this.timezone}}</b> {{/if}}</p>
+    </div>
+    
+    <div class="form-group">
+        <label for="status">Status</label>
+        <select class="form-control" name="status" id="status">
+            {{#select status}}
+            <option value="">Select...</option>
+            <option value="Pending">Pending</option>
+            <option value="Accepted">Accepted</option>
+            <option value="Denied">Denied</option>
+            <option value="Withdrawn">Withdrawn</option>
+            <option value="AWOL">AWOL</option>
+            {{/select}}
+        </select>
+    </div>
+    
+    
+    <div class="form-group">
+        {{#each members}}
+          [{{this}}]<br>
+        
+        {{/each}}
+        <label for="recruiter_member_id">Recruiter</label>
+        <!--<input type="text" class="form-control" name="recruiter_member_id" id="recruiter_member_id" value="{{ recruiter_member_id }}">-->
+        <select class="form-control selectpicker" name="recruiter_member_id" id="recruiter_member_id" data-live-search="true">
+            {{#select recruiter_member_id}}
+            <option value="">Select...</option>
+            {{#each units.[0]}}
+                {{#if this.member.short_name}}<option value="{{ this.member.id }}">{{ this.member.short_name }}</option>{{/if}}
+            {{/each}}
+            {{/select}}
+        </select>
+        <p class="help-block">{{#if recruiter}}Applicant wrote: <b>{{ recruiter }}</b>{{/if}}</p>
+    </div>
+    
+    {{#if allowedTo.assignLiaison}}
+    <div class="form-group">
+        <label for="liaison_member_id">Liaison</label>
+        <select class="form-control selectpicker" name="liaison_member_id" id="liaison_member_id" data-live-search="true">
+            {{#select liaison_member_id}}
+            <option value="">Select...</option>
+            {{#each lh.[0]}}
+                {{#if this.member.short_name}}<option value="{{ this.member.id }}">{{ this.member.short_name }} ({{this.position.name}})</option>{{/if}}
+            {{/each}}
+<!---            {{#each units}}
+            <optgroup label="{{ this.abbr }}">
+                {{#each this.members}}
+                <option value="{{ this.member.id }}">{{ this.member.short_name }}</option>
+                {{/each}}
+            </optgroup>
+            {{/each}} --->
+            {{/select}}
+        </select>
+    </div>
+    {{/if}}
+    
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+    </form>
+  </div>
+</div>

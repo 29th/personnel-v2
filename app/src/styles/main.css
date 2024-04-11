@@ -1,0 +1,601 @@
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+    background-color: #565A42;
+}
+
+.row.header {
+    color: #D3D3D3;
+}
+/* Navbar */
+.navbar-brand {
+    background: url("../images/site-logo.png") no-repeat -35px top;
+}
+.nav-roster-unit {
+    font-weight: bold;
+}
+        
+/* Roster */
+.dd-list, .dd-list .dd-list {
+    padding-left: 0 !important;
+}
+@media (min-width: 768px) {
+    .dd-list, .dd-list .dd-list {
+        padding-left: 15px !important;
+    }
+}
+.roster-unit {
+    font-size: 80%;
+}
+.qualification small {
+    color: #858F9C;
+}
+.cursor {
+    cursor: pointer;
+}
+
+.duration {
+    font-weight: bold;
+}
+
+#forums-link button a:hover {
+    color: #2B2C28;
+}
+#forums-link button a {
+    color: #DFE5C9 ;
+}
+/* Collapsible qualifications */
+/*.roster .depth-2 > div:not(.header-row) {
+    display: none;
+}*/
+.weapon .collapsed > div:not(.header-row) {
+    display: none;
+}
+.weapon .collapsed > .header-row > .header > .icon-expanded {
+    display: none;
+}
+.weapon .weapon:not(.collapsed) > .header-row > .header > .icon-collapsed {
+    display: none;
+}
+
+/* Member Profile */
+.member .title {
+    font-size: 200%;
+    font-weight: bold;
+}
+.member #page {
+    margin-top: 20px;
+}
+.member .assignments {
+    list-style-type: none;
+    padding: 0;
+}
+
+.member .assignments a {
+    color: #dfe5c9; /* #16027B; */
+    font-weight: bold;
+}
+
+/* Service Record */
+.member .info-tiles .tiles-body, .member .info-tiles .tiles-body i {
+    font-size: 16px;
+}
+.service-record-assignment a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.before-discharge, .before-discharge div div {
+    text-decoration: line-through;
+    opacity: .5;
+}
+
+/* Service Coat */
+.coat { max-width: 100%; }
+
+/* Unit Profile */
+.unit .unit_title {
+    font-size: 200%;
+    font-weight: bold;
+    text-align:left
+}
+.unit #page {
+    margin-top: 20px;
+}
+abbr {
+    color: #999999;
+    font-size: 65%;
+    font-weight: normal;
+}
+
+.unit_breadcrums a{
+    font-weight: bold;
+    color: #D3D3D3;
+    text-decoration: underline;
+}
+
+.unit_logo {
+    height: 120px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
+.unit_logo img {
+    height: 100%;
+}
+
+.unit_slogan {
+    font-style: italic;  
+    color: #999999;
+    font-size: 140%;
+    font-weight: normal;
+    text-align: center;
+}
+
+.unit_nickname {
+    text-align: center;
+}
+
+.unit_nickname span {
+    font-weight: bold;
+    color: #DFE5C9;
+    font-size: 160%;
+}
+
+.unit_not_active {
+    color:red;
+}
+
+.badge-inactive {
+    opacity:0.2;
+}
+
+/* LOA Buttons */
+#loa-buttons.loa-post #loa-cancel {
+    display: none;
+}
+#loa-buttons.loa-cancel #loa-post {
+    display: none;
+}
+
+.eloa_label {
+    color: #ecf0f1;
+    border-color: #bdc3c7;
+    padding: 1px 3px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.active_eloa {
+    background-color: #B9111F;
+}
+
+.future_eloa {
+    background-color: #2D2CE0;
+}
+
+/* NProgress */
+#nprogress .bar,
+#nprogress .spinner {
+    margin-top: 50px;
+    z-index: 0;
+}
+
+/* Calendar */
+.fc-event {
+    cursor: pointer;
+    font-size: 100%;
+}
+
+/* Flash / Error */
+#flash {
+    position: fixed;
+    top: 60px;
+    /*width: 100%;*/
+    text-align: center;
+}
+#flash .alert {
+    display: inline-block;
+}
+
+#vanilla-comments iframe {
+    width: 100%;
+    min-height: 500px;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Finances */
+.finances-credit {
+    color: green;
+}
+.finances-debit {
+    color: red;
+}
+
+/* Event AAR */
+.reporter {
+    font-style: italic;
+    border-top: 1px #333 dashed;
+    margin-top: 10px;
+}
+
+.awol {
+    color: red;
+}
+
+#forums-link {
+    margin-left: 20px;
+}
+
+.att_perc span{
+    padding: 0px 5px 0px 5px;
+    color: white;
+}
+
+.att_perc_days {
+    background-color: #3bbfb4;
+    color: white;
+}
+
+.att_perc_perc{
+    font-weight: bold;
+}
+
+.event_aar_missing {
+  text-align: center;
+  font-weight: bold;
+  color: red;
+}
+
+.event_not_yet {
+  text-align: center;
+}
+
+/*  UNIT STATS */
+
+.unit_stats {
+  /* border: 1px solid blue;    */
+}
+
+.unit_stats td{
+  padding: 4px;
+  text-align: center;
+  margin:4px;
+}
+
+.unit_stats th{
+  padding: 4px;
+  text-align: center;
+  background-color: #647359;
+  color:white;
+}
+
+.unit_stats td:first-child {
+  text-align: left;
+  font-weight: bold;
+}
+
+.unit_stats td img {
+    height: 16px;
+}
+
+.unit_stats a,
+.unit_stats a:hover {
+    color: #DFE5C9;
+}
+
+.stat_unit_head{
+    text-align: center;
+    text-decoration: underline;
+    padding-top: 15px;
+    font-size:2em;
+    font-weight:bold;
+}
+
+.stat_great {
+  background-color: darkgreen;
+  color:white;
+}
+
+.stat_good {
+  background-color: #009800;
+}
+
+.stat_soso {
+  background-color: #AFAF00;
+}
+
+.stat_bad {
+  background-color: orangered;
+  color:white;
+}
+
+.stat_aweful {
+  background-color: darkred;
+  color:white;
+}
+
+/* CALENDAR overwrites */
+
+.fc-day-number {
+  color:white;   
+}
+
+.fc-today {
+  background-color: #2B2C28;
+  color: black;
+  font-weight: bold;
+}
+
+.fc-other-month {
+  background-color: #96A68C;   
+  color: white;
+}
+
+
+.datepicker table tr td.active.active
+{  
+  background-color: #B9111F;
+  color: white;
+}
+
+
+/* TPs */
+.tp-info {
+  color:white;
+}
+
+.tp-info div {
+    display: inline-block;
+    padding: 0 20px;
+    vertical-align: text-top;
+}
+
+.tp-info > div > span {
+     color: white;   
+     font-size:1.3em;
+}
+
+.tp-attended {
+  color:white;    
+  font-weight:bold;
+  text-align:center;
+}
+
+.tp-absent {
+  color:#FF1111;    
+  font-weight:bold;
+  text-align:center;
+}
+
+.active-tp{
+    background-color: #B9111F;
+}
+
+.nonactive-tp{
+    background-color: black;   
+}
+
+.current-tp{
+    background-color: blue;
+}
+
+
+
+/* Notes */
+
+table.notes_table {
+    width: 100%;
+    border: 1px solid #2B2C28;
+    margin-bottom: 25px;
+}
+
+.notes_table th {
+    padding: 3px;    
+}
+
+.notes_table td {
+    padding: 3px; 
+    background-color:#42443A;
+}
+
+.notes_table .center {
+    text-align:center;
+}
+
+.notes_table>tbody>tr:first-child>th {
+    border-top: 1px solid #2B2C28;   
+}
+
+.notes_table td:first-child a {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.notes_table>tbody>tr>th {
+    background-color:#55584A;
+    color: #C3C3C3;
+}
+
+.notes_table blockquote {
+    background-color: #FFFFE6;
+    border:1px dashed #4C5844;
+    border-left: 5px solid #4C5844;
+    color:#42443A;
+}
+
+.notes_table .note_title {
+    font-size: 1.4em;
+    font-weight:bold;
+}
+
+.note_level {
+    font-size: 0.8em;
+    text-align:right;
+    font-weight:normal;
+}
+
+.notes_table .notes_content {
+    background-color:#42443A;
+    padding: 5px;
+}
+
+.quote_author {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.notes_content summary {
+    text-decoration: underline;
+    font-weight: bolder;
+}
+
+.notes_table blockquote.quote_letter {
+    background-color:#DFE4DC;
+}
+
+.notes_table blockquote.quote_letter span {
+    font-family: "Courier New";
+    font-size: 13pt;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.notes_table th a {
+    color: white;
+}
+
+.form-group .disabled {
+    color: #3A3C33;
+    background-color: #ecf0f1;
+    border-color: #bdc3c7;
+}
+
+/* Graphical roster */
+
+.roster-member {
+    margin:3px;
+    width:300px;
+    display: inline-block;
+}
+
+.roster-full-table {
+    border:1px solid black;
+    width:100%;
+    background-color:#55584a;
+}
+
+.roster-full-img {
+    width:66px;
+    padding:2px;
+}
+
+.roster-full-name {
+    font-weight:bold;
+    font-size:1.5em;
+}
+
+.roster-staff-unit {
+    margin-left:20px;
+}
+
+/* X-MAS */
+/*
+.panel .panel-heading {
+    background-image: url('../images/other/Ornament.png');
+    background-repeat: no-repeat;
+    background-position: 10px, center;
+    background-size: 30px;
+    padding-left: 50px;
+}
+
+.panel .panel-body {
+    background-image: url('../images/other/HollyLeftTop.png');
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-size: 60px;
+}
+
+body {
+    background-image: url('../images/other/sf_bg.png');
+    color: white;
+}
+
+nav.navbar {
+    background-image: url('../images/other/x-mas.jpg');
+    background-repeat: repeat-x;
+}
+
+.member .assignments {
+    color:white;
+}
+
+.member .assignments a{
+    color: #C4E88C;
+}
+
+.navbar-inverse .navbar-nav>.active>a, 
+.navbar-inverse .navbar-nav>.active>a:focus, 
+.navbar-inverse .navbar-nav>li>a:focus {
+    background: transparent;
+    color: black;
+    font-weight: bold;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: black;
+    font-weight: bold;
+    background: transparent;
+}
+*/
+
+
+.award.award_title {
+    font-size:25px;
+    color: #96A68C;
+    background-color: #565A42;
+}
+
+.award.award_img{
+    padding-right: 20px;    
+}
+
+.award.award_description {
+    color: white;
+    font-size: 18px;
+    
+}
+
+.award > h3 {
+    background-color: #565A42;
+    color: #96A68C;
+    margin: 0;
+    padding: 5px 20px;
+    font-size: 1.4em;
+    font-weight: bold;    
+}
+
+.is_aar a {
+    font-weight: bold;
+    color: white;
+}
+
+.no_aar a {
+    color: black;
+}
+
+.signature {
+    max-height: 80px;
+    max-width: 400px;
+}
+
+.member-profile-table th {
+    width:200px;
+}
+
+.qualifications li img{
+    height: 198px;   
+    width: 198px;
+}

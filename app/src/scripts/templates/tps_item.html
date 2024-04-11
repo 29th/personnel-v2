@@ -1,0 +1,38 @@
+<td nowrap="nowrap"><a href='#tps/{{str_replace abbr " " "" }}'>{{ abbr }}</a></td>
+<td nowrap="nowrap">{{ game }}</td>
+<td nowrap="nowrap">{{ timezone }}</td>
+<td class="text-center" nowrap="nowrap">
+    <span class="eloa_label
+    {{#is active ">" "0"}}
+        {{#is (between start_date end_date) }}
+            current-tp">Current
+        {{else}}
+            {{#is (past end_date)}}
+                current-tp">Ended
+            {{else}}
+                active-tp">Active
+            {{/is}}
+        {{/is}}
+    {{else}}
+        nonactive-tp">
+        {{#is (past end_date) }}
+            Past
+        {{else}}
+            Upcoming
+        {{/is}}
+    {{/is}}
+    </span>
+</td>
+<td nowrap="nowrap">{{ days }}</td>
+<td>{{ member_count }}</td>
+<td>{{#if avg}}{{ avg }}%{{else}}N/A{{/if}}</td>
+<td>
+{{#each bct_days}}
+  {{#if reporter_member_id }}
+    <span class="is_aar" title="Posted">
+  {{else}}
+    <span class="no_aar" title="No report yet">
+  {{/if}}
+    &nbsp; <a href=#events/{{id}}>{{add 1 @index}}</a> &nbsp;</span> 
+{{/each}}
+</td>

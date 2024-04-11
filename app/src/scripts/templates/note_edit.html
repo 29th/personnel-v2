@@ -1,0 +1,78 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+      <h2>{{#if id}}Edit {{else}}Add new {{/if}}note</h2>
+  </div>
+  <div class="panel-body">
+
+
+    <form role="form">
+    
+{{#if id}}
+    <div class="form-group">
+        <label for="date_add">Date of Adding</label>
+        <input type="text" class="form-control disabled" id="date_add" name="date_add" value="{{ date_add }}" data-date-format="yyyy-mm-dd" disabled="true">
+    </div>
+{{/if}}
+
+{{#if id}}
+    <div class="form-group">
+        <label for="author_member_id">Author of the note</label>
+        <input type="text" class="form-control disabled" id="author_member_id" name="author_member_id" value="{{ author.short_name }}" disabled="true">
+    </div>
+{{/if}}
+
+    <div class="form-group">
+        {{#each members}}
+          [{{this}}]<br>
+        
+        {{/each}}
+{{#if id}}
+        <label for="member_id">Member - subject of demerit</label>
+        <input type="hidden" name="member_id" value="{{member.id}}">
+        <input type="text" class="form-control disabled" value="{{ member.short_name }}" disabled="true">
+{{else}} 
+    {{#if  member.id}}
+        <label for="member_id">Member - subject of demerit</label>
+        <input type="hidden" name="member_id" value="{{member.id}}">
+        <select class="form-control selectpicker disabled" data-live-search="true" disabled="true">
+            {{#select member.id}}
+            {{#each units.[0]}}
+                <option value="{{ this.member.id }}">{{ this.member.short_name }}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    {{else}}
+        <input type="hidden" name="member_id" value="{{member_id}}">
+    {{/if}}
+{{/if}}
+    </div>
+
+    <div class="form-group">
+        <label for="access">Access Level</label>
+        <select class="form-control selectpicker" name="access" id="access" data-live-search="true">
+            {{#select access}}
+            <option value="">Select...</option>
+            {{#each levelList}}
+                <option value="{{ this }}">{{ this }}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+        <p class="help-block error-msg"></p>
+    </div>
+    
+    <div class="form-group">
+        <label for="subject">Subject</label>
+        <input type="text" class="form-control" name="subject" id="subject" value="{{ subject }}">
+        <p class="help-block error-msg"></p>
+    </div>
+    
+    <div class="form-group">
+        <label for="content">Content</label>
+        <textarea class="form-control" rows="6" name="content" id="content">{{ content }}</textarea>
+        <p class="help-block error-msg"></p>
+    </div>
+    
+    
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+  </form>
+</div>

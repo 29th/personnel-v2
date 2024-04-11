@@ -1,0 +1,86 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+      <h2>Add new event</h2>
+  </div>
+  <div class="panel-body">
+
+
+    <form role="form">
+    
+    <div class="form-group">
+        <label for="date">Date</label>
+        <input type="text" class="form-control" id="date" name="date" value="{{ date }}" data-provide="datepicker" data-date-format="yyyy-mm-dd"{{#unless id}} data-date-multidate="true"{{/unless}}>
+    </div>
+
+    <div class="form-group">
+        <label for="time">Time</label>
+        <select class="form-control selectpicker" name="time" id="time" data-live-search="true">
+            {{#select time}}
+            <option value="">Select...</option>
+            {{#times 24}}
+            <option value="{{ this }}:00:00">{{ this }}:00</option>
+            <option value="{{ this }}:05:00">{{ this }}:05</option>
+            <option value="{{ this }}:10:00">{{ this }}:10</option>
+            <option value="{{ this }}:15:00">{{ this }}:15</option>
+            <option value="{{ this }}:20:00">{{ this }}:20</option>
+            <option value="{{ this }}:25:00">{{ this }}:25</option>
+            <option value="{{ this }}:30:00">{{ this }}:30</option>
+            <option value="{{ this }}:35:00">{{ this }}:35</option>
+            <option value="{{ this }}:40:00">{{ this }}:40</option>
+            <option value="{{ this }}:45:00">{{ this }}:45</option>
+            <option value="{{ this }}:50:00">{{ this }}:50</option>
+            <option value="{{ this }}:55:00">{{ this }}:55</option>
+            {{/times}}
+            {{/select}}
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="unit_id">Unit</label>
+        <select class="form-control selectpicker" name="unit_id" id="unit_id" data-live-search="true">
+            {{#select unit_id}}
+            <option value="">Select...</option>
+            {{#each units}}
+            <option value="{{ this.id }}">{{ this.abbr }}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="type">Type</label>
+        <select class="form-control selectpicker" name="type" id="type" data-live-search="true">
+            {{#select type}}
+            <option value="">Select...</option>
+            <option>Squad Drills</option>
+            <option>Platoon Drills</option>
+            <option>Company Drills</option>
+            <option>Public Scrimmage</option>
+            <option>Special Event</option>
+            <option>Basic Combat Training</option>
+            {{/select}}
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="server_id">Server</label>
+        <select class="form-control selectpicker" name="server_id" id="server_id" data-live-search="true">
+            {{#select server_id}}
+            <option value="">Select...</option>
+            {{#each servers}}
+            <option value="{{ this.id }}">{{ this.name }}{{#if this.game}} ({{ this.game }}){{/if}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" name="mandatory" id="mandatory" value="1">
+            Mandatory
+        </label>
+    </div>
+    
+    <button type="submit" class="btn btn-primary btn-lg btn-block" disabled="disabled">Submit</button>
+  </form>
+</div>

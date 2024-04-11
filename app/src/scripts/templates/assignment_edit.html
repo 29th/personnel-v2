@@ -1,0 +1,55 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+     <h2>{{#if subject.id}}Add assignment for <strong>{{subject.rank.name}} {{subject.full_name}}{{else}}Edit assignment of <strong>{{member.short_name}}{{/if}}</strong></h2>
+  </div>
+  <div class="panel-body">
+  <form role="form">
+    <div class="form-group">
+        <label for="unit_id">Unit</label>
+        <select class="form-control selectpicker" name="unit_id" id="unit_id" data-live-search="true">
+            {{#select unit.id}}
+            <option value="">Select...</option>
+            {{#each units}}
+            <option value="{{ this.id }}">{{ this.abbr }}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="position_id">Position</label>
+        <select class="form-control selectpicker" name="position_id" id="position_id" data-live-search="true">
+            {{#select position.id}}
+            <option value="">Select...</option>
+            {{#each positions}}
+            <option value="{{ this.id }}">{{ this.name }}{{#is this.access_level "===" "5"}} (Elevated){{/is}}{{#is this.access_level "===" "10"}} (Leadership){{/is}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="start_date">Start Date</label>
+        <input type="text" class="form-control" id="start_date" name="start_date" value="{{ start_date }}" data-provide="datepicker" data-date-format="yyyy-mm-dd">
+    </div>
+    
+    <div class="form-group">
+        <label for="end_date">End Date</label>
+        <input type="text" class="form-control" id="end_date" name="end_date" value="{{ end_date }}" data-provide="datepicker" data-date-format="yyyy-mm-dd">
+    </div>
+    
+    {{#if assignments}}
+    <div class="form-group">
+        <label for="former_assignment_id">Transfer From</label>
+        <select class="form-control selectpicker" name="former_assignment_id" id="former_assignment_id" data-live-search="true">
+            <option value="">None</option>
+            {{#each assignments}}
+            <option value="{{ this.id }}">{{ this.unit.abbr }} ({{ this.position.name }})</option>
+            {{/each}}
+        </select>
+    </div>
+    {{/if}}
+    
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+  </form>
+  </div>
+</div

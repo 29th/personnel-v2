@@ -1,0 +1,24 @@
+<td>
+    &nbsp;<img src={{#if country.abbr}}"images/countries/{{ toLowerCase this.country.abbr }}.png" title="{{ this.country.name }}"{{else}}"images/countries/___.png" {{/if}}>&nbsp;
+    <a href="#members/{{this.id}}">{{this.rank.abbr}} {{this.full_name}}</a>
+</td>
+<td>
+    {{#if this.unit.name}}
+        Active duty
+    {{else}}
+        {{#if this.dis.type}}
+            <b><a href="#discharges/{{this.dis.id}}">{{this.dis.type}} Discharge</a></b> on {{this.dis.date}}
+        {{else}}
+            {{#if this.enlist.status}}
+                <b><a href="#enlistments/{{this.enlist.id}}">Enlisted ({{this.enlist.status}})</a></b>
+                {{#if this.enlist.unit_id}} with <a href="#tps/{{this.enlist.unit_id}}">{{this.enlist.tp}}</a>{{/if}}
+                on {{this.enlist.date}}
+            {{else}}
+                Unknown
+            {{/if}}
+        {{/if}}
+    {{/if}}
+</td>
+<td>
+    {{#if this.unit.id}} {{this.position.name}} in <a href="#units/{{this.unit.id}}">{{this.unit.name}} </a> {{/if}}
+</td>

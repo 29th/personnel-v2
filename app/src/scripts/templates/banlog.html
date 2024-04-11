@@ -1,0 +1,64 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>Ban Log - {{ handle }}</h2>
+    </div>
+    <div class="panel-body">
+
+        <table class="table table-horizontal">
+            <tr>
+                <th>ID</th>
+                <td>{{ id }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ dateFormat date }}</td>
+            </tr>
+            <tr>
+                <th>Handle</th>
+                <td>{{ handle }}</td>
+            </tr>
+            <tr>
+                <th>ROID</th>
+                <td>{{#if this.roid}} <a href="http://steamcommunity.com/profiles/{{ this.roid }}" target="_blank">{{ this.roid }}</a> {{/if}}</td>
+            </tr>
+            <tr>
+                <th>Unique ID</th>
+                <td>{{ uid }}</td>
+            </tr>
+            <tr>
+                <th>GUID</th>
+                <td>{{ guid }}</td>
+            </tr>
+            <tr>
+                <th>IP</th>
+                <td>{{ ip }}</td>
+            </tr>
+            <tr>
+                <th>Admin</th>
+                <td><a href="#members/{{ admin.id }}">{{ admin.short_name }}</a></td>
+            </tr>
+            <tr>
+                <th>Poster</th>
+                <td><a href="#members/{{ poster.id }}">{{ poster.short_name }}</a></td>
+            </tr>
+            <tr>
+                <th>Reason</th>
+                <td>{{#if reason}}{{bbcode reason }}{{/if}}</td>
+            </tr>
+            <tr>
+                <th>Comments</th>
+                <td>{{#if comments}}{{bbcode comments }}{{/if}}</td>
+            </tr>
+{{#if this.forum_discussions}}
+            <tr>
+                <th>Ban Disputes with this ROID</th>
+                <td>
+                {{#each this.forum_discussions}}
+                    <b>{{dateFormat last}}</b> - <a href='{{ forum_topic_url this.id }}'>{{name}} </a><br>
+                {{/each}}
+                </td>
+            </tr>
+{{/if}}
+        </table>
+    </div>
+</div>

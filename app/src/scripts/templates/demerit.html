@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>Demerit{{#if member.short_name}} - <a href="#members/{{member.id}}/reprimands">{{ member.short_name }}</a>{{/if}}</h2>
+        {{#if allowedTo.editDemerit}}
+        <div class="pull-right"><a href="#demerits/{{this.id}}/edit">Edit demerit</a></div>
+        {{/if}}
+    </div>
+    <div class="panel-body">
+        <p>{{ bbcode reason }}</p>
+        
+        <div class="reporter">
+            Posted
+            {{#if author.short_name }}by <a href="#members/{{ author.id }}">{{ author.short_name }}</a>{{/if}}
+            on {{ dateFormat date }}
+        </div>
+    </div>
+</div>

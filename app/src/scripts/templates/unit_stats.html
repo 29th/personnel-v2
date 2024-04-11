@@ -1,0 +1,41 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>Unit statistics</h2><br>
+    </div>
+    <div class="panel-body">
+      <table class="unit_stats">
+        {{#each items}}
+          <tr><td colspan="6" class="stat_unit_head"><a href='#units/{{str_replace (str_replace @key " Co. HQ" "" ) " HQ" ""}}/stats'>{{@key}}</a></td></tr>
+          <tr>
+            <th>Name</th>
+            <th>30</th>
+            <th>60</th>
+            <th>90</th>
+            <th>All</th>
+            <td></td>
+            <th>Position</th>
+            <td></td>
+            {{#each ../ait_list}}
+            <th>{{@key}}</th>
+            {{/each}}
+          </tr>
+          {{#each this}}
+            <tr>
+              <td><a href='#members/{{this.member.id}}/'>{{this.member.rank}}&nbsp;{{ this.member.last_name }}{{#is member.eloa ">" "0" }} (ELOA){{/is}}</a></td>
+              <td class="{{stat_color this.percentage.d30}}">{{#is this.percentage.d30 "===" null}}100{{else}}{{this.percentage.d30}}{{/is}}</td>
+              <td class="{{stat_color this.percentage.d60}}">{{#is this.percentage.d60 "===" null}}100{{else}}{{this.percentage.d60}}{{/is}}</td>
+              <td class="{{stat_color this.percentage.d90}}">{{#is this.percentage.d90 "===" null}}100{{else}}{{this.percentage.d90}}{{/is}}</td>
+              <td class="{{stat_color this.percentage.dall}}">{{#is this.percentage.dall "===" null}}100{{else}}{{this.percentage.dall}}{{/is}}</td>
+              <td></td>
+              <td title="{{this.position.name}}">{{this.position.ait}}</td>
+              <td></td>
+              {{#each readiness}}
+              <td>{{{stat_format this}}}</td>
+              {{/each}}
+            </tr>
+          {{/each}}
+          <tr><th colspan="5"></th><td></td><th></th><td></td>{{#each ../ait_list}}<th></th>{{/each}}</tr>
+        {{/each}}
+      </table>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+{{#if allowedTo.admin }}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        Admin <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        {{#if allowedTo.addELOA }}
+            <li><a href="#members/{{ member_id }}/eloa">ELOA</a></li>
+        {{/if}}
+        {{#if allowedTo.modifyProfile }}
+            <li><a href="#members/{{ member_id }}/edit">Modify Profile</a></li>
+        {{/if}}
+        {{#if allowedTo.assign }}
+            <li><a href="#members/{{ member_id }}/assign">Assign</a></li>
+        {{/if}}
+        {{#if allowedTo.promote }}
+            <li><a href="#members/{{ member_id }}/promote">Promote</a></li>
+        {{/if}}
+        {{#if allowedTo.discharge }}
+            <li class="divider"></li>
+            <li><a href="#members/{{ member_id }}/discharge">Discharge</a></li>
+        {{/if}}
+        {{#if allowedTo.demerit }}
+            <li class="divider"></li>
+            <li><a href="#members/{{ member_id }}/demerit">Add Demerit</a></li>
+        {{/if}}
+        {{#if allowedTo.addNote }}
+            <li><a href="#members/{{ member_id }}/notes/add">Add Note</a></li>
+        {{/if}}
+        {{#if allowedTo.addPass }}
+            <li><a href="#members/{{ member_id }}/passes/add">Add Weapon Pass</a></li>
+        {{/if}}
+        {{#if allowedTo.addAwarding }}
+            <li><a href="#members/{{ member_id }}/awarding/add">Add Award</a></li>
+        {{/if}}
+    </ul>
+</div>
+{{/if}}

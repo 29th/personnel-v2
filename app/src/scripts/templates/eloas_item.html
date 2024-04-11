@@ -1,0 +1,23 @@
+<td>
+  <a href="#members/{{ member.id }}/eloas">{{ member.short_name }}</a>
+  {{#if (between start_date end_date)}}
+     <span class="active_eloa eloa_label">ELOA ACTIVE</span>
+  {{/if}}
+  {{#if (eloa_future start_date)}}
+     <span class="future_eloa eloa_label">UPCOMING ELOA</span>
+  {{/if}}
+</td>
+<td>{{ start_date }}</td>
+<td>
+	{{#if return_date}}
+		Returned: {{ return_date }} 
+	{{else}} 
+		{{ end_date }} 
+	{{/if}}
+</td>
+<td>
+	{{ reason }}
+	{{#if availability}}
+		- Availability: {{ availability }}
+	{{/if}}
+</td>

@@ -1,0 +1,17 @@
+    <div class="row header">
+        <h1>{{ unit.key }} {{ type }}</h1>
+        <h2>{{dateFormat datetime format="ll HH:mm"}} <small>{{#if mandatory}} Mandatory {{else}} Non-Mandatory {{/if}}</small></h2>
+        <h3>{{#if server.name}}{{ server.name }}{{/if}}</h3>
+    </div>
+    <form>
+      <div class="row">
+        <div class="col-sm-4" id="attendance"></div>
+        <div class="col-sm-8">
+            <div class="form-group">
+                <label for="report">After Action Report {{#is report}}{{else}}{{#is unit.aar_template}}&nbsp;&nbsp;<span class='label label-warning'>From unit's AAR template</span>{{/is}}{{/is}}</label>
+                <textarea name="report" id="report" class="form-control" rows="35">{{#is report}}{{ report }}{{else}} {{unit.aar_template}} {{/is}}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        </div>
+      </div>
+    </form>
