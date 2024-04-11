@@ -1,0 +1,20 @@
+{
+    "name": "29th/personnel-api",
+    "require": {
+        "rogeriopradoj/codeigniter": "2.1.4",
+        "firebase/php-jwt": "~5.0",
+        "guzzlehttp/guzzle": "~6.0",
+        "vlucas/phpdotenv": "~4.1"
+    },
+    "authors": [
+        {
+            "name": "Wilson29thID",
+            "email": "wilson@29th.org"
+        }
+    ],
+    "extra": {
+        "heroku": {
+            "framework": "slim"
+        }
+    }
+}
