@@ -441,7 +441,6 @@ class Members extends MY_Controller {
         }
         // Execute
         else {
-            $this->usertracking->track_this();
             $data = $this->servicecoat->update($member_id);
             $this->response(array('status' => true, 'coat' => $data));
         }
