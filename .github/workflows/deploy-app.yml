@@ -1,13 +1,18 @@
-name: Deploy
+name: Deploy app
 
 on:
   push:
     branches:
       - master
+    paths:
+      - 'app/**'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
     steps:
     - name: Checkout repo
       uses: actions/checkout@v2
