@@ -18,7 +18,7 @@ jobs:
       uses: actions/checkout@v2
       
     - name: Build container image
-      run: docker build -t $GITHUB_REPOSITORY:latest .
+      run: docker build -t 29th/personnel-app:latest .
 
     - name: Login to docker hub
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
@@ -27,7 +27,7 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         
     - name: Push image to docker hub
-      run: docker push $GITHUB_REPOSITORY
+      run: docker push 29th/personnel-app
 
     - name: Pull latest image to server and recreate container
       uses: appleboy/ssh-action@v0.0.7
