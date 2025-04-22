@@ -40,5 +40,5 @@ jobs:
         envs: GITHUB_SHA
         script: |
           cd /usr/local/src
-          docker-compose pull api
-          docker-compose up -d api
+          docker compose pull api
+          docker compose up -d api

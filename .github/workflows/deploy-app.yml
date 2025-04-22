@@ -40,5 +40,5 @@ jobs:
         envs: GITHUB_SHA
         script: |
           cd /usr/local/src
-          docker-compose pull app
-          docker-compose up -d app
+          docker compose pull app
+          docker compose up -d app
