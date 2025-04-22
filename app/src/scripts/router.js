@@ -1434,6 +1434,7 @@ require("./validation.config");
                   collection: attendance,
                   perc: percentages
               }));
+              self.showDeprecationNotice(`https://www.29th.org/units/${filter}/attendance`)
           }
           // Editing unit
           else if (path == "edit") {
@@ -1453,6 +1454,7 @@ require("./validation.config");
               columnViews.push(new UnitAwolsView({
                   collection: unitAwols
               }));
+              self.showDeprecationNotice(`https://www.29th.org/units/${filter}/awols`)
           }
           // AOCCs
           else if (path == "alerts") {
