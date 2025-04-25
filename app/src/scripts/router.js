@@ -1468,6 +1468,7 @@ require("./validation.config");
               columnViews.push(new UnitAlertsView({
                   collection: unitAlerts
               }));
+              self.showDeprecationNotice(`https://www.29th.org/units/${filter}/missing-awards`)
           }
           // Statistics
           else if (path == "stats") {
