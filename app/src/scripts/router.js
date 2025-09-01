@@ -1482,6 +1482,7 @@ require("./validation.config");
               columnViews.push(new UnitStatsView({
                   collection: unitStats
               }));
+              self.showDeprecationNotice(`https://www.29th.org/units/${filter}/stats`)
           }
           // Recruits
           else if (path == "recruits") {
