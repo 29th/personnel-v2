@@ -5,6 +5,7 @@ var $ = require("jquery"),
   Backbone = require("backbone"),
   Marionette = require("backbone.marionette"),
   util = require("./util"),
+  initMigrationNotice = require("./migration-notice"),
   Router = require("./router");
 
 
@@ -42,4 +43,6 @@ var $ = require("jquery"),
   });
 
   app.start();
+
+  initMigrationNotice();
 
