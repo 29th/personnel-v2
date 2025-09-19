@@ -84,28 +84,6 @@ services:
       PERSONNEL_HOST_NAME: personnel.29th.org
       DEBUG: 0
 
-  bitwarden:
-    container_name: bitwarden
-    image: bitwardenrs/server:1.17.0
-    restart: always
-    volumes:
-      - /mnt/user_images/bitwarden-data/:/data/
-    environment:
-      DATABASE_URL: mysql://$BITWARDEN_DB_USERNAME:$BITWARDEN_DB_PASSWORD@$BITWARDEN_DB_HOSTNAME:$BITWARDEN_DB_PORT/$BITWARDEN_DB_DATABASE
-      ADMIN_TOKEN: $BITWARDEN_ADMIN_TOKEN
-      ENABLE_DB_WAL: 'false'
-      RUST_BACKTRACE: 1 # detailed crash logs
-      SIGNUPS_ALLOWED: 'false'
-      SHOW_PASSWORD_HINT: 'false'
-      DOMAIN: https://bitwarden.29th.org
-      SMTP_HOST: $FORUMS_MAIL_SMTP_HOSTNAME
-      SMTP_USERNAME: $FORUMS_MAIL_SMTP_USERNAME
-      SMTP_PASSWORD: $FORUMS_MAIL_SMTP_PASSWORD
-      SMTP_PORT: $FORUMS_MAIL_SMTP_PORT
-      SMTP_SSL: 'true'
-      SMTP_FROM: noreply@29th.org
-      SMTP_EXPLICIT_TLS: 'true'
-
   phpbb:
     container_name: phpbb
     image: 29th/phpbb-forums:latest
