@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Migration Notice</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet" type="text/css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"
+    type="text/css">
+
+  <!-- build:css styles/main.min.css -->
+  <link rel="stylesheet" href="./migration-notice.css">
+  <!-- endbuild -->
+</head>
+
+<body>
+
+  <dialog id="migration-dialog" open>
+    <div id="migration-banner-content">
+      <div id="migration-banner-header">
+        <div id="migration-banner-logo">
+          <img src="logo.png" alt="29th Infantry Division logo">
+        </div>
+        <div id="migration-banner-title">This Page Has Moved</div>
+      </div>
+
+      <div id="migration-banner-text">
+        The 29th Infantry Division personnel system has been upgraded and moved to our new platform.
+        You will be automatically redirected to the new site.
+      </div>
+
+      <div id="migration-banner-url-section">
+        <div id="migration-banner-url-label">Redirecting to:</div>
+        <div id="migration-banner-url">https://www.29th.org</div>
+      </div>
+
+      <div id="migration-countdown-section">
+        Redirecting in <span id="migration-countdown">10</span> seconds...
+      </div>
+
+      <div id="migration-banner-buttons">
+        <a href="https://www.29th.org" id="migration-continue-btn" autofocus>
+          Continue to New Site
+        </a>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="migration-notice.js"></script>
+</body>
+
+</html>

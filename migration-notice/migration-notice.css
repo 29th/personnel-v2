@@ -1,0 +1,229 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#migration-dialog {
+    border: none;
+    padding: 0;
+    margin: auto;
+    max-width: none;
+    max-height: none;
+
+    font-family: 'Source Sans Pro',
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        Roboto,
+        sans-serif;
+}
+
+#migration-dialog[open] {
+    width: 100vw;
+    height: 100vh;
+
+    background: #565A42;
+    color: #D3D3D3;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#migration-dialog::backdrop {
+    background: transparent;
+}
+
+#migration-banner-content {
+    max-width: 600px;
+    width: 90%;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #404533;
+    border-radius: 6px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    padding: 40px;
+    text-align: center;
+    position: relative;
+}
+
+#migration-banner-header {
+    margin-bottom: 30px;
+}
+
+#migration-banner-logo {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+#migration-banner-logo img {
+    width: 100%;
+}
+
+#migration-banner-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #DFE5C9;
+    margin: 0;
+}
+
+#migration-banner-text {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 30px;
+    color: #D3D3D3;
+}
+
+#migration-banner-url-section {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    padding: 20px;
+    margin: 25px 0;
+    text-align: left;
+}
+
+#migration-banner-url-label {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+#migration-banner-url {
+    font-size: 16px;
+    color: #5cb85c;
+    word-break: break-all;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-weight: 500;
+}
+
+#migration-countdown-section {
+    font-size: 16px;
+    margin: 30px 0;
+    color: #D3D3D3;
+}
+
+#migration-countdown {
+    display: inline-block;
+    font-size: 24px;
+    font-weight: 600;
+    color: #d9534f;
+    min-width: 30px;
+}
+
+#migration-banner-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+#migration-continue-btn {
+    background: #337ab7;
+    color: white;
+    border: 1px solid #2e6da4;
+    padding: 12px 30px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 180px;
+}
+
+#migration-continue-btn:hover,
+#migration-continue-btn:focus {
+    background: #286090;
+    border-color: #204d74;
+    color: white;
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(51, 122, 183, 0.3);
+}
+
+#migration-dismiss-btn {
+    background: transparent;
+    color: #D3D3D3;
+    border: 1px solid #666;
+    padding: 12px 30px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 180px;
+}
+
+#migration-dismiss-btn:hover,
+#migration-dismiss-btn:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #888;
+    color: #FFF;
+}
+
+#migration-banner-footer {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 18px;
+    color: #D3D3D3;
+}
+
+@media (max-width: 768px) {
+    #migration-banner-content {
+        width: 95%;
+        padding: 30px 20px;
+    }
+
+    #migration-banner-title {
+        font-size: 24px;
+    }
+
+    #migration-banner-text {
+        font-size: 16px;
+    }
+
+    #migration-banner-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    #migration-banner-buttons a,
+    #migration-banner-buttons button {
+        width: 100%;
+        min-width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    #migration-banner-content {
+        width: 98%;
+        padding: 25px 15px;
+    }
+
+    #migration-banner-title {
+        font-size: 22px;
+    }
+
+    #migration-banner-text {
+        font-size: 15px;
+    }
+
+    #migration-banner-logo {
+        width: 56px;
+        height: 56px;
+        font-size: 18px;
+    }
+}
